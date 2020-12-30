@@ -1,0 +1,9 @@
+{
+  "domain": "hifiberry",
+  "name": "HifiBerry",
+  "documentation": "https://github.com/willholdoway/hifiberry",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@willholdoway"],
+  "issue_tracker": "https://github.com/willholdoway/hifiberry/issues"
+}

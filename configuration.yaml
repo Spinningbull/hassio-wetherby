@@ -1,0 +1,26 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Example configuration.yaml entry
+media_player:
+  - platform: yamaha_musiccast
+    host: 192.168.7.232
+    port: 5005
+
+  - platform: yamaha_musiccast
+    host: 192.168.7.100
+    port: 5006
+    
+  - platform: yamaha_musiccast
+    host: 192.168.7.101
+    port: 5007
+    
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
