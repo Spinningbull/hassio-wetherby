@@ -6,7 +6,7 @@ default_config:
 media_player:
   # Theater
   - platform: musiccast_yamaha
-    host: 192.168.7.232
+    host: 192.168.7.99
     port: 5005
 
   # Master Bedroom
