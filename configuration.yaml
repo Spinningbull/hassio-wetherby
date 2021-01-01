@@ -4,17 +4,50 @@ default_config:
 
 # Example configuration.yaml entry
 media_player:
-  - platform: yamaha_musiccast
+  # Theater
+  - platform: musiccast_yamaha
     host: 192.168.7.232
     port: 5005
 
-  - platform: yamaha_musiccast
+  # Master Bedroom
+  - platform: musiccast_yamaha
     host: 192.168.7.100
     port: 5006
     
-  - platform: yamaha_musiccast
+  # Master Bathroom  
+  - platform: musiccast_yamaha
     host: 192.168.7.101
     port: 5007
+
+  # Office  
+  - platform: musiccast_yamaha
+    host: 192.168.7.102
+    port: 5008
+  
+  # Family Room 
+  - platform: musiccast_yamaha
+    host: 192.168.7.103
+    port: 5009
+    
+  # Living Room
+  - platform: musiccast_yamaha
+    host: 192.168.7.104
+    port: 5010
+    
+  # Dining Room  
+  - platform: musiccast_yamaha
+    host: 192.168.7.105
+    port: 5011
+
+  # Patio  
+  - platform: musiccast_yamaha
+    host: 192.168.7.106
+    port: 5012
+  
+  # Pool 
+  - platform: musiccast_yamaha
+    host: 192.168.7.107
+    port: 5013
     
 # Text to speech
 tts:

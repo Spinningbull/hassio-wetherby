@@ -1,0 +1,100 @@
+title: Home
+views:
+  - path: default_view
+    title: Home
+    badges:
+      - entity: binary_sensor.updater
+      - entity: person.todd
+      - entity: person.james
+      - entity: person.allison
+      - entity: sensor.next_alarm_time
+      - entity: sun.sun
+    cards:
+      - type: entities
+        entities:
+          - sensor.plex_mediacenterrack
+        title: Family Room
+      - type: entities
+        entities:
+          - remote.43_tcl_roku_tv
+        title: Jame's Bedroom
+      - type: media-control
+        entity: media_player.43_tcl_roku_tv
+      - type: media-control
+        entity: media_player.master_bedroom
+      - type: media-control
+        entity: media_player.master_bedroom_main
+      - type: media-control
+        entity: media_player.plex_plex_for_android_tv_aftmm
+      - type: media-control
+        entity: media_player.plex_plex_for_android_tv_shield_android_tv
+      - type: media-control
+        entity: media_player.plex_plex_for_apple_tv_home_theater
+      - type: media-control
+        entity: media_player.plex_plex_for_roku_roku_player
+      - type: media-control
+        entity: media_player.plex_plex_for_windows_toddsdovilaptop
+      - type: media-control
+        entity: media_player.plex_plexamp_plexamp_rpi
+      - type: media-control
+        entity: media_player.plex_plexamp_todd_s_plexamp
+      - type: media-control
+        entity: media_player.theater
+      - type: weather-forecast
+        entity: weather.home
+        show_forecast: false
+  - title: media
+    icon: 'mdi:audio-video'
+    badges:
+      - entity: media_player.home_theater_room_main
+      - entity: media_player.master_bedroom_main
+      - entity: media_player.master_bathroom_main
+    cards:
+      - type: 'custom:mini-media-player'
+        entity: media_player.master_bedroom_main
+        artwork: cover
+        group: true
+        name: Master Bedroom
+        hide:
+          icon: true
+          power_state: false
+        speaker_group:
+          platform: musiccast_yamaha
+          expanded: true
+          entities:
+            - entity_id: media_player.master_bathroom_main
+              name: Master Bath
+            - entity_id: media_player.home_theater_room_main
+              name: Theater
+      - type: 'custom:mini-media-player'
+        entity: media_player.master_bathroom_main
+        artwork: cover
+        group: true
+        name: Master Bathroom
+        hide:
+          icon: true
+          power_state: false
+        speaker_group:
+          platform: musiccast_yamaha
+          expanded: true
+          entities:
+            - entity_id: media_player.master_bedroom_main
+              name: Master Bath
+            - entity_id: media_player.home_theater_room_main
+              name: Theater
+      - type: 'custom:mini-media-player'
+        entity: media_player.home_theater_room_main
+        artwork: cover
+        group: true
+        name: Theater
+        hide:
+          icon: true
+          power_state: false
+        speaker_group:
+          platform: musiccast_yamaha
+          expanded: true
+          entities:
+            - entity_id: media_player.master_bedroom_main
+              name: Master Bath
+            - entity_id: media_player.master_bathroom_main
+              name: Theater
