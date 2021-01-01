@@ -106,7 +106,7 @@ views:
             - entity_id: media_player.pool_main
               name: Pool
             - entity_id: media_player.home_theater_room_main
-              name: Theat  name: Theater
+              name: Theater
       - type: 'custom:mini-media-player'
         entity: media_player.home_theater_room_main
         artwork: cover

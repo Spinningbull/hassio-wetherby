@@ -19,32 +19,32 @@ media_player:
     host: 192.168.7.101
     port: 5007
 
-  # Office  
+  # Family Room  
   - platform: musiccast_yamaha
     host: 192.168.7.102
     port: 5008
   
-  # Family Room 
+  # Living Room
   - platform: musiccast_yamaha
     host: 192.168.7.103
     port: 5009
     
-  # Living Room
+  # Dining Room
   - platform: musiccast_yamaha
     host: 192.168.7.104
     port: 5010
     
-  # Dining Room  
+  # Patio  
   - platform: musiccast_yamaha
     host: 192.168.7.105
     port: 5011
 
-  # Patio  
+  # Pool  
   - platform: musiccast_yamaha
     host: 192.168.7.106
     port: 5012
   
-  # Pool 
+  # Office 
   - platform: musiccast_yamaha
     host: 192.168.7.107
     port: 5013
