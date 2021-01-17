@@ -49,6 +49,30 @@ media_player:
     host: 192.168.7.107
     port: 5013
     
+  # Allison's Office
+  - platform: musiccast_yamaha
+    host: 192.168.7.109
+    port: 5014
+
+#4
+# X10 Support
+mochad:
+  host: 192.168.7.21
+  port: 1099
+
+#3
+# X10 Lights/Switches
+switch:
+  - platform: mochad
+    devices:
+      - address: M3
+      - name: Theater Lights
+      - address: M4
+      - name: Equiptment Room 
+      - address: M8
+      - name: attic Lights
+
+
 # Text to speech
 tts:
   - platform: google_translate
