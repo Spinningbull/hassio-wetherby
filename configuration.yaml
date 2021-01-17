@@ -19,9 +19,14 @@ mochad:
 switch:
   - platform: mochad
     devices:
+      - address: m2
+        name: Theater Overhead
       - address: m3
+        name: Theater Lights
       - address: m4
+        name: Equiptment Room
       - address: m8
+        name: attic
 
 # Text to speech
 tts:
