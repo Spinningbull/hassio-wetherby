@@ -12,19 +12,16 @@
 
   # Master Bedroom
   - platform: yamaha_musiccast
-    name: MasterBedroom
     host: 192.168.7.101
     port: 5006
     
   # Family Room 
   - platform: yamaha_musiccast
-    name: MasterBathroom
     host: 192.168.7.102
     port: 5009
     
   # Living Room
   - platform: yamaha_musiccast
-    name: LivingRoom
     host: 192.168.7.103
     port: 5010
     
