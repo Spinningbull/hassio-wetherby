@@ -18,13 +18,14 @@ mochad:
 # X10 Lights/Switches
 switch:
   - platform: mochad
-    devices:
-      - address: m3
-      - name: Theater Lights
-      - address: m4
-      - name: Equiptment Room 
-      - address: m8
-      - name: attic Lights
+    address: m3
+    name: Theater Lights
+  - platform: mochad
+      address: m4
+      name: Equiptment Room 
+  - platform: mochad
+      address: m8
+      name: attic Lights
 
 
 # Text to speech
