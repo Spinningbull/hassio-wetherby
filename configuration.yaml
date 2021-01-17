@@ -16,7 +16,7 @@ mochad:
 
 #3
 # X10 Lights/Switches
-switch:
+lights:
   - platform: mochad
     devices:
       - address: m2
@@ -27,6 +27,8 @@ switch:
         name: Equiptment Room
       - address: m8
         name: attic
+      - address: d1
+        name: Garage Soffits
 
 # Text to speech
 tts:

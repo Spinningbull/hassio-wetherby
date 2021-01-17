@@ -2,9 +2,13 @@
 
   - platform: mochad
     devices:
+      - address: m2
+        name: Theater Overhead
       - address: m3
         name: Theater Lights
       - address: m4
-        name: Equiptment Room 
+        name: Equiptment Room
       - address: m8
-        name: attic Lights
+        name: attic
+      - address: d1
+        name: Garage Soffits
