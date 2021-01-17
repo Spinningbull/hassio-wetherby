@@ -16,32 +16,10 @@ mochad:
 
 #3
 # X10 Lights/Switches
-lights:
-  - platform: mochad
-    devices:
-      - address: m2
-        name: Theater Overhead
-      - address: m3
-        name: Theater Lights
-      - address: m4
-        name: Equiptment Room
-      - address: m8
-        name: attic
-      - address: d1
-        name: Garage Soffits
-      - address: a1
-        name: Side Door Soffit
-      - address: a2
-        name: Side Door Light
-      - address: a3
-        name: Front Door Soffit
-      - address: a4
-        name: Front Door Light
-      - address: a5
-        name: Rear Flood Lights
-      - address: a6
-        name: Pool House Soffits
-        
+light:
+
+light x10: !include mochad.yaml
+
 # Text to speech
 tts:
   - platform: google_translate

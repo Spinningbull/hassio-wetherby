@@ -4,8 +4,10 @@
     devices:
       - address: m2
         name: Theater Overhead
+        entity_id: light.theater_overhead
       - address: m3
         name: Theater Lights
+        entity_id: light.theater
       - address: m4
         name: Equiptment Room
       - address: m8
