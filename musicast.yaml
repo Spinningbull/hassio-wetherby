@@ -44,3 +44,13 @@
   - platform: yamaha_musiccast
     host: 192.168.7.107
     port: 5013
+
+  # Office 
+  - platform: musiccast_yamaha
+    host: 192.168.7.107
+    port: 5013
+    
+  # Allison's Office
+  - platform: musiccast_yamaha
+    host: 192.168.7.109
+    port: 5014

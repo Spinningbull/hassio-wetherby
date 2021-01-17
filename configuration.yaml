@@ -4,55 +4,9 @@ default_config:
 
 # Example configuration.yaml entry
 media_player:
-  # Theater
-  - platform: musiccast_yamaha
-    host: 192.168.7.99
-    port: 5005
 
-  # Master Bedroom
-  - platform: musiccast_yamaha
-    host: 192.168.7.100
-    port: 5006
-    
-  # Master Bathroom  
-  - platform: musiccast_yamaha
-    host: 192.168.7.101
-    port: 5007
-
-  # Family Room  
-  - platform: musiccast_yamaha
-    host: 192.168.7.102
-    port: 5008
-  
-  # Living Room
-  - platform: musiccast_yamaha
-    host: 192.168.7.103
-    port: 5009
-    
-  # Dining Room
-  - platform: musiccast_yamaha
-    host: 192.168.7.104
-    port: 5010
-    
-  # Patio  
-  - platform: musiccast_yamaha
-    host: 192.168.7.105
-    port: 5011
-
-  # Pool  
-  - platform: musiccast_yamaha
-    host: 192.168.7.106
-    port: 5012
-  
-  # Office 
-  - platform: musiccast_yamaha
-    host: 192.168.7.107
-    port: 5013
-    
-  # Allison's Office
-  - platform: musiccast_yamaha
-    host: 192.168.7.109
-    port: 5014
+#import musiccast configuration
+media_player musiccast: !include musicast.yaml
 
 #4
 # X10 Support
@@ -66,11 +20,11 @@ switch:
   - platform: mochad
     devices:
       - address: m3
-      #- name: Theater Lights
+      - name: Theater Lights
       - address: m4
-      #- name: Equiptment Room 
+      - name: Equiptment Room 
       - address: m8
-      #- name: attic Lights
+      - name: attic Lights
 
 
 # Text to speech
