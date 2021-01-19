@@ -1,1 +1,39 @@
-[]
+- id: '1610996669564'
+  alias: lights on when paused
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+  condition:
+  - condition: device
+    device_id: 7d8e57e35efd5221948d06915e934a4c
+    domain: media_player
+    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+    type: is_paused
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: light.theater_lights
+      state: 'off'
+  action:
+  - service: light.turn_on
+    data: {}
+    entity_id: light.theater_lights
+  mode: single
+- id: '1610996991686'
+  alias: lights off on play
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+  condition:
+  - condition: device
+    device_id: 7d8e57e35efd5221948d06915e934a4c
+    domain: media_player
+    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+    type: is_playing
+  action:
+  - service: light.turn_off
+    data: {}
+    entity_id: light.theater_lights
+  mode: single

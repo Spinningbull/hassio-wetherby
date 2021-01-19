@@ -1,0 +1,246 @@
+blueprint:
+  name: State Based Entity Control
+  description: Change the target entity to desired entity state base on the trigger
+    entity's state, illuminance sensor's state, Sun elevation and so on.
+  domain: automation
+  input:
+    trigger_entity:
+      name: Trigger Entity
+      description: This entity will trigger the automation.
+      selector:
+        entity: {}
+    trigger_entity_state:
+      name: Trigger Entity State
+      description: When the trigger entity state is of this value, this automation
+        will try to change the target entity's state to desired state with target
+        entity's turn on action (defined below).
+      default: 'on'
+      selector:
+        entity:
+          domain: input_text
+    target_entity:
+      name: Target Entity
+      description: Any entity that can be operated with below target entity turn on/off
+        action.
+      selector:
+        entity: {}
+    target_entity_state:
+      name: (Optional) Target Entity Desired State
+      description: When the target entity state is of this value, the target entity
+        is considered turned on. When this value is left empty, this automation will
+        be triggered only based on trigger entity's state.
+      default: 'on'
+      selector:
+        entity:
+          domain: input_text
+    target_entity_action_on:
+      name: Target Entity Turn On Action
+      description: Action that will change target entity's state to desired state.
+      default: homeassistant.turn_on
+      selector:
+        entity:
+          domain: input_text
+    target_entity_action_off:
+      name: Target Entity Turn Off Action
+      description: Action that will change target entity's state away from desired
+        state. It doesn't necessary have to set the entity's state to 'off', as long
+        as it's not the desired state it will be fine.
+      default: homeassistant.turn_off
+      selector:
+        entity:
+          domain: input_text
+    blocker_entity:
+      name: (OPTIONAL) Blocking Entity
+      description: If this entity's state is set to blocking entity state (defined
+        below), it will prevent the automation from "turning on" the target entity
+        using action defined above.
+      default:
+      selector:
+        entity: {}
+    blocker_entity_state:
+      name: (OPTIONAL) Blocking Entity State
+      description: If blocking entity's state is of this state, it will prevent the
+        automation from "turning on" the target entity using action defined above.
+      default:
+      selector:
+        entity:
+          domain: input_text
+    timeout_blocker_entity:
+      name: (OPTIONAL) Timeout Blocking Entity
+      description: If this entity's state is set to timeout blocking entity state
+        (defined below), it will prevent the automation from "turnning off" the target
+        entity using action defined above.
+      default:
+      selector:
+        entity: {}
+    timeout_blocker_entity_state:
+      name: (OPTIONAL) Timeout Blocking Entity State
+      description: If timeout blocking entity's state is of this state, it will prevent
+        the automation from from "turnning off" the target entity using action defined
+        above.
+      default:
+      selector:
+        entity:
+          domain: input_text
+    illuminance_sensor:
+      name: (Optional) Illuminance Sensor
+      description: This sensor will be used to determine the illumination.
+      default:
+      selector:
+        entity:
+          domain: sensor
+          device_class: illuminance
+    illuminance_below:
+      name: (Optional) Illuminance Below
+      description: Target entity will be "turned on" when "trigger entity" is at expected
+        state and the illumination sensor returned a value that is below this value.
+        Only used when Illuminance Sensor is specified.
+      default:
+      selector:
+        entity:
+          domain: input_number
+    trigger_timeout:
+      name: Trigger Timeout.
+      description: After "trigger entity" is no longer at "trigger entity state" for
+        this time (in seconds), "turn off" the target entity.
+      default: 15
+      selector:
+        entity:
+          domain: input_number
+    sun_elevation_below:
+      name: (Optional) Sun Elevation Below
+      description: Target entity will be turned on when "trigger entity" is at expected
+        state and Sun elevation is below this value. Sun elevation ranges from -90
+        to 90 degree. Only applied when this value is set.
+      default:
+      selector:
+        entity:
+          domain: input_number
+    alt_trigger_timeout:
+      name: (OPTIONAL) Alternate Trigger Timeout
+      description: Alternate trigger timeout (in seconds) to use besides the main
+        trigger timeout. At least one of (or both) Alternate Trigger Time Before/After
+        must be set to apply this alternate timeout.
+      default:
+      selector:
+        entity:
+          domain: input_number
+    alt_trigger_timeout_after:
+      name: (OPTIONAL) Alternate Trigger Time After
+      description: Alternate Trigger Timeout will be applied after this time.
+      default:
+      selector:
+        entity:
+          domain: input_datetime
+    alt_trigger_timeout_before:
+      name: (OPTIONAL) Alternate Trigger Time Before
+      description: Alternate Trigger Timeout will be applied before this time.
+      default:
+      selector:
+        entity:
+          domain: input_datetime
+  source_url: https://gist.github.com/kevinxw/abeffde9c4fac0fcc3544772a225bd60
+variables:
+  target_entity: !input 'target_entity'
+  target_entity_state: !input 'target_entity_state'
+  target_entity_action_on: !input 'target_entity_action_on'
+  target_entity_action_off: !input 'target_entity_action_off'
+  trigger_entity: !input 'trigger_entity'
+  trigger_entity_state: !input 'trigger_entity_state'
+  trigger_timeout: !input 'trigger_timeout'
+  illuminance_sensor: !input 'illuminance_sensor'
+  illuminance_below: !input 'illuminance_below'
+  blocker_entity: !input 'blocker_entity'
+  blocker_entity_state: !input 'blocker_entity_state'
+  timeout_blocker_entity: !input 'timeout_blocker_entity'
+  timeout_blocker_entity_state: !input 'timeout_blocker_entity_state'
+  alt_trigger_timeout: !input 'alt_trigger_timeout'
+  alt_trigger_timeout_before: !input 'alt_trigger_timeout_before'
+  alt_trigger_timeout_after: !input 'alt_trigger_timeout_after'
+  alt_trigger_timeout_applied: "{% set current_time = now().strftime(\"%H:%M:%S\"\
+    )  %} {% if alt_trigger_timeout == none or (alt_trigger_timeout_before == none\
+    \ and alt_trigger_timeout_after == none) %}\n  {{ false }}\n{% elif alt_trigger_timeout_after\
+    \ == none %}\n  {{ alt_trigger_timeout_before > current_time }}\n{% elif alt_trigger_timeout_before\
+    \ == none %}\n  {{ alt_trigger_timeout_after < current_time }}\n{% else %}\n \
+    \ {% set before_limit_is_on_next_day = alt_trigger_timeout_after > alt_trigger_timeout_before\
+    \ %}\n  {% if not before_limit_is_on_next_day %}\n    {{ alt_trigger_timeout_after\
+    \ < current_time and alt_trigger_timeout_before > current_time }}\n  {% else %}\n\
+    \    {{ alt_trigger_timeout_before > current_time or alt_trigger_timeout_after\
+    \ < current_time }}\n  {% endif %}\n{% endif %}"
+  final_trigger_timeout: "{% if alt_trigger_timeout_applied %}\n  {{ alt_trigger_timeout\
+    \ | int }}\n{% else %}\n  {{ trigger_timeout | int }}\n{% endif %}"
+  sun_elevation_below: !input 'sun_elevation_below'
+trigger:
+- platform: event
+  event_type: automation_reloaded
+- platform: homeassistant
+  event: start
+- platform: state
+  entity_id: !input 'trigger_entity'
+- platform: state
+  entity_id: !input 'target_entity'
+  for:
+    seconds: 3
+condition: []
+action:
+- choose:
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.platform == ''state'' and trigger.entity_id != target_entity
+        }}'
+    - condition: template
+      value_template: '{{ target_entity_state == none or not is_state(target_entity,
+        target_entity_state) }}'
+    - condition: template
+      value_template: '{{ is_state(trigger_entity, trigger_entity_state) }}'
+    - condition: template
+      value_template: '{{ blocker_entity == none or is_state(blocker_entity, blocker_entity_state)
+        }}'
+    - condition: or
+      conditions:
+      - condition: template
+        value_template: '{{ illuminance_sensor == none and sun_elevation_below ==
+          none }}'
+      - condition: template
+        value_template: '{{ illuminance_sensor != none and illuminance_below != none
+          and states(illuminance_sensor) | int < illuminance_below | int }}'
+      - condition: template
+        value_template: '{{ sun_elevation_below != none and state_attr(''sun.sun'',
+          ''elevation'') | int <= sun_elevation_below | int }}'
+    sequence:
+    - service: logbook.log
+      data:
+        name: '{{ state_attr(target_entity, ''friendly_name'') }}'
+        message: is executing service {{ target_entity_action_on }}
+        entity_id: "{% if trigger.platform == 'state' %}\n  {{ trigger.entity_id }}\n\
+          {% endif %}"
+    - service: !input 'target_entity_action_on'
+      entity_id: !input 'target_entity'
+  - conditions:
+    - condition: template
+      value_template: '{{ target_entity_state == none or is_state(target_entity, target_entity_state)
+        }}'
+    - condition: template
+      value_template: '{{ not is_state(trigger_entity, trigger_entity_state) }}'
+    - condition: template
+      value_template: '{{ timeout_blocker_entity == none or is_state(timeout_blocker_entity,
+        timeout_blocker_entity_state) }}'
+    sequence:
+    - service: logbook.log
+      data:
+        name: '{{ state_attr(target_entity, ''friendly_name'') }}'
+        message: will execute service {{ target_entity_action_off }} after {{ final_trigger_timeout
+          }} seconds
+        entity_id: "{% if trigger.platform == 'state' %}\n  {{ trigger.entity_id }}\n\
+          {% endif %}"
+    - delay: '{{ final_trigger_timeout }}'
+    - service: logbook.log
+      data:
+        name: '{{ state_attr(target_entity, ''friendly_name'') }}'
+        message: is executing service {{ target_entity_action_off }}
+        entity_id: "{% if trigger.platform == 'state' %}\n  {{ trigger.entity_id }}\n\
+          {% endif %}"
+    - service: !input 'target_entity_action_off'
+      entity_id: !input 'target_entity'
+  default: []
+mode: restart
