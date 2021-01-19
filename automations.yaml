@@ -3,21 +3,17 @@
   description: ''
   trigger:
   - platform: state
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+    for: '2'
+    entity_id: media_player.theater_shield
+    to: paused
   condition:
-  - condition: device
-    device_id: 7d8e57e35efd5221948d06915e934a4c
-    domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
-    type: is_paused
-  - condition: and
-    conditions:
-    - condition: state
-      entity_id: light.theater_lights
-      state: 'off'
+  - condition: state
+    entity_id: light.theater_lights
+    state: 'off'
   action:
   - service: light.turn_on
-    data: {}
+    data:
+      brightness_pct: 5
     entity_id: light.theater_lights
   mode: single
 - id: '1610996991686'
@@ -25,15 +21,44 @@
   description: ''
   trigger:
   - platform: state
+    entity_id: media_player.theater_shield
+    to: playing
+  condition: []
+  action:
+  - service: light.turn_off
+    data: {}
+    entity_id: light.theater_lights
+  - service: light.turn_off
+    data: {}
+    entity_id: light.theater_overhead
+  mode: single
+- id: '1611024383994'
+  alias: lights up on stop
+  description: ''
+  trigger:
+  - platform: state
     entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+    for: '5'
   condition:
   - condition: device
     device_id: 7d8e57e35efd5221948d06915e934a4c
     domain: media_player
     entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
-    type: is_playing
+    type: is_idle
+  - condition: not
+    conditions:
+    - condition: device
+      device_id: 7d8e57e35efd5221948d06915e934a4c
+      domain: media_player
+      entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+      type: is_playing
+    - condition: device
+      device_id: 7d8e57e35efd5221948d06915e934a4c
+      domain: media_player
+      entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+      type: is_paused
   action:
-  - service: light.turn_off
+  - service: light.turn_on
     data: {}
     entity_id: light.theater_lights
   mode: single
