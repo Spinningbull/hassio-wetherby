@@ -2,7 +2,7 @@
 
     - platform: androidtv
       name: Theater Shield
-      host: 192.168.7.193
+      host: 192.168.7.81
       state_detection_rules:
         'com.netflix.ninja':
           - 'media_session_state'
