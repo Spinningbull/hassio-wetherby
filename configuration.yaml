@@ -4,12 +4,13 @@ default_config:
 
 # Example configuration.yaml entry
 media_player:
-    - platform: androidtv
-      name: Theater Shield
-      host: 192.168.7.81
+#    - platform: androidtv
+#      name: Theater Shield
+#      host: 192.168.7.81
       
       
-      
+#import android TV configuration
+media_player android: !androidtv.yaml
 #import musiccast configuration
 media_player musiccast: !include musicast.yaml
 
