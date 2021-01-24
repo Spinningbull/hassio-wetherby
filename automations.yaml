@@ -1,9 +1,8 @@
 - id: '1610996669564'
   alias: lights on when paused
-  description: 'Bring lights up to 50% when media is paused on Shield'
+  description: Bring lights up to 50% when media is paused on Shield
   trigger:
   - platform: state
-    for: '2'
     entity_id: media_player.theater_shield
     from: playing
     to: paused
@@ -20,7 +19,7 @@
   mode: single
 - id: '1610996991686'
   alias: lights off on play
-  description: 'Turn off lights when Media begins to play'
+  description: Turn off lights when Media begins to play
   trigger:
   - platform: state
     entity_id: media_player.theater_shield
@@ -30,25 +29,15 @@
   - service: light.turn_off
     data:
       entity_id: light.theater_lights
-      transition: 1
-  - service: light.turn_off
-    data:
-      entity_id: light.theater_overhead
-      transition: 1
   mode: single
 - id: '1611024383994'
   alias: lights up on stop
-  description: 'Bring lights up to 100% when media is stopped'
+  description: Bring lights up to 100% when media is stopped
   trigger:
   - platform: state
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
-    for: '2'
+    entity_id: media_player.theater_shield
+    to: idle
   condition:
-  - condition: device
-    device_id: 7d8e57e35efd5221948d06915e934a4c
-    domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
-    type: is_idle
   - condition: not
     conditions:
     - condition: device
@@ -56,14 +45,11 @@
       domain: media_player
       entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
       type: is_playing
-    - condition: device
-      device_id: 7d8e57e35efd5221948d06915e934a4c
-      domain: media_player
-      entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
-      type: is_paused
+    - condition: state
+      entity_id: media_player.theater_shield
+      state: paused
   action:
   - service: light.turn_on
     data:
       entity_id: light.theater_lights
-      transition: 2
   mode: single

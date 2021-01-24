@@ -6,7 +6,7 @@ default_config:
 media_player:
     - platform: androidtv
       name: Theater Shield
-      host: 192.168.7.193
+      host: 192.168.7.81
       
       
       
