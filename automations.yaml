@@ -11,11 +11,10 @@
     entity_id: light.theater_lights
     state: 'off'
   action:
-  - service: light.turn_on
-    data:
-      entity_id: light.theater_lights
-      brightness_pct: 50
-      transition: 1
+  - type: turn_on
+    device_id: 3e79f994a8b002350491947d33bbb1e5
+    entity_id: switch.theater_ambient
+    domain: switch
   mode: single
 - id: '1610996991686'
   alias: lights off on play
@@ -28,7 +27,12 @@
   action:
   - service: light.turn_off
     data:
-      entity_id: light.theater_lights
+      entity_id: light.theater_lights_2
+    entity_id: light.theater_lights_2
+  - type: turn_off
+    device_id: 3e79f994a8b002350491947d33bbb1e5
+    entity_id: switch.theater_ambient
+    domain: switch
   mode: single
 - id: '1611024383994'
   alias: lights up on stop
@@ -36,7 +40,7 @@
   trigger:
   - platform: state
     entity_id: media_player.theater_shield
-    to: idle
+    to: standby
   condition:
   - condition: not
     conditions:
@@ -51,5 +55,23 @@
   action:
   - service: light.turn_on
     data:
+      entity_id: light.theater_lights_2
+  mode: single
+- id: '1611526954610'
+  alias: lights on during standby
+  description: Bring lights up to 50% when media is paused on Shield
+  trigger:
+  - platform: state
+    entity_id: media_player.theater_shield
+    from: playing
+    to: standby
+  condition:
+  - condition: state
+    entity_id: light.theater_lights
+    state: 'off'
+  action:
+  - service: light.turn_on
+    data:
       entity_id: light.theater_lights
+      brightness_pct: 50
   mode: single
