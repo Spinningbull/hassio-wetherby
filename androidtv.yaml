@@ -1,4 +1,4 @@
-### Andoid TV's configurations ###2
+### Andoid TV's configurations ###
 
     - platform: androidtv
       name: Theater Shield
@@ -27,3 +27,7 @@
     - platform: androidtv
       name: Family Room TV
       host: 192.168.7.84
+
+    - platform: androidtv
+      name: Office Shield
+      host: 192.168.7.85
