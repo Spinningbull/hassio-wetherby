@@ -1,6 +1,6 @@
 - id: '1610996669564'
   alias: lights on when paused
-  description: Bring lights up to 50% when media is paused on Shield
+  description: Turn on Ambient light on Pause
   trigger:
   - platform: state
     entity_id: media_player.theater_shield
@@ -40,7 +40,7 @@
   trigger:
   - platform: state
     entity_id: media_player.theater_shield
-    to: standby
+    to: idle
   condition:
   - condition: not
     conditions:
@@ -74,4 +74,22 @@
     data:
       entity_id: light.theater_lights
       brightness_pct: 50
+  mode: single
+- id: '1612398301259'
+  alias: lights on during Standby
+  description: Turn on Ambient light on Standby
+  trigger:
+  - platform: state
+    entity_id: media_player.theater_shield
+    from: playing
+    to: standby
+  condition:
+  - condition: state
+    entity_id: light.theater_lights
+    state: 'off'
+  action:
+  - type: turn_on
+    device_id: 3e79f994a8b002350491947d33bbb1e5
+    entity_id: switch.theater_ambient
+    domain: switch
   mode: single
