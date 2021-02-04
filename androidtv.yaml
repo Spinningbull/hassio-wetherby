@@ -12,7 +12,9 @@
             #   'wake_lock_size': 1       # this indentation is important!
           - 'playing':
               'media_session_state': 3  # this indentation is important!
-          - 'standby'
+         # - 'idle':
+         #     'media_session_state': none
+         # - 'standby'
         'com.amazon.avod':
           - 'playing':
               'wake_lock_size': 4  # this indentation is important!
