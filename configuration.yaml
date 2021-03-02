@@ -4,27 +4,24 @@ default_config:
 
 # Example configuration.yaml entry
 media_player:
-#    - platform: androidtv
-#      name: Theater Shield
-#      host: 192.168.7.81
-      
-      
-#import android TV configuration
+# import android TV configuration
 media_player android: !include androidtv.yaml
-#import musiccast configuration
+# import musiccast configuration
 media_player musiccast: !include musicast.yaml
 
-#4
-# X10 Support
-mochad:
-  host: 192.168.7.21
-  port: 1099
-
-#3
-# X10 Lights/Switches
 light:
 
-# light x10: !include mochad.yaml
+# Custom UI
+lovelace:
+   mode: storage
+
+   dashboards:
+      lovelace-yaml:
+        mode: yaml
+        title: Tablets
+        icon: mdi-tablet-dashboard
+        show_in_sidebar: true
+        filename: ui-lovelace.yaml
 
 # Text to speech
 tts:

@@ -14,6 +14,7 @@ views:
         entity: weather.home
         show_forecast: false
   - title: media
+    path: WholeHouseAudio
     icon: 'mdi:audio-video'
     badges:
       - entity: media_player.family_room_main
@@ -193,3 +194,48 @@ views:
               name: Pool
             - entity_id: media_player.home_theater_room_main
               name: Theater
+
+  - title: Theater
+    path: theater
+    badges:
+      - entity: light.theater_lights_2
+      - entity: switch.theater_ambient
+      - entity: automation.lights_off_on_play
+      - entity: automation.new_automation
+      - entity: automation.lights_on_during_standby
+      - entity: automation.lights_up_on_stop
+    cards:
+      - type: media-control
+        entity: media_player.theater_shield
+      - type: entities
+        entities:
+          - entity: binary_sensor.theater_occupancy
+          - entity: sensor.theater_temperature
+      - type: thermostat
+        entity: climate.game_room
+      - type: entities
+        entities:
+          - remote.hayfamily
+  - title: Family Room
+    path: family-room
+    badges:
+      - entity: binary_sensor.family_room_occupancy
+      - entity: sensor.family_room_temperature
+      - entity: light.rear_flood_lights
+      - entity: light.pool_house_soffits
+      - entity: media_player.family_room_main
+    cards:
+      - type: 'custom:mini-media-player'
+        entity: media_player.family_room_main
+        artwork: cover-fit
+        source: full
+        sound_mode: icon
+        group: true
+        info: short
+      - type: thermostat
+        entity: climate.dining_room
+        name: 'Family Room '
+      - type: weather-forecast
+        entity: weather.home
+        secondary_info_attribute: humidity
+        show_forecast: true
