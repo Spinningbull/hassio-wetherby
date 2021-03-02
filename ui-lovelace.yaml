@@ -46,14 +46,15 @@ views:
   - title: media
     icon: 'mdi:audio-video'
     badges:
-      - entity: media_player.home_theater_room_main
-      - entity: media_player.master_bedroom_main
-      - entity: media_player.master_bathroom_main
       - entity: media_player.family_room_main
       - entity: media_player.patio_main
+      - entity: media_player.living_room_main
       - entity: media_player.dining_room_main
       - entity: media_player.pool_main
-      - entity: media_player.living_room_main
+      - entity: media_player.office_main
+      - entity: media_player.master_bedroom_main
+      - entity: media_player.master_bathroom_main
+      - entity: media_player.home_theater_room_main
     cards:
       - type: 'custom:mini-media-player'
         entity: media_player.master_bedroom_main
@@ -173,6 +174,34 @@ views:
           entities:
             - entity_id: media_player.family_room_main
               name: Family Room
+            - entity_id: media_player.living_room_main
+              name: Living Room
+            - entity_id: media_player.dining_room_main
+              name: Dining Room
+            - entity_id: media_player.pool_main
+              name: Pool
+            - entity_id: media_player.master_bedroom_main
+              name: Master Bedroom
+            - entity_id: media_player.master_bathroom_main
+              name: Master Bathroom
+            - entity_id: media_player.home_theater_room_main
+              name: Theater
+      - type: 'custom:mini-media-player'
+        entity: media_player.office_main
+        artwork: cover
+        group: true
+        name: Office
+        hide:
+          icon: true
+          power_state: false
+        speaker_group:
+          platform: musiccast_yamaha
+          expanded: true
+          entities:
+            - entity_id: media_player.family_room_main
+              name: Family Room
+            - entity_id: media_player.patio_main
+              name: Patio
             - entity_id: media_player.living_room_main
               name: Living Room
             - entity_id: media_player.dining_room_main
