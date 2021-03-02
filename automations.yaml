@@ -6,10 +6,7 @@
     entity_id: media_player.theater_shield
     from: playing
     to: paused
-  condition:
-  - condition: state
-    entity_id: light.theater_lights
-    state: 'off'
+  condition: []
   action:
   - type: turn_on
     device_id: 3e79f994a8b002350491947d33bbb1e5
@@ -83,13 +80,20 @@
     entity_id: media_player.theater_shield
     from: playing
     to: standby
-  condition:
-  - condition: state
-    entity_id: light.theater_lights
-    state: 'off'
+  condition: []
   action:
   - type: turn_on
     device_id: 3e79f994a8b002350491947d33bbb1e5
     entity_id: switch.theater_ambient
     domain: switch
+  mode: single
+- id: '1613889538573'
+  alias: set night at midnight
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00
+  condition: []
+  action:
+  - scene: scene.night
   mode: single

@@ -1,0 +1,172 @@
+- id: '1614661501471'
+  name: watching movies
+  entities:
+    climate.game_room:
+      hvac_modes:
+      - heat_cool
+      - heat
+      - cool
+      - 'off'
+      min_temp: 45
+      max_temp: 95
+      fan_modes:
+      - auto
+      - 'on'
+      preset_modes:
+      - Home
+      - Away
+      - Sleep
+      - Movie time
+      current_temperature: 70
+      temperature:
+      target_temp_high: 77
+      target_temp_low: 72
+      current_humidity: 40
+      fan_mode: auto
+      hvac_action: heating
+      preset_mode: temp
+      aux_heat: 'on'
+      fan: 'on'
+      climate_mode: Home
+      equipment_running: auxHeat1,fan
+      fan_min_on_time: 0
+      friendly_name: Game Room
+      supported_features: 91
+      state: heat_cool
+    light.theater_lights_2:
+      friendly_name: theater lights
+      supported_features: 33
+      state: 'off'
+    remote.hayfamily:
+      activity_starting:
+      current_activity: Watch Shield
+      activity_list:
+      - Manage MediaCenter
+      - Listen to Music on Oppo
+      - Listen to plex
+      - Play PS4
+      - Watch TV
+      - Watch Shield
+      - Listen to Roon
+      devices_list:
+      - LG TV
+      - Flirc Media Player
+      - Oppo DVD
+      - Intel Media Player
+      - NVIDIA Game Console
+      - Media Center
+      - Sony PS4
+      - Xfinity DVR
+      - Yamaha AV Receiver
+      last_activity: Watch Shield
+      friendly_name: Hayfamily
+      supported_features: 0
+      state: 'on'
+    switch.hayfamily_manage_mediacenter:
+      friendly_name: Hayfamily Manage MediaCenter
+      state: 'off'
+    switch.hayfamily_listen_to_music_on_oppo:
+      friendly_name: Hayfamily Listen to Music on Oppo
+      state: 'off'
+    switch.hayfamily_listen_to_plex:
+      friendly_name: Hayfamily Listen to plex
+      state: 'off'
+    switch.hayfamily_play_ps4:
+      friendly_name: Hayfamily Play PS4
+      state: 'off'
+    switch.hayfamily_watch_tv:
+      friendly_name: Hayfamily Watch TV
+      state: 'off'
+    switch.hayfamily_watch_shield:
+      friendly_name: Hayfamily Watch Shield
+      state: 'on'
+    switch.hayfamily_listen_to_roon:
+      friendly_name: Hayfamily Listen to Roon
+      state: 'off'
+  icon: mdi:movie
+- id: '1614661503535'
+  name: watching movies
+  entities:
+    climate.game_room:
+      hvac_modes:
+      - heat_cool
+      - heat
+      - cool
+      - 'off'
+      min_temp: 45
+      max_temp: 95
+      fan_modes:
+      - auto
+      - 'on'
+      preset_modes:
+      - Home
+      - Away
+      - Sleep
+      - Movie time
+      current_temperature: 70
+      temperature:
+      target_temp_high: 77
+      target_temp_low: 72
+      current_humidity: 40
+      fan_mode: auto
+      hvac_action: heating
+      preset_mode: temp
+      aux_heat: 'on'
+      fan: 'on'
+      climate_mode: Home
+      equipment_running: auxHeat1,fan
+      fan_min_on_time: 0
+      friendly_name: Game Room
+      supported_features: 91
+      state: heat_cool
+    light.theater_lights_2:
+      friendly_name: theater lights
+      supported_features: 33
+      state: 'off'
+    remote.hayfamily:
+      activity_starting:
+      current_activity: Watch Shield
+      activity_list:
+      - Manage MediaCenter
+      - Listen to Music on Oppo
+      - Listen to plex
+      - Play PS4
+      - Watch TV
+      - Watch Shield
+      - Listen to Roon
+      devices_list:
+      - LG TV
+      - Flirc Media Player
+      - Oppo DVD
+      - Intel Media Player
+      - NVIDIA Game Console
+      - Media Center
+      - Sony PS4
+      - Xfinity DVR
+      - Yamaha AV Receiver
+      last_activity: Watch Shield
+      friendly_name: Hayfamily
+      supported_features: 0
+      state: 'on'
+    switch.hayfamily_manage_mediacenter:
+      friendly_name: Hayfamily Manage MediaCenter
+      state: 'off'
+    switch.hayfamily_listen_to_music_on_oppo:
+      friendly_name: Hayfamily Listen to Music on Oppo
+      state: 'off'
+    switch.hayfamily_listen_to_plex:
+      friendly_name: Hayfamily Listen to plex
+      state: 'off'
+    switch.hayfamily_play_ps4:
+      friendly_name: Hayfamily Play PS4
+      state: 'off'
+    switch.hayfamily_watch_tv:
+      friendly_name: Hayfamily Watch TV
+      state: 'off'
+    switch.hayfamily_watch_shield:
+      friendly_name: Hayfamily Watch Shield
+      state: 'on'
+    switch.hayfamily_listen_to_roon:
+      friendly_name: Hayfamily Listen to Roon
+      state: 'off'
+  icon: mdi:movie

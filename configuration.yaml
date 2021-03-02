@@ -24,7 +24,7 @@ mochad:
 # X10 Lights/Switches
 light:
 
-light x10: !include mochad.yaml
+# light x10: !include mochad.yaml
 
 # Text to speech
 tts:

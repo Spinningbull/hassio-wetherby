@@ -1,29 +1,29 @@
-2021-02-03 18:00:09.631 Always, OpenZwave Version 1.4.3469 Starting Up
-2021-02-03 18:00:35.405 Info, Setting Up Provided Network Key for Secure Communications
-2021-02-03 18:00:35.405 Info, mgr,     Added driver for controller /dev/bus/usb/001/001
-2021-02-03 18:00:35.405 Info,   Opening controller /dev/bus/usb/001/001
-2021-02-03 18:00:35.406 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
-2021-02-03 18:00:35.406 Error, ERROR: Failed to set serial port parameters
-2021-02-03 18:00:35.406 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
-2021-02-03 18:00:35.406 Warning, WARNING: Failed to init the controller (attempt 0)
-2021-02-03 18:00:40.406 Info,   Opening controller /dev/bus/usb/001/001
-2021-02-03 18:00:40.406 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
-2021-02-03 18:00:40.406 Error, ERROR: Failed to set serial port parameters
-2021-02-03 18:00:40.406 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
-2021-02-03 18:00:40.406 Warning, WARNING: Failed to init the controller (attempt 1)
-2021-02-03 18:00:45.407 Info,   Opening controller /dev/bus/usb/001/001
-2021-02-03 18:00:45.407 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
-2021-02-03 18:00:45.407 Error, ERROR: Failed to set serial port parameters
-2021-02-03 18:00:45.407 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
-2021-02-03 18:00:45.407 Warning, WARNING: Failed to init the controller (attempt 2)
-2021-02-03 18:00:50.407 Info,   Opening controller /dev/bus/usb/001/001
-2021-02-03 18:00:50.408 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
-2021-02-03 18:00:50.408 Error, ERROR: Failed to set serial port parameters
-2021-02-03 18:00:50.408 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
-2021-02-03 18:00:50.408 Warning, WARNING: Failed to init the controller (attempt 3)
-2021-02-03 18:00:55.408 Info,   Opening controller /dev/bus/usb/001/001
-2021-02-03 18:00:55.408 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
-2021-02-03 18:00:55.408 Error, ERROR: Failed to set serial port parameters
-2021-02-03 18:00:55.408 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
-2021-02-03 18:00:55.409 Warning, WARNING: Failed to init the controller (attempt 4)
-2021-02-03 18:00:55.409 Detail, contrlr, Notification: DriverFailed
+2021-03-01 20:25:40.207 Always, OpenZwave Version 1.4.3469 Starting Up
+2021-03-01 20:26:05.714 Info, Setting Up Provided Network Key for Secure Communications
+2021-03-01 20:26:05.714 Info, mgr,     Added driver for controller /dev/bus/usb/001/001
+2021-03-01 20:26:05.714 Info,   Opening controller /dev/bus/usb/001/001
+2021-03-01 20:26:05.715 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
+2021-03-01 20:26:05.715 Error, ERROR: Failed to set serial port parameters
+2021-03-01 20:26:05.715 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
+2021-03-01 20:26:05.715 Warning, WARNING: Failed to init the controller (attempt 0)
+2021-03-01 20:26:10.715 Info,   Opening controller /dev/bus/usb/001/001
+2021-03-01 20:26:10.715 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
+2021-03-01 20:26:10.715 Error, ERROR: Failed to set serial port parameters
+2021-03-01 20:26:10.715 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
+2021-03-01 20:26:10.716 Warning, WARNING: Failed to init the controller (attempt 1)
+2021-03-01 20:26:15.716 Info,   Opening controller /dev/bus/usb/001/001
+2021-03-01 20:26:15.716 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
+2021-03-01 20:26:15.716 Error, ERROR: Failed to set serial port parameters
+2021-03-01 20:26:15.716 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
+2021-03-01 20:26:15.716 Warning, WARNING: Failed to init the controller (attempt 2)
+2021-03-01 20:26:20.716 Info,   Opening controller /dev/bus/usb/001/001
+2021-03-01 20:26:20.717 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
+2021-03-01 20:26:20.717 Error, ERROR: Failed to set serial port parameters
+2021-03-01 20:26:20.717 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
+2021-03-01 20:26:20.717 Warning, WARNING: Failed to init the controller (attempt 3)
+2021-03-01 20:26:25.717 Info,   Opening controller /dev/bus/usb/001/001
+2021-03-01 20:26:25.717 Info, Trying to open serial port /dev/bus/usb/001/001 (attempt 1)
+2021-03-01 20:26:25.718 Error, ERROR: Failed to set serial port parameters
+2021-03-01 20:26:25.718 Error, ERROR: Failed to open serial port /dev/bus/usb/001/001
+2021-03-01 20:26:25.718 Warning, WARNING: Failed to init the controller (attempt 4)
+2021-03-01 20:26:25.718 Detail, contrlr, Notification: DriverFailed
