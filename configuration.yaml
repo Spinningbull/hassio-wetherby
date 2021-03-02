@@ -19,7 +19,7 @@ lovelace:
       lovelace-yaml:
         mode: yaml
         title: Tablets
-        icon: mdi-tablet-dashboard
+        icon: "mdi:tablet-dashboard"
         show_in_sidebar: true
         filename: ui-lovelace.yaml
 
