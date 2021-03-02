@@ -112,6 +112,7 @@ views:
             - entity_id: media_player.home_theater_room_main
               name: Theater
       - type: 'custom:mini-media-player'
+        entity: media_player.home_theater_room_main
         artwork: cover
         group: true
         name: Theater
