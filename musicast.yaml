@@ -1,47 +1,47 @@
 ######## Collection of MusicCast Endpoints to be used in Configuration.yaml ##########
 
   # Theater
-  - platform: yamaha_musiccast
+  - platform: musiccast_yamaha
     host: 192.168.7.99
     port: 5005
 
   # Master Bathroom  
-  - platform: yamaha_musiccast
+  - platform: musiccast_yamaha
     host: 192.168.7.100
     port: 5007
 
   # Master Bedroom
-  - platform: yamaha_musiccast
+  - platform: musiccast_yamaha
     host: 192.168.7.101
     port: 5006
     
   # Family Room 
-  - platform: yamaha_musiccast
+  - platform: musiccast_yamaha
     host: 192.168.7.102
     port: 5009
     
   # Living Room
-  - platform: yamaha_musiccast
+  - platform: musiccast_yamaha
     host: 192.168.7.103
     port: 5010
     
   # Dining Room  
-  - platform: yamaha_musiccast
+  - platform: musiccast_yamaha
     host: 192.168.7.104
     port: 5011
 
   # Patio  
-  - platform: yamaha_musiccast
+  - platform: musiccast_yamaha
     host: 192.168.7.105
     port: 5012
   
   # Pool 
-  - platform: yamaha_musiccast
+  - platform: musiccast_yamaha
     host: 192.168.7.106
     port: 5013
 
   # Office  
-  - platform: yamaha_musiccast
+  - platform: musiccast_yamaha
     host: 192.168.7.107
     port: 5008
 
