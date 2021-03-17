@@ -1,2 +1,4 @@
 media_player.allison_s_craft_room_main:
   icon: mdi:music
+media_player.family_room_main:
+  icon: mdi:speaker

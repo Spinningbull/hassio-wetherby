@@ -22,10 +22,10 @@
     to: playing
   condition: []
   action:
-  - service: light.turn_off
-    data:
-      entity_id: light.theater_lights_2
+  - type: turn_off
+    device_id: f12a835a0faa13cb4826f7d38223a344
     entity_id: light.theater_lights_2
+    domain: light
   - type: turn_off
     device_id: 3e79f994a8b002350491947d33bbb1e5
     entity_id: switch.theater_ambient
@@ -50,9 +50,11 @@
       entity_id: media_player.theater_shield
       state: paused
   action:
-  - service: light.turn_on
-    data:
-      entity_id: light.theater_lights_2
+  - type: turn_on
+    device_id: f12a835a0faa13cb4826f7d38223a344
+    entity_id: light.theater_lights_2
+    domain: light
+    brightness_pct: 100
   mode: single
 - id: '1611526954610'
   alias: lights on during standby
