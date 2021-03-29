@@ -49,3 +49,8 @@
   - platform: musiccast_yamaha
     host: 192.168.7.108
     port: 5014
+ 
+  # Master Soundbar
+  - platform: musiccast_yamaha
+    host: 192.168.7.109
+    port: 5015
