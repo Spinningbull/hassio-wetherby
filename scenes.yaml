@@ -170,3 +170,105 @@
       friendly_name: Hayfamily Listen to Roon
       state: 'off'
   icon: mdi:movie
+- id: '1616804327390'
+  name: Listen to Roon
+  entities:
+    media_player.family_room_roonberry:
+      volume_level: 1
+      is_volume_muted: false
+      media_duration: 103
+      media_position: 0
+      media_position_updated_at: '2021-03-27T00:18:21.103461+00:00'
+      media_title: Frank Mills
+      media_artist: The Lemonheads
+      media_album_name: It's A Shame About Ray
+      media_album_artist: The Lemonheads
+      shuffle: false
+      friendly_name: Family Room - RoonBerry
+      entity_picture: /api/media_player_proxy/media_player.family_room_roonberry?token=57fe7f6799544e2175026f858ad5e255479859b60c14a9032763598d6e22f91f&cache=e5fcb0cdf21683e0
+      supported_features: 186303
+      state: playing
+    media_player.family_room_main:
+      source_list:
+      - airplay
+      - alexa
+      - amazon_music
+      - audio1
+      - audio2
+      - audio3
+      - audio4
+      - audio5
+      - aux
+      - av1
+      - av2
+      - bluetooth
+      - deezer
+      - hdmi1
+      - hdmi2
+      - hdmi3
+      - hdmi4
+      - hdmi5
+      - mc_link
+      - napster
+      - net_radio
+      - pandora
+      - phono
+      - qobuz
+      - server
+      - siriusxm
+      - spotify
+      - tidal
+      - tuner
+      - usb
+      volume_level: 0.5527950310559007
+      is_volume_muted: false
+      media_content_type: music
+      source: mc_link
+      musiccast_yamaha_group:
+      - media_player.family_room_main
+      friendly_name: Family Room (main)
+      supported_features: 22973
+      state: 'on'
+    media_player.patio_main:
+      source_list:
+      - airplay
+      - alexa
+      - amazon_music
+      - aux
+      - deezer
+      - mc_link
+      - napster
+      - net_radio
+      - pandora
+      - qobuz
+      - server
+      - siriusxm
+      - spotify
+      - tidal
+      - usb
+      volume_level: 0.5403726708074534
+      is_volume_muted: false
+      media_content_type: music
+      media_duration: 0
+      media_position_updated_at: '2021-03-26T23:41:47.295144+00:00'
+      media_title: ''
+      media_artist: ''
+      media_track: ''
+      source: aux
+      musiccast_yamaha_group:
+      - media_player.patio_main
+      - media_player.family_room_main
+      friendly_name: Patio (main)
+      entity_picture: /api/media_player_proxy/media_player.patio_main?token=a54c5ae64a0f6024f662d77aeaa8949ed86b7868ac097008c1130370785ad6d4&cache=c8f67b6099bc5706
+      supported_features: 22973
+      state: playing
+    media_player.family_room_tv:
+      volume_level: 0.21
+      is_volume_muted: false
+      media_duration: 0
+      media_position: 0
+      shuffle: false
+      friendly_name: Family Room TV
+      supported_features: 186303
+      state: idle
+  icon: mdi:speaker
