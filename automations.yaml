@@ -32,12 +32,15 @@
     domain: switch
   mode: single
 - id: '1611024383994'
-  alias: lights up on stop
+  alias: lights up on stop or idle
   description: Bring lights up to 100% when media is stopped
   trigger:
   - platform: state
     entity_id: media_player.theater_shield
     to: idle
+  - platform: state
+    entity_id: media_player.theater_shield
+    to: 'off'
   condition:
   - condition: not
     conditions:
