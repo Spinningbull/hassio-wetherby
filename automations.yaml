@@ -93,12 +93,12 @@
     domain: switch
   mode: single
 - id: '1613889538573'
-  alias: set night at midnight
+  alias: set night at 10p
   description: ''
   trigger:
   - platform: time
-    at: 00:00
+    at: '22:00'
   condition: []
   action:
-  - scene: scene.night
+  - scene: scene.night_time
   mode: single

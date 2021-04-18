@@ -176,16 +176,15 @@
     media_player.family_room_roonberry:
       volume_level: 1
       is_volume_muted: false
-      media_duration: 103
+      media_duration: 1269
       media_position: 0
-      media_position_updated_at: '2021-03-27T00:18:21.103461+00:00'
-      media_title: Frank Mills
-      media_artist: The Lemonheads
-      media_album_name: It's A Shame About Ray
-      media_album_artist: The Lemonheads
-      shuffle: false
+      media_position_updated_at: '2021-04-18T02:19:39.002108+00:00'
+      media_title: Piano Concerto No. 5, "Emperor" -- Allegro
+      media_artist: Piano Concerto No. 5, "Emperor" -- Allegro
+      media_album_name: 'Beethoven: The Greatest Hits D2'
+      media_album_artist: Piano Concerto No. 5, "Emperor" -- Allegro
+      shuffle: true
       friendly_name: Family Room - RoonBerry
-      entity_picture: /api/media_player_proxy/media_player.family_room_roonberry?token=57fe7f6799544e2175026f858ad5e255479859b60c14a9032763598d6e22f91f&cache=e5fcb0cdf21683e0
       supported_features: 186303
       state: playing
     media_player.family_room_main:
@@ -249,26 +248,84 @@
       volume_level: 0.5403726708074534
       is_volume_muted: false
       media_content_type: music
-      media_duration: 0
-      media_position_updated_at: '2021-03-26T23:41:47.295144+00:00'
-      media_title: ''
-      media_artist: ''
-      media_track: ''
       source: aux
       musiccast_yamaha_group:
       - media_player.patio_main
       - media_player.family_room_main
+      - media_player.dining_room_main
+      - media_player.living_room_main
       friendly_name: Patio (main)
-      entity_picture: /api/media_player_proxy/media_player.patio_main?token=a54c5ae64a0f6024f662d77aeaa8949ed86b7868ac097008c1130370785ad6d4&cache=c8f67b6099bc5706
       supported_features: 22973
-      state: playing
+      state: 'on'
     media_player.family_room_tv:
-      volume_level: 0.21
-      is_volume_muted: false
-      media_duration: 0
-      media_position: 0
-      shuffle: false
-      friendly_name: Family Room TV
+      restored: true
       supported_features: 186303
-      state: idle
+      friendly_name: Family Room TV
+      state: unavailable
   icon: mdi:speaker
+- id: '1618709768953'
+  name: night time
+  entities:
+    light.hue_color_lamp_1:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 63
+      hs_color:
+      - 33.767
+      - 84.314
+      rgb_color:
+      - 255
+      - 160
+      - 39
+      xy_color:
+      - 0.561
+      - 0.404
+      effect: none
+      friendly_name: allisons lamp
+      supported_features: 63
+      state: 'on'
+    light.todds_lamp:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 63
+      hs_color:
+      - 33.767
+      - 84.314
+      rgb_color:
+      - 255
+      - 160
+      - 39
+      xy_color:
+      - 0.561
+      - 0.404
+      effect: none
+      friendly_name: todds lamp
+      supported_features: 63
+      state: 'on'
+    switch.house_soffits:
+      friendly_name: House Soffits
+      state: 'off'
+    switch.side_porch_light:
+      friendly_name: Side Porch Light
+      state: 'off'
+    switch.porch_light:
+      friendly_name: Porch Light
+      state: 'off'
+    switch.garage_soffits:
+      friendly_name: Garage Soffits
+      state: 'off'
+  icon: mdi:moon
