@@ -171,20 +171,25 @@
       state: 'off'
   icon: mdi:movie
 - id: '1616804327390'
-  name: Listen to Roon
+  name: 'harley bedtime '
   entities:
     media_player.family_room_roonberry:
       volume_level: 1
       is_volume_muted: false
-      media_duration: 1269
+      media_duration: 279
       media_position: 0
-      media_position_updated_at: '2021-04-18T02:19:39.002108+00:00'
-      media_title: Piano Concerto No. 5, "Emperor" -- Allegro
-      media_artist: Piano Concerto No. 5, "Emperor" -- Allegro
-      media_album_name: 'Beethoven: The Greatest Hits D2'
-      media_album_artist: Piano Concerto No. 5, "Emperor" -- Allegro
+      media_position_updated_at: '2021-04-24T00:11:42.088118+00:00'
+      media_title: 'Violin Concerto, for violin, strings & continuo in E major ("La
+        Primavera," The Four Seasons; "Il cimento" No. 1), Op.8/1, RV 269: Allegro'
+      media_artist: Alan Loveday [Violin], Academy of St. Martin in the Fields Orchestra
+        / Neville Marriner / Academy of St. Martin in the Fields / Antonio Vivaldi
+      media_album_name: 'Vivaldi: The Four Seasons'
+      media_album_artist: Alan Loveday [Violin], Academy of St. Martin in the Fields
+        Orchestra / Neville Marriner / Academy of St. Martin in the Fields / Antonio
+        Vivaldi
       shuffle: true
       friendly_name: Family Room - RoonBerry
+      entity_picture: /api/media_player_proxy/media_player.family_room_roonberry?token=e2660b438c99d0c8370d8bcbd7582687b1cf351a6804ef7dda118d1cb9506255&cache=959bd0096386b759
       supported_features: 186303
       state: playing
     media_player.family_room_main:
@@ -248,20 +253,28 @@
       volume_level: 0.5403726708074534
       is_volume_muted: false
       media_content_type: music
+      media_duration: 0
+      media_position_updated_at: '2021-04-24T00:03:56.585446+00:00'
+      media_title: ''
+      media_artist: ''
+      media_track: ''
       source: aux
       musiccast_yamaha_group:
       - media_player.patio_main
       - media_player.family_room_main
-      - media_player.dining_room_main
-      - media_player.living_room_main
       friendly_name: Patio (main)
+      entity_picture: /api/media_player_proxy/media_player.patio_main?token=7100d5722dce1e856bf4fb499eadf92d62af85beacdb78f6070b1a68ea981518&cache=c8f67b6099bc5706
       supported_features: 22973
       state: 'on'
     media_player.family_room_tv:
-      restored: true
-      supported_features: 186303
+      volume_level: 0.14
+      is_volume_muted: false
+      media_duration: 0
+      media_position: 0
+      shuffle: false
       friendly_name: Family Room TV
-      state: unavailable
+      supported_features: 186303
+      state: idle
   icon: mdi:speaker
 - id: '1618709768953'
   name: night time

@@ -102,3 +102,114 @@
   action:
   - scene: scene.night_time
   mode: single
+- id: '1618764535146'
+  alias: Roon in the Office
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 1ab36720b909e607be84de59e1360851
+    domain: media_player
+    entity_id: media_player.office_roonberry
+    type: playing
+  condition: []
+  action:
+  - service: media_player.turn_on
+    target:
+      entity_id: media_player.office_main
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.office_main
+    data:
+      source: Optical
+  mode: single
+- id: '1618764646815'
+  alias: Roon on the Porch
+  description: ''
+  trigger:
+  - platform: device
+    device_id: c2ac50c19c5b1274810f1529c8702d82
+    domain: media_player
+    entity_id: media_player.family_room_roonberry
+    type: playing
+  condition: []
+  action:
+  - service: media_player.turn_on
+    target:
+      entity_id: media_player.patio_main
+  - service: media_player.select_source
+    data:
+      source: Aux
+    target:
+      entity_id: media_player.patio_main
+  mode: single
+- id: '1618778013049'
+  alias: lights off on plex play
+  description: ''
+  trigger:
+  - platform: device
+    device_id: b98ccd3b931bd8464397902820797d40
+    domain: media_player
+    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+    type: playing
+  condition: []
+  action:
+  - type: turn_off
+    device_id: f12a835a0faa13cb4826f7d38223a344
+    entity_id: light.theater_lights_2
+    domain: light
+  - type: turn_off
+    device_id: 3e79f994a8b002350491947d33bbb1e5
+    entity_id: switch.theater_ambient
+    domain: switch
+  mode: single
+- id: '1618778083115'
+  alias: ambient light on plex pause
+  description: ''
+  trigger:
+  - platform: device
+    device_id: b98ccd3b931bd8464397902820797d40
+    domain: media_player
+    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+    type: paused
+  condition:
+  - condition: device
+    type: is_off
+    device_id: f12a835a0faa13cb4826f7d38223a344
+    entity_id: light.theater_lights_2
+    domain: light
+  action:
+  - type: turn_on
+    device_id: 3e79f994a8b002350491947d33bbb1e5
+    entity_id: switch.theater_ambient
+    domain: switch
+  mode: single
+- id: '1618778129249'
+  alias: lights on when plex off
+  description: ''
+  trigger:
+  - platform: device
+    device_id: b98ccd3b931bd8464397902820797d40
+    domain: media_player
+    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
+    type: turned_off
+  condition: []
+  action:
+  - type: turn_on
+    device_id: f12a835a0faa13cb4826f7d38223a344
+    entity_id: light.theater_lights_2
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1619223291273'
+  alias: link patio and family room when harley bedtime is activ
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: scene.listen_to_roon
+    to: active
+  condition: []
+  action:
+  - service: musiccast_yamaha.join
+    data:
+      entity_id: media_player.family_room_main
+  mode: single
