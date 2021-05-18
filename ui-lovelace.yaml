@@ -153,7 +153,7 @@ views:
         entity: media_player.office_soundbar_main
         artwork: cover
         group: true
-        name: Office
+        name: Office Soundbar
         hide:
           icon: true
           power_state: false
