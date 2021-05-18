@@ -171,21 +171,25 @@
       state: 'off'
   icon: mdi:movie
 - id: '1616804327390'
-  name: Listen to Roon
+  name: 'harley bedtime '
   entities:
     media_player.family_room_roonberry:
       volume_level: 1
       is_volume_muted: false
-      media_duration: 103
+      media_duration: 279
       media_position: 0
-      media_position_updated_at: '2021-03-27T00:18:21.103461+00:00'
-      media_title: Frank Mills
-      media_artist: The Lemonheads
-      media_album_name: It's A Shame About Ray
-      media_album_artist: The Lemonheads
-      shuffle: false
+      media_position_updated_at: '2021-04-24T00:11:42.088118+00:00'
+      media_title: 'Violin Concerto, for violin, strings & continuo in E major ("La
+        Primavera," The Four Seasons; "Il cimento" No. 1), Op.8/1, RV 269: Allegro'
+      media_artist: Alan Loveday [Violin], Academy of St. Martin in the Fields Orchestra
+        / Neville Marriner / Academy of St. Martin in the Fields / Antonio Vivaldi
+      media_album_name: 'Vivaldi: The Four Seasons'
+      media_album_artist: Alan Loveday [Violin], Academy of St. Martin in the Fields
+        Orchestra / Neville Marriner / Academy of St. Martin in the Fields / Antonio
+        Vivaldi
+      shuffle: true
       friendly_name: Family Room - RoonBerry
-      entity_picture: /api/media_player_proxy/media_player.family_room_roonberry?token=57fe7f6799544e2175026f858ad5e255479859b60c14a9032763598d6e22f91f&cache=e5fcb0cdf21683e0
+      entity_picture: /api/media_player_proxy/media_player.family_room_roonberry?token=e2660b438c99d0c8370d8bcbd7582687b1cf351a6804ef7dda118d1cb9506255&cache=959bd0096386b759
       supported_features: 186303
       state: playing
     media_player.family_room_main:
@@ -250,7 +254,7 @@
       is_volume_muted: false
       media_content_type: music
       media_duration: 0
-      media_position_updated_at: '2021-03-26T23:41:47.295144+00:00'
+      media_position_updated_at: '2021-04-24T00:03:56.585446+00:00'
       media_title: ''
       media_artist: ''
       media_track: ''
@@ -259,11 +263,11 @@
       - media_player.patio_main
       - media_player.family_room_main
       friendly_name: Patio (main)
-      entity_picture: /api/media_player_proxy/media_player.patio_main?token=a54c5ae64a0f6024f662d77aeaa8949ed86b7868ac097008c1130370785ad6d4&cache=c8f67b6099bc5706
+      entity_picture: /api/media_player_proxy/media_player.patio_main?token=7100d5722dce1e856bf4fb499eadf92d62af85beacdb78f6070b1a68ea981518&cache=c8f67b6099bc5706
       supported_features: 22973
-      state: playing
+      state: 'on'
     media_player.family_room_tv:
-      volume_level: 0.21
+      volume_level: 0.14
       is_volume_muted: false
       media_duration: 0
       media_position: 0
@@ -272,3 +276,69 @@
       supported_features: 186303
       state: idle
   icon: mdi:speaker
+- id: '1618709768953'
+  name: night time
+  entities:
+    light.hue_color_lamp_1:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 63
+      hs_color:
+      - 33.767
+      - 84.314
+      rgb_color:
+      - 255
+      - 160
+      - 39
+      xy_color:
+      - 0.561
+      - 0.404
+      effect: none
+      friendly_name: allisons lamp
+      supported_features: 63
+      state: 'on'
+    light.todds_lamp:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      - random
+      supported_color_modes:
+      - color_temp
+      - hs
+      color_mode: hs
+      brightness: 63
+      hs_color:
+      - 33.767
+      - 84.314
+      rgb_color:
+      - 255
+      - 160
+      - 39
+      xy_color:
+      - 0.561
+      - 0.404
+      effect: none
+      friendly_name: todds lamp
+      supported_features: 63
+      state: 'on'
+    switch.house_soffits:
+      friendly_name: House Soffits
+      state: 'off'
+    switch.side_porch_light:
+      friendly_name: Side Porch Light
+      state: 'off'
+    switch.porch_light:
+      friendly_name: Porch Light
+      state: 'off'
+    switch.garage_soffits:
+      friendly_name: Garage Soffits
+      state: 'off'
+  icon: mdi:moon
