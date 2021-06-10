@@ -9,8 +9,44 @@ media_player android: !include androidtv.yaml
 # import musiccast configuration
 media_player musiccast: !include musicast.yaml
 
+# radarr sensors
+sensor:
+  - platform: radarr
+    api_key: 47f05d271abd49589965c38f356d9afa
+    host: 192.168.7.97
+    port: 8310
+    days: 30
+    monitored_conditions:
+      - upcoming
+      - commands
+      - status
+    
 light:
 
+# sabnzdb 
+sabnzbd:
+  api_key: c3e939b071d55df543039fef0b5bcdf6
+  host: 192.168.7.97
+  port: 8085
+  path: /sabnzbd
+  ssl: false
+  name: sab
+  sensors:
+    - current_status
+    - speed
+    - queue_size
+    - queue_remaining
+    - disk_free
+    - queue_count
+    # - day_size
+    # - week_size
+    # - month_size
+    # - total_size
+
+# Allow UI Customization
+homeassistant:
+  customize: !include customize.yaml
+  
 # Custom UI
 lovelace:
    mode: storage

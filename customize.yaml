@@ -2,3 +2,6 @@ media_player.allison_s_craft_room_main:
   icon: mdi:music
 media_player.family_room_main:
   icon: mdi:speaker
+configurator.sabnzbd:
+  configure_id: 548224807552-1
+  description: c3e939b071d55df543039fef0b5bcdf6
