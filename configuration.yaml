@@ -61,7 +61,11 @@ sabnzbd:
     host: 192.168.7.30 
     port: 8085
 
-
+mqtt:
+    broker: 192.168.7.20
+    username: que
+    password: que
+    
 light:
 
 # Allow UI Customization
