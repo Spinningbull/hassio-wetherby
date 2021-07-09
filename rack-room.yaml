@@ -1,8 +1,9 @@
 title: Server Room
 views:
   - title: Server Status
+    path: server-status
     panel: true
-    icon: mid:server
+    icon: 'mid:server'
     cards:
       type: vertical-stack
       cards:
