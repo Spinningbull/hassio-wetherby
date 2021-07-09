@@ -1,9 +1,9 @@
-title: Server Room
+title: Server
 views:
-  - title: Server Status
-    path: server-status
+  - path: default_view
+    title: Server Status
     panel: true
-    icon: 'mid:server'
+    icon: 'mdi:server'
     cards:
       type: vertical-stack
       cards:
