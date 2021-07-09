@@ -76,6 +76,7 @@ homeassistant:
 lovelace:
    mode: storage
 
+  # Added multiple includes for each page in ui-lovelace.yaml
    dashboards:
       lovelace-yaml:
         mode: yaml
@@ -83,6 +84,12 @@ lovelace:
         icon: "mdi:tablet-dashboard"
         show_in_sidebar: true
         filename: ui-lovelace.yaml
+      lovelace-yaml:
+        mode: yaml
+        title: Server Room
+        icon: "mdi:server"
+        show_in_sidebar: true
+        filename: ui-pages/rack-room.yaml
 
 # Text to speech
 tts:
