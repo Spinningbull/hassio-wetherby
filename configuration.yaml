@@ -54,6 +54,15 @@ sensor:
     section_types:
       - show
 
+  - platform: nut
+    name: Theater Rack UPS
+    host: 192.168.7.10
+    resources:
+      - ups.status.display
+      - ups.load
+      - input.voltage
+      - battery.charge
+      - battery.runtime
 
 # sabnzdb 
 sabnzbd: 

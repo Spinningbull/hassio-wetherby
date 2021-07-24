@@ -213,3 +213,122 @@
     data:
       entity_id: media_player.family_room_main
   mode: single
+- id: '1626916974326'
+  alias: Turn on Stereo when Roon starts playing
+  description: ''
+  trigger:
+  - platform: device
+    device_id: df15dcd28b7a749101bec9812d91292f
+    domain: media_player
+    entity_id: media_player.family_room_stereo
+    type: playing
+  condition: []
+  action:
+  - service: media_player.turn_on
+    target:
+      entity_id: media_player.family_room_main
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.family_room_main
+    data:
+      source: Audio3
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.45
+    target:
+      entity_id: media_player.family_room_main
+  mode: single
+- id: '1626917877642'
+  alias: 'Play Roon in Theater '
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 52b18efbc3bfcc2a8d8f4a8b8c94020e
+    domain: media_player
+    entity_id: media_player.theater_roonberry
+    type: playing
+    id: roon-start-theater
+  condition: []
+  action:
+  - scene: scene.theater_roon
+  mode: single
+- id: '1626917945474'
+  alias: Turn Stereo Off when done
+  description: Exit theater roonberry activity
+  trigger:
+  - platform: device
+    device_id: 52b18efbc3bfcc2a8d8f4a8b8c94020e
+    domain: media_player
+    entity_id: media_player.theater_roonberry
+    type: turned_off
+    id: roon-end-theater
+  condition: []
+  action:
+  - type: turn_off
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_listen_to_roon
+    domain: switch
+  mode: single
+- id: '1626918072532'
+  alias: Roon - Turn on Theater
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 52b18efbc3bfcc2a8d8f4a8b8c94020e
+    domain: media_player
+    entity_id: media_player.theater_roonberry
+    type: turned_on
+  condition: []
+  action:
+  - type: turn_on
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_listen_to_roon
+    domain: switch
+  mode: single
+- id: '1627081584215'
+  alias: Turn on mcRack when Roon plays
+  description: ''
+  trigger:
+  - platform: device
+    device_id: dd73ebe3c390d6beffb825ee27773501
+    domain: media_player
+    entity_id: media_player.mcrack
+    type: playing
+  condition: []
+  action:
+  - type: turn_on
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_manage_mediacenter
+    domain: switch
+  mode: single
+- id: '1627081645075'
+  alias: Turn off stereo when mcrack stops playing
+  description: ''
+  trigger:
+  - platform: device
+    device_id: dd73ebe3c390d6beffb825ee27773501
+    domain: media_player
+    entity_id: media_player.mcrack
+    type: turned_off
+  condition: []
+  action:
+  - type: turn_off
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_manage_mediacenter
+    domain: switch
+  mode: single
+- id: '1627081929300'
+  alias: Turn off Stereo when Roon Stops playing
+  description: Auto off in Family Room
+  trigger:
+  - platform: device
+    device_id: df15dcd28b7a749101bec9812d91292f
+    domain: media_player
+    entity_id: media_player.family_room_stereo
+    type: turned_off
+  condition: []
+  action:
+  - service: media_player.turn_off
+    target:
+      entity_id: media_player.family_room_main
+  mode: single
