@@ -2,7 +2,7 @@ title: Server
 views:
   - path: default_view
     title: Server Status
-    panel: true
+    #panel: true
     icon: 'mdi:server'
     cards:
       type: vertical-stack

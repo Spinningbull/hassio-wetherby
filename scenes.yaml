@@ -1,281 +1,3 @@
-- id: '1614661501471'
-  name: watching movies
-  entities:
-    climate.game_room:
-      hvac_modes:
-      - heat_cool
-      - heat
-      - cool
-      - 'off'
-      min_temp: 45
-      max_temp: 95
-      fan_modes:
-      - auto
-      - 'on'
-      preset_modes:
-      - Home
-      - Away
-      - Sleep
-      - Movie time
-      current_temperature: 70
-      temperature:
-      target_temp_high: 77
-      target_temp_low: 72
-      current_humidity: 40
-      fan_mode: auto
-      hvac_action: heating
-      preset_mode: temp
-      aux_heat: 'on'
-      fan: 'on'
-      climate_mode: Home
-      equipment_running: auxHeat1,fan
-      fan_min_on_time: 0
-      friendly_name: Game Room
-      supported_features: 91
-      state: heat_cool
-    light.theater_lights_2:
-      friendly_name: theater lights
-      supported_features: 33
-      state: 'off'
-    remote.hayfamily:
-      activity_starting:
-      current_activity: Watch Shield
-      activity_list:
-      - Manage MediaCenter
-      - Listen to Music on Oppo
-      - Listen to plex
-      - Play PS4
-      - Watch TV
-      - Watch Shield
-      - Listen to Roon
-      devices_list:
-      - LG TV
-      - Flirc Media Player
-      - Oppo DVD
-      - Intel Media Player
-      - NVIDIA Game Console
-      - Media Center
-      - Sony PS4
-      - Xfinity DVR
-      - Yamaha AV Receiver
-      last_activity: Watch Shield
-      friendly_name: Hayfamily
-      supported_features: 0
-      state: 'on'
-    switch.hayfamily_manage_mediacenter:
-      friendly_name: Hayfamily Manage MediaCenter
-      state: 'off'
-    switch.hayfamily_listen_to_music_on_oppo:
-      friendly_name: Hayfamily Listen to Music on Oppo
-      state: 'off'
-    switch.hayfamily_listen_to_plex:
-      friendly_name: Hayfamily Listen to plex
-      state: 'off'
-    switch.hayfamily_play_ps4:
-      friendly_name: Hayfamily Play PS4
-      state: 'off'
-    switch.hayfamily_watch_tv:
-      friendly_name: Hayfamily Watch TV
-      state: 'off'
-    switch.hayfamily_watch_shield:
-      friendly_name: Hayfamily Watch Shield
-      state: 'on'
-    switch.hayfamily_listen_to_roon:
-      friendly_name: Hayfamily Listen to Roon
-      state: 'off'
-  icon: mdi:movie
-- id: '1614661503535'
-  name: watching movies
-  entities:
-    climate.game_room:
-      hvac_modes:
-      - heat_cool
-      - heat
-      - cool
-      - 'off'
-      min_temp: 45
-      max_temp: 95
-      fan_modes:
-      - auto
-      - 'on'
-      preset_modes:
-      - Home
-      - Away
-      - Sleep
-      - Movie time
-      current_temperature: 70
-      temperature:
-      target_temp_high: 77
-      target_temp_low: 72
-      current_humidity: 40
-      fan_mode: auto
-      hvac_action: heating
-      preset_mode: temp
-      aux_heat: 'on'
-      fan: 'on'
-      climate_mode: Home
-      equipment_running: auxHeat1,fan
-      fan_min_on_time: 0
-      friendly_name: Game Room
-      supported_features: 91
-      state: heat_cool
-    light.theater_lights_2:
-      friendly_name: theater lights
-      supported_features: 33
-      state: 'off'
-    remote.hayfamily:
-      activity_starting:
-      current_activity: Watch Shield
-      activity_list:
-      - Manage MediaCenter
-      - Listen to Music on Oppo
-      - Listen to plex
-      - Play PS4
-      - Watch TV
-      - Watch Shield
-      - Listen to Roon
-      devices_list:
-      - LG TV
-      - Flirc Media Player
-      - Oppo DVD
-      - Intel Media Player
-      - NVIDIA Game Console
-      - Media Center
-      - Sony PS4
-      - Xfinity DVR
-      - Yamaha AV Receiver
-      last_activity: Watch Shield
-      friendly_name: Hayfamily
-      supported_features: 0
-      state: 'on'
-    switch.hayfamily_manage_mediacenter:
-      friendly_name: Hayfamily Manage MediaCenter
-      state: 'off'
-    switch.hayfamily_listen_to_music_on_oppo:
-      friendly_name: Hayfamily Listen to Music on Oppo
-      state: 'off'
-    switch.hayfamily_listen_to_plex:
-      friendly_name: Hayfamily Listen to plex
-      state: 'off'
-    switch.hayfamily_play_ps4:
-      friendly_name: Hayfamily Play PS4
-      state: 'off'
-    switch.hayfamily_watch_tv:
-      friendly_name: Hayfamily Watch TV
-      state: 'off'
-    switch.hayfamily_watch_shield:
-      friendly_name: Hayfamily Watch Shield
-      state: 'on'
-    switch.hayfamily_listen_to_roon:
-      friendly_name: Hayfamily Listen to Roon
-      state: 'off'
-  icon: mdi:movie
-- id: '1616804327390'
-  name: 'harley bedtime '
-  entities:
-    media_player.family_room_roonberry:
-      volume_level: 1
-      is_volume_muted: false
-      media_duration: 279
-      media_position: 0
-      media_position_updated_at: '2021-04-24T00:11:42.088118+00:00'
-      media_title: 'Violin Concerto, for violin, strings & continuo in E major ("La
-        Primavera," The Four Seasons; "Il cimento" No. 1), Op.8/1, RV 269: Allegro'
-      media_artist: Alan Loveday [Violin], Academy of St. Martin in the Fields Orchestra
-        / Neville Marriner / Academy of St. Martin in the Fields / Antonio Vivaldi
-      media_album_name: 'Vivaldi: The Four Seasons'
-      media_album_artist: Alan Loveday [Violin], Academy of St. Martin in the Fields
-        Orchestra / Neville Marriner / Academy of St. Martin in the Fields / Antonio
-        Vivaldi
-      shuffle: true
-      friendly_name: Family Room - RoonBerry
-      entity_picture: /api/media_player_proxy/media_player.family_room_roonberry?token=e2660b438c99d0c8370d8bcbd7582687b1cf351a6804ef7dda118d1cb9506255&cache=959bd0096386b759
-      supported_features: 186303
-      state: playing
-    media_player.family_room_main:
-      source_list:
-      - airplay
-      - alexa
-      - amazon_music
-      - audio1
-      - audio2
-      - audio3
-      - audio4
-      - audio5
-      - aux
-      - av1
-      - av2
-      - bluetooth
-      - deezer
-      - hdmi1
-      - hdmi2
-      - hdmi3
-      - hdmi4
-      - hdmi5
-      - mc_link
-      - napster
-      - net_radio
-      - pandora
-      - phono
-      - qobuz
-      - server
-      - siriusxm
-      - spotify
-      - tidal
-      - tuner
-      - usb
-      volume_level: 0.5527950310559007
-      is_volume_muted: false
-      media_content_type: music
-      source: mc_link
-      musiccast_yamaha_group:
-      - media_player.family_room_main
-      friendly_name: Family Room (main)
-      supported_features: 22973
-      state: 'on'
-    media_player.patio_main:
-      source_list:
-      - airplay
-      - alexa
-      - amazon_music
-      - aux
-      - deezer
-      - mc_link
-      - napster
-      - net_radio
-      - pandora
-      - qobuz
-      - server
-      - siriusxm
-      - spotify
-      - tidal
-      - usb
-      volume_level: 0.5403726708074534
-      is_volume_muted: false
-      media_content_type: music
-      media_duration: 0
-      media_position_updated_at: '2021-04-24T00:03:56.585446+00:00'
-      media_title: ''
-      media_artist: ''
-      media_track: ''
-      source: aux
-      musiccast_yamaha_group:
-      - media_player.patio_main
-      - media_player.family_room_main
-      friendly_name: Patio (main)
-      entity_picture: /api/media_player_proxy/media_player.patio_main?token=7100d5722dce1e856bf4fb499eadf92d62af85beacdb78f6070b1a68ea981518&cache=c8f67b6099bc5706
-      supported_features: 22973
-      state: 'on'
-    media_player.family_room_tv:
-      volume_level: 0.14
-      is_volume_muted: false
-      media_duration: 0
-      media_position: 0
-      shuffle: false
-      friendly_name: Family Room TV
-      supported_features: 186303
-      state: idle
-  icon: mdi:speaker
 - id: '1618709768953'
   name: night time
   entities:
@@ -342,3 +64,287 @@
       friendly_name: Garage Soffits
       state: 'off'
   icon: mdi:moon
+- id: '1626916865103'
+  name: Harley Sleep Scene
+  entities:
+    media_player.family_room_stereo:
+      volume_level: 0
+      is_volume_muted: false
+      media_duration: 644
+      media_position: 188
+      media_position_updated_at: '2021-07-23T22:58:17.712282+00:00'
+      media_title: 'Concerto, Op. 20 in F sharp minor for Piano and Orchestra: Allegro
+        moderato - Meno - Molto meno mosso - Maestoso - Meno - Più mosso'
+      media_artist: Royal Scottish National Orchestra / Peter Oundjian / Alexander
+        Scriabin
+      media_album_name: 'Tchaikovsky: Piano Concertos Nos. 1 & 3 - Scriabin: Piano
+        Concerto, Op. 20'
+      media_album_artist: Royal Scottish National Orchestra / Peter Oundjian / Alexander
+        Scriabin
+      shuffle: true
+      group_members: []
+      friendly_name: Family Room - Stereo
+      entity_picture: /api/media_player_proxy/media_player.family_room_stereo?token=66d302c9d1c261f2c91e54d484a33cee2d90364182623c3d9d1dce28d5b376b2&cache=16fa2b309f6f3c61
+      supported_features: 710591
+      state: playing
+    media_player.family_room_main:
+      source_list:
+      - airplay
+      - alexa
+      - amazon_music
+      - audio1
+      - audio2
+      - audio3
+      - audio4
+      - audio5
+      - aux
+      - av1
+      - av2
+      - bluetooth
+      - deezer
+      - hdmi1
+      - hdmi2
+      - hdmi3
+      - hdmi4
+      - hdmi5
+      - mc_link
+      - napster
+      - net_radio
+      - pandora
+      - phono
+      - qobuz
+      - server
+      - siriusxm
+      - spotify
+      - tidal
+      - tuner
+      - usb
+      volume_level: 0.4968944099378882
+      is_volume_muted: false
+      media_content_type: music
+      source: alexa
+      musiccast_yamaha_group:
+      - media_player.family_room_main
+      friendly_name: Family Room (main)
+      supported_features: 22973
+      icon: mdi:speaker
+      state: 'on'
+  icon: mdi:speaker
+- id: '1626917680405'
+  name: Theater - Roon
+  entities:
+    media_player.home_theater_room_main:
+      source_list:
+      - airplay
+      - audio1
+      - audio2
+      - audio3
+      - audio4
+      - av1
+      - av2
+      - av3
+      - av4
+      - av5
+      - av6
+      - av7
+      - bluetooth
+      - deezer
+      - mc_link
+      - napster
+      - net_radio
+      - pandora
+      - phono
+      - server
+      - siriusxm
+      - spotify
+      - tidal
+      - tuner
+      - usb
+      - v_aux
+      musiccast_yamaha_group:
+      - media_player.home_theater_room_main
+      friendly_name: Home Theater Room (main)
+      supported_features: 22973
+      state: 'off'
+  icon: mdi:speaker
+- id: '1626918562087'
+  name: Theater Plex On Scene
+  entities:
+    remote.theater_remote:
+      activity_list:
+      - Manage MediaCenter
+      - Listen to Music on Oppo
+      - Play PS4
+      - Listen to Roon
+      - Watch Shield
+      - Watch Blu-Ray Movie
+      current_activity: Watch Shield
+      activity_starting:
+      devices_list:
+      - LG TV
+      - Intel Media Player
+      - Yamaha AV Receiver
+      - Media Center
+      - Sony PS4
+      - Flirc Media Player
+      - Oppo DVD
+      - NVIDIA Game Console
+      last_activity: Watch Shield
+      friendly_name: Theater Remote
+      supported_features: 4
+      state: 'on'
+    switch.theater_remote_manage_mediacenter:
+      friendly_name: Theater Remote Manage MediaCenter
+      state: 'off'
+    switch.theater_remote_listen_to_music_on_oppo:
+      friendly_name: Theater Remote Listen to Music on Oppo
+      state: 'off'
+    switch.theater_remote_listen_to_plex:
+      restored: true
+      supported_features: 0
+      friendly_name: Theater Remote Listen to plex
+      state: unavailable
+    switch.theater_remote_play_ps4:
+      friendly_name: Theater Remote Play PS4
+      state: 'off'
+    switch.theater_remote_watch_tv:
+      restored: true
+      supported_features: 0
+      friendly_name: Theater Remote Watch TV
+      state: unavailable
+    switch.theater_remote_watch_shield:
+      friendly_name: Theater Remote Watch Shield
+      state: 'on'
+    switch.theater_remote_listen_to_roon:
+      friendly_name: Theater Remote Listen to Roon
+      state: 'off'
+    switch.theater_remote_watch_blu_ray_movie:
+      friendly_name: Theater Remote Watch Blu-Ray Movie
+      state: 'off'
+    media_player.home_theater_room_main:
+      source_list:
+      - airplay
+      - audio1
+      - audio2
+      - audio3
+      - audio4
+      - av1
+      - av2
+      - av3
+      - av4
+      - av5
+      - av6
+      - av7
+      - bluetooth
+      - deezer
+      - mc_link
+      - napster
+      - net_radio
+      - pandora
+      - phono
+      - server
+      - siriusxm
+      - spotify
+      - tidal
+      - tuner
+      - usb
+      - v_aux
+      volume_level: 0.7391304347826086
+      is_volume_muted: false
+      media_content_type: music
+      source: av3
+      musiccast_yamaha_group:
+      - media_player.home_theater_room_main
+      friendly_name: Home Theater Room (main)
+      supported_features: 22973
+      state: 'on'
+    media_player.theater_shield:
+      source_list:
+      - com.android.systemui
+      - com.nvidia.blakepairing
+      - com.dolby.android.audio.service
+      - com.nvidia.shieldtech.accessoryui
+      - com.nvidia.shield.remote.server
+      - com.nvidia.osc
+      - com.nvidia.app.messaging
+      - com.foxsports.android
+      - Play Store
+      - com.google.process.gservices
+      - com.google.android.gms
+      - com.google.process.gapps
+      - com.plexapp.mediaserver.smb
+      - com.nvidia.tegrazone3:PersonalGridService
+      - com.nvidia.tegrazone3:telemetry
+      - com.google.android.leanback.ime
+      - Google Cast
+      - com.android.providers.tv
+      - com.hbo.hbonow
+      - com.hulu.livingroomplus
+      - com.google.android.videos
+      - android.process.acore
+      - Live Channels
+      - com.google.android.tv:common
+      - com.google.android.gms.unstable
+      - com.nvidia.tegrazone3
+      - com.google.android.tvrecommendations
+      - com.google.android.gms.persistent
+      - com.google.android.tv.remote.service
+      - com.google.android.katniss:interactor
+      - com.plexapp.android.nightlyalpha
+      - com.google.android.apps.mediashell:privileged_process0
+      - com.nvidia.shield.ask
+      - com.google.android.katniss:search
+      - Android TV Launcher
+      is_volume_muted: false
+      app_id: com.plexapp.android.nightlyalpha
+      app_name: com.plexapp.android.nightlyalpha
+      source: com.plexapp.android.nightlyalpha
+      adb_response:
+      hdmi_input:
+      friendly_name: Theater Shield
+      icon: mdi:set-top-box
+      entity_picture: /api/media_player_proxy/media_player.theater_shield?token=3f5ff45274a8b0f8206b8e7995c0c7fe8eeef5616119892f9ff0cbbe8614bd71&cache=1626924609.274077
+      supported_features: 23997
+      state: paused
+  icon: hass:plex
+- id: '1627075641208'
+  name: Roon - Office
+  entities:
+    media_player.office_roonberry:
+      volume_level: 0
+      is_volume_muted: false
+      media_duration: 278
+      media_position: 178
+      media_title: Carry On
+      media_artist: Fun.
+      media_album_name: Some Nights
+      media_album_artist: Fun.
+      shuffle: false
+      group_members: []
+      friendly_name: Office - RoonBerry
+      icon: mdi:speaker
+      entity_picture: /api/media_player_proxy/media_player.office_roonberry?token=1c86a97445f9fdcbe6155526162b2d1c3724955308738d44500b696a1b6e04e1&cache=3c3d1902bebdf215
+      supported_features: 710591
+      state: paused
+    media_player.office_main:
+      source_list:
+      - airplay
+      - aux
+      - bluetooth
+      - deezer
+      - mc_link
+      - napster
+      - net_radio
+      - optical
+      - pandora
+      - server
+      - siriusxm
+      - spotify
+      - tidal
+      - usb
+      musiccast_yamaha_group:
+      - media_player.office_main
+      friendly_name: Office (main)
+      supported_features: 22973
+      state: 'off'
+  icon: hass:speaker

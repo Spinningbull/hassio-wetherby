@@ -1,0 +1,8 @@
+.cloud/*
+.storage/*
+home-assistant.log
+home-assistant_v2.db*
+.HA_VERSION
+www/upcoming-media-card-images/*
+home-assistant_v2.db-shm
+home-assistant_v2.db-wal
