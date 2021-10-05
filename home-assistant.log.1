@@ -1,0 +1,177 @@
+2021-09-20 13:22:00 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration musiccast_yamaha which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:00 WARNING (SyncWorker_1) [homeassistant.loader] We found a custom integration sonarr_upcoming_media which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:00 WARNING (SyncWorker_2) [homeassistant.loader] We found a custom integration simpleicons which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:00 WARNING (SyncWorker_3) [homeassistant.loader] We found a custom integration fontawesome which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:00 WARNING (SyncWorker_1) [homeassistant.loader] We found a custom integration radarr_upcoming_media which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:00 WARNING (SyncWorker_4) [homeassistant.loader] We found a custom integration hifiberry which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:00 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration alexa_media which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:00 WARNING (SyncWorker_5) [homeassistant.loader] We found a custom integration nodered which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:00 WARNING (SyncWorker_6) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:00 WARNING (SyncWorker_3) [homeassistant.loader] We found a custom integration plex_recently_added which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-09-20 13:22:05 ERROR (MainThread) [homeassistant.components.sensor] The nut platform for the sensor integration does not support platform setup. Please remove it from your config.
+2021-09-20 13:22:11 INFO (MainThread) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:22:11 INFO (Thread-3) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:22:11 WARNING (Thread-3) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:22:13 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:22:16 WARNING (MainThread) [homeassistant.components.sensor] Setup of sensor platform radarr_upcoming_media is taking over 10 seconds.
+2021-09-20 13:22:16 WARNING (MainThread) [homeassistant.components.sensor] Setup of sensor platform sonarr_upcoming_media is taking over 10 seconds.
+2021-09-20 13:22:16 WARNING (MainThread) [homeassistant.components.sensor] Setup of sensor platform plex_recently_added is taking over 10 seconds.
+2021-09-20 13:22:17 ERROR (MainThread) [glances_api] Can not load data from Glances API
+2021-09-20 13:22:17 WARNING (MainThread) [homeassistant.config_entries] Config entry 'Glances' for glances integration not ready yet; Retrying in background
+2021-09-20 13:22:20 ERROR (SyncWorker_5) [custom_components.musiccast_yamaha.media_player] HTTPConnectionPool(host='192.168.7.100', port=80): Max retries exceeded with url: /YamahaExtendedControl/v1/system/getNetworkStatus (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f9b3873d0>: Failed to establish a new connection: [Errno 113] Host is unreachable'))
+2021-09-20 13:22:20 ERROR (SyncWorker_12) [custom_components.musiccast_yamaha.media_player] HTTPConnectionPool(host='192.168.7.108', port=80): Max retries exceeded with url: /YamahaExtendedControl/v1/system/getNetworkStatus (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f9b4dc3a0>: Failed to establish a new connection: [Errno 113] Host is unreachable'))
+2021-09-20 13:22:21 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-09-20 13:22:21 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-09-20 13:22:21 WARNING (MainThread) [homeassistant.config_entries] Config entry 'Roku Player' for roku integration not ready yet: Invalid response from API: Error occurred while communicating with device; Retrying in background
+2021-09-20 13:22:21 WARNING (MainThread) [homeassistant.config_entries] Config entry '43" TCL Roku TV' for roku integration not ready yet: Invalid response from API: Error occurred while communicating with device; Retrying in background
+2021-09-20 13:22:21 ERROR (MainThread) [snitun.client.client_peer] Challenge/Response error with SniTun server
+2021-09-20 13:22:21 ERROR (MainThread) [hass_nabucasa.remote] Connection problem to snitun server
+2021-09-20 13:22:21 WARNING (MainThread) [homeassistant.components.media_player] Platform androidtv not ready yet: None; Retrying in background in 30 seconds
+2021-09-20 13:22:22 WARNING (MainThread) [homeassistant.config_entries] Config entry 'ZenWiFi_XT8-A950' for upnp integration not ready yet: None; Retrying in background
+2021-09-20 13:22:22 WARNING (MainThread) [homeassistant.config_entries] Config entry 'EquiptmentRoom' for upnp integration not ready yet: None; Retrying in background
+2021-09-20 13:22:23 ERROR (MainThread) [homeassistant.components.media_player] musiccast_yamaha: Error on device update!
+Traceback (most recent call last):
+  File "/usr/src/homeassistant/homeassistant/helpers/entity_platform.py", line 431, in _async_add_entity
+    await entity.async_device_update(warning=False)
+  File "/usr/src/homeassistant/homeassistant/helpers/entity.py", line 646, in async_device_update
+    await task
+  File "/usr/local/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/config/custom_components/musiccast_yamaha/media_player.py", line 306, in update
+    self.refresh_group()
+  File "/config/custom_components/musiccast_yamaha/media_player.py", line 378, in refresh_group
+    client_entities = [e for e in entities
+  File "/config/custom_components/musiccast_yamaha/media_player.py", line 379, in <listcomp>
+    if e.ip_address in self._zone.group_clients]
+  File "/config/custom_components/musiccast_yamaha/pymusiccast.py", line 103, in group_clients
+    if not self.group_is_server:
+  File "/config/custom_components/musiccast_yamaha/pymusiccast.py", line 97, in group_is_server
+    return self._distribution_info.get('role') == 'server' and \
+AttributeError: 'NoneType' object has no attribute 'get'
+2021-09-20 13:22:23 WARNING (MainThread) [homeassistant.components.media_player] Setup of media_player platform androidtv is taking over 10 seconds.
+2021-09-20 13:22:28 ERROR (MainThread) [aioharmony.hubconnector_websocket] 192.168.7.243: Connection timed out for hub 17366417
+2021-09-20 13:22:28 WARNING (MainThread) [homeassistant.components.harmony.data] Family Room: Unable to connect to HUB
+2021-09-20 13:22:28 WARNING (MainThread) [homeassistant.config_entries] Config entry 'Family Room' for harmony integration not ready yet: None; Retrying in background
+2021-09-20 13:22:28 WARNING (MainThread) [homeassistant.config_entries] Config entry '192.168.7.133' for yamaha_musiccast integration not ready yet; Retrying in background
+2021-09-20 13:22:32 WARNING (MainThread) [homeassistant.helpers.entity] Update of camera.front_door is taking over 10 seconds
+2021-09-20 13:22:35 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:22:35 INFO (Thread-20) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:22:35 WARNING (Thread-20) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:22:37 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:22:45 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-09-20 13:22:45 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-09-20 13:22:58 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:22:58 INFO (Thread-22) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:22:58 WARNING (Thread-22) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:22:59 ERROR (SyncWorker_8) [homeassistant] Error doing job: Unclosed client session
+2021-09-20 13:23:00 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:23:21 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:23:21 INFO (Thread-23) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:23:21 WARNING (Thread-23) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:23:23 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:23:44 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:23:44 INFO (Thread-24) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:23:44 WARNING (Thread-24) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:23:46 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:23:46 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-09-20 13:23:46 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-09-20 13:24:07 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:24:07 INFO (Thread-25) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:24:07 WARNING (Thread-25) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:24:09 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:24:30 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:24:30 INFO (Thread-26) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:24:30 WARNING (Thread-26) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:24:32 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:24:53 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:24:53 INFO (Thread-27) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:24:53 WARNING (Thread-27) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:24:55 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:25:16 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:25:16 INFO (Thread-28) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:25:16 WARNING (Thread-28) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:25:17 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-09-20 13:25:17 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-09-20 13:25:18 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:25:39 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:25:39 INFO (Thread-29) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:25:39 WARNING (Thread-29) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:25:41 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:26:02 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:26:02 INFO (Thread-30) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:26:02 WARNING (Thread-30) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:26:04 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:26:25 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:26:25 INFO (Thread-31) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:26:25 WARNING (Thread-31) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:26:27 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:26:32 WARNING (MainThread) [homeassistant.helpers.entity] Update of camera.front_door is taking over 10 seconds
+2021-09-20 13:26:48 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:26:48 INFO (Thread-32) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:26:48 WARNING (Thread-32) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:26:50 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:27:11 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:27:11 INFO (Thread-33) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:27:11 WARNING (Thread-33) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:27:13 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:27:18 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-09-20 13:27:18 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-09-20 13:27:34 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:27:34 INFO (Thread-34) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:27:34 WARNING (Thread-34) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:27:36 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:27:57 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:27:57 INFO (Thread-35) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:27:57 WARNING (Thread-35) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:27:59 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:28:20 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:28:20 INFO (Thread-36) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:28:20 WARNING (Thread-36) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:28:22 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:28:43 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:28:43 INFO (Thread-37) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:28:43 WARNING (Thread-37) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:28:45 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:29:06 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:29:06 INFO (Thread-38) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:29:06 WARNING (Thread-38) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:29:08 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:29:29 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:29:29 INFO (Thread-39) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:29:29 WARNING (Thread-39) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:29:31 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:29:49 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-09-20 13:29:49 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-09-20 13:29:52 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:29:52 INFO (Thread-40) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:29:52 WARNING (Thread-40) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:29:54 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:30:15 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:30:21 INFO (Thread-41) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:30:21 WARNING (Thread-41) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:30:23 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:30:44 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:30:44 INFO (Thread-51) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:30:44 WARNING (Thread-51) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:30:46 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:31:07 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:31:07 INFO (Thread-52) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:31:07 WARNING (Thread-52) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:31:09 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:31:30 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:31:30 INFO (Thread-53) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:31:30 WARNING (Thread-53) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:31:32 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:31:53 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:31:53 INFO (Thread-54) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:31:53 WARNING (Thread-54) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:31:55 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:32:16 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:32:16 INFO (Thread-55) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:32:16 WARNING (Thread-55) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:32:18 WARNING (Thread-4) [roonapi] Socket connection lost! Will try to reconnect in 20s
+2021-09-20 13:32:39 INFO (Thread-4) [roonapi] Connecting to Roon server 192.168.7.97:9100
+2021-09-20 13:32:39 INFO (Thread-56) [roonapi] on_error [Errno 111] Connection refused
+2021-09-20 13:32:39 WARNING (Thread-56) [roonapi] Session unexpectedly disconnected!
+2021-09-20 13:32:40 ERROR (MainThread) [homeassistant.components.hassio.handler] Client error on /core/update request Server disconnected
+2021-09-20 13:32:40 ERROR (MainThread) [homeassistant.components.hassio] Failed to to call /core/update - 
