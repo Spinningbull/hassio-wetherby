@@ -107,7 +107,7 @@
   description: ''
   trigger:
   - platform: device
-    device_id: 1ab36720b909e607be84de59e1360851
+    device_id: eb407f8314ed005bf11f3aaa09cbdc8c
     domain: media_player
     entity_id: media_player.office_roonberry
     type: playing
@@ -183,36 +183,6 @@
     entity_id: switch.theater_ambient
     domain: switch
   mode: single
-- id: '1618778129249'
-  alias: lights on when plex off
-  description: ''
-  trigger:
-  - platform: device
-    device_id: b98ccd3b931bd8464397902820797d40
-    domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv
-    type: turned_off
-  condition: []
-  action:
-  - type: turn_on
-    device_id: f12a835a0faa13cb4826f7d38223a344
-    entity_id: light.theater_lights_2
-    domain: light
-    brightness_pct: 100
-  mode: single
-- id: '1619223291273'
-  alias: link patio and family room when harley bedtime is activ
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: scene.listen_to_roon
-    to: active
-  condition: []
-  action:
-  - service: musiccast_yamaha.join
-    data:
-      entity_id: media_player.family_room_main
-  mode: single
 - id: '1626916974326'
   alias: Turn on Stereo when Roon starts playing
   description: ''
@@ -238,20 +208,6 @@
     target:
       entity_id: media_player.family_room_main
   mode: single
-- id: '1626917877642'
-  alias: 'Play Roon in Theater '
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 52b18efbc3bfcc2a8d8f4a8b8c94020e
-    domain: media_player
-    entity_id: media_player.theater_roonberry
-    type: playing
-    id: roon-start-theater
-  condition: []
-  action:
-  - scene: scene.theater_roon
-  mode: single
 - id: '1626917945474'
   alias: Turn Stereo Off when done
   description: Exit theater roonberry activity
@@ -274,11 +230,16 @@
   description: ''
   trigger:
   - platform: device
-    device_id: 52b18efbc3bfcc2a8d8f4a8b8c94020e
+    device_id: 14b1a9a958af9876e0dc5087c0940622
     domain: media_player
     entity_id: media_player.theater_roonberry
-    type: turned_on
-  condition: []
+    type: playing
+  condition:
+  - condition: device
+    type: is_off
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_play_ps4
+    domain: switch
   action:
   - type: turn_on
     device_id: ba50c7a4ef3fb16920ace270971155f2
@@ -322,13 +283,13 @@
   description: Auto off in Family Room
   trigger:
   - platform: device
-    device_id: df15dcd28b7a749101bec9812d91292f
+    device_id: 0c8c91866a03868d5f7b465cb3b58bc6
     domain: media_player
-    entity_id: media_player.family_room_stereo
+    entity_id: media_player.family_room_roonberry
     type: idle
     for:
       hours: 0
-      minutes: 10
+      minutes: 20
       seconds: 0
       milliseconds: 0
   condition: []
@@ -356,4 +317,135 @@
       source: aux
     target:
       entity_id: media_player.patio_2
+  mode: single
+- id: '1638196268480'
+  alias: turn off armstrong and getty
+  description: ''
+  trigger:
+  - platform: time
+    at: '11:05:00'
+  condition:
+  - condition: device
+    device_id: 3c0d248ed4c6e384bca97d06b9c40f00
+    domain: media_player
+    entity_id: media_player.family_musiccast_2
+    type: is_playing
+  action:
+  - service: media_player.unjoin
+    target:
+      entity_id:
+      - media_player.patio_musiccast_2
+      - media_player.family_musiccast_2
+      - media_player.office_musiccast_2
+  - service: media_player.turn_off
+    target:
+      entity_id:
+      - media_player.patio_musiccast_2
+      - media_player.office_musiccast_2
+      - media_player.family_musiccast_2
+  mode: single
+- id: '1638197847338'
+  alias: turn on armstrong and getty
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:45:00
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    after: 07:30:00
+    before: '11:30:00'
+  action:
+  - scene: scene.armstrong_and_getty
+  - service: media_player.join
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+    data:
+      group_members:
+      - media_player.office_musiccast_2
+      - media_player.patio_musiccast_2
+  mode: single
+- id: '1638202864296'
+  alias: Family Room - Roon Playing
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 0c8c91866a03868d5f7b465cb3b58bc6
+    domain: media_player
+    entity_id: media_player.family_room_roonberry
+    type: playing
+  condition: []
+  action:
+  - service: media_player.turn_on
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+  - service: media_player.select_source
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+    data:
+      source: audio3
+  mode: single
+- id: '1638202983992'
+  alias: Patio - Roon Playing
+  description: automatically turns stereo on when roon starts playing on patio
+  trigger:
+  - platform: device
+    device_id: 45b2a1d3380ebeba569ba225cea0688a
+    domain: media_player
+    entity_id: media_player.patio_roonberry
+    type: playing
+  condition: []
+  action:
+  - service: media_player.turn_on
+    target:
+      entity_id:
+      - media_player.patio_musiccast_2
+  - service: media_player.select_source
+    data:
+      source: AUX
+    target:
+      entity_id: media_player.patio_musiccast_2
+  mode: single
+- id: '1638664013919'
+  alias: Harley Bedtime
+  description: automatically play classicial music on shuffle at 8:15p, shutting off
+    after 3 hours.
+  trigger:
+  - platform: time
+    at: '20:15:00'
+    id: trigger-bedtime
+  condition:
+  - condition: device
+    type: is_off
+    device_id: 66cb0fbdbab22d7a6f0532e78d5dcf28
+    entity_id: remote.family_room_remote
+    domain: remote
+  action:
+  - service: media_player.play_media
+    data:
+      media_content_type: playlist
+      media_content_id: Playlists/classical sleep
+    target:
+      entity_id: media_player.family_room_roonberry
+  - service: media_player.shuffle_set
+    target:
+      entity_id: media_player.family_room_roonberry
+    data:
+      shuffle: true
+  - delay:
+      hours: 3
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: media_player.media_stop
+    target:
+      entity_id: media_player.family_room_roonberry
   mode: single
