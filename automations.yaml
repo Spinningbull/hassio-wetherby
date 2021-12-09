@@ -59,24 +59,6 @@
     domain: light
     brightness_pct: 100
   mode: single
-- id: '1611526954610'
-  alias: lights on during standby
-  description: Bring lights up to 50% when media is paused on Shield
-  trigger:
-  - platform: state
-    entity_id: media_player.theater_shield
-    from: playing
-    to: standby
-  condition:
-  - condition: state
-    entity_id: light.theater_lights
-    state: 'off'
-  action:
-  - service: light.turn_on
-    data:
-      entity_id: light.theater_lights
-      brightness_pct: 50
-  mode: single
 - id: '1612398301259'
   alias: lights on during Standby
   description: Turn on Ambient light on Standby
@@ -97,10 +79,14 @@
   description: ''
   trigger:
   - platform: time
-    at: '22:00'
+    at: '22:00:00'
   condition: []
   action:
   - scene: scene.night_time
+  - service: hue.hue_activate_scene
+    data:
+      group_name: master
+      scene_name: nightlight
   mode: single
 - id: '1618764535146'
   alias: Roon in the Office
@@ -121,26 +107,6 @@
       entity_id: media_player.office_main
     data:
       source: optical
-  mode: single
-- id: '1618764646815'
-  alias: Roon on the Porch
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 13411f6cf292ea9c43287209aa355114
-    domain: media_player
-    entity_id: media_player.patio_roonberry
-    type: playing
-  condition: []
-  action:
-  - service: media_player.turn_on
-    target:
-      entity_id: media_player.patio_main
-  - service: media_player.select_source
-    data:
-      source: aux
-    target:
-      entity_id: media_player.patio_main
   mode: single
 - id: '1618778013049'
   alias: lights off on plex play
@@ -207,23 +173,6 @@
       volume_level: 0.45
     target:
       entity_id: media_player.family_room_main
-  mode: single
-- id: '1626917945474'
-  alias: Turn Stereo Off when done
-  description: Exit theater roonberry activity
-  trigger:
-  - platform: device
-    device_id: 52b18efbc3bfcc2a8d8f4a8b8c94020e
-    domain: media_player
-    entity_id: media_player.theater_roonberry
-    type: turned_off
-    id: roon-end-theater
-  condition: []
-  action:
-  - type: turn_off
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_listen_to_roon
-    domain: switch
   mode: single
 - id: '1626918072532'
   alias: Roon - Turn on Theater
@@ -361,7 +310,12 @@
     after: 07:30:00
     before: '11:30:00'
   action:
-  - scene: scene.armstrong_and_getty
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.family_room_roonberry
+    data:
+      media_content_type: channel
+      media_content_id: My Live Radio/KSFO 560
   - service: media_player.join
     target:
       entity_id:
@@ -370,6 +324,32 @@
       group_members:
       - media_player.office_musiccast_2
       - media_player.patio_musiccast_2
+  - service: hue.hue_activate_scene
+    data:
+      group_name: master
+      scene_name: daytime
+  - delay:
+      hours: 3
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  - service: media_player.unjoin
+    target:
+      entity_id:
+      - media_player.office_musiccast_2
+      - media_player.family_musiccast_2
+      - media_player.patio_musiccast_2
+  - service: media_player.media_stop
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+      - media_player.family_room_roonberry
+  - service: media_player.turn_off
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+      - media_player.patio_musiccast_2
+      - media_player.office_musiccast_2
   mode: single
 - id: '1638202864296'
   alias: Family Room - Roon Playing
@@ -426,9 +406,18 @@
   - condition: device
     type: is_off
     device_id: 66cb0fbdbab22d7a6f0532e78d5dcf28
-    entity_id: remote.family_room_remote
-    domain: remote
+    entity_id: switch.family_room_remote_watch_apple_tv
+    domain: switch
+  - condition: device
+    type: is_off
+    device_id: 66cb0fbdbab22d7a6f0532e78d5dcf28
+    entity_id: switch.family_room_remote_watch_smart_tv
+    domain: switch
   action:
+  - service: tts.cloud_say
+    data:
+      entity_id: media_player.family_musiccast_2
+      message: Harley, its bedtime
   - service: media_player.play_media
     data:
       media_content_type: playlist
@@ -448,4 +437,32 @@
   - service: media_player.media_stop
     target:
       entity_id: media_player.family_room_roonberry
+  mode: single
+- id: '1638932536437'
+  alias: someones in the family room
+  description: ''
+  trigger:
+  - type: occupied
+    platform: device
+    device_id: 3ce104022ae83294d3c1b605541a706f
+    entity_id: binary_sensor.family_room_occupancy
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  condition:
+  - condition: time
+    after: 02:00:00
+    before: 05:00:00
+  action:
+  - service: notify.mobile_app_todd_s_phone
+    data:
+      message: someone is in the family room
+      title: motion alert
+  - service: tts.google_translate_say
+    data:
+      entity_id: media_player.master_bedroom_2
+      message: 'Alert: someone is in the family room.'
   mode: single
