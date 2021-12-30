@@ -402,6 +402,11 @@
   - platform: time
     at: '20:15:00'
     id: trigger-bedtime
+  - platform: state
+    entity_id: input_boolean.harley_bed
+    id: trigger-switch
+    from: 'off'
+    to: 'on'
   condition:
   - condition: device
     type: is_off
@@ -414,14 +419,15 @@
     entity_id: switch.family_room_remote_watch_smart_tv
     domain: switch
   action:
-  - service: tts.cloud_say
-    data:
+  - service: media_player.select_source
+    target:
       entity_id: media_player.family_musiccast_2
-      message: Harley, its bedtime
+    data:
+      source: audio3
   - service: media_player.play_media
     data:
       media_content_type: playlist
-      media_content_id: Playlists/classical sleep
+      media_content_id: My Playlists/classical sleep
     target:
       entity_id: media_player.family_room_roonberry
   - service: media_player.shuffle_set
@@ -465,4 +471,53 @@
     data:
       entity_id: media_player.master_bedroom_2
       message: 'Alert: someone is in the family room.'
+  mode: single
+- id: '1640135044966'
+  alias: Play Music on Roonberry Downstairs
+  description: automation behind the play music switch
+  trigger:
+  - platform: state
+    entity_id: input_boolean.play_music
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: media_player.play_media
+    data:
+      media_content_id: Playlists/good music
+      media_content_type: playlist
+    target:
+      entity_id: media_player.family_room_roonberry
+  - service: media_player.shuffle_set
+    target:
+      entity_id: media_player.family_room_roonberry
+    data:
+      shuffle: true
+  - service: media_player.join
+    target:
+      entity_id: media_player.family_musiccast_2
+    data:
+      group_members:
+      - media_player.living_musiccast_2
+      - media_player.patio_musiccast_2
+  mode: single
+- id: '1640136000540'
+  alias: Stop Music on Roonberry Downstairs
+  description: automation behind the play music switch
+  trigger:
+  - platform: state
+    entity_id: input_boolean.play_music
+    to: 'off'
+    from: 'on'
+  condition: []
+  action:
+  - service: media_player.media_stop
+    target:
+      entity_id: media_player.family_room_roonberry
+  - service: media_player.unjoin
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+      - media_player.patio_musiccast_2
+      - media_player.living_musiccast_2
   mode: single
