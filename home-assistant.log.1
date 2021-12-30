@@ -1,68 +1,36 @@
-2021-12-21 07:38:52 WARNING (SyncWorker_1) [homeassistant.loader] We found a custom integration garmin_connect which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_2) [homeassistant.loader] We found a custom integration simpleicons which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration sonarr_upcoming_media which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_1) [homeassistant.loader] We found a custom integration alexa_media which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_3) [homeassistant.loader] We found a custom integration fontawesome which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_5) [homeassistant.loader] We found a custom integration hifiberry which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_6) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_4) [homeassistant.loader] We found a custom integration webhook_service which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration radarr_upcoming_media which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_2) [homeassistant.loader] We found a custom integration plex_recently_added which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:52 WARNING (SyncWorker_7) [homeassistant.loader] We found a custom integration nodered which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
-2021-12-21 07:38:57 WARNING (MainThread) [homeassistant.components.hassio] Can't read Supervisor data: Container addon_a0d7b954_glances is not running
-2021-12-21 07:38:57 ERROR (MainThread) [homeassistant.components.sensor] The nut platform for the sensor integration does not support platform setup. Please remove it from your config.
-2021-12-21 07:39:00 INFO (Thread-3) [roonapi] Connecting to Roon server 192.168.7.30:9330
-2021-12-21 07:39:00 INFO (Dummy-7) [roonapi] Connection with roon websockets (re)created.
-2021-12-21 07:39:00 INFO (Dummy-7) [roonapi] Confirming previous registration with Roon...
-2021-12-21 07:39:00 INFO (Thread-5) [roonapi] Registered to Roon server JollyRoger
-2021-12-21 07:39:06 WARNING (MainThread) [homeassistant.components.webhook] Received message for unregistered webhook 984e385929391f53b6b8ae7b137df7f370825ba6f71717d8e4677d84dc2b4cb2 from 192.168.7.165
-2021-12-21 07:39:07 WARNING (MainThread) [homeassistant.components.webhook] Received message for unregistered webhook 984e385929391f53b6b8ae7b137df7f370825ba6f71717d8e4677d84dc2b4cb2 from 192.168.7.165
-2021-12-21 07:39:09 WARNING (MainThread) [homeassistant.config_entries] Config entry 'Home' for accuweather integration not ready yet: The allowed number of requests has been exceeded; Retrying in background
-2021-12-21 07:39:09 ERROR (MainThread) [snitun.client.client_peer] Challenge/Response error with SniTun server (0 bytes read on a total of 32 expected bytes)
-2021-12-21 07:39:09 ERROR (MainThread) [hass_nabucasa.remote] Connection problem to snitun server
-2021-12-21 07:39:09 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
-2021-12-21 07:39:09 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
-2021-12-21 07:39:10 WARNING (MainThread) [homeassistant.components.media_player] Platform androidtv not ready yet: None; Retrying in background in 30 seconds
-2021-12-21 07:39:10 WARNING (MainThread) [homeassistant.config_entries] Config entry '43" TCL Roku TV' for roku integration not ready yet: Invalid response from API: Error occurred while communicating with device; Retrying in background
-2021-12-21 07:39:10 WARNING (MainThread) [homeassistant.config_entries] Config entry 'Roku Player' for roku integration not ready yet: Invalid response from API: Error occurred while communicating with device; Retrying in background
-2021-12-21 07:39:14 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
-Traceback (most recent call last):
-  File "/usr/src/homeassistant/homeassistant/components/alexa/state_report.py", line 190, in async_send_add_or_update_message
-    alexa_entity = ENTITY_ADAPTERS[domain](hass, config, hass.states.get(entity_id))
-  File "/usr/src/homeassistant/homeassistant/components/alexa/entities.py", line 263, in __init__
-    self.entity_conf = config.entity_config.get(entity.entity_id, {})
-AttributeError: 'NoneType' object has no attribute 'entity_id'
-2021-12-21 07:39:14 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
-Traceback (most recent call last):
-  File "/usr/src/homeassistant/homeassistant/components/alexa/state_report.py", line 190, in async_send_add_or_update_message
-    alexa_entity = ENTITY_ADAPTERS[domain](hass, config, hass.states.get(entity_id))
-  File "/usr/src/homeassistant/homeassistant/components/alexa/entities.py", line 263, in __init__
-    self.entity_conf = config.entity_config.get(entity.entity_id, {})
-AttributeError: 'NoneType' object has no attribute 'entity_id'
-2021-12-21 07:39:14 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
-Traceback (most recent call last):
-  File "/usr/src/homeassistant/homeassistant/components/alexa/state_report.py", line 190, in async_send_add_or_update_message
-    alexa_entity = ENTITY_ADAPTERS[domain](hass, config, hass.states.get(entity_id))
-  File "/usr/src/homeassistant/homeassistant/components/alexa/entities.py", line 263, in __init__
-    self.entity_conf = config.entity_config.get(entity.entity_id, {})
-AttributeError: 'NoneType' object has no attribute 'entity_id'
-2021-12-21 07:39:14 ERROR (MainThread) [homeassistant] Error doing job: Task exception was never retrieved
-Traceback (most recent call last):
-  File "/usr/src/homeassistant/homeassistant/components/alexa/state_report.py", line 190, in async_send_add_or_update_message
-    alexa_entity = ENTITY_ADAPTERS[domain](hass, config, hass.states.get(entity_id))
-  File "/usr/src/homeassistant/homeassistant/components/alexa/entities.py", line 263, in __init__
-    self.entity_conf = config.entity_config.get(entity.entity_id, {})
-AttributeError: 'NoneType' object has no attribute 'entity_id'
-2021-12-21 07:39:20 WARNING (MainThread) [homeassistant.config_entries] Config entry 'ZenWiFi_XT8-A950' for upnp integration not ready yet; Retrying in background
-2021-12-21 07:39:21 ERROR (Thread-13) [pychromecast.socket_client] [SHIELD(192.168.7.178):8009] Failed to connect to service ServiceInfo(type='mdns', data='SHIELD-Android-TV-f9f6a18c6b73c526f6480e84dfe1cc82._googlecast._tcp.local.'), retrying in 5.0s
-2021-12-21 07:39:24 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
-2021-12-21 07:39:24 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
-2021-12-21 07:40:25 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
-2021-12-21 07:40:25 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
-2021-12-21 07:41:56 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
-2021-12-21 07:41:56 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
-2021-12-21 07:43:57 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
-2021-12-21 07:43:57 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
-2021-12-21 07:46:10 ERROR (Thread-13) [pychromecast.socket_client] [SHIELD(192.168.7.178):8009] Failed to connect. No retries.
-2021-12-21 07:46:17 ERROR (MainThread) [homeassistant.components.hassio.handler] Client error on /core/update request Server disconnected
-2021-12-21 07:46:17 ERROR (MainThread) [homeassistant.components.hassio] Failed to to call /core/update - 
+2021-12-30 12:25:33 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration garmin_connect which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_1) [homeassistant.loader] We found a custom integration sonarr_upcoming_media which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_3) [homeassistant.loader] We found a custom integration fontawesome which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_2) [homeassistant.loader] We found a custom integration simpleicons which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_0) [homeassistant.loader] We found a custom integration webhook_service which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_1) [homeassistant.loader] We found a custom integration hifiberry which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_2) [homeassistant.loader] We found a custom integration alexa_media which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_1) [homeassistant.loader] We found a custom integration nodered which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_4) [homeassistant.loader] We found a custom integration plex_recently_added which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_5) [homeassistant.loader] We found a custom integration radarr_upcoming_media which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:33 WARNING (SyncWorker_3) [homeassistant.loader] We found a custom integration hacs which has not been tested by Home Assistant. This component might cause stability problems, be sure to disable it if you experience issues with Home Assistant
+2021-12-30 12:25:39 INFO (Thread-3) [roonapi] Connecting to Roon server 192.168.7.30:9330
+2021-12-30 12:25:39 INFO (Dummy-7) [roonapi] Connection with roon websockets (re)created.
+2021-12-30 12:25:39 INFO (Dummy-7) [roonapi] Confirming previous registration with Roon...
+2021-12-30 12:25:39 INFO (Thread-5) [roonapi] Registered to Roon server JollyRoger
+2021-12-30 12:25:43 ERROR (MainThread) [homeassistant.components.sensor] The nut platform for the sensor integration does not support platform setup. Please remove it from your config.
+2021-12-30 12:25:44 WARNING (MainThread) [homeassistant.helpers.frame] Detected integration that called async_timeout.timeout with loop keyword argument. The loop keyword argument is deprecated and calls will fail after Home Assistant 2022.2. Please report issue for sabnzbd using this method at homeassistant/components/sabnzbd/__init__.py, line 167: await sab_api.check_available()
+2021-12-30 12:25:46 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-12-30 12:25:46 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-12-30 12:25:46 WARNING (MainThread) [homeassistant.components.media_player] Platform androidtv not ready yet: None; Retrying in background in 30 seconds
+2021-12-30 12:25:48 WARNING (MainThread) [homeassistant.config_entries] Config entry '43" TCL Roku TV' for roku integration not ready yet: Invalid response from API: Error occurred while communicating with device; Retrying in background
+2021-12-30 12:25:48 WARNING (MainThread) [homeassistant.config_entries] Config entry 'Roku Player' for roku integration not ready yet: Invalid response from API: Error occurred while communicating with device; Retrying in background
+2021-12-30 12:25:56 WARNING (MainThread) [homeassistant.config_entries] Config entry '192.168.7.133' for yamaha_musiccast integration not ready yet; Retrying in background
+2021-12-30 12:25:56 WARNING (MainThread) [homeassistant.config_entries] Config entry 'ZenWiFi_XT8-A950' for upnp integration not ready yet; Retrying in background
+2021-12-30 12:26:05 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-12-30 12:26:05 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-12-30 12:26:17 WARNING (MainThread) [homeassistant.helpers.frame] Detected integration that called async_timeout.timeout with loop keyword argument. The loop keyword argument is deprecated and calls will fail after Home Assistant 2022.2. Please report issue for sabnzbd using this method at homeassistant/components/sabnzbd/__init__.py, line 254: await sab_api.refresh_data()
+2021-12-30 12:27:06 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-12-30 12:27:06 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-12-30 12:28:37 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-12-30 12:28:37 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-12-30 12:30:38 WARNING (MainThread) [androidtv.adb_manager.adb_manager_async] Couldn't connect to 192.168.7.85:5555.  TcpTimeoutException: Connecting to 192.168.7.85:5555 timed out (1.0 seconds)
+2021-12-30 12:30:38 WARNING (MainThread) [homeassistant.components.androidtv.media_player] Could not connect to Office Shield at 192.168.7.85:5555 using Python ADB implementation with adbkey='/config/.storage/androidtv_adbkey'
+2021-12-30 12:32:15 ERROR (MainThread) [homeassistant.components.yamaha_musiccast] Timeout fetching yamaha_musiccast data
+2021-12-30 12:32:48 ERROR (MainThread) [homeassistant.components.hassio.handler] Client error on /core/update request Server disconnected
+2021-12-30 12:32:48 ERROR (MainThread) [homeassistant.components.hassio] Failed to to call /core/update - 
