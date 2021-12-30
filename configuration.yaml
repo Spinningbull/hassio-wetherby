@@ -6,8 +6,7 @@ default_config:
 media_player:
 # import android TV configuration
 media_player android: !include androidtv.yaml
-# import musiccast configuration
-#media_player musiccast: !include musicast.yaml
+
 
 # radarr sensors
 sensor:
