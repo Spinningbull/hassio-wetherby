@@ -2,10 +2,11 @@
   alias: Theater - lights on when paused
   description: Turn on Ambient light on Pause
   trigger:
-  - platform: state
+  - platform: device
+    device_id: f104aca2ebb47d0afcc0396bb91c96dc
+    domain: media_player
     entity_id: media_player.theater_shield
-    from: playing
-    to: paused
+    type: paused
   condition: []
   action:
   - type: turn_on
@@ -40,20 +41,18 @@
     domain: media_player
     entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_2
     type: turned_off
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 3
-  - platform: device
-    device_id: 048a2c4eebe2c6b1edce9c7614524754
-    domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_2
-    type: idle
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 10
-  condition: []
+  condition:
+  - condition: time
+    before: 01:30:00
+    after: '18:00:00'
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
   action:
   - type: turn_on
     device_id: f12a835a0faa13cb4826f7d38223a344
@@ -62,19 +61,26 @@
     brightness_pct: 100
   mode: single
 - id: '1612398301259'
-  alias: Theater - lights on during Standby
-  description: Turn on Ambient light on Standby
+  alias: Theater - lights on when idle
+  description: Turn house light on when done
   trigger:
-  - platform: state
+  - platform: device
+    device_id: f104aca2ebb47d0afcc0396bb91c96dc
+    domain: media_player
     entity_id: media_player.theater_shield
-    from: playing
-    to: standby
+    type: idle
+  - platform: device
+    device_id: f104aca2ebb47d0afcc0396bb91c96dc
+    domain: media_player
+    entity_id: media_player.theater_shield
+    type: turned_off
   condition: []
   action:
   - type: turn_on
-    device_id: 3e79f994a8b002350491947d33bbb1e5
-    entity_id: switch.theater_ambient
-    domain: switch
+    device_id: f12a835a0faa13cb4826f7d38223a344
+    entity_id: light.theater_lights_2
+    domain: light
+    brightness_pct: 100
   mode: single
 - id: '1613889538573'
   alias: House - set night lights
@@ -91,7 +97,9 @@
   - service: switch.turn_off
     data: {}
     target:
-      entity_id: switch.string_lights
+      entity_id:
+      - switch.string_lights
+      - switch.pool_house
   - service: hue.hue_activate_scene
     data:
       group_name: master
@@ -248,27 +256,6 @@
     target:
       entity_id: media_player.family_room_main
     data: {}
-  mode: single
-- id: '1627140445938'
-  alias: Roon - Turn on Patio when Roon starts playing
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 13411f6cf292ea9c43287209aa355114
-    domain: media_player
-    entity_id: media_player.patio_roonberry
-    type: playing
-  condition: []
-  action:
-  - service: media_player.turn_on
-    target:
-      entity_id: media_player.patio_2
-    data: {}
-  - service: media_player.select_source
-    data:
-      source: aux
-    target:
-      entity_id: media_player.patio_2
   mode: single
 - id: '1638197847338'
   alias: House - turn on armstrong and getty
@@ -522,6 +509,14 @@
     device_id: e57cbfb1a99041f9a12999ed25cfb1a2
     entity_id: switch.string_lights
     domain: switch
+  - type: turn_on
+    device_id: ac2ff7658e4c6f04ead51bf11cf534b3
+    entity_id: switch.landscape_lights
+    domain: switch
+  - type: turn_on
+    device_id: a8de2225b5a35b810acfa2c58de9bb5a
+    entity_id: light.rear_landscape_lighting
+    domain: light
   mode: single
 - id: '1646610415005'
   alias: House - Morning lights off
@@ -536,6 +531,14 @@
     target:
       entity_id: scene.morning
     metadata: {}
+  - type: turn_off
+    device_id: ac2ff7658e4c6f04ead51bf11cf534b3
+    entity_id: switch.landscape_lights
+    domain: switch
+  - type: turn_off
+    device_id: a8de2225b5a35b810acfa2c58de9bb5a
+    entity_id: light.rear_landscape_lighting
+    domain: light
   mode: single
 - id: '1649505983484'
   alias: Plex - ambient light on pause (nightly)
@@ -567,12 +570,18 @@
     domain: media_player
     entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_3
     type: turned_off
-  - platform: device
-    device_id: 451f88e075ace744f67ce7e43eb010f3
-    domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_3
-    type: idle
-  condition: []
+  condition:
+  - condition: time
+    before: 02:00:00
+    after: '18:00:00'
+    weekday:
+    - sun
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
   action:
   - type: turn_on
     device_id: f12a835a0faa13cb4826f7d38223a344
@@ -599,4 +608,139 @@
     device_id: 3e79f994a8b002350491947d33bbb1e5
     entity_id: switch.theater_ambient
     domain: switch
+  mode: single
+- id: '1652137586418'
+  alias: Plexamp - Patio Playing
+  description: automatically turns stereo on when roon starts playing on patio
+  trigger:
+  - platform: device
+    device_id: f4de20c5bb59e4fdb84063b4f7ebef10
+    domain: media_player
+    entity_id: media_player.plexamp_patio
+    type: playing
+  condition: []
+  action:
+  - service: media_player.turn_on
+    target:
+      entity_id:
+      - media_player.patio_musiccast_2
+    data: {}
+  - service: media_player.select_source
+    data:
+      source: AUX
+    target:
+      entity_id: media_player.patio_musiccast_2
+  mode: single
+- id: '1652137773930'
+  alias: Plexamp - Patio Stopped
+  description: automatically turns stereo off when plexamp stops playing on patio
+  trigger:
+  - platform: device
+    device_id: f4de20c5bb59e4fdb84063b4f7ebef10
+    domain: media_player
+    entity_id: media_player.plexamp_patio
+    type: turned_off
+  - platform: device
+    device_id: f4de20c5bb59e4fdb84063b4f7ebef10
+    domain: media_player
+    entity_id: media_player.plexamp_patio
+    type: idle
+  condition: []
+  action:
+  - service: media_player.turn_off
+    data: {}
+    target:
+      entity_id: media_player.patio_musiccast_2
+  mode: single
+- id: '1652137898604'
+  alias: Plexamp - Office Playing
+  description: automatically turns stereo on when plexamp starts playing in office
+  trigger:
+  - platform: device
+    device_id: b6e3bcca3d2dcccebbce3d23e04538a3
+    domain: media_player
+    entity_id: media_player.plexamp_office
+    type: playing
+  condition: []
+  action:
+  - service: media_player.turn_on
+    target:
+      entity_id:
+      - media_player.office_musiccast_2
+    data: {}
+  - service: media_player.select_source
+    data:
+      source: optical
+    target:
+      entity_id: media_player.office_musiccast_2
+  mode: single
+- id: '1652137966091'
+  alias: Plexamp - Office Stopped
+  description: automatically turns stereo off when plexamp stops playing on patio
+  trigger:
+  - platform: device
+    device_id: b6e3bcca3d2dcccebbce3d23e04538a3
+    domain: media_player
+    entity_id: media_player.plexamp_office
+    type: turned_off
+  - platform: device
+    device_id: b6e3bcca3d2dcccebbce3d23e04538a3
+    domain: media_player
+    entity_id: media_player.plexamp_office
+    type: idle
+  condition: []
+  action:
+  - service: media_player.turn_off
+    data: {}
+    target:
+      entity_id:
+      - media_player.office_musiccast_2
+  mode: single
+- id: '1652145501338'
+  alias: Plexamp - Family Stopped
+  description: automatically turns stereo off when plexamp stops playing on patio
+  trigger:
+  - platform: device
+    device_id: 1e0cd3829c7c3517115f6c2f07e76908
+    domain: media_player
+    entity_id: media_player.plexamp_family
+    type: turned_off
+  - platform: device
+    device_id: 1e0cd3829c7c3517115f6c2f07e76908
+    domain: media_player
+    entity_id: media_player.plexamp_family
+    type: idle
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition: []
+  action:
+  - service: media_player.turn_off
+    data: {}
+    target:
+      entity_id: media_player.family_musiccast_2
+  mode: single
+- id: '1652145801294'
+  alias: 'Plexamp - Family Playing '
+  description: automatically turns stereo on when plexamp starts playing in office
+  trigger:
+  - platform: device
+    device_id: 1e0cd3829c7c3517115f6c2f07e76908
+    domain: media_player
+    entity_id: media_player.plexamp_family
+    type: playing
+  condition: []
+  action:
+  - service: media_player.turn_on
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+    data: {}
+  - service: media_player.select_source
+    data:
+      source: audio3
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
   mode: single

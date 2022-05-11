@@ -1,0 +1,45 @@
+{
+    "config": {
+        "step": {
+            "device": {
+                "description": "Parameters to connect to the device",
+                "data": {
+                    "name": "The name for device (blank to use device model)",
+                    "host": "Hostname / IP address",
+                    "username": "[%key:common::config_flow::data::username%]",
+                    "password": "[%key:common::config_flow::data::password%]",
+                    "port": "Port (0 to use default value)",
+                    "ssl": "Use SSL connection",
+                    "verify_ssl": "[%key:common::config_flow::data::verify_ssl%]",
+                    "cert_path": "Certificate path",
+                    "enable_monitor": "Enable device monitoring",
+                    "enable_control": "Enable device control"
+                }
+            },
+            "interfaces": {
+                "description": "Interfaces to monitor",
+                "data": {
+                    "interfaces": "Select network interfaces to monitor"
+                }
+            }
+        },
+        "error": {
+            "error": "[%key:common::config_flow::error::cannot_connect%]",
+            "unknown": "Unknown error",
+            "password_missing": "Password is missing",
+            "cannot_resolve_host": "Cannot resolve hostname. Try with the IP address"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "ASUS Router options",
+                "data": {
+                    "interfaces": "Select network interfaces to monitor",
+                    "cache_device_time": "Caching time for device discovery",
+                    "cache_time": "Data caching time"
+                }
+            }
+        }
+    }
+}
