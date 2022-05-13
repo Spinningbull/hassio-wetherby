@@ -8,7 +8,9 @@ views:
       - entity: media_player.fire_tv_192_168_7_83
       - entity: media_player.plexamp_family
       - entity: media_player.family_musiccast_2
-      - entity: automation.turn_on_armstrong_and_getty
+      - entity: input_boolean.armstrong_and_getty
+      - entity: input_boolean.play_music
+      - entity: input_button.unlink_speakers
     cards:
       - type: vertical-stack
         cards:
