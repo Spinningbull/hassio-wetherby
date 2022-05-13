@@ -102,6 +102,17 @@ views:
                 icon: mdi:speaker
                 group: true
               - type: custom:mini-media-player
+                entity: media_player.pool_musiccast_2
+                name: Pool
+                artwork: cover
+                sound_mode: full
+                speaker_group:
+                  platform: media_player
+                  show_group_count: true
+                  entities: !include speaker_groups.yaml
+                group: true
+                icon: mdi:speaker
+              - type: custom:mini-media-player
                 entity: media_player.master_bedroom_2
                 name: Master Bedroom
                 artwork: cover
@@ -126,6 +137,17 @@ views:
               - type: custom:mini-media-player
                 entity: media_player.dining_musiccast_2
                 name: Dining Room
+                artwork: cover
+                sound_mode: full
+                speaker_group:
+                  platform: media_player
+                  show_group_count: true
+                  entities: !include speaker_groups.yaml
+                group: true
+                icon: mdi:speaker
+              - type: custom:mini-media-player
+                entity: media_player.theater_musiccast
+                name: Theater
                 artwork: cover
                 sound_mode: full
                 speaker_group:
