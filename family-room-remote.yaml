@@ -20,7 +20,18 @@ views:
                 type: picture-entity
                 entity: camera.front_door
           - type: media-control
-            entity: media_player.fire_tv_192_168_7_83
+            entity: media_player.plexamp_family
+          - type: custom:mini-media-player
+            entity: media_player.family_musiccast_2
+            name: Family Room
+            artwork: cover
+            sound_mode: full
+            speaker_group:
+              platform: media_player
+              show_group_count: true
+              entities: !include speaker_groups.yaml
+            group: true
+            toggle_power: false
           - type: horizontal-stack
             cards: []
           - type: entities
