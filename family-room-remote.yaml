@@ -82,7 +82,7 @@ views:
               - type: custom:mini-media-player
                 entity: media_player.office_musiccast_2
                 name: Office
-                artwork: cover-fit
+                artwork: cover
                 sound_mode: full
                 speaker_group:
                   platform: media_player
@@ -93,7 +93,7 @@ views:
               - type: custom:mini-media-player
                 entity: media_player.patio_musiccast_2
                 name: Patio
-                artwork: cover-fit
+                artwork: cover
                 sound_mode: full
                 speaker_group:
                   platform: media_player
@@ -104,7 +104,7 @@ views:
               - type: custom:mini-media-player
                 entity: media_player.master_bedroom_2
                 name: Master Bedroom
-                artwork: cover-fit
+                artwork: cover
                 sound_mode: full
                 speaker_group:
                   platform: media_player
@@ -115,7 +115,7 @@ views:
               - type: custom:mini-media-player
                 entity: media_player.living_musiccast_2
                 name: Living Room
-                artwork: cover-fit
+                artwork: cover
                 sound_mode: full
                 speaker_group:
                   platform: media_player
@@ -126,7 +126,7 @@ views:
               - type: custom:mini-media-player
                 entity: media_player.dining_musiccast_2
                 name: Dining Room
-                artwork: cover-fit
+                artwork: cover
                 sound_mode: full
                 speaker_group:
                   platform: media_player
