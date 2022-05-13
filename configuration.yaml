@@ -5,7 +5,7 @@ default_config:
 # Example configuration.yaml entry
 media_player:
 # import android TV configuration
-media_player android: !include androidtv.yaml
+#media_player android: !include androidtv.yaml
 
 
 # radarr sensors
