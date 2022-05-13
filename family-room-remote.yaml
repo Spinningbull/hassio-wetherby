@@ -76,7 +76,7 @@ views:
                 speaker_group:
                   platform: media_player
                   show_group_count: true
-                  entities: !speaker_groups.yaml
+                  entities: !include speaker_groups.yaml
                 group: true
                 toggle_power: false
               - type: custom:mini-media-player
@@ -87,7 +87,7 @@ views:
                 speaker_group:
                   platform: media_player
                   show_group_count: true
-                  entities: !speaker_groups.yaml
+                  entities: !include speaker_groups.yaml
                 icon: mdi:speaker
                 group: true
               - type: custom:mini-media-player
@@ -98,7 +98,7 @@ views:
                 speaker_group:
                   platform: media_player
                   show_group_count: true
-                  entities: !speaker_groups.yaml
+                  entities: !include speaker_groups.yaml
                 icon: mdi:speaker
                 group: true
               - type: custom:mini-media-player
@@ -109,7 +109,7 @@ views:
                 speaker_group:
                   platform: media_player
                   show_group_count: true
-                  entities: !speaker_groups.yaml
+                  entities: !include speaker_groups.yaml
                 group: true
                 icon: mdi:speaker
               - type: custom:mini-media-player
@@ -120,7 +120,7 @@ views:
                 speaker_group:
                   platform: media_player
                   show_group_count: true
-                  entities: !speaker_groups.yaml
+                  entities: !include speaker_groups.yaml
                 group: true
                 icon: mdi:speaker
               - type: custom:mini-media-player
@@ -131,7 +131,7 @@ views:
                 speaker_group:
                   platform: media_player
                   show_group_count: true
-                  entities: !speaker_groups.yaml
+                  entities: !include speaker_groups.yaml
                 group: true
                 icon: mdi:speaker
   - theme: Backend-selected
