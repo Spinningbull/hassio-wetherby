@@ -825,3 +825,15 @@
       - media_player.living_musiccast_2
       - media_player.patio_musiccast_2
   mode: single
+- id: '1652479425280'
+  alias: Unlink Speakers
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.unlink_speakers
+  condition: []
+  action:
+  - service: script.unjoin_all_speakers
+    data: {}
+  mode: single
