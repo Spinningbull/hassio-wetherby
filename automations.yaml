@@ -772,3 +772,56 @@
       - media_player.master_bedroom_2
     data: {}
   mode: single
+- id: '1652477222094'
+  alias: Plexamp - Play Music on plexamp Downstairs
+  description: automation behind the play music switch
+  trigger:
+  - platform: state
+    entity_id: input_boolean.play_music
+    to: 'on'
+  condition: []
+  action:
+  - service: media_player.media_play
+    data: {}
+    target:
+      entity_id: media_player.plexamp_family
+  - service: media_player.join
+    target:
+      entity_id: media_player.family_musiccast_2
+    data:
+      group_members:
+      - media_player.living_musiccast_2
+      - media_player.patio_musiccast_2
+      - media_player.dining_musiccast_2
+  mode: single
+- id: '1652477382302'
+  alias: Plexamp - Stop Music Downstairs
+  description: automation behind the play music switch
+  trigger:
+  - platform: state
+    entity_id: input_boolean.play_music
+    to: 'off'
+    from: 'on'
+  condition: []
+  action:
+  - service: media_player.media_stop
+    data: {}
+    target:
+      entity_id: media_player.plexamp_family
+  - service: media_player.unjoin
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+      - media_player.patio_musiccast_2
+      - media_player.living_musiccast_2
+      - media_player.dining_musiccast_2
+    data: {}
+  - service: media_player.turn_off
+    data: {}
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+      - media_player.dining_musiccast_2
+      - media_player.living_musiccast_2
+      - media_player.patio_musiccast_2
+  mode: single

@@ -1,1 +1,16 @@
-{}
+unjoin_all_speakers:
+  alias: Unjoin all speakers
+  sequence:
+  - service: media_player.unjoin
+    data: {}
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+      - media_player.office_musiccast_2
+      - media_player.patio_musiccast_2
+      - media_player.pool_musicccast_2
+      - media_player.dining_musiccast_2
+      - media_player.living_musiccast_2
+      - media_player.master_bedroom_2
+  mode: single
+  icon: mdi:speaker-off
