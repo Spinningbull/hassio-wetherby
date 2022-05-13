@@ -1,0 +1,147 @@
+title: Home
+views:
+  - theme: Backend-selected
+    path: default_view
+    title: Home
+    badges:
+      - entity: sensor.family_room_temperature
+      - entity: media_player.fire_tv_192_168_7_83
+      - entity: media_player.plexamp_family
+      - entity: media_player.family_musiccast_2
+      - entity: automation.turn_on_armstrong_and_getty
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - show_state: true
+                show_name: true
+                camera_view: auto
+                type: picture-entity
+                entity: camera.front_door
+          - type: media-control
+            entity: media_player.fire_tv_192_168_7_83
+          - type: horizontal-stack
+            cards: []
+          - type: entities
+            entities:
+              - entity: binary_sensor.front_door_motion
+              - entity: binary_sensor.front_door_ding
+              - entity: switch.porch_light
+              - entity: switch.side_porch_light
+              - entity: switch.side_porch_soffit
+              - entity: switch.front_door_soffit
+              - entity: switch.house_soffits
+              - entity: switch.garage_soffits
+      - type: entities
+        entities:
+          - type: weblink
+            name: Plexamp
+            url: app://com.plexamp
+  - theme: Backend-selected
+    type: panel
+    title: Link rooms
+    path: link-rooms
+    icon: mdi:speaker-multiple
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - show_name: true
+            show_icon: false
+            type: button
+            tap_action:
+              action: url
+              url_path: App://com.plexamp
+            entity: ''
+            icon: mdi:plex
+            name: Launch Plexamp
+            icon_height: 40px
+            show_state: false
+          - type: horizontal-stack
+            cards:
+              - type: media-control
+                entity: media_player.plexamp_family
+              - type: media-control
+                entity: media_player.plexamp_patio
+              - type: media-control
+                entity: media_player.plexamp_office
+          - type: vertical-stack
+            cards:
+              - type: custom:mini-media-player
+                entity: media_player.family_musiccast_2
+                name: Family Room
+                artwork: cover
+                sound_mode: full
+                speaker_group:
+                  platform: media_player
+                  show_group_count: true
+                  entities: !speaker_groups.yaml
+                group: true
+                toggle_power: false
+              - type: custom:mini-media-player
+                entity: media_player.office_musiccast_2
+                name: Office
+                artwork: cover-fit
+                sound_mode: full
+                speaker_group:
+                  platform: media_player
+                  show_group_count: true
+                  entities: !speaker_groups.yaml
+                icon: mdi:speaker
+                group: true
+              - type: custom:mini-media-player
+                entity: media_player.patio_musiccast_2
+                name: Patio
+                artwork: cover-fit
+                sound_mode: full
+                speaker_group:
+                  platform: media_player
+                  show_group_count: true
+                  entities: !speaker_groups.yaml
+                icon: mdi:speaker
+                group: true
+              - type: custom:mini-media-player
+                entity: media_player.master_bedroom_2
+                name: Master Bedroom
+                artwork: cover-fit
+                sound_mode: full
+                speaker_group:
+                  platform: media_player
+                  show_group_count: true
+                  entities: !speaker_groups.yaml
+                group: true
+                icon: mdi:speaker
+              - type: custom:mini-media-player
+                entity: media_player.living_musiccast_2
+                name: Living Room
+                artwork: cover-fit
+                sound_mode: full
+                speaker_group:
+                  platform: media_player
+                  show_group_count: true
+                  entities: !speaker_groups.yaml
+                group: true
+                icon: mdi:speaker
+              - type: custom:mini-media-player
+                entity: media_player.dining_musiccast_2
+                name: Dining Room
+                artwork: cover-fit
+                sound_mode: full
+                speaker_group:
+                  platform: media_player
+                  show_group_count: true
+                  entities: !speaker_groups.yaml
+                group: true
+                icon: mdi:speaker
+  - theme: Backend-selected
+    type: panel
+    title: PlexAmp
+    path: plexamp
+    icon: mdi:plex
+    badges: []
+    cards:
+      - type: iframe
+        url: http://192.168.7.94:32500
+        aspect_ratio: '1'
+        title: PlexAmp

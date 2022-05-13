@@ -1,0 +1,18 @@
+- entity_id: media_player.family_musiccast_2
+  name: Family Room
+- entity_id: media_player.patio_musiccast_2
+  name: Patio  
+- entity_id: media_player.pool_musicccast_2
+  name: Pool
+- entity_id: media_player.living_musiccast_2
+  name: Living Room
+- entity_id: media_player.dining_musiccast_2
+  name: Dining Room
+- entity_id: media_player.office_musiccast_2
+  name: Office
+- entity_id: media_player.theater_musicast
+  name: Theater
+- entity_id: media_player.master_bedroom_2
+  name: Master Bedroom
+- entity_id: media_player.allison_s_craft_room_2
+  name: Master Bathroom
