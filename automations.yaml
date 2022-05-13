@@ -292,9 +292,11 @@
     data:
       group_members:
       - media_player.office_musiccast_2
-      - media_player.patio_musiccast_2
+      - media_player.master_musiccast_2
     target:
-      entity_id: media_player.family_musiccast_2
+      entity_id:
+      - media_player.family_musiccast_2
+      - mas
   - service: hue.hue_activate_scene
     data:
       group_name: master
@@ -309,14 +311,14 @@
     target:
       entity_id:
       - media_player.office_musiccast_2
-      - media_player.patio_musiccast_2
       - media_player.family_musiccast_2
+      - media_player.master_bedroom_2
   - service: media_player.turn_off
     target:
       entity_id:
       - media_player.family_musiccast_2
-      - media_player.patio_musiccast_2
       - media_player.office_musiccast_2
+      - media_player.master_bedroom_2
     data: {}
   mode: single
 - id: '1638202864296'
@@ -743,4 +745,30 @@
     target:
       entity_id:
       - media_player.family_musiccast_2
+  mode: single
+- id: '1652361064621'
+  alias: House - turn off armstrong and getty
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_button.turn_off_stereo
+    from: 'On'
+    to: 'Off'
+  condition: []
+  action:
+  - service: media_player.unjoin
+    data: {}
+    target:
+      entity_id:
+      - media_player.office_musiccast_2
+      - media_player.family_musiccast_2
+      - media_player.master_bedroom_2
+  - service: media_player.turn_off
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+      - media_player.office_musiccast_2
+      - media_player.master_bedroom_2
+    data: {}
   mode: single
