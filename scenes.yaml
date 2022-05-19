@@ -237,23 +237,43 @@
   entities:
     switch.garage_soffits:
       friendly_name: Garage Soffits
+      icon: mdi:coach-lamp
       state: 'on'
     switch.porch_light:
       friendly_name: Porch Light
+      icon: mdi:coach-lamp
       state: 'on'
     switch.side_porch_light:
       friendly_name: Side Porch Light
+      icon: mdi:coach-lamp
       state: 'on'
     switch.side_porch_soffit:
       friendly_name: Side Porch Soffit
+      icon: mdi:light-recessed
       state: 'on'
     switch.front_door_soffit:
       friendly_name: Front Door Soffit
+      icon: mdi:light-recessed
       state: 'on'
     switch.house_soffits:
       friendly_name: House Soffits
+      icon: mdi:light-recessed
       state: 'on'
     switch.string_lights:
-      friendly_name: string lights
+      friendly_name: String Lights
+      icon: mdi:lightbulb-group
+      state: 'on'
+    light.rear_landscape_lighting:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      icon: mdi:lightbulb-auto
+      friendly_name: Rear Landscape Lighting
+      supported_features: 33
+      state: 'on'
+    switch.landscape_lights:
+      icon: mdi:lightbulb-auto
+      friendly_name: Landscape Lights
       state: 'on'
   icon: mdi:weather-sunset-down
