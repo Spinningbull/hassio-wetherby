@@ -277,3 +277,191 @@
       friendly_name: Landscape Lights
       state: 'on'
   icon: mdi:weather-sunset-down
+- id: '1653753589105'
+  name: Plexamp - onScreen
+  entities:
+    media_player.family_tv:
+      icon: si:amazonfiretv
+      friendly_name: Fire TV 65
+      supported_features: 22961
+      source_list:
+      - com.amazon.tv.launcher
+      entity_picture: /api/media_player_proxy/media_player.family_tv?token=3fc4e2767d3fd37437bfa97b1bc1f85de193fac3153dcfc409fb43ca287b06af&cache=1653753603.638462
+      app_id: com.amazon.tv.launcher
+      source: com.amazon.tv.launcher
+      state: idle
+    media_player.family_musiccast_2:
+      source_list:
+      - napster
+      - siriusxm
+      - pandora
+      - spotify
+      - qobuz
+      - tidal
+      - deezer
+      - amazon_music
+      - alexa
+      - airplay
+      - mc_link
+      - server
+      - net_radio
+      - bluetooth
+      - usb
+      - tuner
+      - hdmi1
+      - hdmi2
+      - hdmi3
+      - hdmi4
+      - hdmi5
+      - av1
+      - av2
+      - audio1
+      - audio2
+      - audio3
+      - audio4
+      - audio5
+      - phono
+      - aux
+      sound_mode_list:
+      - munich
+      - vienna
+      - chamber
+      - cellar_club
+      - roxy_theatre
+      - bottom_line
+      - sports
+      - action_game
+      - roleplaying_game
+      - music_video
+      - standard
+      - spectacle
+      - sci-fi
+      - adventure
+      - drama
+      - mono_movie
+      - 2ch_stereo
+      - 7ch_stereo
+      - surr_decoder
+      - straight
+      group_members:
+      - media_player.family_musiccast_2
+      icon: mdi:speaker
+      friendly_name: family-musiccast
+      supported_features: 1019788
+      volume_level: 0.5279503105590062
+      is_volume_muted: false
+      media_content_type: music
+      source: audio1
+      sound_mode: surr_decoder
+      shuffle: false
+      repeat: 'off'
+      state: playing
+    number.tone_control_bass:
+      min: -12
+      max: 12
+      step: 1
+      mode: auto
+      icon: ''
+      friendly_name: Tone Control Bass
+      state: '2'
+    number.tone_control_treble:
+      min: -12
+      max: 12
+      step: 1
+      mode: auto
+      icon: ''
+      friendly_name: Tone Control Treble
+      state: '1'
+    number.dialogue_level:
+      min: 0
+      max: 3
+      step: 1
+      mode: auto
+      icon: ''
+      friendly_name: Dialogue Level
+      state: '0'
+    number.dialogue_lift:
+      min: 0
+      max: 5
+      step: 1
+      mode: auto
+      icon: ''
+      friendly_name: Dialogue Lift
+      state: '0'
+    number.dts_dialogue_control:
+      min: 0
+      max: 6
+      step: 1
+      mode: auto
+      icon: ''
+      friendly_name: DTS Dialogue Control
+      state: '0'
+    select.sleep_timer_7:
+      options:
+      - 'off'
+      - 30 min
+      - 60 min
+      - 90 min
+      - 120 min
+      device_class: yamaha_musiccast__zone_sleep
+      icon: ''
+      friendly_name: Sleep Timer
+      state: 'off'
+    select.tone_control_mode_4:
+      options:
+      - manual
+      device_class: yamaha_musiccast__zone_tone_control_mode
+      icon: ''
+      friendly_name: Tone Control Mode
+      state: manual
+    select.link_control_6:
+      options:
+      - speed
+      - standard
+      - stability
+      device_class: yamaha_musiccast__zone_link_control
+      icon: ''
+      friendly_name: Link Control
+      state: standard
+    select.link_audio_delay_4:
+      options:
+      - audio_sync
+      - balanced
+      - lip_sync
+      device_class: yamaha_musiccast__zone_link_audio_delay
+      icon: ''
+      friendly_name: Link Audio Delay
+      state: balanced
+    select.surround_decoder_device_2:
+      options:
+      - toggle
+      - auto
+      - dolby_surround
+      - dts_neural_x
+      - dts_neo6_cinema
+      - dts_neo6_music
+      device_class: yamaha_musiccast__zone_surr_decoder_type
+      icon: ''
+      friendly_name: Surround Decoder Device
+      state: auto
+    switch.party_mode:
+      icon: ''
+      friendly_name: Party Mode
+      state: 'off'
+    switch.pure_direct:
+      icon: ''
+      friendly_name: Pure Direct
+      state: 'off'
+    switch.enhancer_3:
+      icon: ''
+      friendly_name: Enhancer
+      state: 'on'
+    switch.extra_bass:
+      icon: ''
+      friendly_name: Extra Bass
+      state: 'off'
+    switch.adaptive_drc:
+      icon: ''
+      friendly_name: Adaptive DRC
+      state: 'off'
+  icon: mdi:music
