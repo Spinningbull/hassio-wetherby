@@ -9,20 +9,22 @@ _LOGGER = logging.getLogger(__name__)
 from typing import Any
 
 from homeassistant.components.binary_sensor import (
-    DEVICE_CLASS_CONNECTIVITY,
+    BinarySensorDeviceClass,
     BinarySensorEntity,
 )
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.update_coordinator import (
-    CoordinatorEntity,
-    DataUpdateCoordinator,
-)
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import DATA_ASUSROUTER, DOMAIN, KEY_COORDINATOR, SENSORS_TYPE_WAN
+from .compilers import list_sensors_vpn_clients
+from .const import (
+    CONF_ENABLE_CONTROL,
+    SENSORS_TYPE_WAN,
+)
 from .dataclass import ARBinarySensorDescription
+from .entity import ARBinaryEntity, async_setup_ar_entry
 from .router import AsusRouterObj
 
 BINARY_SENSORS = {
@@ -31,15 +33,15 @@ BINARY_SENSORS = {
         key_group=SENSORS_TYPE_WAN,
         name="WAN",
         entity_category=EntityCategory.DIAGNOSTIC,
-        device_class=DEVICE_CLASS_CONNECTIVITY,
+        device_class=BinarySensorDeviceClass.CONNECTIVITY,
         entity_registry_enabled_default=True,
         extra_state_attributes={
-            "ip": "IP",
-            "ip_type": "Type",
-            "gateway": "Gateway",
-            "mask": "Mask",
-            "dns": "DNS",
-            "private_subnet": "Private subnet",
+            "dns": "dns",
+            "gateway": "gateway",
+            "ip": "ip",
+            "ip_type": "ip_type",
+            "mask": "mask",
+            "private_subnet": "private_subnet",
         },
     ),
 }
@@ -52,30 +54,13 @@ async def async_setup_entry(
 ) -> None:
     """Setup AsusRouter binary sensors."""
 
-    router: AsusRouterObj = hass.data[DOMAIN][entry.entry_id][DATA_ASUSROUTER]
-    entities = []
+    if not entry.options[CONF_ENABLE_CONTROL]:
+        BINARY_SENSORS.update(list_sensors_vpn_clients(5))
 
-    for sensor_data in router._sensors_coordinator.values():
-        coordinator = sensor_data[KEY_COORDINATOR]
-        for sensor_description in BINARY_SENSORS:
-            try:
-                if sensor_description[0] in sensor_data:
-                    if (
-                        BINARY_SENSORS[sensor_description].key
-                        in sensor_data[sensor_description[0]]
-                    ):
-                        entities.append(
-                            ARBinarySensor(
-                                coordinator, router, BINARY_SENSORS[sensor_description]
-                            )
-                        )
-            except Exception as ex:
-                _LOGGER.warning(ex)
-
-    async_add_entities(entities, True)
+    await async_setup_ar_entry(hass, entry, async_add_entities, BINARY_SENSORS, ARBinarySensor)
 
 
-class ARBinarySensor(CoordinatorEntity, BinarySensorEntity):
+class ARBinarySensor(ARBinaryEntity, BinarySensorEntity):
     """AsusRouter binary sensor."""
 
     def __init__(
@@ -86,34 +71,4 @@ class ARBinarySensor(CoordinatorEntity, BinarySensorEntity):
     ) -> None:
         """Initialize AsusRouter binary sensor."""
 
-        super().__init__(coordinator)
-        self.entity_description: ARBinarySensorDescription = description
-        self.router = router
-        self.coordinator = coordinator
-
-        self._attr_name = f"{router._name} {description.name}"
-        self._attr_unique_id = f"{DOMAIN} {self.name}"
-        self._attr_device_info = router.device_info
-
-    @property
-    def is_on(self) -> bool:
-        """Return state."""
-
-        return self.coordinator.data.get(self.entity_description.key)
-
-    @property
-    def extra_state_attributes(self) -> dict[str, Any]:
-        """Return extra state attributes."""
-
-        description = self.entity_description
-        _attributes = description.extra_state_attributes
-        if not _attributes:
-            return {}
-
-        attributes = {}
-
-        for attr in _attributes:
-            if attr in self.coordinator.data:
-                attributes[_attributes[attr]] = self.coordinator.data[attr]
-
-        return attributes
+        super().__init__(coordinator, router, description)

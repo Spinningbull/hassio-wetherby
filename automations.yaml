@@ -578,18 +578,7 @@
     domain: media_player
     entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_3
     type: turned_off
-  condition:
-  - condition: time
-    before: 02:00:00
-    after: '18:00:00'
-    weekday:
-    - sun
-    - sat
-    - fri
-    - thu
-    - wed
-    - tue
-    - mon
+  condition: []
   action:
   - type: turn_on
     device_id: f12a835a0faa13cb4826f7d38223a344
@@ -633,6 +622,10 @@
       entity_id:
       - media_player.patio_musiccast_2
     data: {}
+  - service: media_player.unjoin
+    data: {}
+    target:
+      entity_id: media_player.patio_musiccast_2
   - service: media_player.select_source
     data:
       source: AUX
@@ -648,11 +641,19 @@
     domain: media_player
     entity_id: media_player.plexamp_patio
     type: turned_off
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
   - platform: device
     device_id: f4de20c5bb59e4fdb84063b4f7ebef10
     domain: media_player
     entity_id: media_player.plexamp_patio
     type: idle
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
   condition: []
   action:
   - service: media_player.turn_off
@@ -842,4 +843,70 @@
   action:
   - service: script.unjoin_all_speakers
     data: {}
+  mode: single
+- id: '1654788686199'
+  alias: Test unknown sensor
+  description: ''
+  trigger:
+  - type: motion
+    platform: device
+    device_id: 426ed3b6cae7e422ebbc805087137481
+    entity_id: binary_sensor.master_bedroom_motion_2
+    domain: binary_sensor
+  condition: []
+  action:
+  - service: notify.notify
+    data:
+      message: Mystery mb motion detector
+  mode: single
+- id: '1656024173378'
+  alias: Play Plexamp in theater
+  description: ''
+  trigger:
+  - platform: device
+    device_id: d21f98f7bc8d6070644f5cd2bc72563a
+    domain: media_player
+    entity_id: media_player.plexamp_theater
+    type: playing
+  condition:
+  - condition: device
+    type: is_off
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_play_ps4
+    domain: switch
+  - condition: device
+    type: is_off
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_watch_shield
+    domain: switch
+  action:
+  - type: turn_on
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_listen_to_music_on_oppo
+    domain: switch
+  mode: single
+- id: '1656024562889'
+  alias: Theater OFF when Plexamp stops
+  description: ''
+  trigger:
+  - platform: device
+    device_id: d21f98f7bc8d6070644f5cd2bc72563a
+    domain: media_player
+    entity_id: media_player.plexamp_theater
+    type: idle
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  condition:
+  - condition: device
+    type: is_on
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_listen_to_music_on_oppo
+    domain: switch
+  action:
+  - service: remote.turn_off
+    data: {}
+    target:
+      device_id: ba50c7a4ef3fb16920ace270971155f2
   mode: single

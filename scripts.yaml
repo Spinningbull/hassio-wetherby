@@ -14,3 +14,48 @@ unjoin_all_speakers:
       - media_player.master_bedroom_2
   mode: single
   icon: mdi:speaker-off
+pause_patio:
+  alias: Pause patio
+  sequence:
+  - service: media_player.media_pause
+    data: {}
+    target:
+      entity_id: media_player.plexamp_patio
+  mode: single
+  icon: mdi:pause
+play_patio:
+  alias: Play patio
+  sequence:
+  - service: media_player.media_play
+    data: {}
+    target:
+      entity_id: media_player.plexamp_patio
+  mode: single
+  icon: mdi:play
+patio_next:
+  alias: 'Family next '
+  sequence:
+  - service: media_player.media_next_track
+    data: {}
+    target:
+      entity_id: media_player.plexamp_family
+  mode: single
+  icon: mdi:skip-next
+pause_family_plexamp:
+  alias: Pause family
+  sequence:
+  - service: media_player.media_pause
+    data: {}
+    target:
+      entity_id: media_player.plexamp_family
+  mode: single
+  icon: mdi:pause
+play_family_plexamp:
+  alias: Play family
+  sequence:
+  - service: media_player.media_play
+    data: {}
+    target:
+      entity_id: media_player.plexamp_family
+  mode: single
+  icon: mdi:play

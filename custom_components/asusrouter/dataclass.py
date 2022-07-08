@@ -9,6 +9,7 @@ from typing import Any
 from homeassistant.components.binary_sensor import BinarySensorEntityDescription
 from homeassistant.components.light import LightEntityDescription
 from homeassistant.components.sensor import SensorEntityDescription
+from homeassistant.components.switch import SwitchEntityDescription
 from homeassistant.helpers.entity import EntityDescription
 
 
@@ -24,18 +25,31 @@ class AREntityDescription(EntityDescription):
 
 
 @dataclass
+class ARBinaryDescription(AREntityDescription, BinarySensorEntityDescription):
+    """Describe AsusRouter binary entity."""
+
+    icon_on: str | None = None
+    icon_off: str | None = None
+
+
+@dataclass
 class ARSensorDescription(AREntityDescription, SensorEntityDescription):
     """Describe AsusRouter sensor."""
 
 
 @dataclass
-class ARBinarySensorDescription(AREntityDescription, BinarySensorEntityDescription):
+class ARBinarySensorDescription(ARBinaryDescription, BinarySensorEntityDescription):
     """Describe AsusRouter sensor."""
 
 
 @dataclass
-class ARLightDescription(AREntityDescription, LightEntityDescription):
+class ARLightDescription(ARBinaryDescription, LightEntityDescription):
     """Describe AsusRouter light."""
 
-    icon_on: str | None = None
-    icon_off: str | None = None
+
+@dataclass
+class ARSwitchDescription(ARBinaryDescription, SwitchEntityDescription):
+    """Describe AsusRouter switch."""
+
+    service_on: str | None = None
+    service_off: str | None = None

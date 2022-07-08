@@ -18,10 +18,11 @@ DOMAIN = "asusrouter"
 DATA_ASUSROUTER = DOMAIN
 
 PLATFORMS = [
-    Platform.SENSOR,
-    Platform.DEVICE_TRACKER,
     Platform.BINARY_SENSOR,
+    Platform.DEVICE_TRACKER,
     Platform.LIGHT,
+    Platform.SENSOR,
+    Platform.SWITCH,
 ]
 
 
@@ -80,10 +81,14 @@ SIMPLE_SETUP_PARAMETERS = {
 # Sensors types
 SENSORS_TYPE_CPU = "cpu"
 SENSORS_TYPE_DEVICES = "devices"
+SENSORS_TYPE_LIGHT = "light"
 SENSORS_TYPE_MISC = "misc"
 SENSORS_TYPE_NETWORK_STAT = "network_stat"
 SENSORS_TYPE_PORTS = "ports"
 SENSORS_TYPE_RAM = "ram"
+SENSORS_TYPE_SYSINFO = "sysinfo"
+SENSORS_TYPE_TEMPERATURE = "temperature"
+SENSORS_TYPE_VPN = "vpn"
 SENSORS_TYPE_WAN = "wan"
 
 # Sensors
@@ -100,10 +105,31 @@ SENSORS_CPU = [
     "core_7",
     "core_8",
 ]
+SENSORS_LIGHT = ["led"]
 SENSORS_MISC = ["boottime"]
 SENSORS_NETWORK_STAT = ["rx", "tx", "rx_speed", "tx_speed"]
 SENSORS_PORTS = ["WAN", "LAN"]
 SENSORS_RAM = ["total", "free", "used", "usage"]
+SENSORS_SYSINFO = ["load_avg_1", "load_avg_5", "load_avg_15"]
+SENSORS_VPN = {
+    "auth_read": "auth_read",
+    "errno": "error_code",
+    "ip": "local_ip",
+    "post_compress": "post_compress_bytes",
+    "post_decompress": "post_decompress_bytes",
+    "pre_compress": "pre_compress_bytes",
+    "pre_decompress": "pre_decompress_bytes",
+    "rip": "public_ip",
+    "remote_auth": "server_auth",
+    "remote_ip": "server_ip",
+    "remote_port": "server_port",
+    "status": "status",
+    "tcp_udp_read": "tcp_udp_read_bytes",
+    "tcp_udp_write": "tcp_udp_write_bytes",
+    "tun_tap_read": "tun_tap_read_bytes",
+    "tun_tap_write": "tun_tap_write_bytes",
+    "datetime": "update_time",
+}
 SENSORS_WAN = ["status", "ip", "ip_type", "gateway", "mask", "dns", "private_subnet"]
 
 
@@ -128,8 +154,11 @@ CONVERT_TO_GIGA = 1073741824
 # Keys
 KEY_COORDINATOR = "coordinator"
 
+NAME_OVPN_CLIENT = "OpenVPN Client"
+
 
 # Params to generate sensors
+KEY_OVPN_CLIENT = "vpn_client"
 KEY_SENSOR_ID = "{}_{}"
 
 SENSORS_PARAM: dict[str, dict[str, Any]] = {
@@ -182,3 +211,33 @@ SENSORS_PARAM_NETWORK: dict[str, dict[str, Any]] = {
         "raw_attribute": "bits/s",
     },
 }
+
+DEVICE_ATTRIBUTE_CONNECTION_TIME = "connection_time"
+DEVICE_ATTRIBUTE_CONNECTION_TYPE = "connection_type"
+DEVICE_ATTRIBUTE_INTERNET = "internet"
+DEVICE_ATTRIBUTE_INTERNET_MODE = "internet_mode"
+DEVICE_ATTRIBUTE_IP_TYPE = "ip_type"
+DEVICE_ATTRIBUTE_LAST_ACTIVITY = "last_activity"
+DEVICE_ATTRIBUTE_RSSI = "rssi"
+DEVICE_ATTRIBUTE_RX_SPEED = "rx_speed"
+DEVICE_ATTRIBUTE_TX_SPEED = "tx_speed"
+
+DEVICE_ATTRIBUTES: list[str] = [
+    DEVICE_ATTRIBUTE_CONNECTION_TIME,
+    DEVICE_ATTRIBUTE_CONNECTION_TYPE,
+    DEVICE_ATTRIBUTE_INTERNET,
+    DEVICE_ATTRIBUTE_INTERNET_MODE,
+    DEVICE_ATTRIBUTE_IP_TYPE,
+    DEVICE_ATTRIBUTE_RSSI,
+    DEVICE_ATTRIBUTE_RX_SPEED,
+    DEVICE_ATTRIBUTE_TX_SPEED,
+]
+
+CONNECTION_TYPE_WIRED = "Wired"
+CONNECTION_TYPE_2G = "2.4 GHz"
+CONNECTION_TYPE_5G = "5 GHz"
+CONNECTION_TYPE_6G = "6 GHz"
+
+CONNECTION_BLOCKED = "blocked"
+CONNECTION_CONNECTED = "connected"
+CONNECTION_DISCONNECTED = "disconnected"
