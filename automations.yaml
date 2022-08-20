@@ -292,7 +292,7 @@
     data:
       group_members:
       - media_player.office_musiccast_2
-      - media_player.master_musiccast_2
+      - media_player.master_musiccast
     target:
       entity_id:
       - media_player.family_musiccast_2
@@ -311,13 +311,13 @@
       entity_id:
       - media_player.office_musiccast_2
       - media_player.family_musiccast_2
-      - media_player.master_bedroom_2
+      - media_player.master_musiccast
   - service: media_player.turn_off
     target:
       entity_id:
       - media_player.family_musiccast_2
       - media_player.office_musiccast_2
-      - media_player.master_bedroom_2
+      - media_player.master_musiccast
     data: {}
   mode: single
 - id: '1638202864296'
@@ -662,48 +662,60 @@
       entity_id: media_player.patio_musiccast_2
   mode: single
 - id: '1652137898604'
-  alias: Plexamp - Office Playing
-  description: automatically turns stereo on when plexamp starts playing in office
+  alias: Plexamp - Master Bedroom Playing
+  description: automatically turns stereo on when plexamp starts playing in Master
+    Bedroom
   trigger:
   - platform: device
     device_id: b6e3bcca3d2dcccebbce3d23e04538a3
     domain: media_player
-    entity_id: media_player.plexamp_office
+    entity_id: media_player.plexamp_master_bedroom
     type: playing
   condition: []
   action:
   - service: media_player.turn_on
-    target:
-      entity_id:
-      - media_player.office_musiccast_2
     data: {}
+    target:
+      entity_id: media_player.master_musiccast
   - service: media_player.select_source
     data:
-      source: optical
+      source: digital
     target:
-      entity_id: media_player.office_musiccast_2
+      entity_id: media_player.master_musiccast
   mode: single
 - id: '1652137966091'
-  alias: Plexamp - Office Stopped
+  alias: Plexamp - Master Bedroom Stopped
   description: automatically turns stereo off when plexamp stops playing on patio
   trigger:
   - platform: device
     device_id: b6e3bcca3d2dcccebbce3d23e04538a3
     domain: media_player
-    entity_id: media_player.plexamp_office
-    type: turned_off
+    entity_id: media_player.plexamp_master_bedroom
+    type: idle
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
   - platform: device
     device_id: b6e3bcca3d2dcccebbce3d23e04538a3
     domain: media_player
-    entity_id: media_player.plexamp_office
-    type: idle
+    entity_id: media_player.plexamp_master_bedroom
+    type: turned_off
+  - platform: device
+    device_id: 7f1f780841e5ac3565e465f99a485a63
+    domain: media_player
+    entity_id: media_player.master_musiccast
+    type: turned_off
   condition: []
   action:
+  - service: media_player.media_stop
+    data: {}
+    target:
+      entity_id: media_player.plexamp_master_bedroom
   - service: media_player.turn_off
     data: {}
     target:
-      entity_id:
-      - media_player.office_musiccast_2
+      entity_id: media_player.master_musiccast
   mode: single
 - id: '1652145501338'
   alias: Plexamp - Family Stopped
@@ -723,12 +735,30 @@
       hours: 0
       minutes: 10
       seconds: 0
+  - platform: device
+    device_id: 3c0d248ed4c6e384bca97d06b9c40f00
+    domain: media_player
+    entity_id: media_player.family_musiccast_2
+    type: turned_off
   condition: []
   action:
   - service: media_player.turn_off
     data: {}
     target:
       entity_id: media_player.family_musiccast_2
+  - service: androidtv.adb_command
+    data:
+      command: settings put secure sleep_timeout 600000
+    target:
+      entity_id: media_player.family_tv
+  - service: media_player.media_stop
+    data: {}
+    target:
+      entity_id: media_player.plexamp_family
+  - service: media_player.turn_off
+    data: {}
+    target:
+      entity_id: media_player.family_tv
   mode: single
 - id: '1652145801294'
   alias: 'Plexamp - Family Playing '
@@ -752,6 +782,20 @@
     target:
       entity_id:
       - media_player.family_musiccast_2
+  - service: media_player.turn_on
+    data: {}
+    target:
+      entity_id: media_player.family_tv
+  - service: media_player.select_source
+    data:
+      source: com.amazon.cloud9
+    target:
+      entity_id: media_player.family_tv
+  - service: androidtv.adb_command
+    data:
+      command: settings put secure sleep_timeout 0
+    target:
+      entity_id: media_player.family_tv
   mode: single
 - id: '1652361064621'
   alias: House - turn off armstrong and getty
@@ -770,13 +814,13 @@
       entity_id:
       - media_player.office_musiccast_2
       - media_player.family_musiccast_2
-      - media_player.master_bedroom_2
+      - media_player.master_musiccast
   - service: media_player.turn_off
     target:
       entity_id:
       - media_player.family_musiccast_2
       - media_player.office_musiccast_2
-      - media_player.master_bedroom_2
+      - media_player.master_musiccast
     data: {}
   mode: single
 - id: '1652477222094'
@@ -857,7 +901,7 @@
   action:
   - service: notify.notify
     data:
-      message: Mystery mb motion detector
+      message: Alarm tamper
   mode: single
 - id: '1656024173378'
   alias: Play Plexamp in theater
