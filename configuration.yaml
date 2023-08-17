@@ -10,16 +10,6 @@ media_player:
 
 # radarr sensors
 sensor:
-  - platform: radarr
-    api_key: !secret radarr_key
-    host: 192.168.7.30
-    port: 8310
-    days: 30
-    monitored_conditions:
-      - upcoming
-      - commands
-      - status
-    
   - platform: nut
     name: Theater Rack UPS
     host: 192.168.7.10
@@ -36,10 +26,10 @@ sensor:
 #     host: 192.168.7.30 
 #     port: 8085
 
-mqtt:
-    broker: 192.168.7.20
-    username: que
-    password: que
+#mqtt:
+#    broker: 192.168.7.20
+#    username: que
+#    password: que
     
 light:
 

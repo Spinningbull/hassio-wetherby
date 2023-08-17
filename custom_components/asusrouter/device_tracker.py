@@ -1,28 +1,41 @@
-"""AsusRouter device trackers."""
+"""AsusRouter device tracker module."""
 
 from __future__ import annotations
 
 from typing import Any
 
-from homeassistant.components.device_tracker import SOURCE_TYPE_ROUTER
+from homeassistant.components.device_tracker import SourceType
 from homeassistant.components.device_tracker.config_entry import ScannerEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DATA_ASUSROUTER, DEFAULT_DEVICE_NAME, DOMAIN
-from .router import AsusRouterDevInfo, AsusRouterObj
+from .const import (
+    ASUSROUTER,
+    CONF_DEFAULT_TRACK_DEVICES,
+    CONF_TRACK_DEVICES,
+    DEFAULT_DEVICE_NAME,
+    DOMAIN,
+)
+from .router import ARConnectedDevice, ARDevice
 
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    entry: ConfigEntry,
+    config_entry: ConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up device tracker for AsusRouter component."""
 
-    router = hass.data[DOMAIN][entry.entry_id][DATA_ASUSROUTER]
+    # If device tracking is disabled
+    if (
+        config_entry.options.get(CONF_TRACK_DEVICES, CONF_DEFAULT_TRACK_DEVICES)
+        is False
+    ):
+        return
+
+    router = hass.data[DOMAIN][config_entry.entry_id][ASUSROUTER]
     tracked: set = set()
 
     @callback
@@ -40,7 +53,7 @@ async def async_setup_entry(
 
 @callback
 def add_entities(
-    router: AsusRouterObj,
+    router: ARDevice,
     async_add_entities: AddEntitiesCallback,
     tracked: set[str],
 ) -> None:
@@ -52,35 +65,39 @@ def add_entities(
         if mac in tracked:
             continue
 
-        new_tracked.append(AsusRouterConnectedDevice(router, device))
+        new_tracked.append(ARDeviceEntity(router, device))
         tracked.add(mac)
 
     if new_tracked:
         async_add_entities(new_tracked)
 
 
-class AsusRouterConnectedDevice(ScannerEntity):
+class ARDeviceEntity(ScannerEntity):
     """Connected device class."""
 
     _attr_should_poll = False
 
     def __init__(
         self,
-        router: AsusRouterObj,
-        device: AsusRouterDevInfo,
+        router: ARDevice,
+        device: ARConnectedDevice,
     ) -> None:
         """Initialize connected device."""
 
         self._router = router
         self._device = device
-        self._attr_unique_id = device.mac
+        self._attr_unique_id = f"{router.mac}_{device.mac}"
         self._attr_name = device.name or DEFAULT_DEVICE_NAME
+        self._attr_capability_attributes = {
+            "mac": device.mac,
+            "name": self._attr_name,
+        }
 
     @property
-    def source_type(self) -> str:
+    def source_type(self) -> SourceType:
         """Source type."""
 
-        return SOURCE_TYPE_ROUTER
+        return SourceType.ROUTER
 
     @property
     def is_connected(self) -> bool:
@@ -113,26 +130,24 @@ class AsusRouterConnectedDevice(ScannerEntity):
         return "mdi:lan-connect" if self._device.is_connected else "mdi:lan-disconnect"
 
     @property
+    def unique_id(self) -> str | None:
+        """Return unique ID of the entity."""
+
+        return self._attr_unique_id
+
+    @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return extra state attributes."""
 
-        _attributes = self._device.extra_state_attributes
-        if not _attributes:
-            return {}
-
-        attributes = {}
-
-        for attr in _attributes:
-            attributes[attr] = _attributes[attr]
-
-        return attributes
+        return dict(sorted(self._device.extra_state_attributes.items())) or {}
 
     @callback
     def async_on_demand_update(self) -> None:
         """Update the state."""
 
-        self._device = self._router.devices[self._device.mac]
-        self.async_write_ha_state()
+        if self._device.mac in self._router.devices:
+            self._device = self._router.devices[self._device.mac]
+            self.async_write_ha_state()
 
     async def async_added_to_hass(self) -> None:
         """Register state update callback."""

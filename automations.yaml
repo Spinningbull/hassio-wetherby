@@ -7,6 +7,10 @@
     domain: media_player
     entity_id: media_player.theater_shield
     type: paused
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
   condition: []
   action:
   - type: turn_on
@@ -19,8 +23,13 @@
   description: Turn off lights when Media begins to play
   trigger:
   - platform: state
-    entity_id: media_player.theater_shield
+    entity_id:
+    - media_player.theater_shield
     to: playing
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
   condition: []
   action:
   - type: turn_off
@@ -37,9 +46,18 @@
   description: Bring lights up to 100% when media is stopped
   trigger:
   - platform: device
-    device_id: 048a2c4eebe2c6b1edce9c7614524754
+    device_id: 5beead3aa8c678121ae6b9815ecd92d5
     domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_2
+    entity_id: media_player.plex_theater_2
+    type: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 15
+  - platform: device
+    device_id: 5beead3aa8c678121ae6b9815ecd92d5
+    domain: media_player
+    entity_id: media_player.plex_theater_2
     type: turned_off
   condition:
   - condition: time
@@ -53,6 +71,13 @@
     - fri
     - sat
     - sun
+  - condition: not
+    conditions:
+    - condition: device
+      device_id: 849fa7b3241415d105f4d19fa7c8f805
+      domain: media_player
+      entity_id: media_player.plex_theater
+      type: is_playing
   action:
   - type: turn_on
     device_id: f12a835a0faa13cb4826f7d38223a344
@@ -69,6 +94,10 @@
     domain: media_player
     entity_id: media_player.theater_shield
     type: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
   - platform: device
     device_id: f104aca2ebb47d0afcc0396bb91c96dc
     domain: media_player
@@ -98,48 +127,22 @@
     data: {}
     target:
       entity_id:
-      - switch.string_lights
       - switch.pool_house
+      device_id: aa1fdd2907112edd8d1258cf0277b0bd
   - service: hue.hue_activate_scene
     data:
       group_name: master
       scene_name: nightlight
       dynamic: true
   mode: single
-- id: '1618764535146'
-  alias: Roon - playing in the Office
-  description: ''
-  trigger:
-  - platform: device
-    device_id: eb407f8314ed005bf11f3aaa09cbdc8c
-    domain: media_player
-    entity_id: media_player.office_roonberry
-    type: playing
-  condition: []
-  action:
-  - service: media_player.turn_on
-    target:
-      entity_id: media_player.office_main
-    data: {}
-  - service: media_player.select_source
-    target:
-      entity_id: media_player.office_main
-    data:
-      source: optical
-  mode: single
 - id: '1618778013049'
   alias: Plex - lights off on play
   description: ''
   trigger:
   - platform: device
-    device_id: 048a2c4eebe2c6b1edce9c7614524754
+    device_id: 5beead3aa8c678121ae6b9815ecd92d5
     domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_2
-    type: playing
-  - platform: device
-    device_id: 451f88e075ace744f67ce7e43eb010f3
-    domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_3
+    entity_id: media_player.plex_theater_2
     type: playing
   condition: []
   action:
@@ -157,10 +160,14 @@
   description: ''
   trigger:
   - platform: device
-    device_id: 048a2c4eebe2c6b1edce9c7614524754
+    device_id: 5beead3aa8c678121ae6b9815ecd92d5
     domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_2
+    entity_id: media_player.plex_theater_2
     type: paused
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
   condition:
   - condition: device
     type: is_off
@@ -173,96 +180,17 @@
     entity_id: switch.theater_ambient
     domain: switch
   mode: single
-- id: '1626916974326'
-  alias: Roon - Turn on Stereo when Roon starts playing
-  description: ''
-  trigger:
-  - platform: device
-    device_id: df15dcd28b7a749101bec9812d91292f
-    domain: media_player
-    entity_id: media_player.family_room_stereo
-    type: playing
-  condition: []
-  action:
-  - service: media_player.turn_on
-    target:
-      entity_id: media_player.family_room_main
-    data: {}
-  - service: media_player.select_source
-    target:
-      entity_id: media_player.family_room_main
-    data:
-      source: audio3
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.45
-    target:
-      entity_id: media_player.family_room_main
-  mode: single
-- id: '1626918072532'
-  alias: Roon - Turn on Theater
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 14b1a9a958af9876e0dc5087c0940622
-    domain: media_player
-    entity_id: media_player.theater_roonberry
-    type: playing
-  condition:
-  - condition: device
-    type: is_off
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_play_ps4
-    domain: switch
-  action:
-  - type: turn_on
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_listen_to_roon
-    domain: switch
-  mode: single
-- id: '1627081584215'
-  alias: Roon - Turn on mcRack when Roon plays
-  description: ''
-  trigger:
-  - platform: device
-    device_id: dd73ebe3c390d6beffb825ee27773501
-    domain: media_player
-    entity_id: media_player.mcrack
-    type: playing
-  condition: []
-  action:
-  - type: turn_on
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_manage_mediacenter
-    domain: switch
-  mode: single
-- id: '1627081929300'
-  alias: Roon - Turn off Stereo when Roon Stops playing
-  description: Auto off in Family Room
-  trigger:
-  - platform: device
-    device_id: 0c8c91866a03868d5f7b465cb3b58bc6
-    domain: media_player
-    entity_id: media_player.family_room_roonberry
-    type: idle
-    for:
-      hours: 0
-      minutes: 20
-      seconds: 0
-      milliseconds: 0
-  condition: []
-  action:
-  - service: media_player.turn_off
-    target:
-      entity_id: media_player.family_room_main
-    data: {}
-  mode: single
 - id: '1638197847338'
   alias: House - turn on armstrong and getty
   description: ''
   trigger:
   - platform: time
     at: 07:45:00
+  - platform: state
+    entity_id:
+    - input_boolean.armstrong_and_getty
+    from: 'off'
+    to: 'on'
   condition:
   - condition: time
     weekday:
@@ -288,30 +216,11 @@
       entity_id: media_player.family_musiccast_2
     data:
       volume_level: 0.4
-  - service: media_player.join
-    data:
-      group_members:
-      - media_player.office_musiccast_2
-      - media_player.master_musiccast
-    target:
-      entity_id:
-      - media_player.family_musiccast_2
-  - service: hue.hue_activate_scene
-    data:
-      group_name: master
-      scene_name: daytime
   - delay:
       hours: 3
       minutes: 20
       seconds: 0
       milliseconds: 0
-  - service: media_player.unjoin
-    data: {}
-    target:
-      entity_id:
-      - media_player.office_musiccast_2
-      - media_player.family_musiccast_2
-      - media_player.master_musiccast
   - service: media_player.turn_off
     target:
       entity_id:
@@ -319,51 +228,6 @@
       - media_player.office_musiccast_2
       - media_player.master_musiccast
     data: {}
-  mode: single
-- id: '1638202864296'
-  alias: Roon - Family Room - Roon Playing
-  description: ''
-  trigger:
-  - platform: device
-    device_id: 0c8c91866a03868d5f7b465cb3b58bc6
-    domain: media_player
-    entity_id: media_player.family_room_roonberry
-    type: playing
-  condition: []
-  action:
-  - service: media_player.turn_on
-    target:
-      entity_id:
-      - media_player.family_musiccast_2
-    data: {}
-  - service: media_player.select_source
-    target:
-      entity_id:
-      - media_player.family_musiccast_2
-    data:
-      source: audio3
-  mode: single
-- id: '1638202983992'
-  alias: Roon - Patio - Roon Playing
-  description: automatically turns stereo on when roon starts playing on patio
-  trigger:
-  - platform: device
-    device_id: 45b2a1d3380ebeba569ba225cea0688a
-    domain: media_player
-    entity_id: media_player.patio_roonberry
-    type: playing
-  condition: []
-  action:
-  - service: media_player.turn_on
-    target:
-      entity_id:
-      - media_player.patio_musiccast_2
-    data: {}
-  - service: media_player.select_source
-    data:
-      source: AUX
-    target:
-      entity_id: media_player.patio_musiccast_2
   mode: single
 - id: '1638932536437'
   alias: House - someones in the family room
@@ -390,56 +254,8 @@
       title: motion alert
   - service: tts.google_translate_say
     data:
-      entity_id: media_player.master_bedroom_2
+      entity_id: media_player.master_bedroom
       message: 'Alert: someone is in the family room.'
-  mode: single
-- id: '1640135044966'
-  alias: Roon - Play Music on Roonberry Downstairs
-  description: automation behind the play music switch
-  trigger:
-  - platform: state
-    entity_id: input_boolean.play_music
-    to: 'on'
-  condition: []
-  action:
-  - service: media_player.play_media
-    data:
-      media_content_id: Playlists/good music
-      media_content_type: playlist
-  - service: media_player.shuffle_set
-    target:
-      entity_id: media_player.family_room_roonberry
-    data:
-      shuffle: true
-  - service: media_player.join
-    target:
-      entity_id: media_player.family_musiccast_2
-    data:
-      group_members:
-      - media_player.living_musiccast_2
-      - media_player.patio_musiccast_2
-  mode: single
-- id: '1640136000540'
-  alias: Roon - Stop Music on Roonberry Downstairs
-  description: automation behind the play music switch
-  trigger:
-  - platform: state
-    entity_id: input_boolean.play_music
-    to: 'off'
-    from: 'on'
-  condition: []
-  action:
-  - service: media_player.media_stop
-    target:
-      entity_id: media_player.family_room_roonberry
-    data: {}
-  - service: media_player.unjoin
-    target:
-      entity_id:
-      - media_player.family_musiccast_2
-      - media_player.patio_musiccast_2
-      - media_player.living_musiccast_2
-    data: {}
   mode: single
 - id: '1641957528180'
   alias: Theater - set movie time
@@ -507,8 +323,8 @@
     entity_id: switch.house_soffits
     domain: switch
   - type: turn_on
-    device_id: e57cbfb1a99041f9a12999ed25cfb1a2
-    entity_id: switch.string_lights
+    device_id: aa1fdd2907112edd8d1258cf0277b0bd
+    entity_id: switch.grill_lights
     domain: switch
   - type: turn_on
     device_id: ac2ff7658e4c6f04ead51bf11cf534b3
@@ -553,10 +369,14 @@
   description: ''
   trigger:
   - platform: device
-    device_id: 451f88e075ace744f67ce7e43eb010f3
+    device_id: 849fa7b3241415d105f4d19fa7c8f805
     domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_3
+    entity_id: media_player.plex_theater
     type: paused
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
   condition:
   - condition: device
     type: is_off
@@ -574,11 +394,27 @@
   description: Bring lights up to 100% when media is stopped
   trigger:
   - platform: device
-    device_id: 451f88e075ace744f67ce7e43eb010f3
+    device_id: 849fa7b3241415d105f4d19fa7c8f805
     domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_3
+    entity_id: media_player.plex_theater
+    type: idle
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 15
+  - platform: device
+    device_id: 849fa7b3241415d105f4d19fa7c8f805
+    domain: media_player
+    entity_id: media_player.plex_theater
     type: turned_off
-  condition: []
+  condition:
+  - condition: not
+    conditions:
+    - condition: device
+      device_id: 5beead3aa8c678121ae6b9815ecd92d5
+      domain: media_player
+      entity_id: media_player.plex_theater_2
+      type: is_playing
   action:
   - type: turn_on
     device_id: f12a835a0faa13cb4826f7d38223a344
@@ -591,9 +427,9 @@
   description: ''
   trigger:
   - platform: device
-    device_id: 451f88e075ace744f67ce7e43eb010f3
+    device_id: 849fa7b3241415d105f4d19fa7c8f805
     domain: media_player
-    entity_id: media_player.plex_plex_for_android_tv_shield_android_tv_3
+    entity_id: media_player.plex_theater
     type: playing
   condition: []
   action:
@@ -611,9 +447,9 @@
   description: automatically turns stereo on when roon starts playing on patio
   trigger:
   - platform: device
-    device_id: f4de20c5bb59e4fdb84063b4f7ebef10
+    device_id: 18b2b53b86763918bdd1e843a7fcb83f
     domain: media_player
-    entity_id: media_player.plexamp_patio
+    entity_id: media_player.plex_plexamp_patio
     type: playing
   condition: []
   action:
@@ -637,23 +473,19 @@
   description: automatically turns stereo off when plexamp stops playing on patio
   trigger:
   - platform: device
-    device_id: f4de20c5bb59e4fdb84063b4f7ebef10
+    device_id: 18b2b53b86763918bdd1e843a7fcb83f
     domain: media_player
-    entity_id: media_player.plexamp_patio
-    type: turned_off
-    for:
-      hours: 0
-      minutes: 2
-      seconds: 0
-  - platform: device
-    device_id: f4de20c5bb59e4fdb84063b4f7ebef10
-    domain: media_player
-    entity_id: media_player.plexamp_patio
+    entity_id: media_player.plex_plexamp_patio
     type: idle
     for:
       hours: 0
-      minutes: 10
+      minutes: 15
       seconds: 0
+  - platform: device
+    device_id: 18b2b53b86763918bdd1e843a7fcb83f
+    domain: media_player
+    entity_id: media_player.plex_plexamp_patio
+    type: turned_off
   condition: []
   action:
   - service: media_player.turn_off
@@ -667,13 +499,17 @@
     Bedroom
   trigger:
   - platform: device
-    device_id: b6e3bcca3d2dcccebbce3d23e04538a3
+    device_id: 17e4aab2e9c5614c3be559b7f695fe13
     domain: media_player
-    entity_id: media_player.plexamp_master_bedroom
+    entity_id: media_player.plex_plexamp_master_bedroom
     type: playing
   condition: []
   action:
   - service: media_player.turn_on
+    data: {}
+    target:
+      entity_id: media_player.master_musiccast
+  - service: media_player.unjoin
     data: {}
     target:
       entity_id: media_player.master_musiccast
@@ -688,30 +524,16 @@
   description: automatically turns stereo off when plexamp stops playing on patio
   trigger:
   - platform: device
-    device_id: b6e3bcca3d2dcccebbce3d23e04538a3
+    device_id: 17e4aab2e9c5614c3be559b7f695fe13
     domain: media_player
     entity_id: media_player.plexamp_master_bedroom
     type: idle
     for:
       hours: 0
-      minutes: 5
+      minutes: 15
       seconds: 0
-  - platform: device
-    device_id: b6e3bcca3d2dcccebbce3d23e04538a3
-    domain: media_player
-    entity_id: media_player.plexamp_master_bedroom
-    type: turned_off
-  - platform: device
-    device_id: 7f1f780841e5ac3565e465f99a485a63
-    domain: media_player
-    entity_id: media_player.master_musiccast
-    type: turned_off
   condition: []
   action:
-  - service: media_player.media_stop
-    data: {}
-    target:
-      entity_id: media_player.plexamp_master_bedroom
   - service: media_player.turn_off
     data: {}
     target:
@@ -722,18 +544,13 @@
   description: automatically turns stereo off when plexamp stops playing on patio
   trigger:
   - platform: device
-    device_id: 1e0cd3829c7c3517115f6c2f07e76908
+    device_id: 61a3740d6dfb0f58b8bb29162ebdd6b6
     domain: media_player
-    entity_id: media_player.plexamp_family
-    type: turned_off
-  - platform: device
-    device_id: 1e0cd3829c7c3517115f6c2f07e76908
-    domain: media_player
-    entity_id: media_player.plexamp_family
+    entity_id: media_player.plex_plexamp_family_room
     type: idle
     for:
       hours: 0
-      minutes: 10
+      minutes: 15
       seconds: 0
   - platform: device
     device_id: 3c0d248ed4c6e384bca97d06b9c40f00
@@ -746,56 +563,58 @@
     data: {}
     target:
       entity_id: media_player.family_musiccast_2
-  - service: androidtv.adb_command
-    data:
-      command: settings put secure sleep_timeout 600000
-    target:
-      entity_id: media_player.family_tv
   - service: media_player.media_stop
     data: {}
     target:
       entity_id: media_player.plexamp_family
-  - service: media_player.turn_off
-    data: {}
-    target:
-      entity_id: media_player.family_tv
   mode: single
 - id: '1652145801294'
   alias: 'Plexamp - Family Playing '
   description: automatically turns stereo on when plexamp starts playing in office
   trigger:
   - platform: device
-    device_id: 1e0cd3829c7c3517115f6c2f07e76908
+    device_id: 61a3740d6dfb0f58b8bb29162ebdd6b6
     domain: media_player
-    entity_id: media_player.plexamp_family
+    entity_id: media_player.plex_plexamp_family_room
     type: playing
   condition: []
   action:
   - service: media_player.turn_on
-    target:
-      entity_id:
-      - media_player.family_musiccast_2
     data: {}
+    target:
+      entity_id: media_player.family_musiccast_2
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 5
+      milliseconds: 0
   - service: media_player.select_source
     data:
       source: audio3
     target:
       entity_id:
       - media_player.family_musiccast_2
-  - service: media_player.turn_on
-    data: {}
-    target:
-      entity_id: media_player.family_tv
-  - service: media_player.select_source
+  - service: media_player.volume_set
     data:
-      source: com.amazon.cloud9
+      volume_level: 0.6
     target:
-      entity_id: media_player.family_tv
-  - service: androidtv.adb_command
-    data:
-      command: settings put secure sleep_timeout 0
-    target:
-      entity_id: media_player.family_tv
+      entity_id: media_player.family_musiccast_2
+  - if:
+    - condition: state
+      entity_id: media_player.family_musiccast_2
+      attribute: source
+      state: audio3
+    then: []
+    else:
+    - service: media_player.turn_off
+      data: {}
+      target:
+        entity_id: media_player.family_tv
+    - service: media_player.select_source
+      data:
+        source: audio3
+      target:
+        entity_id: media_player.family_musiccast_2
   mode: single
 - id: '1652361064621'
   alias: House - turn off armstrong and getty
@@ -804,6 +623,11 @@
   - platform: state
     entity_id:
     - input_button.turn_off_stereo
+    from: 'On'
+    to: 'Off'
+  - platform: state
+    entity_id:
+    - input_boolean.armstrong_and_getty
     from: 'On'
     to: 'Off'
   condition: []
@@ -822,59 +646,6 @@
       - media_player.office_musiccast_2
       - media_player.master_musiccast
     data: {}
-  mode: single
-- id: '1652477222094'
-  alias: Plexamp - Play Music on plexamp Downstairs
-  description: automation behind the play music switch
-  trigger:
-  - platform: state
-    entity_id: input_boolean.play_music
-    to: 'on'
-  condition: []
-  action:
-  - service: media_player.media_play
-    data: {}
-    target:
-      entity_id: media_player.plexamp_family
-  - service: media_player.join
-    target:
-      entity_id: media_player.family_musiccast_2
-    data:
-      group_members:
-      - media_player.living_musiccast_2
-      - media_player.patio_musiccast_2
-      - media_player.dining_musiccast_2
-  mode: single
-- id: '1652477382302'
-  alias: Plexamp - Stop Music Downstairs
-  description: automation behind the play music switch
-  trigger:
-  - platform: state
-    entity_id: input_boolean.play_music
-    to: 'off'
-    from: 'on'
-  condition: []
-  action:
-  - service: media_player.media_stop
-    data: {}
-    target:
-      entity_id: media_player.plexamp_family
-  - service: media_player.unjoin
-    target:
-      entity_id:
-      - media_player.family_musiccast_2
-      - media_player.patio_musiccast_2
-      - media_player.living_musiccast_2
-      - media_player.dining_musiccast_2
-    data: {}
-  - service: media_player.turn_off
-    data: {}
-    target:
-      entity_id:
-      - media_player.family_musiccast_2
-      - media_player.dining_musiccast_2
-      - media_player.living_musiccast_2
-      - media_player.patio_musiccast_2
   mode: single
 - id: '1652479425280'
   alias: Unlink Speakers
@@ -903,32 +674,6 @@
     data:
       message: Alarm tamper
   mode: single
-- id: '1656024173378'
-  alias: Play Plexamp in theater
-  description: ''
-  trigger:
-  - platform: device
-    device_id: d21f98f7bc8d6070644f5cd2bc72563a
-    domain: media_player
-    entity_id: media_player.plexamp_theater
-    type: playing
-  condition:
-  - condition: device
-    type: is_off
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_play_ps4
-    domain: switch
-  - condition: device
-    type: is_off
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_watch_shield
-    domain: switch
-  action:
-  - type: turn_on
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_listen_to_music_on_oppo
-    domain: switch
-  mode: single
 - id: '1656024562889'
   alias: Theater OFF when Plexamp stops
   description: ''
@@ -953,4 +698,236 @@
     data: {}
     target:
       device_id: ba50c7a4ef3fb16920ace270971155f2
+  mode: single
+- id: '1664327860211'
+  alias: Plexamp - Play plexamp in theater
+  description: ''
+  trigger:
+  - platform: device
+    device_id: ae2476577ae4fed00052cd484860d34a
+    domain: media_player
+    entity_id: media_player.plex_plexamp_theater
+    type: playing
+  condition:
+  - condition: device
+    type: is_off
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: remote.theater_remote
+    domain: remote
+  action:
+  - type: turn_on
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_listen_to_music_on_oppo
+    domain: switch
+  mode: single
+- id: '1664328625425'
+  alias: Plexamp stops in theater
+  description: ''
+  trigger:
+  - platform: device
+    device_id: ae2476577ae4fed00052cd484860d34a
+    domain: media_player
+    entity_id: media_player.plex_plexamp_theater
+    type: idle
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  - platform: device
+    device_id: ae2476577ae4fed00052cd484860d34a
+    domain: media_player
+    entity_id: media_player.plex_plexamp_theater
+    type: turned_off
+  condition:
+  - condition: device
+    type: is_on
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_listen_to_music_on_oppo
+    domain: switch
+  action:
+  - type: turn_off
+    device_id: ba50c7a4ef3fb16920ace270971155f2
+    entity_id: switch.theater_remote_listen_to_music_on_oppo
+    domain: switch
+  mode: single
+- id: '1685491703206'
+  alias: Remote - Patio Skip
+  description: Triangle button on patio remote
+  trigger:
+  - platform: event
+    event_type: smartthings.button
+    event_data:
+      component_id: button4
+      value: pushed
+      name: Fibaro KeyFob
+      data: {}
+  condition: []
+  action:
+  - service: media_player.media_next_track
+    data: {}
+    target:
+      device_id: 18b2b53b86763918bdd1e843a7fcb83f
+  mode: single
+- id: '1685492135212'
+  alias: Remote -  Volume Up
+  description: + button on patio remote
+  trigger:
+  - platform: event
+    event_type: smartthings.button
+    event_data:
+      component_id: button6
+      value: pushed
+      name: Fibaro KeyFob
+      data: {}
+  condition: []
+  action:
+  - repeat:
+      count: '8'
+      sequence:
+      - service: media_player.volume_up
+        data: {}
+        target:
+          entity_id:
+          - media_player.patio_musiccast_2
+          - media_player.pool_musicccast_2
+  mode: single
+- id: '1685492229645'
+  alias: Remote - Volume Down
+  description: '- button on patio remote'
+  trigger:
+  - platform: event
+    event_type: smartthings.button
+    event_data:
+      component_id: button5
+      value: pushed
+      name: Fibaro KeyFob
+      data: {}
+  condition: []
+  action:
+  - repeat:
+      count: '8'
+      sequence:
+      - service: media_player.volume_down
+        data: {}
+        target:
+          entity_id:
+          - media_player.patio_musiccast_2
+          - media_player.pool_musicccast_2
+  mode: single
+- id: '1685492324617'
+  alias: Remote - Previous Track
+  description: X button on patio remote
+  trigger:
+  - platform: event
+    event_type: smartthings.button
+    event_data:
+      component_id: button3
+      value: pushed
+      name: Fibaro KeyFob
+      data: {}
+  condition: []
+  action:
+  - service: media_player.media_previous_track
+    data: {}
+    target:
+      entity_id: media_player.plex_plexamp_patio
+  mode: single
+- id: '1685492412352'
+  alias: Remote - Play/Pause
+  description: O button on patio remote
+  trigger:
+  - platform: event
+    event_type: smartthings.button
+    event_data:
+      component_id: button2
+      value: pushed
+      name: Fibaro KeyFob
+      data: {}
+  condition: []
+  action:
+  - service: media_player.media_play_pause
+    data: {}
+    target:
+      entity_id: media_player.plex_plexamp_patio
+  mode: single
+- id: '1685492535640'
+  alias: Remote - Start Plexamp on Patio
+  description: Square button on patio remote
+  trigger:
+  - platform: event
+    event_type: smartthings.button
+    event_data:
+      component_id: button1
+      value: pushed
+      name: Fibaro KeyFob
+      data: {}
+  condition: []
+  action:
+  - service: script.play_patio
+    data: {}
+  mode: single
+- id: '1687640122931'
+  alias: House - Phone call alert while in pool
+  description: Announcement about Todd's phone ringing when pool music on
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.toddss23_phone_state
+    to: ringing
+  condition:
+  - condition: device
+    device_id: 47c089100f2812ab4db9cbe8ddd92deb
+    domain: media_player
+    entity_id: media_player.pool_musicccast_2
+    type: is_playing
+  action:
+  - service: tts.google_translate_say
+    data:
+      cache: false
+      entity_id: media_player.pool_musicccast_2
+      message: Todd's phone is ringing
+  mode: single
+- id: '1690315536276'
+  alias: Theater-temperature alert
+  description: ''
+  trigger:
+  - type: temperature
+    platform: device
+    device_id: 274909318bfa356e5edcc56f8c3674dd
+    entity_id: 2e50f59de476f9287113de012535c715
+    domain: sensor
+    above: 110
+  condition: []
+  action:
+  - device_id: 698d5532ba3c339d2d82d9a5560e3d65
+    domain: mobile_app
+    type: notify
+    message: Theater Alert
+    title: Temperature too high
+  - service: notify.mobile_app_galaxy_watch5_pro_kbvt
+    data:
+      message: Theater temperature too high
+      title: Theater Alert
+  mode: single
+- id: '1690315672294'
+  alias: Shop Humidity Alert
+  description: ''
+  trigger:
+  - type: humidity
+    platform: device
+    device_id: f251e82b5cf374a86d5ef691275c85ad
+    entity_id: dc05c1110c60d908504f249d7f82af38
+    domain: sensor
+    above: 80
+  condition: []
+  action:
+  - service: notify.mobile_app_galaxy_watch5_pro_kbvt
+    data:
+      message: Too Humid in Shop
+      title: Shop Alert
+  - device_id: 698d5532ba3c339d2d82d9a5560e3d65
+    domain: mobile_app
+    type: notify
+    message: Shop Humidity too high
+    title: Shop Alert
   mode: single

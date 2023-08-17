@@ -12,9 +12,9 @@ import datetime
 from datetime import timedelta
 from functools import reduce
 import logging
-from typing import Any, Dict, List, Optional, Text
+from typing import Any, Optional
 
-from aiohttp import ClientConnectionError, ClientSession, web, web_response
+from aiohttp import ClientConnectionError, ClientSession, InvalidURL, web, web_response
 from aiohttp.web_exceptions import HTTPBadRequest
 from alexapy import (
     AlexaLogin,
@@ -31,7 +31,6 @@ from homeassistant.const import CONF_EMAIL, CONF_PASSWORD, CONF_SCAN_INTERVAL, C
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import UnknownFlow
 from homeassistant.exceptions import Unauthorized
-from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.network import NoURLAvailableError, get_url
 from homeassistant.util import slugify
 import httpx
@@ -50,6 +49,7 @@ from .const import (
     CONF_INCLUDE_DEVICES,
     CONF_OAUTH,
     CONF_OTPSECRET,
+    CONF_PROXY_WARNING,
     CONF_QUEUE_DELAY,
     CONF_SECURITYCODE,
     CONF_TOTP_REGISTER,
@@ -88,7 +88,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
 
     def _update_ord_dict(self, old_dict: OrderedDict, new_dict: dict) -> OrderedDict:
         result: OrderedDict = OrderedDict()
-        for k, v in old_dict.items():
+        for k, v in old_dict.items():  # pylint: disable=invalid-name
             for key, value in new_dict.items():
                 if k == key:
                     result.update([(key, value)])
@@ -123,12 +123,16 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
         self.totp_register = OrderedDict(
             [(vol.Optional(CONF_TOTP_REGISTER, default=False), bool)]
         )
+        self.proxy_warning = OrderedDict(
+            [(vol.Optional(CONF_PROXY_WARNING, default=False), bool)]
+        )
 
     async def async_step_import(self, import_config):
         """Import a config entry from configuration.yaml."""
         return await self.async_step_user_legacy(import_config)
 
     async def async_step_user(self, user_input=None):
+        # pylint: disable=too-many-branches
         """Provide a proxy for login."""
         self._save_user_input_to_config(user_input=user_input)
         try:
@@ -241,28 +245,44 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
                 description_placeholders={"message": ""},
             )
         hass_url: str = user_input.get(CONF_HASS_URL)
+        if hass_url is None:
+            try:
+                hass_url = get_url(self.hass, prefer_external=True)
+            except NoURLAvailableError:
+                _LOGGER.debug(
+                    "No Home Assistant URL found in config or detected; forcing user form"
+                )
+                return self.async_show_form(
+                    step_id="user",
+                    data_schema=vol.Schema(self.proxy_schema),
+                    description_placeholders={"message": ""},
+                )
         hass_url_valid: bool = False
+        hass_url_error: str = ""
         async with ClientSession() as session:
             try:
                 async with session.get(hass_url) as resp:
                     hass_url_valid = resp.status == 200
-            except ClientConnectionError:
+            except ClientConnectionError as err:
                 hass_url_valid = False
+                hass_url_error = str(err)
+            except InvalidURL as err:
+                hass_url_valid = False
+                hass_url_error = str(err.__cause__)
         if not hass_url_valid:
             _LOGGER.debug(
                 "Unable to connect to provided Home Assistant url: %s", hass_url
             )
             return self.async_show_form(
-                step_id="user",
-                errors={"base": "hass_url_invalid"},
-                description_placeholders={"message": ""},
+                step_id="proxy_warning",
+                data_schema=vol.Schema(self.proxy_warning),
+                errors={},
+                description_placeholders={
+                    "email": self.login.email,
+                    "hass_url": hass_url,
+                    "error": hass_url_error,
+                },
             )
-        if not self.proxy:
-            self.proxy = AlexaProxy(
-                self.login, str(URL(hass_url).with_path(AUTH_PROXY_PATH))
-            )
-        # Swap the login object
-        self.proxy.change_login(self.login)
         if (
             user_input
             and user_input.get(CONF_OTPSECRET)
@@ -285,11 +305,26 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
 
     async def async_step_start_proxy(self, user_input=None):
         """Start proxy for login."""
+        # pylint: disable=unused-argument
         _LOGGER.debug(
             "Starting proxy for %s - %s",
             hide_email(self.login.email),
             self.login.url,
         )
+        if not self.proxy:
+            try:
+                self.proxy = AlexaProxy(
+                    self.login,
+                    str(URL(self.config.get(CONF_HASS_URL)).with_path(AUTH_PROXY_PATH)),
+                )
+            except ValueError as ex:
+                return self.async_show_form(
+                    step_id="user",
+                    errors={"base": "invalid_url"},
+                    description_placeholders={"message": str(ex)},
+                )
+        # Swap the login object
+        self.proxy.change_login(self.login)
         if not self.proxy_view:
             self.proxy_view = AlexaMediaAuthorizationProxyView(self.proxy.all_handler)
         else:
@@ -298,7 +333,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
         self.hass.http.register_view(AlexaMediaAuthorizationCallbackView())
         self.hass.http.register_view(self.proxy_view)
         callback_url = (
-            URL(self.config["hass_url"])
+            URL(self.config[CONF_HASS_URL])
             .with_path(AUTH_CALLBACK_PATH)
             .with_query({"flow_id": self.flow_id})
         )
@@ -306,10 +341,11 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
         proxy_url = self.proxy.access_url().with_query(
             {"config_flow_id": self.flow_id, "callback_url": str(callback_url)}
         )
-        self.login._session.cookie_jar.clear()
+        self.login._session.cookie_jar.clear()  # pylint: disable=protected-access
         return self.async_external_step(step_id="check_proxy", url=str(proxy_url))
 
     async def async_step_check_proxy(self, user_input=None):
+        # pylint: disable=unused-argument
         """Check status of proxy for login."""
         _LOGGER.debug(
             "Checking proxy response for %s - %s",
@@ -320,6 +356,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
         return self.async_external_step_done(next_step_id="finish_proxy")
 
     async def async_step_finish_proxy(self, user_input=None):
+        # pylint: disable=unused-argument
         """Finish auth."""
         if await self.login.test_loggedin():
             await self.login.finalize_login()
@@ -428,7 +465,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
                 errors={"base": "2fa_key_invalid"},
                 description_placeholders={"message": ""},
             )
-        except BaseException as ex:  # pylyint: disable=broad-except
+        except BaseException as ex:  # pylint: disable=broad-except
             _LOGGER.warning("Unknown error: %s", ex)
             if self.config[CONF_DEBUG]:
                 raise
@@ -436,13 +473,26 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
             return self.async_show_form(
                 step_id="user_legacy",
                 errors={"base": "unknown_error"},
+                description_placeholders={"message": str(ex)},
+            )
+
+    async def async_step_proxy_warning(self, user_input=None):
+        """Handle the proxy_warning for the config flow."""
+        self._save_user_input_to_config(user_input=user_input)
+        if user_input and user_input.get(CONF_PROXY_WARNING) is False:
+            _LOGGER.debug("User is not accepting warning, go back")
+            return self.async_show_form(
+                step_id="user",
+                data_schema=vol.Schema(self.proxy_schema),
                 description_placeholders={"message": ""},
             )
+        _LOGGER.debug("User is ignoring proxy warning; starting proxy anyway")
+        return await self.async_step_start_proxy(user_input)
 
     async def async_step_totp_register(self, user_input=None):
         """Handle the input processing of the config flow."""
         self._save_user_input_to_config(user_input=user_input)
-        if user_input and user_input.get("registered") is False:
+        if user_input and user_input.get(CONF_TOTP_REGISTER) is False:
             _LOGGER.debug("Not registered, regenerating")
             otp: str = self.login.get_totp_token()
             if otp:
@@ -508,7 +558,6 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
         return await self.async_step_user_legacy(self.config)
 
     async def _test_login(self):
-        # pylint: disable=too-many-statements, too-many-return-statements
         login = self.login
         email = login.email
         _LOGGER.debug("Testing login status: %s", login.status)
@@ -524,7 +573,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
                 "access_token": login.access_token,
                 "refresh_token": login.refresh_token,
                 "expires_in": login.expires_in,
-                "mac_dms": login.mac_dms
+                "mac_dms": login.mac_dms,
             }
             self.hass.data.setdefault(
                 DATA_ALEXAMEDIA,
@@ -585,10 +634,10 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
                 self.automatic_steps += 1
                 await sleep(5)
                 if generated_securitycode:
-                    return await self.async_step_twofactor(
+                    return await self.async_step_user_legacy(
                         user_input={CONF_SECURITYCODE: generated_securitycode}
                     )
-                return await self.async_step_twofactor(
+                return await self.async_step_user_legacy(
                     user_input={CONF_SECURITYCODE: self.securitycode}
                 )
         if login.status and (login.status.get("login_failed")):
@@ -628,6 +677,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
         )
 
     def _save_user_input_to_config(self, user_input=None) -> None:
+        # pylint: disable=too-many-branches
         """Process user_input to save to self.config.
 
         user_input can be a dictionary of strings or an internally
@@ -786,11 +836,11 @@ class AlexaMediaAuthorizationProxyView(HomeAssistantView):
     """Handle proxy connections."""
 
     url: str = AUTH_PROXY_PATH
-    extra_urls: List[str] = [f"{AUTH_PROXY_PATH}/{{tail:.*}}"]
+    extra_urls: list[str] = [f"{AUTH_PROXY_PATH}/{{tail:.*}}"]
     name: str = AUTH_PROXY_NAME
     requires_auth: bool = False
     handler: web.RequestHandler = None
-    known_ips: Dict[str, datetime.datetime] = {}
+    known_ips: dict[str, datetime.datetime] = {}
     auth_seconds: int = 300
 
     def __init__(self, handler: web.RequestHandler):
@@ -838,7 +888,9 @@ class AlexaMediaAuthorizationProxyView(HomeAssistantView):
                 _LOGGER.warning("Detected Connection error: %s", ex)
                 return web_response.Response(
                     headers={"content-type": "text/html"},
-                    text=f"Connection Error! Please try refreshing. If this persists, please report this error to <a href={ISSUE_URL}>here</a>:<br /><pre>{ex}</pre>",
+                    text="Connection Error! Please try refreshing. "
+                    + "If this persists, please report this error to "
+                    + f"<a href={ISSUE_URL}>here</a>:<br /><pre>{ex}</pre>",
                 )
 
         return wrapped

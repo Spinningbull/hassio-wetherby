@@ -1,123 +1,211 @@
 {
     "config": {
+        "flow_title": "{name} ({host})",
         "step": {
-            "discovery": {
+            "find": {
+                "title": "Localizar dispositivo",
                 "description": "Como encontrar seu dispositivo",
                 "data": {
-                    "host": "Host / Endereço IP"
+                    "host": "Nome de rede / Endereço IP"
                 }
             },
             "credentials": {
-                "description": "Credenciais (as mesmas do painel da web do dispositivo)",
+                "title": "Credenciais",
+                "description": "As mesmas do painel da web do dispositivo",
                 "data": {
                     "username": "Nome de usuário",
                     "password": "Senha",
+                    "port": "Porta (0 para usar o valor padrão)",
                     "ssl": "Usar conexão SSL"
                 }
             },
-            "device": {
-                "description": "Parâmetros para conectar ao dispositivo",
+            "operation": {
+                "title": "Modo de operação",
                 "data": {
-                    "username": "Nome de usuário",
-                    "password": "Senha",
-                    "port": "Port (0 to use default value)",
-                    "ssl": "Usar conexão SSL",
-                    "verify_ssl": "Verificar certificado SSL",
-                    "cert_path": "Caminho do certificado"
+                    "mode": "Modo do dispositivo",
+                    "enable_control": "Ativar o controle do dispositivo",
+                    "split_intervals": "Habilitar intervalos de atualização por sensor"
                 }
             },
-            "operation_mode": {
-                "description": "Modo de operação",
-                "data": {
-                    "enable_monitor": "Ativar o monitoramento do dispositivo",
-                    "enable_control": "Ativar o controle do dispositivo"
+            "options": {
+                "title": "[NT] Additional options",
+                "menu_options": {
+                    "connected_devices": "[NT] Connected devices",
+                    "intervals": "Intervalos de atualização",
+                    "interfaces": "Interfaces para monitorar",
+                    "events": "Eventos do Home Assistant",
+                    "security": "Opções de segurança",
+                    "finish": "[NT] Save and finish"
                 }
             },
-            "times": {
-                "description": "Constantes de tempo",
+            "connected_devices": {
+                "title": "Connected devices",
+                "data": {
+                    "track_devices": "Habilitar rastreadores de dispositivos",
+                    "latest_connected": "Número de dispositivos conectatos recentemente a armazenar",
+                    "interval_devices": "Atualização de dispositivos / AiMesh",
+                    "consider_home": "Considere um dispositivo em casa após (desde o último estado 'online')"
+                }
+            },
+            "intervals": {
+                "title": "Intervalos de atualização",
+                "description": "Valores indicados em segundos",
                 "data": {
                     "cache_time": "Tempo de cache para os dados do dispositivo",
                     "scan_interval": "Intervalo para atualizar entidades",
-                    "consider_home": "Considere o dispositivo em casa para (após o último estado 'online')"
+                    "interval_cpu": "Dados de CPU",
+                    "interval_firmware": "Dados do firmware",
+                    "interval_gwlan": "Dados GWLAN",
+                    "interval_light": "Dados dos LEDs",
+                    "interval_misc": "Dados diversos",
+                    "interval_network_stat": "Dados de estatística de rede",
+                    "interval_parental_control": "Dados do controle dos pais",
+                    "interval_ports": "Dados de portas",
+                    "interval_ram": "Dados da RAM",
+                    "interval_sysinfo": "Dados do sistema",
+                    "interval_temperature": "Dados de temperatura",
+                    "interval_vpn": "Dados de VPN",
+                    "interval_wan": "Dados da WAN",
+                    "interval_wlan": "Dados da WLAN"
                 }
             },
             "interfaces": {
-                "description": "Interfaces para monitorar",
+                "title": "Interfaces para monitorar",
                 "data": {
-                    "interfaces": "Selecione interfaces de rede para monitorar"
+                    "interfaces": "Selecione interfaces de rede para monitorar",
+                    "units_speed": "Unidades de velocidade",
+                    "units_traffic": "Unidades de tráfego"
                 }
             },
-            "name": {
-                "description": "Renomeie seu dispositivo",
+            "events": {
+                "title": "Eventos",
+                "description": "Quais eventos devem ser disparados",
                 "data": {
-                    "name": "Deixe em branco para usar o modelo do dispositivo como o nome"
+                    "device_connected": "Dispositivo conectato (o dispositivo não foi rastreado anteriormente)",
+                    "device_disconnected": "Dispositivo desconectato",
+                    "device_reconnected": "Dispositivo reconectado (o dispositivo já foi rastreado anteriormente)",
+                    "node_connected": "Nó AiMesh conectado (o dispositivo não foi rastreado anteriormente)",
+                    "node_disconnected": "Nó AiMesh desconectado",
+                    "node_reconnected": "Nó AiMesh reconectado"
+                }
+            },
+            "security": {
+                "title": "Segurança",
+                "data": {
+                    "hide_passwords": "Ocultar senhas de sensores e atributos"
                 }
             }
         },
         "error": {
+            "cannot_resolve_host": "Não foi possível resolver o nome do host. Tente usar o endereço IP",
             "connection_refused": "Conexão recusada",
             "error": "Falhou ao conectar",
-            "login_blocked": "O login é bloqueado pelo dispositivo. Por favor, espere",
-            "wrong_credentials": "Credenciais erradas",
-            "unknown": "Erro desconhecido",
+            "login_blocked": "O login foi bloqueado pelo dispositivo. Por favor, espere",
             "password_missing": "Falta a senha",
-            "cannot_resolve_host": "Não pode resolver o nome do host. Tente com o endereço IP"
+            "unknown": "Erro desconhecido",
+            "wrong_credentials": "Credenciais inválidas"
+        },
+        "abort": {
+            "already_configured": "[NT] Device is already configured",
+            "no_serial": "[NT] This device does not provide serial number. Discovery aborted",
+            "not_router": "[NT] Not an Asus router. Cannot be configured"
         }
     },
     "options": {
         "step": {
             "options": {
-                "description": "Selecione as configurações a serem alteradas",
-                "data": {
-                    "device": "Credenciais e configurações de conexão",
-                    "operation_mode": "Modo de operação",
-                    "times": "Constantes de tempo",
-                    "interfaces": "Interfaces para monitorar"
+                "title": "Configurações a alterar",
+                "menu_options": {
+                    "credentials": "Credenciais e configurações de conexão",
+                    "operation": "Modo de operação",
+                    "connected_devices": "[NT] Connected devices",
+                    "intervals": "Intervalos de atualização",
+                    "interfaces": "Interfaces para monitorar",
+                    "events": "Eventos do Home Assistant",
+                    "security": "Opções de segurança",
+                    "finish": "[NT] Save and finish"
                 }
             },
-            "device": {
-                "description": "Parâmetros para conectar ao dispositivo",
+            "credentials": {
+                "title": "Credenciais",
+                "description": "As mesmas do painel da web do dispositivo",
                 "data": {
                     "username": "Nome de usuário",
                     "password": "Senha",
                     "port": "Porta (0 para usar o valor padrão)",
-                    "ssl": "Usar conexão SSL",
-                    "verify_ssl": "Verificar certificado SSL",
-                    "cert_path": "Caminho do certificadoh"
+                    "ssl": "Usar conexão SSL"
                 }
             },
-            "operation_mode": {
-                "description": "Modo de operação",
+            "operation": {
+                "title": "Modo de operação",
                 "data": {
-                    "enable_monitor": "Ativar o monitoramento do dispositivo",
-                    "enable_control": "Ativar o controle do dispositivo"
+                    "mode": "Modo do dispositivo",
+                    "enable_control": "Ativar o controle do dispositivo",
+                    "split_intervals": "Habilitar intervalos por sensor"
                 }
             },
-            "times": {
-                "description": "Constantes de tempo",
+            "connected_devices": {
+                "title": "Connected devices",
+                "data": {
+                    "track_devices": "Habilitar rastreadores de dispositivos",
+                    "latest_connected": "Número de dispositivos conectatos recentemente a armazenar",
+                    "interval_devices": "Atualização de dispositivos / AiMesh",
+                    "consider_home": "Considere um dispositivo em casa após (desde o último estado 'online')"
+                }
+            },
+            "intervals": {
+                "title": "Intervalos de atualização",
+                "description": "Valores indicados em segundos",
                 "data": {
                     "cache_time": "Tempo de cache para os dados do dispositivo",
                     "scan_interval": "Intervalo para atualizar entidades",
-                    "consider_home": "Considere o dispositivo em casa para (após o último estado 'online')"
+                    "interval_cpu": "Dados de CPU",
+                    "interval_firmware": "Dados do firmware",
+                    "interval_gwlan": "Dados GWLAN",
+                    "interval_light": "Dados dos LEDs",
+                    "interval_misc": "Dados diversos",
+                    "interval_network_stat": "Dados de estatística da rede",
+                    "interval_parental_control": "Dados do controle dos pais",
+                    "interval_ports": "Dados de portas",
+                    "interval_ram": "Dados de RAM",
+                    "interval_sysinfo": "Dados do sistema",
+                    "interval_temperature": "Dados de temperatura",
+                    "interval_vpn": "Dados de VPN",
+                    "interval_wan": "Dados da WAN",
+                    "interval_wlan": "Dados da WLAN"
                 }
             },
             "interfaces": {
-                "description": "Interfaces para monitorar",
+                "title": "Interfaces para monitorar",
                 "data": {
-                    "interfaces": "Selecione interfaces de rede para monitorar"
+                    "interfaces": "Selecione interfaces de rede para monitorar",
+                    "units_speed": "Unidades para velocidade",
+                    "units_traffic": "Unidades para tráfego"
                 }
             },
-            "confirmation": {
-                "description": "Por favor, recarregue a integração",
+            "events": {
+                "title": "Eventos",
+                "description": "Quais eventos devem ser disparados",
                 "data": {
-                    "confirm": "Entendo que preciso recarregar a integração para aplicar a nova configuração. Para fazer isso, vou clicar no menu de integração (3 pontos) e pressionar 'Recarregar'"
+                    "device_connected": "Dispositivo conectato (o dispositivo não foi rastreado anteriormente)",
+                    "device_disconnected": "Dispositivo desconectato",
+                    "device_reconnected": "Dispositivo reconectado (o dispositivo já foi rastreado anteriormente)",
+                    "node_connected": "Nó AiMesh conectado (o dispositivo não foi rastreado anteriormente)",
+                    "node_disconnected": "Nó AiMesh desconectado",
+                    "node_reconnected": "Nó AiMesh reconectado"
+                }
+            },
+            "security": {
+                "title": "Segurança",
+                "data": {
+                    "hide_passwords": "Ocultar senhas de sensores e atributos"
                 }
             }
         },
         "error": {
             "connection_refused": "Conexão recusada",
-            "error": "Falhou ao conectar",
-            "login_blocked": "O login é bloqueado pelo dispositivo. Por favor, espere",
+            "error": "Falha ao conectar",
+            "login_blocked": "O login foi bloqueado pelo dispositivo. Por favor, espere",
             "not_confirmed": "Você tem que confirmar",
             "unknown": "Erro desconhecido",
             "wrong_credentials": "Credenciais erradas"

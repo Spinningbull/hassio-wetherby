@@ -1,12 +1,18 @@
 {
   "domain": "asusrouter",
-  "name": "ASUS Router",
-  "version": "0.5.1",
-  "documentation": "https://github.com/Vaskivskyi/ha-asusrouter",
-  "issue_tracker": "https://github.com/Vaskivskyi/ha-asusrouter/issues",
-  "config_flow": true,
+  "name": "AsusRouter",
   "codeowners": ["@vaskivskyi"],
+  "config_flow": true,
+  "documentation": "https://asusrouter.vaskivskyi.com",
+  "integration_type": "hub",
   "iot_class": "local_polling",
-  "requirements": ["asusrouter==0.6.3"],
-  "loggers": ["asusrouter"]
+  "issue_tracker": "https://github.com/Vaskivskyi/ha-asusrouter/issues",
+  "loggers": ["asusrouter"],
+  "requirements": ["asusrouter==0.20.3"],
+  "ssdp": [
+    {
+      "manufacturer": "ASUSTeK Computer Inc."
+    }
+  ],
+  "version": "0.21.1"
 }

@@ -59,3 +59,17 @@ play_family_plexamp:
       entity_id: media_player.plexamp_family
   mode: single
   icon: mdi:play
+start_plexamp_on_patio:
+  alias: Start Plexamp on Patio
+  sequence:
+  - service: media_player.turn_on
+    data: {}
+    target:
+      entity_id: media_player.patio_musiccast_2
+  - service: media_player.select_source
+    data:
+      source: AUX
+    target:
+      entity_id: media_player.patio_musiccast_2
+  mode: single
+  icon: mdi:speaker

@@ -1,0 +1,190 @@
+blueprint:
+  name: Fibaro Keyfob
+  description: This blueprint can be used for creation of a single automatization
+    for controlling whole keyfob.
+  domain: automation
+  input:
+    keyfob_device_id:
+      name: Device
+      selector:
+        device:
+          integration: zwave_js
+          multiple: false
+    square_press:
+      name: Square button press action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Square button pressed
+    square_hold:
+      name: Square button hold action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Square button held
+    circle_press:
+      name: Circle button press action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Circle button pressed
+    circle_hold:
+      name: Circle button hold action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Circle button held
+    x_press:
+      name: X button press action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: X button pressed
+    x_hold:
+      name: X button hold action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: X button held
+    triangle_press:
+      name: Triangle button press action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Triangle button pressed
+    triangle_hold:
+      name: Triangle button hold action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Triangle button held
+    minus_press:
+      name: Minus button press action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Minus button held
+    minus_hold:
+      name: Minus button hold action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Minus button held
+    plus_press:
+      name: Plus button press action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Plus button pressed
+    plus_hold:
+      name: Plus button hold action
+      selector:
+        action: {}
+      default:
+      - service: logbook.log
+        data:
+          name: Fibaro keyfob
+          message: Plus button held
+  source_url: https://community.home-assistant.io/t/zwavejs-fibaro-zwave-keyfob/281459
+mode: parallel
+trigger:
+- platform: event
+  event_type: zwave_js_value_notification
+  event_data:
+    device_id: !input keyfob_device_id
+    property_name: scene
+action:
+- choose:
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "001" and trigger.event.data.value
+        == "KeyPressed" }}'
+    sequence: !input square_press
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "001" and trigger.event.data.value
+        == "KeyHeldDown" }}'
+    sequence: !input square_hold
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "002" and trigger.event.data.value
+        == "KeyPressed" }}'
+    sequence: !input circle_press
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "002" and trigger.event.data.value
+        == "KeyHeldDown" }}'
+    sequence: !input circle_hold
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "003" and trigger.event.data.value
+        == "KeyPressed" }}'
+    sequence: !input x_press
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "003" and trigger.event.data.value
+        == "KeyHeldDown" }}'
+    sequence: !input x_hold
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "004" and trigger.event.data.value
+        == "KeyPressed" }}'
+    sequence: !input triangle_press
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "004" and trigger.event.data.value
+        == "KeyHeldDown" }}'
+    sequence: !input triangle_hold
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "005" and trigger.event.data.value
+        == "KeyPressed" }}'
+    sequence: !input minus_press
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "005" and trigger.event.data.value
+        == "KeyHeldDown" }}'
+    sequence: !input minus_hold
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "006" and trigger.event.data.value
+        == "KeyPressed" }}'
+    sequence: !input plus_press
+  - conditions:
+    - condition: template
+      value_template: '{{ trigger.event.data.property_key_name == "006" and trigger.event.data.value
+        == "KeyHeldDown" }}'
+    sequence: !input plus_hold
