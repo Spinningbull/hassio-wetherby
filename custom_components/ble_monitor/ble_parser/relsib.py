@@ -7,15 +7,13 @@ from .helpers import to_mac, to_unformatted_mac
 _LOGGER = logging.getLogger(__name__)
 
 
-def parse_relsib(self, data, source_mac, rssi):
+def parse_relsib(self, data: bytes, mac: bytes):
     """Relsib parser"""
     msg_length = len(data)
     uuid16 = (data[3] << 8) | data[2]
-    relsib_mac = source_mac
     result = {
-        "rssi": rssi,
         "packet": "no packet id",
-        "mac": to_unformatted_mac(relsib_mac),
+        "mac": to_unformatted_mac(mac),
         "firmware": "Relsib",
     }
     if uuid16 in [0xAA20, 0xAA21, 0xAA22] and msg_length == 26:
@@ -45,6 +43,14 @@ def parse_relsib(self, data, source_mac, rssi):
                 result.update({"battery": 100})
             else:
                 result.update({"battery": battery & 0b01111111})
+    elif uuid16 in [0x1809] and msg_length == 20:
+        device_type = "WH52"
+        try:
+            temp = round((int.from_bytes(data[4:6], byteorder='big') / 65535) * 175 - 45, 2)
+            humi = round((int.from_bytes(data[10:12], byteorder='big') / 65535) * 175 - 45, 2)
+            result.update({"temperature": temp, "humidity": humi})
+        except ValueError:
+            device_type = None
     elif uuid16 in [0x1809] and msg_length == 10:
         device_type = "WT51"
         try:
@@ -57,16 +63,10 @@ def parse_relsib(self, data, source_mac, rssi):
     if device_type is None:
         if self.report_unknown == "Relsib":
             _LOGGER.info(
-                "BLE ADV from UNKNOWN Relsib DEVICE: RSSI: %s, MAC: %s, ADV: %s",
-                rssi,
-                to_mac(source_mac),
+                "BLE ADV from UNKNOWN Relsib DEVICE: MAC: %s, ADV: %s",
+                to_mac(mac),
                 data.hex()
             )
-        return None
-
-    # check for MAC presence in sensor whitelist, if needed
-    if self.discovery is False and relsib_mac not in self.sensor_whitelist:
-        _LOGGER.debug("Discovery is disabled. MAC: %s is not whitelisted!", to_mac(relsib_mac))
         return None
 
     result.update({

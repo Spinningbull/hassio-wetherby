@@ -1,0 +1,219 @@
+blueprint:
+  name: Run Optional Scripts on Notification
+  description: A reusable script that sends an actionable notification to all mobile
+    devices and a persistent notification to the HA dashboard with a confirmation
+    before running the selected script.
+  domain: script
+  source_url: https://github.com/cordlord/pub-hassio/blob/main/blueprints/optional_actions_on_notification.yaml
+  author: cordlord
+  input:
+    all_devices_group:
+      name: Group of all devices.
+      description: This group needs to contain all devices you want to be notified.
+        Including persistent_notification and all mobile devices.
+      default: notify_all_devices
+    mobile_group:
+      name: Group of mobile devices
+      description: This group should ONLY contain mobile devices you want to be notified.
+      default: notify_all_mobile_devices
+      selector:
+        text: {}
+    title:
+      name: Title
+      description: The title of the notification.
+      default: I'm a notification!
+      selector:
+        text: {}
+    message:
+      name: Message
+      description: The message of the notification. Should provide info.
+      default: Helpful info.
+      selector:
+        text: {}
+    dismiss_text:
+      name: Dismiss Text (mobile only)
+      description: Text to show on the dismiss button for mobile only.
+      default: Dismiss
+      selector:
+        text: {}
+    notification_id:
+      name: Notification ID/Tag
+      description: ' Automatically overwrites old notifications to avoid duplicates.
+        ID of the persistent notification on HA dashboard and notification tag for
+        mobile devices.'
+      default: notification_id
+      selector:
+        text: {}
+    notification_channel:
+      name: Notification Channel ('General' recommended)
+      description: The mobile notification channel that will be used on Android. Leave
+        this as General if you don't want extra channels in system settings.
+      default: General
+      selector:
+        text: {}
+    notification_importance:
+      name: Notification Importance (max recommended)
+      description: The importance level of your notification. (max recommended to
+        avoid delay issues)
+      default: max
+      selector:
+        select:
+          multiple: false
+          mode: dropdown
+          sort: true
+          options:
+          - high
+          - low
+          - max
+          - min
+          - default
+          custom_value: false
+    timeout:
+      name: Timeout Length (minutes)
+      description: How long in minutes until script will timeout and perform timeout
+        actions.
+      default: '10'
+      selector:
+        number:
+          min: 1.0
+          max: 60.0
+          step: 1.0
+          unit_of_measurement: min
+          mode: slider
+    timeout_title:
+      name: timeout Title
+      description: The title of the notification displayed if the notification timesout.
+      default: You missed it!
+      selector:
+        text: {}
+    timeout_message:
+      name: Timeout Message
+      description: The message of the notification displayed if the notification timesout.
+      default: Your time ran out.
+      selector:
+        text: {}
+    dismiss_script:
+      name: Dismiss Script
+      description: Script that will run when notification is dismissed either from
+        HA or mobile.
+      default: ''
+      selector:
+        entity:
+          multiple: false
+          filter:
+          - domain:
+            - script
+    timeout_script:
+      name: Timeout Script (Optional)
+      description: Optional script that will run when timeout value specified above
+        is reached. Leave blank to not use.
+      default: ''
+      selector:
+        entity:
+          multiple: false
+          filter:
+          - domain:
+            - script
+mode: restart
+sequence:
+- alias: Setup variables.
+  variables:
+    all_devices_group: !input all_devices_group
+    mobile_group: !input mobile_group
+    timeout: !input timeout
+    title: !input title
+    message: !input message
+    dismiss_text: !input dismiss_text
+    notification_id: !input notification_id
+    notification_channel: !input notification_channel
+    importance: !input notification_importance
+    mobile_timeout: '{{timeout * 60}}'
+    action_dismiss: '{{''DISMISS_'' ~ context.id}}'
+    default_action_title: !input timeout_title
+    default_action_message: !input timeout_message
+    dismiss_script: !input dismiss_script
+    timeout_script: !input timeout_script
+- alias: Send the notifications.
+  service: '{{''notify.'' + all_devices_group}}'
+  data:
+    title: '{{title}}'
+    message: '{{message}}'
+    data:
+      timeout: '{{mobile_timeout}}'
+      tag: '{{notification_id}}'
+      notification_id: '{{notification_id}}'
+      channel: '{{notification_channel}}'
+      importance: '{{importance}}'
+      ttl: 0
+      actions:
+      - action: '{{action_dismiss}}'
+        title: '{{dismiss_text}}'
+- alias: Wait for user actions.
+  wait_for_trigger:
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: '{{action_dismiss}}'
+  - platform: event
+    event_type: mobile_app_notification_cleared
+    event_data:
+      tag: '{{notification_id}}'
+  - platform: persistent_notification
+    update_type:
+    - removed
+    notification_id: !input notification_id
+    id: !input notification_id
+  timeout:
+    minutes: '{{timeout}}'
+  continue_on_timeout: true
+- alias: Take actions based on what happens.
+  choose:
+  - conditions:
+    - condition: or
+      conditions:
+      - condition: template
+        value_template: '{{wait.trigger.event.data.action == action_dismiss}}'
+      - condition: template
+        value_template: '{{wait.trigger.event.data.tag == notification_id}}'
+      - condition: template
+        value_template: '{{wait.trigger.id == notification_id}}'
+    sequence:
+    - service: '{{''notify.'' + mobile_group}}'
+      data:
+        message: clear_notification
+        data:
+          tag: '{{notification_id}}'
+    - service: persistent_notification.dismiss
+      data:
+        notification_id: '{{notification_id}}'
+    - if:
+      - condition: template
+        value_template: '{{dismiss_script != ""}}'
+      then:
+      - service: script.turn_on
+        target:
+          entity_id: '{{dismiss_script}}'
+      else:
+      - stop: Notification dismissed
+  default:
+  - service: persistent_notification.dismiss
+    data:
+      notification_id: '{{notification_id}}'
+  - service: '{{''notify.'' + mobile_group}}'
+    data:
+      message: clear_notification
+      data:
+        tag: '{{notification_id}}'
+  - service: '{{''notify.'' + all_devices_group}}'
+    data:
+      title: '{{default_action_title}}'
+      message: '{{default_action_message}}'
+  - if:
+    - condition: template
+      value_template: '{{timeout_script != ""}}'
+    then:
+    - service: script.turn_on
+      target:
+        entity_id: '{{timeout_script}}'
+    else:
+    - stop: Notification timeout

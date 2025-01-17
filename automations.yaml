@@ -1,9 +1,8 @@
 - id: '1610996669564'
   alias: Theater - lights on when paused
   description: Turn on Ambient light on Pause
-  trigger:
-  - platform: device
-    device_id: f104aca2ebb47d0afcc0396bb91c96dc
+  triggers:
+  - device_id: f104aca2ebb47d0afcc0396bb91c96dc
     domain: media_player
     entity_id: media_player.theater_shield
     type: paused
@@ -11,42 +10,42 @@
       hours: 0
       minutes: 0
       seconds: 5
-  condition: []
-  action:
+    trigger: device
+  conditions: []
+  actions:
   - type: turn_on
-    device_id: 3e79f994a8b002350491947d33bbb1e5
-    entity_id: switch.theater_ambient
+    device_id: bfd4dcbabb0838d80a8f17f7110a7cc8
+    entity_id: be6fb1cc4048fd5d48908e76fb4f7e18
     domain: switch
   mode: single
 - id: '1610996991686'
   alias: Theater - lights off on play
   description: Turn off lights when Media begins to play
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - media_player.theater_shield
     to: playing
     for:
       hours: 0
       minutes: 0
       seconds: 5
-  condition: []
-  action:
-  - type: turn_off
-    device_id: f12a835a0faa13cb4826f7d38223a344
-    entity_id: light.theater_lights_2
-    domain: light
-  - type: turn_off
-    device_id: 3e79f994a8b002350491947d33bbb1e5
-    entity_id: switch.theater_ambient
-    domain: switch
+    trigger: state
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data:
+      transition: 4
+    target:
+      entity_id:
+      - light.ambient_light_ha
+      - light.theater_light_ha
   mode: single
 - id: '1611024383994'
   alias: Plex - lights up on stop or idle
   description: Bring lights up to 100% when media is stopped
-  trigger:
-  - platform: device
-    device_id: 5beead3aa8c678121ae6b9815ecd92d5
+  triggers:
+  - device_id: 5beead3aa8c678121ae6b9815ecd92d5
     domain: media_player
     entity_id: media_player.plex_theater_2
     type: idle
@@ -54,12 +53,13 @@
       hours: 0
       minutes: 0
       seconds: 15
-  - platform: device
-    device_id: 5beead3aa8c678121ae6b9815ecd92d5
+    trigger: device
+  - device_id: 5beead3aa8c678121ae6b9815ecd92d5
     domain: media_player
     entity_id: media_player.plex_theater_2
     type: turned_off
-  condition:
+    trigger: device
+  conditions:
   - condition: time
     before: 01:30:00
     after: '18:00:00'
@@ -71,96 +71,100 @@
     - fri
     - sat
     - sun
-  - condition: not
-    conditions:
-    - condition: device
-      device_id: 849fa7b3241415d105f4d19fa7c8f805
-      domain: media_player
-      entity_id: media_player.plex_theater
-      type: is_playing
-  action:
-  - type: turn_on
-    device_id: f12a835a0faa13cb4826f7d38223a344
-    entity_id: light.theater_lights_2
-    domain: light
-    brightness_pct: 100
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      transition: 5
+      brightness_pct: 100
+    target:
+      entity_id: light.theater_light_ha
   mode: single
 - id: '1612398301259'
   alias: Theater - lights on when idle
   description: Turn house light on when done
-  trigger:
-  - platform: device
-    device_id: f104aca2ebb47d0afcc0396bb91c96dc
+  triggers:
+  - device_id: f104aca2ebb47d0afcc0396bb91c96dc
     domain: media_player
     entity_id: media_player.theater_shield
     type: idle
     for:
       hours: 0
-      minutes: 0
-      seconds: 10
-  - platform: device
-    device_id: f104aca2ebb47d0afcc0396bb91c96dc
-    domain: media_player
-    entity_id: media_player.theater_shield
-    type: turned_off
-  condition: []
-  action:
-  - type: turn_on
-    device_id: f12a835a0faa13cb4826f7d38223a344
-    entity_id: light.theater_lights_2
-    domain: light
-    brightness_pct: 100
+      minutes: 2
+      seconds: 0
+    trigger: device
+  conditions:
+  - condition: not
+    conditions:
+    - condition: device
+      device_id: f104aca2ebb47d0afcc0396bb91c96dc
+      domain: media_player
+      entity_id: 35ea0c9b1c2d0f61c6e23d5b5c6775ba
+      type: is_paused
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 100
+      transition: 4
+    target:
+      entity_id: light.theater_light_ha
   mode: single
 - id: '1613889538573'
-  alias: House - set night lights
+  alias: 'House - Lights: Night'
   description: ''
-  trigger:
-  - platform: time
-    at: '23:00:00'
-  condition: []
-  action:
-  - service: scene.turn_on
-    target:
-      entity_id: scene.night_time
-    metadata: {}
-  - service: switch.turn_off
-    data: {}
-    target:
-      entity_id:
-      - switch.pool_house
-      device_id: aa1fdd2907112edd8d1258cf0277b0bd
-  - service: hue.hue_activate_scene
-    data:
+  triggers:
+  - at: '23:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - data:
       group_name: master
       scene_name: nightlight
       dynamic: true
+    action: hue.hue_activate_scene
+  - data: {}
+    target:
+      entity_id:
+      - switch.pool_house
+      - switch.grill_lights_zwave
+      - switch.flood_lights
+    action: switch.turn_off
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - switch.house_soffits
+      - switch.garage_soffits
+      - switch.front_door_soffit
+      - switch.side_porch_soffit
   mode: single
 - id: '1618778013049'
   alias: Plex - lights off on play
   description: ''
-  trigger:
-  - platform: device
-    device_id: 5beead3aa8c678121ae6b9815ecd92d5
+  triggers:
+  - device_id: 5beead3aa8c678121ae6b9815ecd92d5
     domain: media_player
     entity_id: media_player.plex_theater_2
     type: playing
-  condition: []
-  action:
-  - type: turn_off
-    device_id: f12a835a0faa13cb4826f7d38223a344
-    entity_id: light.theater_lights_2
-    domain: light
-  - type: turn_off
-    device_id: 3e79f994a8b002350491947d33bbb1e5
-    entity_id: switch.theater_ambient
-    domain: switch
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data:
+      transition: 8
+    target:
+      entity_id:
+      - light.ambient_light_ha
+      - light.theater_light_ha
   mode: single
 - id: '1618778083115'
   alias: Plex - ambient light on pause
   description: ''
-  trigger:
-  - platform: device
-    device_id: 5beead3aa8c678121ae6b9815ecd92d5
+  triggers:
+  - device_id: 5beead3aa8c678121ae6b9815ecd92d5
     domain: media_player
     entity_id: media_player.plex_theater_2
     type: paused
@@ -168,16 +172,17 @@
       hours: 0
       minutes: 0
       seconds: 5
-  condition:
+    trigger: device
+  conditions:
   - condition: device
     type: is_off
-    device_id: f12a835a0faa13cb4826f7d38223a344
-    entity_id: light.theater_lights_2
+    device_id: e2f2c4cb8b2949446b328e959ee2bd46
+    entity_id: 57f822b987bae834e47077d592309bd7
     domain: light
-  action:
+  actions:
   - type: turn_on
-    device_id: 3e79f994a8b002350491947d33bbb1e5
-    entity_id: switch.theater_ambient
+    device_id: bfd4dcbabb0838d80a8f17f7110a7cc8
+    entity_id: be6fb1cc4048fd5d48908e76fb4f7e18
     domain: switch
   mode: single
 - id: '1638197847338'
@@ -230,11 +235,10 @@
     data: {}
   mode: single
 - id: '1638932536437'
-  alias: House - someones in the family room
+  alias: Security - someones in the family room
   description: ''
-  trigger:
+  triggers:
   - type: occupied
-    platform: device
     device_id: 3ce104022ae83294d3c1b605541a706f
     entity_id: binary_sensor.family_room_occupancy
     domain: binary_sensor
@@ -243,19 +247,20 @@
       minutes: 0
       seconds: 10
       milliseconds: 0
-  condition:
+    trigger: device
+  conditions:
   - condition: time
     after: 02:00:00
     before: 05:00:00
-  action:
-  - service: notify.mobile_app_todd_s_phone
-    data:
+  actions:
+  - data:
       message: someone is in the family room
       title: motion alert
-  - service: tts.google_translate_say
-    data:
+    action: notify.mobile_app_todd_s_phone
+  - data:
       entity_id: media_player.master_bedroom
       message: 'Alert: someone is in the family room.'
+    action: tts.google_translate_say
   mode: single
 - id: '1641957528180'
   alias: Theater - set movie time
@@ -286,128 +291,134 @@
     preset_mode: Movie Time
   mode: single
 - id: '1646595088666'
-  alias: House - Evening lights
+  alias: 'House - Lights:  Dusk'
   description: ''
-  trigger:
-  - platform: sun
-    event: sunset
+  triggers:
+  - event: sunset
     offset: -00:20:00
-  condition: []
-  action:
-  - service: scene.turn_on
-    target:
-      entity_id: scene.dusk
+    trigger: sun
+  - type: value
+    device_id: 3d2ac56754c2c52b767f2fde4b9bdf66
+    entity_id: 987b2b725fded5071ab5cf90f432408d
+    domain: sensor
+    trigger: device
+    below: 65
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  conditions:
+  - condition: time
+    after: '11:00:00'
+    before: '21:00:00'
+    weekday:
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+    - sun
+  actions:
+  - action: switch.turn_on
     metadata: {}
-  - type: turn_on
-    device_id: c9b7ba12f64f8001b4dc86931de399fe
-    entity_id: switch.front_door_soffit
-    domain: switch
-  - type: turn_on
-    device_id: 18060921ba4c6279dd0208dc72049a0e
-    entity_id: switch.porch_light
-    domain: switch
-  - type: turn_on
-    device_id: 13bdf6f78a682a7c350189ff4d9fcd90
-    entity_id: switch.side_porch_light
-    domain: switch
-  - type: turn_on
-    device_id: 34bbe2ac1f19888991f0df2d7ae7bbe2
-    entity_id: switch.side_porch_soffit
-    domain: switch
-  - type: turn_on
-    device_id: ef92b832a5b1be7f30ac3c940b10a375
-    entity_id: switch.garage_soffits
-    domain: switch
-  - type: turn_on
-    device_id: 478ba06f472112d8edc3fe6c6a994dca
-    entity_id: switch.house_soffits
-    domain: switch
-  - type: turn_on
-    device_id: aa1fdd2907112edd8d1258cf0277b0bd
-    entity_id: switch.grill_lights
-    domain: switch
-  - type: turn_on
-    device_id: ac2ff7658e4c6f04ead51bf11cf534b3
-    entity_id: switch.landscape_lights
-    domain: switch
-  - type: turn_on
-    device_id: a8de2225b5a35b810acfa2c58de9bb5a
-    entity_id: light.rear_landscape_lighting
-    domain: light
-  - type: turn_on
-    device_id: 34d06e116d076ff6849a57a4c73880e9
-    entity_id: switch.side_landscape_lights
-    domain: switch
+    data: {}
+    target:
+      entity_id:
+      - switch.porch_light
+      - switch.side_porch_light
+      - switch.grill_lights_zwave
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - switch.house_soffits
+      - switch.garage_soffits
+      - switch.front_door_soffit
+      - switch.side_porch_soffit
+  - action: script.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: script.turn_on_landscape_lights
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.office_cabinet_power_strip_1
+  - action: script.turn_on_xmas_lights
+    metadata: {}
+    data: {}
+    enabled: false
   mode: single
 - id: '1646610415005'
-  alias: House - Morning lights off
+  alias: 'House - Lights: Sunrise'
   description: ''
-  trigger:
-  - platform: sun
-    event: sunrise
-  condition: []
-  action:
-  - service: scene.turn_on
-    target:
-      entity_id: scene.morning
+  triggers:
+  - event: sunrise
+    trigger: sun
+  conditions: []
+  actions:
+  - action: switch.turn_off
     metadata: {}
-  - type: turn_off
-    device_id: ac2ff7658e4c6f04ead51bf11cf534b3
-    entity_id: switch.landscape_lights
-    domain: switch
-  - type: turn_off
-    device_id: a8de2225b5a35b810acfa2c58de9bb5a
-    entity_id: light.rear_landscape_lighting
-    domain: light
-  - type: turn_off
-    device_id: 34d06e116d076ff6849a57a4c73880e9
-    entity_id: switch.side_landscape_lights
-    domain: switch
+    data: {}
+    target:
+      entity_id:
+      - switch.porch_light
+      - switch.side_porch_light
+  - action: script.turn_off_landscape_lights
+    metadata: {}
+    data: {}
+  - action: script.turn_off_xmas_lights
+    metadata: {}
+    data: {}
+    enabled: false
   mode: single
 - id: '1649505983484'
   alias: Plex - ambient light on pause (nightly)
   description: ''
-  trigger:
-  - platform: device
-    device_id: 849fa7b3241415d105f4d19fa7c8f805
+  triggers:
+  - device_id: 3b64360c6fb53b2afbba7e4bbfc8f424
     domain: media_player
-    entity_id: media_player.plex_theater
+    entity_id: 798869b49e5c3a8b9ac8027f528f6696
     type: paused
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 5
-  condition:
+    trigger: device
+  conditions:
   - condition: device
     type: is_off
-    device_id: f12a835a0faa13cb4826f7d38223a344
-    entity_id: light.theater_lights_2
+    device_id: e2f2c4cb8b2949446b328e959ee2bd46
+    entity_id: 57f822b987bae834e47077d592309bd7
     domain: light
-  action:
+  actions:
   - type: turn_on
-    device_id: 3e79f994a8b002350491947d33bbb1e5
-    entity_id: switch.theater_ambient
+    device_id: bfd4dcbabb0838d80a8f17f7110a7cc8
+    entity_id: be6fb1cc4048fd5d48908e76fb4f7e18
     domain: switch
   mode: single
 - id: '1649506139676'
   alias: Plex - lights up on stop or idle (nightly)
   description: Bring lights up to 100% when media is stopped
-  trigger:
-  - platform: device
-    device_id: 849fa7b3241415d105f4d19fa7c8f805
+  triggers:
+  - device_id: 5beead3aa8c678121ae6b9815ecd92d5
     domain: media_player
-    entity_id: media_player.plex_theater
+    entity_id: 18ffbafa077058786cf3769d4cc44fd1
     type: idle
+    trigger: device
     for:
       hours: 0
-      minutes: 0
-      seconds: 15
-  - platform: device
-    device_id: 849fa7b3241415d105f4d19fa7c8f805
+      minutes: 10
+      seconds: 0
+  - device_id: 3b64360c6fb53b2afbba7e4bbfc8f424
     domain: media_player
-    entity_id: media_player.plex_theater
-    type: turned_off
-  condition:
+    entity_id: 798869b49e5c3a8b9ac8027f528f6696
+    type: idle
+    trigger: device
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  conditions:
   - condition: not
     conditions:
     - condition: device
@@ -415,32 +426,34 @@
       domain: media_player
       entity_id: media_player.plex_theater_2
       type: is_playing
-  action:
-  - type: turn_on
-    device_id: f12a835a0faa13cb4826f7d38223a344
-    entity_id: light.theater_lights_2
-    domain: light
-    brightness_pct: 100
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 100
+      transition: 4
+    target:
+      entity_id: light.theater_light_ha
   mode: single
 - id: '1649506319302'
   alias: Plex - lights off on play (nightly)
   description: ''
-  trigger:
-  - platform: device
-    device_id: 849fa7b3241415d105f4d19fa7c8f805
+  triggers:
+  - device_id: 3b64360c6fb53b2afbba7e4bbfc8f424
     domain: media_player
-    entity_id: media_player.plex_theater
+    entity_id: 798869b49e5c3a8b9ac8027f528f6696
     type: playing
-  condition: []
-  action:
-  - type: turn_off
-    device_id: f12a835a0faa13cb4826f7d38223a344
-    entity_id: light.theater_lights_2
-    domain: light
-  - type: turn_off
-    device_id: 3e79f994a8b002350491947d33bbb1e5
-    entity_id: switch.theater_ambient
-    domain: switch
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data:
+      transition: 4
+    target:
+      entity_id:
+      - light.theater_light_ha
+      - light.ambient_light_ha
   mode: single
 - id: '1652137586418'
   alias: Plexamp - Patio Playing
@@ -546,11 +559,11 @@
   - platform: device
     device_id: 61a3740d6dfb0f58b8bb29162ebdd6b6
     domain: media_player
-    entity_id: media_player.plex_plexamp_family_room
-    type: idle
+    entity_id: 34ded6e0bb3cc432463fa1f07d28e294
+    type: paused
     for:
       hours: 0
-      minutes: 15
+      minutes: 10
       seconds: 0
   - platform: device
     device_id: 3c0d248ed4c6e384bca97d06b9c40f00
@@ -566,7 +579,7 @@
   - service: media_player.media_stop
     data: {}
     target:
-      entity_id: media_player.plexamp_family
+      device_id: 61a3740d6dfb0f58b8bb29162ebdd6b6
   mode: single
 - id: '1652145801294'
   alias: 'Plexamp - Family Playing '
@@ -575,7 +588,7 @@
   - platform: device
     device_id: 61a3740d6dfb0f58b8bb29162ebdd6b6
     domain: media_player
-    entity_id: media_player.plex_plexamp_family_room
+    entity_id: 34ded6e0bb3cc432463fa1f07d28e294
     type: playing
   condition: []
   action:
@@ -586,8 +599,8 @@
   - delay:
       hours: 0
       minutes: 0
-      seconds: 5
-      milliseconds: 0
+      seconds: 0
+      milliseconds: 500
   - service: media_player.select_source
     data:
       source: audio3
@@ -603,7 +616,7 @@
     - condition: state
       entity_id: media_player.family_musiccast_2
       attribute: source
-      state: audio3
+      state: audio4
     then: []
     else:
     - service: media_player.turn_off
@@ -615,6 +628,7 @@
         source: audio3
       target:
         entity_id: media_player.family_musiccast_2
+    enabled: false
   mode: single
 - id: '1652361064621'
   alias: House - turn off armstrong and getty
@@ -648,84 +662,45 @@
     data: {}
   mode: single
 - id: '1652479425280'
-  alias: Unlink Speakers
+  alias: Music - Unlink Speakers
   description: ''
-  trigger:
-  - platform: state
-    entity_id:
+  triggers:
+  - entity_id:
     - input_button.unlink_speakers
-  condition: []
-  action:
-  - service: script.unjoin_all_speakers
-    data: {}
-  mode: single
-- id: '1654788686199'
-  alias: Test unknown sensor
-  description: ''
-  trigger:
-  - type: motion
-    platform: device
-    device_id: 426ed3b6cae7e422ebbc805087137481
-    entity_id: binary_sensor.master_bedroom_motion_2
-    domain: binary_sensor
-  condition: []
-  action:
-  - service: notify.notify
-    data:
-      message: Alarm tamper
-  mode: single
-- id: '1656024562889'
-  alias: Theater OFF when Plexamp stops
-  description: ''
-  trigger:
-  - platform: device
-    device_id: d21f98f7bc8d6070644f5cd2bc72563a
-    domain: media_player
-    entity_id: media_player.plexamp_theater
-    type: idle
-    for:
-      hours: 0
-      minutes: 10
-      seconds: 0
-  condition:
-  - condition: device
-    type: is_on
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_listen_to_music_on_oppo
-    domain: switch
-  action:
-  - service: remote.turn_off
-    data: {}
-    target:
-      device_id: ba50c7a4ef3fb16920ace270971155f2
+    trigger: state
+  conditions: []
+  actions:
+  - data: {}
+    action: script.unjoin_all_speakers
   mode: single
 - id: '1664327860211'
   alias: Plexamp - Play plexamp in theater
   description: ''
-  trigger:
-  - platform: device
-    device_id: ae2476577ae4fed00052cd484860d34a
+  triggers:
+  - device_id: ae2476577ae4fed00052cd484860d34a
     domain: media_player
     entity_id: media_player.plex_plexamp_theater
     type: playing
-  condition:
-  - condition: device
-    type: is_off
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: remote.theater_remote
-    domain: remote
-  action:
-  - type: turn_on
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_listen_to_music_on_oppo
-    domain: switch
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.turn_on
+    metadata: {}
+    data: {}
+    target:
+      device_id: cae90889ee7d2994f55f099926bae89f
+  - action: media_player.select_source
+    metadata: {}
+    data:
+      source: Audio4
+    target:
+      device_id: cae90889ee7d2994f55f099926bae89f
   mode: single
 - id: '1664328625425'
-  alias: Plexamp stops in theater
+  alias: Plexamp - music stops in theater
   description: ''
-  trigger:
-  - platform: device
-    device_id: ae2476577ae4fed00052cd484860d34a
+  triggers:
+  - device_id: ae2476577ae4fed00052cd484860d34a
     domain: media_player
     entity_id: media_player.plex_plexamp_theater
     type: idle
@@ -733,22 +708,19 @@
       hours: 0
       minutes: 15
       seconds: 0
-  - platform: device
-    device_id: ae2476577ae4fed00052cd484860d34a
+    trigger: device
+  - device_id: ae2476577ae4fed00052cd484860d34a
     domain: media_player
     entity_id: media_player.plex_plexamp_theater
     type: turned_off
-  condition:
-  - condition: device
-    type: is_on
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_listen_to_music_on_oppo
-    domain: switch
-  action:
-  - type: turn_off
-    device_id: ba50c7a4ef3fb16920ace270971155f2
-    entity_id: switch.theater_remote_listen_to_music_on_oppo
-    domain: switch
+    trigger: device
+  conditions: []
+  actions:
+  - action: media_player.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: cae90889ee7d2994f55f099926bae89f
   mode: single
 - id: '1685491703206'
   alias: Remote - Patio Skip
@@ -866,68 +838,459 @@
   - service: script.play_patio
     data: {}
   mode: single
-- id: '1687640122931'
-  alias: House - Phone call alert while in pool
-  description: Announcement about Todd's phone ringing when pool music on
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.toddss23_phone_state
-    to: ringing
-  condition:
-  - condition: device
-    device_id: 47c089100f2812ab4db9cbe8ddd92deb
-    domain: media_player
-    entity_id: media_player.pool_musicccast_2
-    type: is_playing
-  action:
-  - service: tts.google_translate_say
-    data:
-      cache: false
-      entity_id: media_player.pool_musicccast_2
-      message: Todd's phone is ringing
-  mode: single
 - id: '1690315536276'
-  alias: Theater-temperature alert
+  alias: Theater - temperature alert
   description: ''
-  trigger:
+  triggers:
   - type: temperature
-    platform: device
     device_id: 274909318bfa356e5edcc56f8c3674dd
     entity_id: 2e50f59de476f9287113de012535c715
     domain: sensor
     above: 110
-  condition: []
-  action:
+    trigger: device
+  conditions: []
+  actions:
   - device_id: 698d5532ba3c339d2d82d9a5560e3d65
     domain: mobile_app
     type: notify
     message: Theater Alert
     title: Temperature too high
-  - service: notify.mobile_app_galaxy_watch5_pro_kbvt
-    data:
+  - data:
       message: Theater temperature too high
       title: Theater Alert
+    action: notify.mobile_app_galaxy_watch5_pro_kbvt
+  - action: notify.mobile_app_toddss23
+    metadata: {}
+    data:
+      message: Theater tempature too high
+      title: Theater alert
   mode: single
 - id: '1690315672294'
-  alias: Shop Humidity Alert
+  alias: Shop - Humidity Alert
   description: ''
-  trigger:
+  triggers:
   - type: humidity
-    platform: device
     device_id: f251e82b5cf374a86d5ef691275c85ad
     entity_id: dc05c1110c60d908504f249d7f82af38
     domain: sensor
     above: 80
-  condition: []
-  action:
-  - service: notify.mobile_app_galaxy_watch5_pro_kbvt
-    data:
+    trigger: device
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions: []
+  actions:
+  - data:
       message: Too Humid in Shop
       title: Shop Alert
+    action: notify.mobile_app_galaxy_watch5_pro_kbvt
   - device_id: 698d5532ba3c339d2d82d9a5560e3d65
     domain: mobile_app
     type: notify
     message: Shop Humidity too high
     title: Shop Alert
+  mode: single
+- id: '1702946437586'
+  alias: 'House - Lights: Late night'
+  description: ''
+  triggers:
+  - at: 01:00:00
+    trigger: time
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - switch.bar_hall_light
+      - switch.office_cabinet_power_strip_1
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.master_hall_light
+      - light.living_room_hall
+  - action: script.turn_off_xmas_lights
+    metadata: {}
+    data: {}
+    enabled: false
+  mode: single
+- id: '1708106254118'
+  alias: Plexamp - NFC Rock Family
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: Plexamp-nfc-rockfamily
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.plex_plexamp_patio
+    data:
+      media_content_id: plex://8c2db3031ed98d3e8a70fd567e49a21b679eb5a8/44035
+      media_content_type: playlist
+    metadata:
+      title: rock music - long
+      thumbnail: /api/plex_image_proxy/8c2db3031ed98d3e8a70fd567e49a21b679eb5a8/44035
+      media_class: playlist
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: playlists
+        media_content_id: plex://8c2db3031ed98d3e8a70fd567e49a21b679eb5a8/all
+  mode: single
+- id: '1708125624827'
+  alias: Plexamp - NFC party music
+  description: Play all over the house
+  trigger:
+  - platform: tag
+    tag_id: plexamp-nfc-partymusic
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.plex_plexamp_patio
+    data:
+      media_content_type: PLAYLIST
+      media_content_id: '{ "playlist_name": "rock music - long", "shuffle": "1" }'
+    metadata:
+      title: rock music - long
+      thumbnail: /api/plex_image_proxy/8c2db3031ed98d3e8a70fd567e49a21b679eb5a8/44035
+      media_class: playlist
+      children_media_class:
+      navigateIds:
+      - {}
+      - media_content_type: playlists
+        media_content_id: plex://8c2db3031ed98d3e8a70fd567e49a21b679eb5a8/all
+  - service: media_player.join
+    metadata: {}
+    data:
+      group_members:
+      - media_player.family_musiccast_2
+      - media_player.pool_musicccast_2
+      - media_player.dining_musiccast_2
+      - media_player.living_musiccast_2
+    target:
+      device_id: e1a63c77b5afd926a01fbe619dc94ad0
+  mode: single
+- id: '1722909626808'
+  alias: Shop - Tempature Warning
+  description: ''
+  triggers:
+  - type: temperature
+    device_id: f251e82b5cf374a86d5ef691275c85ad
+    entity_id: ebc714cfd3b358427e72a128f393cb34
+    domain: sensor
+    above: 88
+    below: 45
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    trigger: device
+  conditions: []
+  actions:
+  - metadata: {}
+    data:
+      message: Shop Temperature out of range
+    action: notify.mobile_app_galaxy_watch5_pro_kbvt
+  - action: notify.mobile_app_toddss23
+    metadata: {}
+    data:
+      message: Tempature warming in shop
+  mode: single
+- id: '1726436270477'
+  alias: Security - what's that sensor?
+  description: ''
+  trigger:
+  - type: problem
+    platform: device
+    device_id: 8ac1068aa174efd2e024b24bed444e62
+    entity_id: 05d506b1a52b25bcdbbc878989f62413
+    domain: binary_sensor
+  condition: []
+  action:
+  - action: notify.mobile_app_galaxy_watch5_pro_kbvt
+    data:
+      message: Unknown Security Sensor (zone 12) Triggered
+      title: That's what it is!
+  - action: notify.mobile_app_todd_s_tablet
+    metadata: {}
+    data:
+      message: Unknown (zone 12) Sensor Triggered
+      title: That's what it is!
+  - action: notify.mobile_app_toddss23
+    data:
+      message: Unknown sensor (zone 12) triggered
+      title: That's what that is
+  mode: single
+- id: '1726462197222'
+  alias: Security - intruder
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 8ac1068aa174efd2e024b24bed444e62
+    entity_id: 9a3ac14455f9cf6b6f9f71cfca175241
+    domain: binary_sensor
+  - type: opened
+    platform: device
+    device_id: 8ac1068aa174efd2e024b24bed444e62
+    entity_id: d2fd99d8f5a93d7396634cce8ebd3bc3
+    domain: binary_sensor
+  condition:
+  - condition: time
+    after: 02:00:00
+    before: 06:00:00
+    weekday:
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+    - sun
+  action:
+  - action: notify.mobile_app_toddss23
+    data:
+      message: Doors opened late at night
+  mode: single
+- id: '1732543922617'
+  alias: 'House - Lights: Morning'
+  description: ''
+  triggers:
+  - trigger: time
+    at: 06:00:00
+  conditions: []
+  actions:
+  - target:
+      entity_id: scene.morning
+    metadata: {}
+    action: scene.turn_on
+    data: {}
+  - metadata: {}
+    data:
+      transition: 0
+    target:
+      device_id:
+      - 9c79141eff8c7285c23af89bcbfce965
+      - d991a3f950c2b95abeed6d4c447a8c4d
+    action: light.turn_on
+  - type: turn_on
+    device_id: d77dc67ce1283933a5c0b2fa32b4aaaf
+    entity_id: 82dcb5daf8104014359b83666ce563fc
+    domain: switch
+  - type: turn_on
+    device_id: 9c79141eff8c7285c23af89bcbfce965
+    entity_id: 43d2cf33c584dc74125352ef396c78da
+    domain: light
+  mode: single
+- id: '1733925282107'
+  alias: HA - Sensor tamper alert
+  description: ''
+  triggers:
+  - type: tampered
+    device_id: 3d2ac56754c2c52b767f2fde4b9bdf66
+    entity_id: ff68bfad6648b324adccad9cb794c3a8
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+  conditions: []
+  actions:
+  - action: notify.mobile_app_galaxy_watch5_pro_kbvt
+    metadata: {}
+    data:
+      message: Sensor fell off
+  - action: notify.mobile_app_toddss23
+    metadata: {}
+    data:
+      message: Sensor fell off
+  mode: single
+- id: '1734358977506'
+  alias: HA - Sensor battery
+  description: ''
+  triggers:
+  - type: bat_low
+    device_id: 3d2ac56754c2c52b767f2fde4b9bdf66
+    entity_id: f2f506390d5c0394de2e102059789ddd
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  conditions: []
+  actions:
+  - action: notify.mobile_app_galaxy_watch5_pro_kbvt
+    metadata: {}
+    data:
+      message: Sensor battery low
+  - action: notify.mobile_app_toddss23
+    metadata: {}
+    data:
+      message: Sensor battery low
+  mode: single
+- id: '1735253426135'
+  alias: Voice - turn on Christmas lights
+  description: ''
+  triggers:
+  - trigger: conversation
+    command:
+    - Turn on Christmas lights
+    - Christmas lights on
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - switch.xmas_lights_south
+      - switch.xmas_lights_soith_2
+      - switch.porch_switch
+      - switch.front_porch_plug
+  mode: single
+- id: '1735253517893'
+  alias: Voice - turn off Christmas lights
+  description: ''
+  triggers:
+  - trigger: conversation
+    command:
+    - Turn off Christmas lights
+    - Christmas lights off
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - switch.xmas_lights_south
+      - switch.xmas_lights_soith_2
+      - switch.porch_switch
+      - switch.front_porch_plug
+  mode: single
+- id: '1735264905652'
+  alias: Voice - test
+  description: ''
+  triggers:
+  - trigger: conversation
+    command: Can you hear me
+  conditions: []
+  actions:
+  - action: assist_satellite.announce
+    metadata: {}
+    data:
+      message: Papa I can hear you
+    target:
+      entity_id: assist_satellite.home_assistant_voice_091457_assist_satellite
+  mode: single
+- id: '1736685838529'
+  alias: Security - smoke in shop
+  description: ''
+  triggers:
+  - type: smoke
+    device_id: 3983559a6ee90b65ffe7135d3653a97c
+    entity_id: 727d457d98252c96562683ac9cfe07ec
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.mobile_app_galaxy_watch5_pro_kbvt
+    metadata: {}
+    data:
+      message: Smoke detected in shop
+      title: Smoke alarm
+  - action: notify.mobile_app_toddss23
+    metadata: {}
+    data:
+      title: Smoke alarm
+      message: Smoke detected in shop
+  - action: notify.alexa_media_everywhere
+    metadata: {}
+    data:
+      message: Smoke detected in shop
+  - action: script.alexa_broadcast
+    metadata: {}
+    data:
+      message: 'Smoke detected in shop '
+  mode: single
+- id: '1736686428105'
+  alias: Security - CO2 in shop
+  description: ''
+  triggers:
+  - type: co
+    device_id: 3983559a6ee90b65ffe7135d3653a97c
+    entity_id: 4a7b07bc33fb1150fcd6f526fcdd3365
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.mobile_app_galaxy_watch5_pro_kbvt
+    metadata: {}
+    data:
+      title: Smoke Alarm
+      message: CO2 detected in shop
+  - action: notify.mobile_app_toddss23
+    metadata: {}
+    data:
+      message: CO2 detected in shop
+      title: Smoke alarm
+  - action: notify.alexa_media_everywhere
+    metadata: {}
+    data:
+      message: CO2 detected in shop
+  - action: script.alexa_broadcast
+    metadata: {}
+    data:
+      message: CO2 detected in shop
+  mode: single
+- id: '1736688009381'
+  alias: HA - shop smoke detector battery
+  description: ''
+  triggers:
+  - type: bat_low
+    device_id: 3983559a6ee90b65ffe7135d3653a97c
+    entity_id: d15de7d618fc1a709f6f537ec90017bc
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.mobile_app_galaxy_watch5_pro_kbvt
+    metadata: {}
+    data:
+      title: Shop smoke detector
+      message: Shop smoke detector battery low
+  - action: notify.mobile_app_toddss23
+    metadata: {}
+    data:
+      message: Shop smoke detector battery low
+      title: Shop smoke detector
+  mode: single
+- id: '1736732444556'
+  alias: Security - smoke in the attic
+  description: ''
+  triggers:
+  - type: smoke
+    device_id: 39212f2cf2b690daef63a1db1646c8ee
+    entity_id: 7b9836c1ebd698ddd174c14d0a836333
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: script.notify_todd
+    metadata: {}
+    data:
+      message: Smoke detected in the attic
+      title: Smoke alarm
+  - action: script.alexa_broadcast
+    metadata: {}
+    data:
+      message: Smoke detected in attic
   mode: single

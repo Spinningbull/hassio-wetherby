@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
+from typing import Any, Optional
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -13,8 +13,15 @@ from homeassistant.helpers.update_coordinator import (
     DataUpdateCoordinator,
 )
 
+from asusrouter.modules.homeassistant import convert_to_ha_state_bool
+from asusrouter.modules.state import AsusState
+
 from .const import ASUSROUTER, COORDINATOR, DOMAIN
-from .dataclass import ARBinaryDescription, AREntityDescription, ARSwitchDescription
+from .dataclass import (
+    ARBinaryDescription,
+    AREntityDescription,
+    ARSwitchDescription,
+)
 from .helpers import to_unique_id
 from .router import ARDevice
 
@@ -27,7 +34,7 @@ async def async_setup_ar_entry(
     async_add_entities: AddEntitiesCallback,
     sensors: list[AREntityDescription],
     sensor_class: type[AREntity],
-    hide: list[str] | None = None,
+    hide: Optional[list[str]] = None,
 ) -> None:
     """Set up AsusRouter entities."""
 
@@ -57,10 +64,17 @@ async def async_setup_ar_entry(
                         }
 
                         entities.append(
-                            sensor_class(coordinator, router, sensor_description)
+                            sensor_class(
+                                coordinator, router, sensor_description
+                            )
                         )
             except Exception as ex:  # pylint: disable=broad-except
-                _LOGGER.warning(ex)
+                _LOGGER.warning(
+                    "Got an exception when creating entities: %s. Please, report this."
+                    + "Sensor description: %s",
+                    ex,
+                    sensor_description,
+                )
 
     async_add_entities(entities)
 
@@ -99,6 +113,15 @@ class AREntity(CoordinatorEntity):
         if not _attributes:
             return {}
 
+        # Mask attributes
+        attrs_to_mask = self.router.sensor_filters.get(
+            (description.key_group, description.key),
+            [],
+        )
+        for attr in attrs_to_mask:
+            if attr in _attributes:
+                _attributes.pop(attr, None)
+
         attributes = {}
 
         for attr in _attributes:
@@ -121,21 +144,26 @@ class ARBinaryEntity(AREntity):
 
         super().__init__(coordinator, router, description)
         if isinstance(description, (ARBinaryDescription, ARSwitchDescription)):
-            self._icon_onoff = bool(description.icon_on and description.icon_off)
+            self._icon_onoff = bool(
+                description.icon_on and description.icon_off
+            )
 
     @property
-    def is_on(self) -> bool:
+    def is_on(self) -> Optional[bool]:
         """Get the state."""
 
-        return self.coordinator.data.get(self.entity_description.key)
+        return convert_to_ha_state_bool(
+            self.coordinator.data.get(self.entity_description.key)
+        )
 
     @property
-    def icon(self) -> str | None:
+    def icon(self) -> Optional[str]:
         """Get the icon."""
 
         if (
             isinstance(
-                self.entity_description, (ARBinaryDescription, ARSwitchDescription)
+                self.entity_description,
+                (ARBinaryDescription, ARSwitchDescription),
             )
             and self._icon_onoff
         ):
@@ -145,3 +173,21 @@ class ARBinaryEntity(AREntity):
         if self.entity_description.icon:
             return self.entity_description.icon
         return None
+
+    async def _set_state(
+        self,
+        state: AsusState,
+        expect_modify: bool = False,
+        **kwargs: Any,
+    ) -> None:
+        """Set switch state."""
+        try:
+            _LOGGER.debug("Setting state to %s", state)
+            result = await self.api.async_set_state(
+                state=state, expect_modify=expect_modify, **kwargs
+            )
+            await self.coordinator.async_request_refresh()
+            if not result:
+                _LOGGER.debug("State was not set!")
+        except Exception as ex:  # pylint: disable=broad-except
+            _LOGGER.error("Unable to set state with an exception: %s", ex)

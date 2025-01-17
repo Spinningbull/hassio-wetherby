@@ -4,6 +4,7 @@ Component to integrate with node-red.
 For more details about this component, please refer to
 https://github.com/zachowj/hass-node-red
 """
+
 import asyncio
 import logging
 from typing import Any, Optional
@@ -60,12 +61,7 @@ from .websocket import register_websocket_handlers
 _LOGGER = logging.getLogger(__name__)
 
 
-async def async_setup(hass, config):
-    """Set up this integration using YAML is not supported."""
-    return True
-
-
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""
 
     if hass.data.get(DOMAIN_DATA) is None:
@@ -184,9 +180,9 @@ class NodeRedEntity(Entity):
                 self._attr_available = True
                 self._message_id = msg[CONF_ID]
                 self._connection = connection
-                self._connection.subscriptions[
-                    msg[CONF_ID]
-                ] = self.handle_lost_connection
+                self._connection.subscriptions[msg[CONF_ID]] = (
+                    self.handle_lost_connection
+                )
             self.async_write_ha_state()
 
     def entity_category_mapper(self, category):
@@ -271,9 +267,9 @@ class NodeRedEntity(Entity):
         )
 
         if self._bidirectional:
-            self._connection.subscriptions[
-                self._message_id
-            ] = self.handle_lost_connection
+            self._connection.subscriptions[self._message_id] = (
+                self.handle_lost_connection
+            )
 
     async def async_will_remove_from_hass(self) -> None:
         """Run when entity will be removed from hass."""

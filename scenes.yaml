@@ -465,3 +465,65 @@
       friendly_name: Adaptive DRC
       state: 'off'
   icon: mdi:music
+- id: '1707312136425'
+  name: Hall lights - morning
+  entities:
+    switch.bar_hall_light:
+      icon: mdi:light-recessed
+      friendly_name: Bar Hall Light
+      state: 'on'
+    light.master_hall_light:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 255
+      friendly_name: master hall light
+      supported_features: 32
+      state: 'on'
+    light.living_room_hall:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 87
+      friendly_name: living room hall
+      supported_features: 32
+      state: 'on'
+  icon: mdi:light-recessed
+  metadata:
+    switch.bar_hall_light:
+      entity_only: true
+    light.master_hall_light:
+      entity_only: true
+    light.living_room_hall:
+      entity_only: true
+- id: '1707312221992'
+  name: Hall lights - night
+  entities:
+    switch.bar_hall_light:
+      icon: mdi:light-recessed
+      friendly_name: Bar Hall Light
+      state: 'off'
+    light.master_hall_light:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      friendly_name: master hall light
+      supported_features: 32
+      state: 'off'
+    light.living_room_hall:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 161
+      friendly_name: living room hall
+      supported_features: 32
+      state: 'on'
+  icon: mdi:light-recessed
+  metadata:
+    switch.bar_hall_light:
+      entity_only: true
+    light.master_hall_light:
+      entity_only: true
+    light.living_room_hall:
+      entity_only: true

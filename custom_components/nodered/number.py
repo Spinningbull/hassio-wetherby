@@ -1,4 +1,5 @@
 """Sensor platform for nodered."""
+
 import logging
 
 from homeassistant.components.number import RestoreNumber
@@ -13,6 +14,7 @@ from homeassistant.const import (
     CONF_ICON,
     CONF_ID,
     CONF_TYPE,
+    CONF_UNIT_OF_MEASUREMENT,
     STATE_UNAVAILABLE,
     STATE_UNKNOWN,
 )
@@ -115,3 +117,6 @@ class NodeRedNumber(NodeRedEntity, RestoreNumber):
         )
         self._attr_native_step = self._config.get(CONF_STEP_VALUE, DEFAULT_STEP)
         self._attr_mode = self._config.get(CONF_MODE, NumberMode.AUTO)
+        self._attr_native_unit_of_measurement = self._config.get(
+            CONF_UNIT_OF_MEASUREMENT
+        )

@@ -41,20 +41,20 @@ homeassistant:
 lovelace:
    mode: storage
 
-  # Added multiple includes for each page in ui-lovelace.yaml
-   dashboards:
-      lovelace-yaml:
-        mode: yaml
-        title: Tablets
-        icon: "mdi:tablet-dashboard"
-        show_in_sidebar: true
-        filename: ui-lovelace.yaml
-      lovelace-family:
-        mode: yaml
-        title: Family Room Test
-        icon: "mdi:server"
-        show_in_sidebar: true
-        filename: family-room-remote.yaml
+#   Added multiple includes for each page in ui-lovelace.yaml
+#   dashboards:
+#       lovelace-yaml:
+#         mode: yaml
+#         title: Tablets
+#         icon: "mdi:tablet-dashboard"
+#         show_in_sidebar: true
+#         filename: ui-lovelace.yaml
+#       lovelace-family:
+#         mode: yaml
+#         title: Family Room Test
+#         icon: "mdi:server"
+#         show_in_sidebar: true
+#         filename: family-room-remote.yaml
 
 # Text to speech
 tts:

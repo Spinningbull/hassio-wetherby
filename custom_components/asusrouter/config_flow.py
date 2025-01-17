@@ -7,14 +7,11 @@ import socket
 from typing import Any
 from urllib.parse import urlparse
 
-from asusrouter import (
-    AsusRouterConnectionError,
-    AsusRouterLoginBlockError,
-    AsusRouterLoginError,
-)
 import voluptuous as vol
-
-from homeassistant.components import ssdp
+from asusrouter import AsusData
+from asusrouter.error import AsusRouterAccessError
+from asusrouter.modules.endpoint.error import AccessError
+from asusrouter.modules.homeassistant import convert_to_ha_sensors_group
 from homeassistant.config_entries import ConfigEntry, ConfigFlow, OptionsFlow
 from homeassistant.const import (
     CONF_HOST,
@@ -28,17 +25,26 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.data_entry_flow import FlowResult
 from homeassistant.helpers import config_validation as cv
+from homeassistant.helpers.device_registry import format_mac
 
-from . import helpers
 from .bridge import ARBridge
 from .const import (
     ACCESS_POINT,
+    ALL_CLIENTS,
     BASE,
     CONF_CACHE_TIME,
+    CONF_CLIENT_DEVICE,
+    CONF_CLIENT_FILTER,
+    CONF_CLIENT_FILTER_LIST,
+    CONF_CLIENTS_IN_ATTR,
     CONF_CONSIDER_HOME,
+    CONF_CREATE_DEVICES,
     CONF_DEFAULT_CACHE_TIME,
+    CONF_DEFAULT_CLIENT_DEVICE,
+    CONF_DEFAULT_CLIENT_FILTER,
+    CONF_DEFAULT_CLIENTS_IN_ATTR,
     CONF_DEFAULT_CONSIDER_HOME,
-    CONF_DEFAULT_ENABLE_CONTROL,
+    CONF_DEFAULT_CREATE_DEVICES,
     CONF_DEFAULT_EVENT,
     CONF_DEFAULT_HIDE_PASSWORDS,
     CONF_DEFAULT_INTERFACES,
@@ -50,25 +56,19 @@ from .const import (
     CONF_DEFAULT_SPLIT_INTERVALS,
     CONF_DEFAULT_SSL,
     CONF_DEFAULT_TRACK_DEVICES,
-    CONF_DEFAULT_UNITS_SPEED,
-    CONF_DEFAULT_UNITS_TRAFFIC,
     CONF_DEFAULT_USERNAME,
-    CONF_ENABLE_CONTROL,
     CONF_HIDE_PASSWORDS,
     CONF_INTERFACES,
     CONF_INTERVAL,
     CONF_INTERVAL_DEVICES,
     CONF_INTERVALS,
+    CONF_LABELS_CLIENT_FILTER,
     CONF_LABELS_INTERFACES,
     CONF_LABELS_MODE,
     CONF_LATEST_CONNECTED,
     CONF_MODE,
     CONF_SPLIT_INTERVALS,
     CONF_TRACK_DEVICES,
-    CONF_UNITS_SPEED,
-    CONF_UNITS_TRAFFIC,
-    CONF_VALUES_DATA,
-    CONF_VALUES_DATARATE,
     CONF_VALUES_MODE,
     CONFIGS,
     DOMAIN,
@@ -79,14 +79,12 @@ from .const import (
     METHOD,
     NEXT,
     RESULT_CANNOT_RESOLVE,
-    RESULT_CONNECTION_REFUSED,
     RESULT_ERROR,
     RESULT_LOGIN_BLOCKED,
     RESULT_SUCCESS,
     RESULT_UNKNOWN,
     RESULT_WRONG_CREDENTIALS,
     ROUTER,
-    SSDP_SERVER,
     STEP_CONNECTED_DEVICES,
     STEP_CREDENTIALS,
     STEP_EVENTS,
@@ -97,7 +95,6 @@ from .const import (
     STEP_OPERATION,
     STEP_OPTIONS,
     STEP_SECURITY,
-    STEP_SSDP,
     UNIQUE_ID,
 )
 
@@ -129,6 +126,32 @@ def _check_errors(
     return False
 
 
+async def _async_get_clients(
+    hass: HomeAssistant,
+    configs: dict[str, Any],
+    options: dict[str, Any],
+) -> dict[str, Any]:
+    """Return list of all the known clients."""
+
+    bridge = ARBridge(hass, configs, options)
+
+    try:
+        if not bridge.connected:
+            await bridge.async_connect()
+        clients = await bridge.api.async_get_data(AsusData.CLIENTS)
+        await bridge.async_disconnect()
+
+        result = {
+            format_mac(mac): client.description.name
+            for mac, client in clients.items()
+            if client.description.name
+        }
+        return result
+    except Exception as ex:  # pylint: disable=broad-except
+        _LOGGER.warning("Cannot get clients for %s: %s", configs[CONF_HOST], ex)
+        return {}
+
+
 async def _async_get_network_interfaces(
     hass: HomeAssistant,
     configs: dict[str, Any],
@@ -141,7 +164,9 @@ async def _async_get_network_interfaces(
     try:
         if not bridge.connected:
             await bridge.async_connect()
-        labels = helpers.list_from_dict(await bridge.api.async_get_network())
+        labels = convert_to_ha_sensors_group(
+            await bridge.api.async_get_data(AsusData.NETWORK)
+        )
         await bridge.async_disconnect()
         _LOGGER.debug("Found network interfaces: %s", labels)
         return labels
@@ -177,33 +202,68 @@ async def _async_check_connection(
     # Connect
     try:
         await bridge.async_connect()
-    # Credentials error
-    except AsusRouterLoginError:
-        _LOGGER.error("Error during connection to '%s'. Wrong credentials", host)
-        return {
-            ERRORS: RESULT_WRONG_CREDENTIALS,
-        }
-    # Login blocked by the device
-    except AsusRouterLoginBlockError as ex:
+    except AsusRouterAccessError as ex:
+        args = ex.args
+        # Wrong credentials
+        if args[1] == AccessError.CREDENTIALS:
+            _LOGGER.error("Error during connection to `%s`. Wrong credentials", host)
+            return {
+                ERRORS: RESULT_WRONG_CREDENTIALS,
+            }
+        # Try again later / too many attempts
+        if args[1] == AccessError.TRY_AGAIN:
+            timeout = args[2].get("timeout")
+            _LOGGER.error(
+                "Device `%s` has reported block for the login (to many wrong attempts were made). \
+                    Please try again in `%s` seconds",
+                host,
+                timeout,
+            )
+            return {
+                ERRORS: RESULT_LOGIN_BLOCKED,
+            }
+        # Reset required
+        if args[1] == AccessError.RESET_REQUIRED:
+            _LOGGER.error(
+                "Device `%s` requires a reset. Please reset the device. You won't be able to \
+                    login to the device until the reset is done.",
+                host,
+            )
+            return {
+                ERRORS: RESULT_LOGIN_BLOCKED,
+            }
+        # Captcha required
+        if args[1] == AccessError.CAPTCHA:
+            _LOGGER.error(
+                "Device `%s` requires a captcha. Please login to the device and complete the captcha. \
+                    Integration cannot proceed with the captcha request. You need either to disable \
+                    captcha or login via Web UI from the HA IP address, complete it and try again. \
+                    Sometimes, you can also reboot the device to fix this issue.",
+                host,
+            )
+            return {
+                ERRORS: RESULT_LOGIN_BLOCKED,
+            }
+        # Another error
+        if args[1] == AccessError.ANOTHER:
+            _LOGGER.error("Device `%s` has reported `another` error.", host)
+            return {
+                ERRORS: RESULT_ERROR,
+            }
+        # Unknown error
+        if args[1] == AccessError.UNKNOWN:
+            _LOGGER.error("Device `%s` has reported `unknown` error.", host)
+            return {
+                ERRORS: RESULT_UNKNOWN,
+            }
+        # Anything else
         _LOGGER.error(
-            "Device '%s' has reported block for the login (to many wrong attempts were made). \
-                Please try again in %s seconds",
-            host,
-            ex.timeout,
+            "Error during connection to `%s`. Original exception: %s", host, ex
         )
         return {
-            ERRORS: RESULT_LOGIN_BLOCKED,
+            ERRORS: RESULT_UNKNOWN,
         }
-    # Connection refused
-    except AsusRouterConnectionError as ex:
-        _LOGGER.error(
-            "Connection refused by `%s`. Check SSL and port settings. Original exception: %s",
-            host,
-            ex,
-        )
-        return {
-            ERRORS: RESULT_CONNECTION_REFUSED,
-        }
+
     # Anything else
     except Exception as ex:  # pylint: disable=broad-except
         _LOGGER.error(
@@ -321,10 +381,6 @@ def _create_form_operation(
             {mode: CONF_LABELS_MODE.get(mode, mode) for mode in CONF_VALUES_MODE}
         ),
         vol.Required(
-            CONF_ENABLE_CONTROL,
-            default=user_input.get(CONF_ENABLE_CONTROL, CONF_DEFAULT_ENABLE_CONTROL),
-        ): cv.boolean,
-        vol.Required(
             CONF_SPLIT_INTERVALS,
             default=user_input.get(CONF_SPLIT_INTERVALS, CONF_DEFAULT_SPLIT_INTERVALS),
         ): cv.boolean,
@@ -336,17 +392,39 @@ def _create_form_operation(
 def _create_form_connected_devices(
     user_input: dict[str, Any] | None = None,
     mode: str = CONF_DEFAULT_MODE,
+    default: list[str] | None = None,
 ) -> vol.Schema:
     """Create a form for the `connected_devices` step."""
 
     if not user_input:
         user_input = {}
 
+    if not default:
+        default = []
+
     schema = {
         vol.Required(
             CONF_TRACK_DEVICES,
             default=user_input.get(CONF_TRACK_DEVICES, CONF_DEFAULT_TRACK_DEVICES),
         ): cv.boolean,
+        vol.Required(
+            CONF_CLIENT_DEVICE,
+            default=user_input.get(CONF_CLIENT_DEVICE, CONF_DEFAULT_CLIENT_DEVICE),
+        ): cv.boolean,
+        vol.Required(
+            CONF_CLIENTS_IN_ATTR,
+            default=user_input.get(CONF_CLIENTS_IN_ATTR, CONF_DEFAULT_CLIENTS_IN_ATTR),
+        ): cv.boolean,
+        vol.Required(
+            CONF_CLIENT_FILTER,
+            default=user_input.get(CONF_CLIENT_FILTER, CONF_DEFAULT_CLIENT_FILTER),
+        ): vol.In(CONF_LABELS_CLIENT_FILTER),
+        vol.Optional(
+            CONF_CLIENT_FILTER_LIST,
+            default=default,
+        ): cv.multi_select(
+            dict(sorted(user_input[ALL_CLIENTS].items(), key=lambda item: item[1]))
+        ),
         vol.Required(
             CONF_LATEST_CONNECTED,
             default=user_input.get(
@@ -368,6 +446,18 @@ def _create_form_connected_devices(
                         CONF_CONSIDER_HOME, CONF_DEFAULT_CONSIDER_HOME
                     ),
                 ): cv.positive_int,
+            }
+        )
+
+    if mode in (ACCESS_POINT, MEDIA_BRIDGE, ROUTER):
+        schema.update(
+            {
+                vol.Required(
+                    CONF_CREATE_DEVICES,
+                    default=user_input.get(
+                        CONF_CREATE_DEVICES, CONF_DEFAULT_CREATE_DEVICES
+                    ),
+                ): cv.boolean,
             }
         )
 
@@ -447,14 +537,6 @@ def _create_form_interfaces(
                 for interface in user_input[INTERFACES]
             }
         ),
-        vol.Required(
-            CONF_UNITS_SPEED,
-            default=user_input.get(CONF_UNITS_SPEED, CONF_DEFAULT_UNITS_SPEED),
-        ): vol.In({datarate: datarate for datarate in CONF_VALUES_DATARATE}),
-        vol.Required(
-            CONF_UNITS_TRAFFIC,
-            default=user_input.get(CONF_UNITS_TRAFFIC, CONF_DEFAULT_UNITS_TRAFFIC),
-        ): vol.In({data: data for data in CONF_VALUES_DATA}),
     }
 
     return vol.Schema(schema)
@@ -503,7 +585,7 @@ def _create_form_security(
 class ARFlowHandler(ConfigFlow, domain=DOMAIN):
     """Handle config flow for AsusRouter."""
 
-    VERSION = 4
+    VERSION = 5
 
     def __init__(self) -> None:
         """Initialise config flow."""
@@ -517,7 +599,6 @@ class ARFlowHandler(ConfigFlow, domain=DOMAIN):
         # Steps description
         self._steps: dict[str, dict[str, Any]] = {
             STEP_FIND: {METHOD: self.async_step_find, NEXT: STEP_CREDENTIALS},
-            STEP_SSDP: {NEXT: STEP_CREDENTIALS},
             STEP_CREDENTIALS: {
                 METHOD: self.async_step_credentials,
                 NEXT: STEP_OPERATION,
@@ -528,51 +609,6 @@ class ARFlowHandler(ConfigFlow, domain=DOMAIN):
             },
             STEP_OPTIONS: {METHOD: self.async_step_options},
         }
-
-    # SSDP
-    async def async_step_ssdp(
-        self,
-        discovery_info: ssdp.SsdpServiceInfo,
-    ) -> FlowResult:
-        """Flow initiated by SSDP discovery."""
-
-        step_id = STEP_SSDP
-
-        # Get the serial number
-        serial_number = discovery_info.upnp.get(ssdp.ATTR_UPNP_SERIAL)
-
-        # Abort if no serial number provided
-        if not serial_number or serial_number == "":
-            return self.async_abort(reason="no_serial")
-
-        # Check if configured already
-        await self.async_set_unique_id(serial_number)
-        self._abort_if_unique_id_configured()
-
-        # Make sure, this is actually an AsusWRT-powered device
-        if (
-            not discovery_info.ssdp_server
-            or SSDP_SERVER not in discovery_info.ssdp_server
-        ):
-            return self.async_abort(reason="not_router")
-
-        # Save host
-        assert discovery_info.ssdp_location is not None
-        host = urlparse(discovery_info.ssdp_location).hostname
-        self._configs[CONF_HOST] = host
-
-        # Friendly name
-        name = discovery_info.upnp[ssdp.ATTR_UPNP_FRIENDLY_NAME]
-
-        # Set the title placeholder
-        self.description_placeholders = {
-            CONF_NAME: name,
-            CONF_HOST: host,
-        }
-        self.context["title_placeholders"] = self.description_placeholders
-
-        # Process to setup
-        return await _async_process_step(self._steps, step_id)
 
     # User setup
     async def async_step_user(
@@ -689,7 +725,6 @@ class ARFlowHandler(ConfigFlow, domain=DOMAIN):
             STEP_INTERFACES,
             STEP_EVENTS,
             STEP_SECURITY,
-            STEP_OPTIONS,
             STEP_FINISH,
         ]
 
@@ -713,6 +748,9 @@ class ARFlowHandler(ConfigFlow, domain=DOMAIN):
 
         if not user_input:
             user_input = self._options.copy()
+            user_input[ALL_CLIENTS] = await _async_get_clients(
+                self.hass, self._configs, self._options
+            )
             return self.async_show_form(
                 step_id=step_id,
                 data_schema=_create_form_connected_devices(user_input, self._mode),
@@ -865,7 +903,6 @@ class AROptionsFlowHandler(OptionsFlow):
             STEP_INTERFACES,
             STEP_EVENTS,
             STEP_SECURITY,
-            STEP_OPTIONS,
             STEP_FINISH,
         ]
 
@@ -949,9 +986,23 @@ class AROptionsFlowHandler(OptionsFlow):
 
         if not user_input:
             user_input = self._options.copy()
+            # Get the selected clients
+            selected = user_input.get(CONF_CLIENT_FILTER_LIST, []).copy()
+            # Get all the clients
+            all_clients = await _async_get_clients(
+                self.hass, self._configs, self._options
+            )
+            # If client was in the list, but cannot be found now, still add it
+            for client in selected:
+                if client not in all_clients:
+                    all_clients[client] = client.upper()
+            # Save the clients as options
+            user_input[ALL_CLIENTS] = all_clients
             return self.async_show_form(
                 step_id=step_id,
-                data_schema=_create_form_connected_devices(user_input, self._mode),
+                data_schema=_create_form_connected_devices(
+                    user_input, self._mode, default=selected
+                ),
             )
         self._options.update(user_input)
 

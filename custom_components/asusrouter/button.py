@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
+from typing import Any, Optional
 
+from asusrouter.modules.state import AsusState
 from homeassistant.components.button import ButtonEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -67,9 +68,12 @@ class ARButton(ButtonEntity):
         self._attr_unique_id = to_unique_id(f"{router.mac}_{description.name}")
         self._attr_capability_attributes = description.capabilities
 
-        self._service = description.service
-        self._service_args = description.service_args
-        self._service_expect_modify = description.service_expect_modify
+        self._state = description.state
+        self._state_args = description.state_args
+        self._state_expect_modify = description.state_expect_modify
+
+        if description.icon:
+            self._attr_icon = description.icon
 
     async def async_press(
         self,
@@ -77,13 +81,28 @@ class ARButton(ButtonEntity):
     ) -> None:
         """Press button."""
 
+        kwargs = self._state_args if self._state_args is not None else {}
+
+        await self._set_state(
+            state=self._state,
+            expect_modify=self._state_expect_modify,
+            **kwargs,
+        )
+
+    async def _set_state(
+        self,
+        state: AsusState,
+        expect_modify: bool = False,
+        **kwargs: Any,
+    ) -> None:
+        """Set switch state."""
+
         try:
-            result = await self.api.async_service_generic_apply(
-                self._service,
-                arguments=self._service_args,
-                expect_modify=self._service_expect_modify,
+            _LOGGER.debug("Pressing %s", state)
+            result = await self.api.async_set_state(
+                state=state, expect_modify=expect_modify, **kwargs
             )
             if not result:
-                _LOGGER.debug("Button press failed!")
+                _LOGGER.debug("Didn't manage to press %s", state)
         except Exception as ex:  # pylint: disable=broad-except
-            _LOGGER.error("Button press has returned an exception: %s", ex)
+            _LOGGER.error("Pressing %s caused an exception: %s", state, ex)

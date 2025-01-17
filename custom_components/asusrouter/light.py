@@ -5,18 +5,33 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from homeassistant.components.light import ColorMode, LightEntity
+from homeassistant.components.light import (
+    ColorMode,
+    LightEntity,
+    LightEntityFeature,
+)
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
-from .const import ASUSROUTER, CONF_ENABLE_CONTROL, DOMAIN, STATIC_LIGHTS
+from asusrouter.modules.aura import AsusAura
+from asusrouter.modules.color import ColorRGB, scale_value_int
+from asusrouter.modules.led import AsusLED
+
+from .const import ASUSROUTER, DOMAIN, STATIC_AURA, STATIC_LIGHTS
 from .dataclass import ARLightDescription
 from .entity import ARBinaryEntity, async_setup_ar_entry
+from .modules.aura import AURA_EFFECTS, AURA_NO_EFFECT, per_zone_light
 from .router import ARDevice
 
 _LOGGER = logging.getLogger(__name__)
+
+EFFECT = "effect"
+RGB_COLOR = "rgb_color"
+BRIGHTNESS = "brightness"
+COLOR_MODE = "color_mode"
+ZONE_ID = "zone_id"
 
 
 async def async_setup_entry(
@@ -26,22 +41,42 @@ async def async_setup_entry(
 ) -> None:
     """Set up AsusRouter lights."""
 
-    lights = STATIC_LIGHTS.copy()
-
+    leds = STATIC_LIGHTS.copy()
     if (
-        not config_entry.options[CONF_ENABLE_CONTROL]
-        or not hass.data[DOMAIN][config_entry.entry_id][ASUSROUTER].bridge.identity.led
+        hass.data[DOMAIN][config_entry.entry_id][
+            ASUSROUTER
+        ].bridge.identity.led
+        is True
     ):
-        return
+        await async_setup_ar_entry(
+            hass, config_entry, async_add_entities, leds, ARLightLED
+        )
 
-    await async_setup_ar_entry(
-        hass, config_entry, async_add_entities, lights, ARLightLED
-    )
+    auras = STATIC_AURA.copy()
+    if (
+        hass.data[DOMAIN][config_entry.entry_id][
+            ASUSROUTER
+        ].bridge.identity.aura
+        is True
+    ):
+        # Create per-zone lights
+        auras.extend(
+            per_zone_light(
+                hass.data[DOMAIN][config_entry.entry_id][
+                    ASUSROUTER
+                ].bridge.identity.aura_zone
+            )
+        )
+
+        await async_setup_ar_entry(
+            hass, config_entry, async_add_entities, auras, ARLightAura
+        )
 
 
 class ARLightLED(ARBinaryEntity, LightEntity):
     """AsusRouter LED light."""
 
+    _attr_color_mode = ColorMode.ONOFF
     _attr_supported_color_modes = {ColorMode.ONOFF}
 
     def __init__(
@@ -54,7 +89,6 @@ class ARLightLED(ARBinaryEntity, LightEntity):
 
         super().__init__(coordinator, router, description)
         self.entity_description: ARLightDescription = description
-        self._state: bool
 
     async def async_turn_on(
         self,
@@ -62,13 +96,7 @@ class ARLightLED(ARBinaryEntity, LightEntity):
     ) -> None:
         """Turn on LED."""
 
-        try:
-            result = await self.api.async_set_led(True)
-            await self.coordinator.async_request_refresh()
-            if not result:
-                _LOGGER.debug("LED state was not set!")
-        except Exception as ex:  # pylint: disable=broad-except
-            _LOGGER.error("LED control has returned an exception: %s", ex)
+        await self._set_state(AsusLED.ON)
 
     async def async_turn_off(
         self,
@@ -76,18 +104,88 @@ class ARLightLED(ARBinaryEntity, LightEntity):
     ) -> None:
         """Turn off LED."""
 
-        try:
-            result = await self.api.async_set_led(False)
-            await self.coordinator.async_request_refresh()
-            if not result:
-                _LOGGER.debug("LED state was not set!")
-        except Exception as ex:  # pylint: disable=broad-except
-            _LOGGER.error("LED control has returned an exception: %s", ex)
+        await self._set_state(AsusLED.OFF)
 
-    async def async_update(self) -> None:
-        """Update state from the device."""
 
-        try:
-            self._state = await self.api.async_get_led(use_cache=False)
-        except Exception as ex:  # pylint: disable=broad-except
-            _LOGGER.error("LED control has returned an exception: %s", ex)
+class ARLightAura(ARBinaryEntity, LightEntity):
+    """AsusRouter Aura light."""
+
+    def __init__(
+        self,
+        coordinator: DataUpdateCoordinator,
+        router: ARDevice,
+        description: ARLightDescription,
+    ) -> None:
+        """Initialize AsusRouter Aura light."""
+
+        self._attr_supported_features = LightEntityFeature.EFFECT
+        self._attr_effect_list = AURA_EFFECTS
+
+        super().__init__(coordinator, router, description)
+        self.entity_description: ARLightDescription = description
+
+    async def async_turn_on(
+        self,
+        **kwargs: Any,
+    ) -> None:
+        """Turn on Aura."""
+
+        effect = AsusAura.ON
+        if "effect" in kwargs:
+            effect = AsusAura.__members__.get(
+                kwargs["effect"].upper(), AsusAura.ON
+            )
+
+        color = None
+        if "rgb_color" in kwargs:
+            rgb = kwargs["rgb_color"]
+            color = ColorRGB(rgb[0], rgb[1], rgb[2], scale=255)
+
+        brightness = None
+        if "brightness" in kwargs:
+            brightness = scale_value_int(kwargs["brightness"], 128, 255)
+
+        zone_id = (
+            self.entity_description.capabilities.get("zone_id", None)
+            if self.entity_description.capabilities
+            else None
+        )
+
+        await self._set_state(
+            effect,
+            color=color,
+            brightness=brightness,
+            zone=zone_id,
+        )
+
+    async def async_turn_off(
+        self,
+        **kwargs: Any,
+    ) -> None:
+        """Turn off Aura."""
+
+        await self._set_state(AsusAura.OFF)
+
+    @property
+    def effect(self) -> str | None:
+        """Return the current effect."""
+
+        return self.coordinator.data.get("effect", AURA_NO_EFFECT)
+
+    @property
+    def supported_color_modes(self) -> set[str] | None:
+        """Return the supported color modes."""
+
+        # This is a workaround to avoid a bug in HA
+        # which does not hide the color picker and brightness slider
+        # even when the current color mode is set to ONOFF only
+        _supported_color_modes = self.coordinator.data.get(
+            "color_mode", ColorMode.RGB
+        )
+        return {_supported_color_modes}
+
+    @property
+    def color_mode(self) -> ColorMode | str | None:
+        """Return the color mode."""
+
+        return self.coordinator.data.get("color_mode", ColorMode.RGB)

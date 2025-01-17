@@ -1,4 +1,5 @@
 """Sensor platform for nodered."""
+
 from datetime import datetime
 import logging
 from typing import Optional, Union
@@ -7,6 +8,7 @@ from dateutil import parser
 from homeassistant.components.sensor import SensorDeviceClass, SensorEntity
 from homeassistant.const import CONF_STATE, CONF_UNIT_OF_MEASUREMENT
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
+from homeassistant.helpers.entity import EntityCategory
 
 from . import NodeRedEntity
 from .const import (
@@ -101,3 +103,13 @@ class NodeRedSensor(NodeRedEntity, SensorEntity):
         )
         self._attr_unit_of_measurement = None
         self._attr_state_class = msg[CONF_CONFIG].get(CONF_STATE_CLASS)
+
+    def entity_category_mapper(self, category):
+        """Map Node-RED category to Home Assistant entity category."""
+        if category == "config":
+            _LOGGER.warning(
+                f"Sensor {self.name} has category 'config' which is not supported"
+            )
+        if category == "diagnostic":
+            return EntityCategory.DIAGNOSTIC
+        return None
