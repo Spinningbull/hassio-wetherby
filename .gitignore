@@ -6,3 +6,4 @@ home-assistant_v2.db-shm
 .HA_VERSION
 home-assistant_v2.db-wal
 www/upcoming-media-card-images/*
+.vscode/settings.json
