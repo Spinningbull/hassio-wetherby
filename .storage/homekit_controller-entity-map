@@ -1,0 +1,2118 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "homekit_controller-entity-map",
+  "data": {
+    "pairings": {
+      "A6:C4:D7:BA:30:48": {
+        "config_num": 1,
+        "accessories": [
+          {
+            "aid": 1,
+            "services": [
+              {
+                "iid": 1,
+                "type": "0000003E-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 2,
+                    "type": "00000014-0000-1000-8000-0026BB765291",
+                    "format": "bool",
+                    "perms": [
+                      "pw"
+                    ]
+                  },
+                  {
+                    "iid": 3,
+                    "type": "00000020-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LG Electronics",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 4,
+                    "type": "00000021-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "OLED77CXPUA",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 5,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LG webOS TV D9AD",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 6,
+                    "type": "00000030-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "008RMZL62245",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 7,
+                    "type": "00000052-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "03.11.30",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 8,
+                    "type": "00000053-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "1",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 9,
+                    "type": "34AB8811-AC7F-4340-BAC3-FD6A85F9943B",
+                    "format": "string",
+                    "value": "2.1;16B62a",
+                    "perms": [
+                      "pr",
+                      "hd"
+                    ],
+                    "ev": false
+                  }
+                ]
+              },
+              {
+                "iid": 16,
+                "type": "000000A2-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 18,
+                    "type": "00000037-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "1.1.0",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  }
+                ]
+              },
+              {
+                "iid": 48,
+                "type": "000000D8-0000-1000-8000-0026BB765291",
+                "primary": true,
+                "hidden": false,
+                "linked": [
+                  64,
+                  80,
+                  384,
+                  256,
+                  272,
+                  288,
+                  304,
+                  320,
+                  336,
+                  352,
+                  528,
+                  544,
+                  560,
+                  576,
+                  592,
+                  608,
+                  624,
+                  640,
+                  656,
+                  768,
+                  784
+                ],
+                "characteristics": [
+                  {
+                    "iid": 50,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LG webOS TV",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 51,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LG webOS TV OLED77CXPUA",
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": true,
+                    "maxLen": 25
+                  },
+                  {
+                    "iid": 52,
+                    "type": "000000B0-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": true,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 53,
+                    "type": "000000E7-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 54,
+                    "type": "000000E8-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 2,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 57,
+                    "type": "000000DF-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "perms": [
+                      "pw"
+                    ],
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 59,
+                    "type": "000000E1-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "perms": [
+                      "pw"
+                    ],
+                    "minValue": 0,
+                    "maxValue": 16,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 64,
+                "type": "DA",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 66,
+                    "type": "E5",
+                    "format": "uint16",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 2,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 67,
+                    "type": "E4",
+                    "format": "tlv8",
+                    "value": "AQACAQA=",
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": false
+                  }
+                ]
+              },
+              {
+                "iid": 80,
+                "type": "00000113-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 84,
+                    "type": "00000119-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 16,
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "unit": "percentage",
+                    "minValue": 0,
+                    "maxValue": 100,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 82,
+                    "type": "0000011A-0000-1000-8000-0026BB765291",
+                    "format": "bool",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 83,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "Speaker",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 85,
+                    "type": "000000B0-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": true,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 86,
+                    "type": "E9",
+                    "format": "uint8",
+                    "value": 2,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 87,
+                    "type": "EA",
+                    "format": "uint8",
+                    "perms": [
+                      "pw"
+                    ],
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 384,
+                "type": "221",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 385,
+                    "type": "222",
+                    "format": "tlv8",
+                    "value": "AQgBBhiCjJaXdQIaAQZY/bE/a84CBlj9sT9rzgAAAgYYgoyWl3Q=",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  }
+                ]
+              },
+              {
+                "iid": 256,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 258,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 8,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 259,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 260,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 1,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 261,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "AirPlay",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 262,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "AirPlay",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 264,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 263,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 272,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 274,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 2,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 275,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 276,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 2,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 277,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "Live TV",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 278,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "Live TV",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 280,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 279,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 288,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 290,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 291,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 292,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 3,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 293,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "HDMI 1",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 294,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "HDMI 1",
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 296,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 295,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 304,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 306,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 307,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 308,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 4,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 309,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "HDMI 2",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 310,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "Yamaha",
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 312,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 311,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 2,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 320,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 322,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 323,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 324,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 5,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 325,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "HDMI 3",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 326,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "HDMI 3",
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 328,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 327,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 336,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 338,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 339,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 340,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 7,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 341,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "AV",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 342,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "AV",
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 344,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 2,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 343,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 352,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 354,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 355,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 356,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 6,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 357,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "HDMI 4",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 358,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "HDMI 4",
+                    "perms": [
+                      "pr",
+                      "pw",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 360,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 359,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 528,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 530,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 531,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 532,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 9,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 533,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 1",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 534,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 1",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 536,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 535,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 544,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 546,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 547,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 548,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 10,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 549,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 2",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 550,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 2",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 552,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 551,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 560,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 562,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 563,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 564,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 11,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 565,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 3",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 566,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 3",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 568,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 567,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 576,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 578,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 579,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 580,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 12,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 581,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 4",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 582,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 4",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 584,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 583,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 592,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 594,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 595,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 596,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 13,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 597,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 5",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 598,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 5",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 600,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 599,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 608,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 610,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 611,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 612,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 14,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 613,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 6",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 614,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 6",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 616,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 615,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 624,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 626,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 627,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 628,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 15,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 629,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 7",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 630,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 7",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 632,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 631,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 640,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 642,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 643,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 644,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 16,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 645,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 8",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 646,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 8",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 648,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 647,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 656,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 658,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 659,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 660,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 17,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 661,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 9",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 662,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 9",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 664,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 663,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 768,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 770,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 771,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 772,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 18,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 773,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 10",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 774,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 10",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 776,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 775,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              },
+              {
+                "iid": 784,
+                "type": "000000D9-0000-1000-8000-0026BB765291",
+                "primary": false,
+                "hidden": false,
+                "linked": [],
+                "characteristics": [
+                  {
+                    "iid": 786,
+                    "type": "DB",
+                    "format": "uint8",
+                    "value": 3,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 10,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 787,
+                    "type": "000000D6-0000-1000-8000-0026BB765291",
+                    "format": "uint8",
+                    "value": 0,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 1,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 788,
+                    "type": "000000E6-0000-1000-8000-0026BB765291",
+                    "format": "uint32",
+                    "value": 19,
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 789,
+                    "type": "00000023-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 11",
+                    "perms": [
+                      "pr"
+                    ],
+                    "ev": false
+                  },
+                  {
+                    "iid": 790,
+                    "type": "000000E3-0000-1000-8000-0026BB765291",
+                    "format": "string",
+                    "value": "LOGICAL HDMI 11",
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": true
+                  },
+                  {
+                    "iid": 792,
+                    "type": "DC",
+                    "format": "uint8",
+                    "value": 4,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 6,
+                    "minStep": 1
+                  },
+                  {
+                    "iid": 791,
+                    "type": "135",
+                    "format": "uint8",
+                    "value": 1,
+                    "perms": [
+                      "pr",
+                      "ev"
+                    ],
+                    "ev": false,
+                    "minValue": 0,
+                    "maxValue": 3,
+                    "minStep": 1
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

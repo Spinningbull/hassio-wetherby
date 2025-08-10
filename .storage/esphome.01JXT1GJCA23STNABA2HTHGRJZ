@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "esphome.01JXT1GJCA23STNABA2HTHGRJZ",
+  "data": {
+    "device_info": {
+      "uses_password": false,
+      "name": "athom-zigbee-gateway-e68b90",
+      "friendly_name": "Bedjet gateway",
+      "mac_address": "A0:B7:65:E6:8B:90",
+      "compilation_time": "Jul 15 2025, 21:05:42",
+      "model": "esp32dev",
+      "manufacturer": "Espressif",
+      "has_deep_sleep": false,
+      "esphome_version": "2025.6.3",
+      "project_name": "Athom Technology.Athom Zigbee Gateway",
+      "project_version": "v2.0.2",
+      "webserver_port": 80,
+      "legacy_voice_assistant_version": 0,
+      "voice_assistant_feature_flags": 0,
+      "legacy_bluetooth_proxy_version": 5,
+      "bluetooth_proxy_feature_flags": 127,
+      "suggested_area": "",
+      "bluetooth_mac_address": "A0:B7:65:E6:8B:92",
+      "api_encryption_supported": false,
+      "devices": [],
+      "areas": [],
+      "area": {
+        "area_id": 0,
+        "name": ""
+      }
+    },
+    "services": [],
+    "api_version": {
+      "major": 1,
+      "minor": 10
+    },
+    "update": [],
+    "switch": [
+      {
+        "object_id": "zbsl",
+        "key": 515401296,
+        "name": "zBSL",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "assumed_state": false,
+        "device_class": ""
+      },
+      {
+        "object_id": "prep_the_cc2652p2_for_firmware_update",
+        "key": 4273739850,
+        "name": "Prep the cc2652p2 for firmware update",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "assumed_state": false,
+        "device_class": ""
+      }
+    ],
+    "sensor": [
+      {
+        "object_id": "my_bedjet_outlet_temperature",
+        "key": 2943375819,
+        "name": "My BedJet Outlet Temperature",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "temperature",
+        "unit_of_measurement": "°C",
+        "accuracy_decimals": 0,
+        "force_update": false,
+        "state_class": 1,
+        "legacy_last_reset_type": 0
+      },
+      {
+        "object_id": "my_bedjet_ambient_temperature",
+        "key": 2361341254,
+        "name": "My BedJet Ambient Temperature",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "temperature",
+        "unit_of_measurement": "°C",
+        "accuracy_decimals": 0,
+        "force_update": false,
+        "state_class": 1,
+        "legacy_last_reset_type": 0
+      }
+    ],
+    "text_sensor": [],
+    "fan": [
+      {
+        "object_id": "my_bedjet_fan",
+        "key": 1404961306,
+        "name": "My BedJet Fan",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "supports_oscillation": false,
+        "supports_speed": true,
+        "supports_direction": false,
+        "supported_speed_count": 20,
+        "supported_preset_modes": []
+      }
+    ],
+    "climate": [
+      {
+        "object_id": "my_bedjet",
+        "key": 2161346756,
+        "name": "My BedJet",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "supports_current_temperature": true,
+        "supports_two_point_target_temperature": false,
+        "supported_modes": [
+          0,
+          3,
+          4,
+          5
+        ],
+        "visual_min_temperature": 19.0,
+        "visual_max_temperature": 43.0,
+        "visual_target_temperature_step": 1.0,
+        "visual_current_temperature_step": 1.0,
+        "legacy_supports_away": false,
+        "supports_action": true,
+        "supported_fan_modes": [],
+        "supported_swing_modes": [],
+        "supported_custom_fan_modes": [
+          "10%",
+          "100%",
+          "15%",
+          "20%",
+          "25%",
+          "30%",
+          "35%",
+          "40%",
+          "45%",
+          "5%",
+          "50%",
+          "55%",
+          "60%",
+          "65%",
+          "70%",
+          "75%",
+          "80%",
+          "85%",
+          "90%",
+          "95%"
+        ],
+        "supported_presets": [
+          3
+        ],
+        "supported_custom_presets": [
+          "EXT HT",
+          "M1",
+          "M2",
+          "M3"
+        ],
+        "supports_current_humidity": false,
+        "supports_target_humidity": false,
+        "visual_min_humidity": 30.0,
+        "visual_max_humidity": 99.0
+      }
+    ],
+    "light": [
+      {
+        "object_id": "status_led",
+        "key": 610457177,
+        "name": "Status LED",
+        "disabled_by_default": true,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "supported_color_modes": [
+          1
+        ],
+        "min_mireds": 0.0,
+        "max_mireds": 0.0,
+        "effects": [],
+        "legacy_supports_brightness": false,
+        "legacy_supports_rgb": false,
+        "legacy_supports_white_value": false,
+        "legacy_supports_color_temperature": false
+      }
+    ],
+    "button": [
+      {
+        "object_id": "restart_the_device",
+        "key": 1641047507,
+        "name": "Restart the Device",
+        "disabled_by_default": false,
+        "icon": "mdi:restart",
+        "entity_category": 1,
+        "device_id": 0,
+        "device_class": "restart"
+      },
+      {
+        "object_id": "zigbee_module_restart",
+        "key": 1117245902,
+        "name": "Zigbee Module Restart",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": ""
+      }
+    ],
+    "binary_sensor": [
+      {
+        "object_id": "athomzb_serial_connected",
+        "key": 1831060517,
+        "name": "AthomZB Serial Connected",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": "connectivity",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "status",
+        "key": 939730931,
+        "name": "Status",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": "connectivity",
+        "is_status_binary_sensor": true
+      }
+    ]
+  }
+}

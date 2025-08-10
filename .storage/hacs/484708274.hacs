@@ -1,0 +1,67 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/484708274.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@vaskivskyi"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "main",
+        "description": "Monitor your Asus router from Home Assistant",
+        "domain": "asusrouter",
+        "domains": [
+            "sensor",
+            "device_tracker"
+        ],
+        "downloads": 0,
+        "etag_repository": "W/\"1a4e1daed1ab4e7fd0c88a3ee4add990d1909e4a926fd33d8ae4d083b2bd5970\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "Vaskivskyi/ha-asusrouter",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": "2022.4.0",
+        "id": "484708274",
+        "iot_class": "local_poll",
+        "installed": true,
+        "installed_commit": "9da0e0a",
+        "installed_version": "0.2.3",
+        "open_issues": 8,
+        "last_commit": "d5778b9",
+        "last_version": "0.2.4",
+        "last_updated": "2022-05-27T05:58:24Z",
+        "manifest_name": "ASUS Router",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-05-27T05:58:24",
+        "releases": false,
+        "render_readme": false,
+        "published_tags": [
+            "0.2.4",
+            "0.2.3",
+            "0.2.2",
+            "0.2.1",
+            "0.2.0"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 18,
+        "topics": [
+            "asus",
+            "hacs",
+            "home-assistant",
+            "home-automation",
+            "homeassistant",
+            "router"
+        ],
+        "zip_release": false
+    }
+}

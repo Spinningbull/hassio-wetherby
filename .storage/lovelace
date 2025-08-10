@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace",
+  "data": {
+    "config": {
+      "strategy": {
+        "type": "original-states",
+        "hide_energy": false,
+        "areas": {
+          "hidden": [
+            "allison_s_office",
+            "138626588470ed70cf93be0f765716b3",
+            "harper_s_bedroom",
+            "99ff204b0b9853c095218c19a890c944",
+            "master_bath",
+            "06eb80a82dd1a09965a573eeb9325162"
+          ],
+          "order": [
+            "whole_house",
+            "1fc512c581dc7abe87cd4629a8369600",
+            "2e76f1632cd4c53028c4498193b72a78",
+            "dining_room",
+            "office",
+            "7b17a1fffeb83e70a8df6259cdd4c141",
+            "03783ef09c58c6f29ca764fe81d38a05",
+            "front_porch",
+            "theater",
+            "game_room",
+            "shop",
+            "garage",
+            "patio",
+            "pool",
+            "yard",
+            "attic",
+            "network",
+            "security_panel"
+          ]
+        },
+        "hide_entities_without_area": false
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_boolean",
+  "data": {
+    "items": [
+      {
+        "name": "Play Music",
+        "icon": "mdi:speaker",
+        "id": "play_music"
+      },
+      {
+        "id": "armstrong_and_getty",
+        "name": "Armstrong and Getty",
+        "icon": "mdi:radio"
+      },
+      {
+        "id": "family_tv",
+        "name": "Flic - Family TV",
+        "icon": "mdi:television"
+      },
+      {
+        "id": "flic_hall_lights",
+        "name": "Flic - hall lights",
+        "icon": "mdi:light-recessed"
+      },
+      {
+        "id": "flic_house_lights",
+        "name": "Flic - house lights",
+        "icon": "mdi:light-recessed"
+      },
+      {
+        "id": "flic_landscape_lights",
+        "name": "Flic - landscape lights",
+        "icon": "mdi:post-lamp"
+      }
+    ]
+  }
+}

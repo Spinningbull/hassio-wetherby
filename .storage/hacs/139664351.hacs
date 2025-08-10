@@ -1,0 +1,67 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/139664351.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@alandtse",
+            "@keatontaylor"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "dev",
+        "description": "This is a custom component to allow control of Amazon Alexa devices in Home Assistant using the unofficial Alexa API.",
+        "domain": "alexa_media",
+        "domains": [
+            "media_player",
+            "switch",
+            "alarm_control_panel",
+            "sensor"
+        ],
+        "downloads": 15497,
+        "etag_repository": "W/\"bbc4d6b963bb2d66a4c452f98489217e5158489100000a5efba2f93026e3b44c\"",
+        "file_name": "",
+        "filename": "alexa_media.zip",
+        "first_install": false,
+        "fork": false,
+        "full_name": "custom-components/alexa_media_player",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": "2021.12.0b0",
+        "id": "139664351",
+        "iot_class": "cloud_poll",
+        "installed": true,
+        "installed_commit": "b1c8a64",
+        "installed_version": "v3.11.3",
+        "open_issues": 11,
+        "last_commit": "90037ed",
+        "last_version": "v3.11.3",
+        "last_updated": "2022-05-25T06:31:51Z",
+        "manifest_name": "Alexa Media Player",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-05-25T06:31:51",
+        "releases": true,
+        "render_readme": false,
+        "published_tags": [
+            "v3.11.3",
+            "v3.11.2",
+            "v3.11.1",
+            "v3.11.0",
+            "v3.10.15"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 852,
+        "topics": [
+            "alexa",
+            "hacktoberfest",
+            "home-assistant"
+        ],
+        "zip_release": true
+    }
+}

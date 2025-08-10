@@ -9,17 +9,21 @@ media_player:
 
 
 # radarr sensors
-sensor:
-  - platform: nut
-    name: Theater Rack UPS
-    host: 192.168.7.10
-    resources:
-      - ups.status.display
-      - ups.load
-      - input.voltage
-      - battery.charge
-      - battery.runtime
+# sensor:
+#   - platform: nut
+#     name: Theater Rack UPS
+#     host: 192.168.7.10
+#     resources:
+#       - ups.status.display
+#       - ups.load
+#       - input.voltage
+#       - battery.charge
+#       - battery.runtime
 
+binary_sensor:
+  - platform: flic
+    # host: 192.168.7.223
+    
 # sabnzdb 
 # sabnzbd: 
 #     api_key: 0cd7b12811a84619b10537edeeb3b2f9

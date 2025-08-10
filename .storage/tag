@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "minor_version": 3,
+  "key": "tag",
+  "data": {
+    "items": [
+      {
+        "id": "Plexamp-nfc-rockfamily",
+        "name": "Rock in family room",
+        "last_scanned": "2024-05-27T23:02:20.367494+00:00",
+        "migrated": true
+      },
+      {
+        "id": "plexamp-nfc-partymusic",
+        "name": "Party Music",
+        "migrated": true
+      }
+    ]
+  }
+}

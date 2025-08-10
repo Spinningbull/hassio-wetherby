@@ -1,0 +1,283 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "esphome.01J7VP0J442ZFH2EDCSR6J5GVD",
+  "data": {
+    "device_info": {
+      "uses_password": false,
+      "name": "konnected-72a7dc",
+      "friendly_name": "Alarm Panel Pro 72a7dc",
+      "mac_address": "34:86:5D:72:A7:DC",
+      "compilation_time": "Jul 20 2024, 02:03:02",
+      "model": "wesp32",
+      "manufacturer": "Espressif",
+      "has_deep_sleep": false,
+      "esphome_version": "2024.7.0",
+      "project_name": "konnected.alarm-panel-pro-ethernet",
+      "project_version": "1.1.4",
+      "webserver_port": 80,
+      "legacy_voice_assistant_version": 0,
+      "voice_assistant_feature_flags": 0,
+      "legacy_bluetooth_proxy_version": 0,
+      "bluetooth_proxy_feature_flags": 0,
+      "suggested_area": "",
+      "bluetooth_mac_address": "",
+      "api_encryption_supported": false,
+      "devices": [],
+      "areas": [],
+      "area": {
+        "area_id": 0,
+        "name": ""
+      }
+    },
+    "services": [],
+    "api_version": {
+      "major": 1,
+      "minor": 10
+    },
+    "light": [
+      {
+        "object_id": "warning_beep",
+        "key": 1317586638,
+        "name": "Warning Beep",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "supported_color_modes": [
+          1
+        ],
+        "min_mireds": 0.0,
+        "max_mireds": 0.0,
+        "effects": [
+          "None",
+          "Strobe"
+        ],
+        "legacy_supports_brightness": false,
+        "legacy_supports_rgb": false,
+        "legacy_supports_white_value": false,
+        "legacy_supports_color_temperature": false
+      }
+    ],
+    "update": [],
+    "switch": [
+      {
+        "object_id": "alarm_1",
+        "key": 658846944,
+        "name": "Alarm 1",
+        "disabled_by_default": false,
+        "icon": "mdi:bullhorn",
+        "entity_category": 0,
+        "device_id": 0,
+        "assumed_state": false,
+        "device_class": ""
+      },
+      {
+        "object_id": "alarm_2",
+        "key": 658846947,
+        "name": "Alarm 2",
+        "disabled_by_default": false,
+        "icon": "mdi:bullhorn",
+        "entity_category": 0,
+        "device_id": 0,
+        "assumed_state": false,
+        "device_class": ""
+      }
+    ],
+    "sensor": [
+      {
+        "object_id": "uptime",
+        "key": 1324261225,
+        "name": "Uptime",
+        "disabled_by_default": false,
+        "icon": "mdi:timer-outline",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": "duration",
+        "unit_of_measurement": "s",
+        "accuracy_decimals": 0,
+        "force_update": false,
+        "state_class": 2,
+        "legacy_last_reset_type": 0
+      }
+    ],
+    "text_sensor": [
+      {
+        "object_id": "device_id",
+        "key": 536519217,
+        "name": "Device ID",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": ""
+      },
+      {
+        "object_id": "esphome_version",
+        "key": 2314437119,
+        "name": "ESPHome Version",
+        "disabled_by_default": false,
+        "icon": "mdi:new-box",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": ""
+      },
+      {
+        "object_id": "ethernet_ip_address",
+        "key": 3954422301,
+        "name": "Ethernet IP Address",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": ""
+      }
+    ],
+    "button": [
+      {
+        "object_id": "restart",
+        "key": 1203400786,
+        "name": "Restart",
+        "disabled_by_default": false,
+        "icon": "mdi:restart",
+        "entity_category": 1,
+        "device_id": 0,
+        "device_class": "restart"
+      }
+    ],
+    "binary_sensor": [
+      {
+        "object_id": "zone_1",
+        "key": 2643994087,
+        "name": "Zone 1",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_2",
+        "key": 2643994084,
+        "name": "Zone 2",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_3",
+        "key": 2643994085,
+        "name": "Zone 3",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_4",
+        "key": 2643994082,
+        "name": "Zone 4",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_5",
+        "key": 2643994083,
+        "name": "Zone 5",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_6",
+        "key": 2643994080,
+        "name": "Zone 6",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_7",
+        "key": 2643994081,
+        "name": "Zone 7",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_8",
+        "key": 2643994094,
+        "name": "Zone 8",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_9",
+        "key": 2643994095,
+        "name": "Zone 9",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_10",
+        "key": 4253264533,
+        "name": "Zone 10",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_11",
+        "key": 4253264532,
+        "name": "Zone 11",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "zone_12",
+        "key": 4253264535,
+        "name": "Zone 12",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      }
+    ]
+  }
+}

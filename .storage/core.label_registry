@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "core.label_registry",
+  "data": {
+    "labels": [
+      {
+        "color": "yellow",
+        "description": null,
+        "icon": "mdi:lightbulb",
+        "label_id": "lights",
+        "name": "Lights",
+        "created_at": "2025-01-06T18:31:07.757021+00:00",
+        "modified_at": "2025-01-20T01:13:32.613322+00:00"
+      },
+      {
+        "color": "dark-grey",
+        "description": null,
+        "icon": "mdi:access-point-network",
+        "label_id": "network",
+        "name": "Network",
+        "created_at": "2025-01-06T18:31:17.799314+00:00",
+        "modified_at": "2025-01-20T01:14:19.534788+00:00"
+      },
+      {
+        "color": "red",
+        "description": null,
+        "icon": "mdi:fire",
+        "label_id": "smoke_alarm",
+        "name": "Smoke alarm",
+        "created_at": "2025-01-11T22:04:58.738232+00:00",
+        "modified_at": "2025-01-11T22:04:58.738248+00:00"
+      },
+      {
+        "color": "green",
+        "description": null,
+        "icon": "mdi:pine-tree",
+        "label_id": "christmas",
+        "name": "Christmas",
+        "created_at": "2025-01-20T01:05:55.087540+00:00",
+        "modified_at": "2025-01-20T01:13:45.369360+00:00"
+      },
+      {
+        "color": "red",
+        "description": null,
+        "icon": "mdi:alarm-light",
+        "label_id": "security",
+        "name": "Security",
+        "created_at": "2025-01-20T01:14:53.839601+00:00",
+        "modified_at": "2025-01-20T01:14:53.839619+00:00"
+      },
+      {
+        "color": "white",
+        "description": "For use with flic buttons",
+        "icon": "mdi:radiobox-marked",
+        "label_id": "flic",
+        "name": "Flic",
+        "created_at": "2025-01-27T00:22:46.372825+00:00",
+        "modified_at": "2025-01-27T00:22:46.372835+00:00"
+      },
+      {
+        "color": "blue-grey",
+        "description": null,
+        "icon": "mdi:home-sound-in-outline",
+        "label_id": "music",
+        "name": "Music",
+        "created_at": "2025-02-06T15:08:37.774969+00:00",
+        "modified_at": "2025-02-06T15:08:37.774979+00:00"
+      },
+      {
+        "color": "light-grey",
+        "description": "Elements for the remote 3",
+        "icon": "mdi:remote",
+        "label_id": "remote",
+        "name": "Remote",
+        "created_at": "2025-06-16T00:36:31.084698+00:00",
+        "modified_at": "2025-06-16T00:36:31.084708+00:00"
+      },
+      {
+        "color": "blue-grey",
+        "description": null,
+        "icon": "mdi:robot",
+        "label_id": "jarvis",
+        "name": "Jarvis",
+        "created_at": "2025-06-17T01:18:34.176547+00:00",
+        "modified_at": "2025-06-17T01:18:34.176557+00:00"
+      },
+      {
+        "color": "orange",
+        "description": null,
+        "icon": "si:plex",
+        "label_id": "plex",
+        "name": "Plex",
+        "created_at": "2025-06-30T22:39:07.754885+00:00",
+        "modified_at": "2025-06-30T22:39:07.754896+00:00"
+      },
+      {
+        "color": null,
+        "description": null,
+        "icon": "mdi:speaker-multiple",
+        "label_id": "roon",
+        "name": "Roon",
+        "created_at": "2025-07-22T18:57:17.170391+00:00",
+        "modified_at": "2025-07-22T18:57:17.170401+00:00"
+      }
+    ]
+  }
+}

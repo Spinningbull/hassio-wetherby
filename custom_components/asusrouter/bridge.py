@@ -7,19 +7,8 @@ import logging
 from typing import Any, Callable, Optional
 
 import aiohttp
-from homeassistant.const import (
-    CONF_HOST,
-    CONF_PASSWORD,
-    CONF_PORT,
-    CONF_SSL,
-    CONF_USERNAME,
-)
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers import entity_registry as er
-from homeassistant.helpers.aiohttp_client import async_create_clientsession
-from homeassistant.helpers.update_coordinator import UpdateFailed
-
 from asusrouter import AsusRouter
+from asusrouter.config import ARConfig
 from asusrouter.error import AsusRouterError
 from asusrouter.modules.aimesh import AiMeshDevice
 from asusrouter.modules.client import AsusClient
@@ -32,6 +21,18 @@ from asusrouter.modules.homeassistant import (
 )
 from asusrouter.modules.identity import AsusDevice
 from asusrouter.modules.parental_control import ParentalControlRule, PCRuleType
+from asusrouter.tools.connection import get_cookie_jar
+from homeassistant.const import (
+    CONF_HOST,
+    CONF_PASSWORD,
+    CONF_PORT,
+    CONF_SSL,
+    CONF_USERNAME,
+)
+from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.helpers.update_coordinator import UpdateFailed
 
 from . import helpers
 from .const import (
@@ -94,10 +95,20 @@ class ARBridge:
             self._configs.update(options)
 
         # Get session from HA
-        session = async_create_clientsession(hass)
+        # By default, don't verify SSL <- this is a temp solution
+        # which should be done properly in the future
+        session = async_create_clientsession(
+            hass,
+            verify_ssl=False,
+            cookie_jar=get_cookie_jar(),
+        )
 
         # Initialize API
         self._api = self._get_api(self._configs, session)
+
+        # Switch API to optimistic
+        # Optimistic temperature to avoid scaling issues from some devices
+        ARConfig.set("optimistic_temperature", True)
 
         self._host = self._configs[CONF_HOST]
         self._identity: Optional[AsusDevice] = None
@@ -348,7 +359,7 @@ class ARBridge:
         """Get CPU data from the device."""
 
         return await self._get_data(AsusData.CPU)
-    
+
     async def _get_data_dsl(self) -> dict[str, Any]:
         """Get DSL data from the device."""
 

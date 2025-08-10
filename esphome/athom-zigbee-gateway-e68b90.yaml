@@ -1,0 +1,43 @@
+substitutions:
+  name: athom-zigbee-gateway-e68b90
+  friendly_name: Bedjet gateway
+packages:
+  Athom Technology.Athom Zigbee Gateway: github://athom-tech/esp32-configs/athom-zigbee-gateway.yaml
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+api:
+  #encryption:
+   # key: CyQegYbn4gN6MbyoXOEszpC3U1zWl1P+kNGvW/kAuIc=
+# bedjet
+esp32_ble_tracker:
+
+ble_client:
+  - mac_address: CC:50:E3:A1:03:46
+    id: bedjet_ble_id1
+    auto_connect: true
+
+bedjet:
+  - id: bedjet_1
+    ble_client_id: bedjet_ble_id1
+    
+climate:
+  - platform: bedjet
+    id: my_bedjet_climate_entity
+    name: "My BedJet"
+    bedjet_id: bedjet_1
+    
+fan:
+  - platform: bedjet
+    id: my_bedjet_fan_entity
+    name: "My BedJet Fan"
+    bedjet_id: bedjet_1
+    
+sensor:
+  - platform: bedjet
+    bedjet_id: bedjet_1
+    outlet_temperature:
+      name: "My BedJet Outlet Temperature"
+    ambient_temperature:
+      name: "My BedJet Ambient Temperature"

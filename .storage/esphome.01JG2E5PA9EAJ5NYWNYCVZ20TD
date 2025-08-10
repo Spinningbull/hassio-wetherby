@@ -1,0 +1,190 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "esphome.01JG2E5PA9EAJ5NYWNYCVZ20TD",
+  "data": {
+    "device_info": {
+      "uses_password": false,
+      "name": "home-assistant-voice-091457",
+      "friendly_name": "Home Assistant Voice 091457",
+      "mac_address": "20:F8:3B:09:14:57",
+      "compilation_time": "Jun 29 2025, 14:08:10",
+      "model": "esp32-s3-devkitc-1",
+      "manufacturer": "Espressif",
+      "has_deep_sleep": false,
+      "esphome_version": "2025.6.2",
+      "project_name": "Nabu Casa.Home Assistant Voice PE",
+      "project_version": "25.6.0",
+      "webserver_port": 0,
+      "legacy_voice_assistant_version": 1,
+      "voice_assistant_feature_flags": 61,
+      "legacy_bluetooth_proxy_version": 0,
+      "bluetooth_proxy_feature_flags": 0,
+      "suggested_area": "",
+      "bluetooth_mac_address": "",
+      "devices": [],
+      "areas": [],
+      "area": {
+        "area_id": 0,
+        "name": ""
+      }
+    },
+    "services": [],
+    "api_version": {
+      "major": 1,
+      "minor": 10
+    },
+    "switch": [
+      {
+        "object_id": "mute",
+        "key": 2974103762,
+        "name": "Mute",
+        "unique_id": "home-assistant-voice-091457switchmute",
+        "disabled_by_default": false,
+        "icon": "mdi:microphone-off",
+        "entity_category": 1,
+        "device_id": 0,
+        "assumed_state": false,
+        "device_class": ""
+      },
+      {
+        "object_id": "wake_sound",
+        "key": 3517166597,
+        "name": "Wake sound",
+        "unique_id": "home-assistant-voice-091457switchwake_sound",
+        "disabled_by_default": false,
+        "icon": "mdi:bullhorn",
+        "entity_category": 1,
+        "device_id": 0,
+        "assumed_state": false,
+        "device_class": ""
+      },
+      {
+        "object_id": "beta_firmware",
+        "key": 3963827797,
+        "name": "Beta firmware",
+        "unique_id": "home-assistant-voice-091457switchbeta_firmware",
+        "disabled_by_default": true,
+        "icon": "mdi:test-tube",
+        "entity_category": 1,
+        "device_id": 0,
+        "assumed_state": false,
+        "device_class": ""
+      }
+    ],
+    "select": [
+      {
+        "object_id": "wake_word_sensitivity",
+        "key": 666792156,
+        "name": "Wake word sensitivity",
+        "unique_id": "home-assistant-voice-091457selectwake_word_sensitivity",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 1,
+        "device_id": 0,
+        "options": [
+          "Slightly sensitive",
+          "Moderately sensitive",
+          "Very sensitive"
+        ]
+      }
+    ],
+    "update": [
+      {
+        "object_id": "home_assistant_voice_091457",
+        "key": 304861863,
+        "name": "",
+        "unique_id": "home-assistant-voice-091457updatehome_assistant_voice_091457",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 1,
+        "device_id": 0,
+        "device_class": ""
+      }
+    ],
+    "button": [
+      {
+        "object_id": "restart",
+        "key": 1203400786,
+        "name": "Restart",
+        "unique_id": "home-assistant-voice-091457buttonrestart",
+        "disabled_by_default": true,
+        "icon": "mdi:restart",
+        "entity_category": 1,
+        "device_id": 0,
+        "device_class": "restart"
+      }
+    ],
+    "event": [
+      {
+        "object_id": "button_press",
+        "key": 2698747613,
+        "name": "Button press",
+        "unique_id": "home-assistant-voice-091457eventbutton_press",
+        "disabled_by_default": false,
+        "icon": "mdi:button-pointer",
+        "entity_category": 0,
+        "device_id": 0,
+        "device_class": "button",
+        "event_types": [
+          "double_press",
+          "easter_egg_press",
+          "long_press",
+          "triple_press"
+        ]
+      }
+    ],
+    "media_player": [
+      {
+        "object_id": "media_player",
+        "key": 2232357057,
+        "name": "Media Player",
+        "unique_id": "home-assistant-voice-091457media_playermedia_player",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "supports_pause": true,
+        "supported_formats": [
+          {
+            "format": "flac",
+            "sample_rate": 48000,
+            "num_channels": 1,
+            "purpose": 1,
+            "sample_bytes": 2
+          },
+          {
+            "format": "flac",
+            "sample_rate": 48000,
+            "num_channels": 2,
+            "purpose": 0,
+            "sample_bytes": 2
+          }
+        ]
+      }
+    ],
+    "light": [
+      {
+        "object_id": "led_ring",
+        "key": 1459351809,
+        "name": "LED Ring",
+        "unique_id": "home-assistant-voice-091457lightled_ring",
+        "disabled_by_default": false,
+        "icon": "mdi:circle-outline",
+        "entity_category": 1,
+        "device_id": 0,
+        "supported_color_modes": [
+          35
+        ],
+        "min_mireds": 0.0,
+        "max_mireds": 0.0,
+        "effects": [],
+        "legacy_supports_brightness": true,
+        "legacy_supports_rgb": true,
+        "legacy_supports_white_value": false,
+        "legacy_supports_color_temperature": false
+      }
+    ],
+    "binary_sensor": []
+  }
+}

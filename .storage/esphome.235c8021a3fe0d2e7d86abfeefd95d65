@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "esphome.235c8021a3fe0d2e7d86abfeefd95d65",
+  "data": {
+    "device_info": {
+      "uses_password": false,
+      "name": "m5stack-atom-echo-102688",
+      "friendly_name": "M5Stack Atom Echo 102688",
+      "mac_address": "E8:6B:EA:10:26:88",
+      "compilation_time": "Feb 12 2024, 00:34:58",
+      "model": "m5stack-atom",
+      "manufacturer": "Espressif",
+      "has_deep_sleep": false,
+      "esphome_version": "2023.12.9",
+      "project_name": "m5stack.atom-echo-voice-assistant",
+      "project_version": "1.0",
+      "webserver_port": 0,
+      "legacy_voice_assistant_version": 2,
+      "voice_assistant_feature_flags": 0,
+      "legacy_bluetooth_proxy_version": 0,
+      "bluetooth_proxy_feature_flags": 0,
+      "suggested_area": ""
+    },
+    "services": [],
+    "api_version": {
+      "major": 1,
+      "minor": 9
+    },
+    "binary_sensor": [
+      {
+        "object_id": "button",
+        "key": 977454165,
+        "name": "Button",
+        "unique_id": "m5stack-atom-echo-102688binary_sensorbutton",
+        "disabled_by_default": true,
+        "icon": "",
+        "entity_category": 2,
+        "device_class": "",
+        "is_status_binary_sensor": false
+      }
+    ],
+    "button": [
+      {
+        "object_id": "factory_reset",
+        "key": 3740619177,
+        "name": "Factory reset",
+        "unique_id": "m5stack-atom-echo-102688buttonfactory_reset",
+        "disabled_by_default": false,
+        "icon": "mdi:restart-alert",
+        "entity_category": 1,
+        "device_class": "restart"
+      }
+    ],
+    "switch": [
+      {
+        "object_id": "use_wake_word",
+        "key": 347086140,
+        "name": "Use wake word",
+        "unique_id": "m5stack-atom-echo-102688switchuse_wake_word",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 1,
+        "assumed_state": false,
+        "device_class": ""
+      },
+      {
+        "object_id": "use_listen_light",
+        "key": 4088855305,
+        "name": "Use Listen Light",
+        "unique_id": "m5stack-atom-echo-102688switchuse_listen_light",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 1,
+        "assumed_state": false,
+        "device_class": ""
+      }
+    ],
+    "light": [
+      {
+        "object_id": "m5stack_atom_echo_102688",
+        "key": 2664074191,
+        "name": "",
+        "unique_id": "m5stack-atom-echo-102688lightm5stack_atom_echo_102688",
+        "disabled_by_default": true,
+        "icon": "",
+        "entity_category": 1,
+        "supported_color_modes": [
+          35
+        ],
+        "min_mireds": 0.0,
+        "max_mireds": 0.0,
+        "effects": [
+          "None",
+          "Slow Pulse",
+          "Fast Pulse"
+        ],
+        "legacy_supports_brightness": true,
+        "legacy_supports_rgb": true,
+        "legacy_supports_white_value": false,
+        "legacy_supports_color_temperature": false
+      }
+    ],
+    "select": []
+  }
+}

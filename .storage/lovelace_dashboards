@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_dashboards",
+  "data": {
+    "items": [
+      {
+        "id": "security_panel",
+        "show_in_sidebar": true,
+        "icon": "mdi:security",
+        "title": "Security Panel",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "security-panel"
+      },
+      {
+        "id": "map",
+        "icon": "mdi:map",
+        "title": "Map",
+        "url_path": "map",
+        "require_admin": false,
+        "show_in_sidebar": true,
+        "mode": "storage"
+      },
+      {
+        "id": "dashboard_lights",
+        "show_in_sidebar": true,
+        "icon": "mdi:string-lights",
+        "title": "Lights",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-lights"
+      },
+      {
+        "id": "dashboard_hvac",
+        "show_in_sidebar": true,
+        "icon": "mdi:home-thermometer-outline",
+        "title": "HVAC",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-hvac"
+      }
+    ]
+  }
+}

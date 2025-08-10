@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_resources",
+  "data": {
+    "items": [
+      {
+        "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381169",
+        "type": "module",
+        "id": "771e7f2ad3794c0cb8040c542d13f55d"
+      },
+      {
+        "url": "/hacsfiles/LG-WebOS-Remote-Control/lg-remote-control.js?hacstag=257005990203",
+        "type": "module",
+        "id": "9954e763c3284abd8458941f32acd395"
+      },
+      {
+        "url": "/hacsfiles/lovelace-tab-redirect-card/tab-redirect-card.js?hacstag=269474857451722",
+        "type": "module",
+        "id": "db2ac41fb22e4139bb1ea8b75f1456ff"
+      },
+      {
+        "url": "/hacsfiles/swipe-card/swipe-card.js?hacstag=192732887500",
+        "type": "module",
+        "id": "dc21f8b9d3b142278335e0b553a22a78"
+      },
+      {
+        "url": "/hacsfiles/mini-climate-card/mini-climate-card-bundle.js?hacstag=268163975273",
+        "type": "module",
+        "id": "d67e3cd70ae047e6aa223c371705a6a6"
+      },
+      {
+        "url": "/hacsfiles/weather-card/weather-card.js",
+        "type": "module",
+        "id": "7e761c2836e241de955e1f3655f0f9e4"
+      },
+      {
+        "url": "/hacsfiles/flex-table-card/flex-table-card.js?hacstag=15629205810",
+        "type": "module",
+        "id": "c08dfff755674d17b718b25307963cf9"
+      },
+      {
+        "url": "/hacsfiles/button-card/button-card.js?hacstag=146194325412",
+        "type": "module",
+        "id": "1ee02a1c466b40e7939958b36640a58a"
+      },
+      {
+        "url": "/hacsfiles/mini-graph-card/mini-graph-card-bundle.js?hacstag=1512800620130",
+        "type": "module",
+        "id": "02b725f67c1c48acb471d8fce2c733fb"
+      },
+      {
+        "url": "/hacsfiles/harmony-card/harmony-card.js?hacstag=2375327500143",
+        "type": "module",
+        "id": "ccea5c5934b240388eb5c53de9ac6a82"
+      },
+      {
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375450",
+        "type": "module",
+        "id": "3e5f4191911e49f3a1f73aca0d1d3a7b"
+      },
+      {
+        "id": "c7eeb942d8944aa0b7c9f0f21782d983",
+        "url": "/hacsfiles/lovelace-auto-entities/auto-entities.js?hacstag=1677445841161",
+        "type": "module"
+      },
+      {
+        "id": "cefa178991324c8cb5982e26a4f5460d",
+        "url": "/hacsfiles/advanced-camera-card/advanced-camera-card.js?hacstag=3940825527143",
+        "type": "module"
+      }
+    ]
+  }
+}

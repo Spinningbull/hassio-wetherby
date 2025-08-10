@@ -1,0 +1,762 @@
+{
+  "version": 1,
+  "minor_version": 4,
+  "key": "cloud",
+  "data": {
+    "alexa_default_expose": [
+      "fan",
+      "humidifier",
+      "lock",
+      "script",
+      "switch",
+      "vacuum",
+      "water_heater",
+      "automation",
+      "binary_sensor",
+      "sensor",
+      "media_player",
+      "button"
+    ],
+    "alexa_entity_configs": {
+      "sensor.glances_core_0_temperature": {
+        "should_expose": false
+      },
+      "sensor.glances_core_1_temperature": {
+        "should_expose": false
+      },
+      "sensor.glances_core_2_temperature": {
+        "should_expose": false
+      },
+      "sensor.glances_core_3_temperature": {
+        "should_expose": false
+      },
+      "sensor.glances_core_4_temperature": {
+        "should_expose": false
+      },
+      "sensor.glances_core_5_temperature": {
+        "should_expose": false
+      },
+      "light.hue_color_lamp_1": {
+        "should_expose": false
+      },
+      "binary_sensor.rpi_power_status": {
+        "should_expose": false
+      },
+      "media_player.theater_roonberry": {
+        "should_expose": true
+      },
+      "binary_sensor.sm_t970_is_charging": {
+        "should_expose": false
+      },
+      "binary_sensor.todd_s_phone_is_charging": {
+        "should_expose": false
+      },
+      "binary_sensor.todd_s_phone_music_active": {
+        "should_expose": false
+      },
+      "binary_sensor.updater": {
+        "should_expose": false
+      },
+      "binary_sensor.dasnasty_security_status": {
+        "should_expose": false
+      },
+      "binary_sensor.dasnasty_update_available": {
+        "should_expose": false
+      },
+      "automation.lights_up_on_stop": {
+        "should_expose": false
+      },
+      "automation.lights_on_when_plex_off": {
+        "should_expose": false
+      },
+      "automation.new_automation": {
+        "should_expose": false
+      },
+      "automation.lights_on_during_standby": {
+        "should_expose": false
+      },
+      "automation.lights_on_during_standby_2": {
+        "should_expose": false
+      },
+      "automation.lights_up_off_plex_play": {
+        "should_expose": false
+      },
+      "automation.lights_off_on_play": {
+        "should_expose": false
+      },
+      "media_player.mcrack": {
+        "should_expose": true
+      },
+      "media_player.mcrack_hdmi": {
+        "should_expose": true
+      },
+      "scene.evening": {
+        "should_expose": null
+      },
+      "scene.bedtime": {
+        "should_expose": null
+      },
+      "scene.away": {
+        "should_expose": null
+      },
+      "climate.game_room": {
+        "should_expose": false
+      },
+      "climate.james_room": {
+        "should_expose": false
+      },
+      "climate.master_hall": {
+        "should_expose": false
+      },
+      "scene.morning": {
+        "should_expose": null
+      },
+      "media_player.family_room_roonberry": {
+        "should_expose": true
+      },
+      "media_player.family_room_stereo": {
+        "should_expose": true
+      },
+      "media_player.office_roonberry": {
+        "should_expose": false
+      },
+      "media_player.dining_room": {
+        "should_expose": true
+      },
+      "media_player.shield_2": {
+        "should_expose": false
+      },
+      "switch.family_room_remote_cast": {
+        "should_expose": false
+      },
+      "switch.harmony_hub_listen_to_music": {
+        "should_expose": false
+      },
+      "switch.family_room_remote_watch_apple_tv": {
+        "should_expose": true
+      },
+      "switch.family_room_remote_watch_smart_tv": {
+        "should_expose": true
+      },
+      "binary_sensor.front_door_motion": {
+        "should_expose": false
+      },
+      "binary_sensor.front_door_ding": {
+        "should_expose": false
+      },
+      "binary_sensor.front_door_motion_2": {
+        "should_expose": false
+      },
+      "binary_sensor.master_bedroom_motion": {
+        "should_expose": false
+      },
+      "binary_sensor.office_occupancy": {
+        "should_expose": false
+      },
+      "scene.roon_office": {
+        "should_expose": null
+      },
+      "automation.roon_turn_on_theater": {
+        "should_expose": false
+      },
+      "automation.roon_on_the_porch": {
+        "should_expose": false
+      },
+      "automation.roon_in_the_office": {
+        "should_expose": false
+      },
+      "switch.side_porch_soffit": {
+        "should_expose": false
+      },
+      "switch.side_porch_light": {
+        "should_expose": false
+      },
+      "switch.porch_light": {
+        "should_expose": false
+      },
+      "switch.house_soffits": {
+        "should_expose": false
+      },
+      "switch.garage_soffits": {
+        "should_expose": false
+      },
+      "switch.front_door_soffit": {
+        "should_expose": false
+      },
+      "switch.theater_remote_manage_mediacenter": {
+        "should_expose": false
+      },
+      "switch.theater_remote_play_ps4": {
+        "should_expose": false
+      },
+      "switch.theater_remote_watch_tv": {
+        "should_expose": false
+      },
+      "climate.dining_room": {
+        "should_expose": false
+      },
+      "binary_sensor.theater_occupancy": {
+        "should_expose": false
+      },
+      "binary_sensor.family_room_occupancy": {
+        "should_expose": false
+      },
+      "automation.new_automation_3": {
+        "should_expose": false
+      },
+      "automation.turn_off_stereo_when_mcrack_stops_playing": {
+        "should_expose": false
+      },
+      "automation.new_automation_4": {
+        "should_expose": false
+      },
+      "automation.turn_off_stereo_when_roon_stops_playing": {
+        "should_expose": false
+      },
+      "automation.setup_stereo": {
+        "should_expose": false
+      },
+      "automation.ambient_light_on_plex_pause": {
+        "should_expose": false
+      },
+      "automation.link_patio_and_family_room_when_harley_bedtime_is_activ": {
+        "should_expose": false
+      },
+      "switch.theater_ambient": {
+        "should_expose": false
+      },
+      "light.theater_lights_2": {
+        "should_expose": false
+      },
+      "light.todds_lamp": {
+        "should_expose": false
+      },
+      "binary_sensor.wall_panel_is_charging": {
+        "should_expose": false
+      },
+      "sensor.glances_acpitz_1_temperature": {
+        "should_expose": false
+      },
+      "sensor.glances_phy_temperature_temperature": {
+        "should_expose": false
+      },
+      "sensor.glances_iwlwifi_1_1_temperature": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_min_0d": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_min_2d": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_min_4d": {
+        "should_expose": false
+      },
+      "sensor.todd_s_tablet_battery_temperature": {
+        "should_expose": false
+      },
+      "sensor.todd_s_phone_battery_temperature": {
+        "should_expose": false
+      },
+      "binary_sensor.equiptmentroom_wan_status": {
+        "should_expose": false
+      },
+      "climate.master_bedroom": {
+        "should_expose": false
+      },
+      "automation.set_night_at_midnight": {
+        "should_expose": false
+      },
+      "automation.turn_on_patio_when_roon_starts_playing": {
+        "should_expose": false
+      },
+      "scene.armstrong_and_getty": {
+        "should_expose": false
+      },
+      "sensor.dasnasty_volume_1_average_disk_temp": {
+        "should_expose": false
+      },
+      "sensor.dasnasty_temperature": {
+        "should_expose": false
+      },
+      "binary_sensor.home_myq_gateway": {
+        "should_expose": false
+      },
+      "automation.family_room_roon_playing": {
+        "should_expose": false
+      },
+      "sensor.game_room_temperature": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_max_2d": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_min_1d": {
+        "should_expose": false
+      },
+      "automation.patio_roon_playing": {
+        "should_expose": false
+      },
+      "binary_sensor.remote_ui": {
+        "should_expose": false
+      },
+      "scene.theater_roon": {
+        "should_expose": null
+      },
+      "scene.theater_plex_on_scene": {
+        "should_expose": null
+      },
+      "sensor.dining_room_temperature": {
+        "should_expose": false
+      },
+      "automation.new_automation_2": {
+        "should_expose": false
+      },
+      "media_player.todd_s_tablet": {
+        "should_expose": false
+      },
+      "media_player.family_musiccast_2": {
+        "should_expose": false
+      },
+      "media_player.family_musiccast_zone2": {
+        "should_expose": false
+      },
+      "media_player.living_musiccast_2": {
+        "should_expose": false
+      },
+      "media_player.office_musiccast_2": {
+        "should_expose": false
+      },
+      "media_player.pool_musicccast_2": {
+        "should_expose": false
+      },
+      "media_player.patio_musiccast_2": {
+        "should_expose": false
+      },
+      "media_player.soundbar_musiccast_2": {
+        "should_expose": false
+      },
+      "media_player.theater_musiccast": {
+        "should_expose": false
+      },
+      "media_player.theater_musiccast_zone2": {
+        "should_expose": false
+      },
+      "media_player.theater_musiccast_zone3": {
+        "should_expose": false
+      },
+      "media_player.theater_musiccast_zone4": {
+        "should_expose": false
+      },
+      "switch.daily_automatic_schedule": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_max_1d": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_max_3d": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_max_0d": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_max_4d": {
+        "should_expose": false
+      },
+      "sensor.home_realfeel_temperature_min_3d": {
+        "should_expose": false
+      },
+      "binary_sensor.irrigation": {
+        "should_expose": false
+      },
+      "switch.irrigation_rain_delay": {
+        "should_expose": false
+      },
+      "sensor.james_room_temperature": {
+        "should_expose": false
+      },
+      "media_player.jollyroger": {
+        "should_expose": false
+      },
+      "binary_sensor.irrigation_rain_sensor": {
+        "should_expose": false
+      },
+      "switch.irrigation_in_standby_mode": {
+        "should_expose": false
+      },
+      "binary_sensor.master_bedroom_occupancy": {
+        "should_expose": false
+      },
+      "sensor.master_bedroom_temperature": {
+        "should_expose": false
+      },
+      "sensor.master_hall_temperature": {
+        "should_expose": false
+      },
+      "sensor.master_bedroom_temperature_measurement": {
+        "should_expose": false
+      },
+      "sensor.office_temperature": {
+        "should_expose": false
+      },
+      "media_player.pc_system": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_cast_chromecast": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_web_chrome_2": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_mobile_galaxy_s20_5g": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_mobile_todd_s_tablet": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_tv_aftka": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_tv_afttiff43": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_tv_shield_android_tv_2": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_apple_tv_appletv_family_room": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_roku_50_hisense_roku_tv": {
+        "should_expose": false
+      },
+      "media_player.plex_plexamp_todd_s_phone": {
+        "should_expose": false
+      },
+      "media_player.plex_carsonahay_plex_for_android_tv_aftmm": {
+        "should_expose": false
+      },
+      "media_player.plex_harperhay0_gmail_com_plex_for_ios_harpers_iphone": {
+        "should_expose": false
+      },
+      "media_player.plex_jon_willett_gmail_com_plex_for_lg_lg_oled65c1pub": {
+        "should_expose": false
+      },
+      "media_player.plex_in_family_room": {
+        "should_expose": false
+      },
+      "media_player.roku_player": {
+        "should_expose": false
+      },
+      "media_player.shield_3": {
+        "should_expose": false
+      },
+      "media_player.sm_g981v": {
+        "should_expose": false
+      },
+      "binary_sensor.side_porch_ding": {
+        "should_expose": false
+      },
+      "binary_sensor.side_porch_motion_2": {
+        "should_expose": false
+      },
+      "binary_sensor.side_porch_motion": {
+        "should_expose": false
+      },
+      "media_player.office_shield_2": {
+        "should_expose": false
+      },
+      "media_player.oppo": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_web_chrome": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_mobile_sm_g981v": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_mobile_sm_g998u": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_tv_aftka_2": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_tv_aftmm": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_tv_office_shield": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_android_tv_shield_android_tv_3": {
+        "should_expose": false
+      },
+      "media_player.plex_plex_for_roku_32_hisense_roku_tv": {
+        "should_expose": false
+      },
+      "media_player.plex_plexamp_todd_dev": {
+        "should_expose": false
+      },
+      "media_player.plex_plexamp_todd_s_tablet": {
+        "should_expose": false
+      },
+      "media_player.plex_carsonahay_plex_for_roku_pirate_king": {
+        "should_expose": false
+      },
+      "media_player.plex_jon_willett_gmail_com_plex_for_android_tv_shield_android_tv": {
+        "should_expose": false
+      },
+      "media_player.sm_g998u": {
+        "should_expose": false
+      },
+      "switch.side_yard_back_right": {
+        "should_expose": false
+      },
+      "media_player.subwoofer": {
+        "should_expose": false
+      },
+      "media_player.theater_shield": {
+        "should_expose": false
+      },
+      "sensor.family_room_temperature": {
+        "should_expose": false
+      },
+      "sensor.theater_temperature": {
+        "should_expose": false
+      },
+      "media_player.todd_s_phones": {
+        "should_expose": false
+      },
+      "media_player.apple_tv": {
+        "should_expose": false
+      },
+      "button.scan_clients_mediacenterrack": {
+        "should_expose": null
+      },
+      "button.dasnasty_reboot": {
+        "should_expose": null
+      },
+      "button.dasnasty_shutdown": {
+        "should_expose": null
+      },
+      "switch.backyard_left": {
+        "should_expose": false
+      },
+      "switch.backyard_right": {
+        "should_expose": false
+      },
+      "switch.daily_smart_schedule_schedule": {
+        "should_expose": false
+      },
+      "media_player.hismarttv_a4": {
+        "should_expose": false
+      },
+      "media_player.allison_s_craft_room": {
+        "should_expose": false
+      },
+      "switch.flower_beds_schedule": {
+        "should_expose": false
+      },
+      "switch.front_yard_grass": {
+        "should_expose": false
+      },
+      "switch.monthly_schedule_schedule": {
+        "should_expose": false
+      },
+      "switch.front_planter": {
+        "should_expose": false
+      },
+      "media_player.patio_roonberry": {
+        "should_expose": false
+      },
+      "media_player.plex_plexamp_android": {
+        "should_expose": false
+      },
+      "automation.ambient_light_on_plex_pause_nightly": {
+        "should_expose": false
+      },
+      "automation.plex_lights_off_on_play_nightly": {
+        "should_expose": false
+      },
+      "automation.plex_lights_up_on_stop_or_idle_nightly": {
+        "should_expose": false
+      },
+      "automation.plexamp_office_playing": {
+        "should_expose": false
+      },
+      "automation.plexamp_family_stopped": {
+        "should_expose": false
+      },
+      "automation.plexamp_family_playing_2": {
+        "should_expose": false
+      },
+      "automation.plexamp_office_stopped": {
+        "should_expose": false
+      },
+      "automation.plexamp_patio_playing": {
+        "should_expose": false
+      },
+      "automation.plexamp_patio_stopped": {
+        "should_expose": false
+      },
+      "switch.street_side_lawn": {
+        "should_expose": false
+      },
+      "switch.side_yard_left": {
+        "should_expose": false
+      },
+      "switch.side_yard_bushes_right": {
+        "should_expose": false
+      },
+      "switch.theater_remote_listen_to_music_on_oppo": {
+        "should_expose": true
+      },
+      "switch.theater_remote_listen_to_roon": {
+        "should_expose": true
+      },
+      "switch.theater_remote_listen_to_plex": {
+        "should_expose": true
+      },
+      "switch.theater_remote_watch_blu_ray_movie": {
+        "should_expose": false
+      },
+      "media_player.master": {
+        "should_expose": false
+      },
+      "scene.master_arctic_aurora": {
+        "should_expose": null
+      },
+      "scene.master_bright": {
+        "should_expose": null
+      },
+      "scene.master_dressing": {
+        "should_expose": null
+      },
+      "scene.master_dimmed": {
+        "should_expose": null
+      },
+      "scene.master_concentrate": {
+        "should_expose": null
+      },
+      "scene.master_energize": {
+        "should_expose": null
+      },
+      "scene.master_nightlight": {
+        "should_expose": null
+      },
+      "scene.master_read": {
+        "should_expose": null
+      },
+      "scene.dusk": {
+        "should_expose": true
+      },
+      "scene.movie_time": {
+        "should_expose": null
+      },
+      "scene.night": {
+        "should_expose": true
+      },
+      "scene.master_relax": {
+        "should_expose": null
+      },
+      "scene.master_savanna_sunset": {
+        "should_expose": null
+      },
+      "scene.master_spring_blossom": {
+        "should_expose": null
+      },
+      "scene.master_tropical_twilight": {
+        "should_expose": null
+      },
+      "scene.master_daytime": {
+        "should_expose": null
+      },
+      "scene.night_time": {
+        "should_expose": null
+      }
+    },
+    "cloud_user": "573182e0f86b445cafb9ece2c3adfa18",
+    "cloudhooks": {
+      "39f7b095f437c0f4c3eeb5da77ec1a9745c9c96db034210db8be0c67c731a597": {
+        "webhook_id": "39f7b095f437c0f4c3eeb5da77ec1a9745c9c96db034210db8be0c67c731a597",
+        "cloudhook_id": "ec9cda60c378417394ceb69e8924ee65",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABgFkieEqA8boqcTBj9gnRqpdXcgw8vRUTgXi9g3XySmO7zAAmlmTgMZyGlSAEq7y7_4E-XuLUI36auWoT9A8flBtkpxcledzJqyMyrNsIDgbebLxixSGpr43leIXtvrgsjhEAhCElS32h_WfUbXhpBeI0sMoKFqx-agj6b6Vzdnfanji0=",
+        "managed": false
+      },
+      "cfc35621a0663b67e9655a3dd10a0978c56e649bc39bfdad7cd03d45d8835fd0": {
+        "webhook_id": "cfc35621a0663b67e9655a3dd10a0978c56e649bc39bfdad7cd03d45d8835fd0",
+        "cloudhook_id": "c81352962f8e4736bbbfc0a1e5ec8eea",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABgPZNHPA8Um_Ek6ewsGASQrDTZlqFWloFc735pankZrZ-uBdJog3i7kZvawz6aKhu_kwVziR2c8M0ZVtyX4L_5qg2Mvq_x8akzXpBQABccvA0bXg0DVabV6iXmCT1XSNb4aEEjOjlpzAfXPVaY4hBVOkWS6aAI3dIUK0dIHJ01wKAc57Q=",
+        "managed": true
+      },
+      "5143fecfc675eb6352feda539083e6aca11739a496d6c22959cdc32bae8d550f": {
+        "webhook_id": "5143fecfc675eb6352feda539083e6aca11739a496d6c22959cdc32bae8d550f",
+        "cloudhook_id": "23635a9397854784b16e9fee9ad0df02",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABiZFDkeU76kC8QjVyVGyYRII0dyGbOFyWf1ZHaXwvcGVy8aFbxCFdT_GsSFNIaYEAyINeMOQJnaZn-3U95pk1exTGbI2plAxPQFL7poapRJpY1iRxmup1LX1x-6-orvfmTz4Dzfdnac0Q0rFxPo5a_Eo0TFqDKUcrYe-b-sQfO8LFAk-0=",
+        "managed": true
+      },
+      "a9526a736241473d5d41ae7bf6ca12c22c85b1698145e3bcdfbce0249931f626": {
+        "webhook_id": "a9526a736241473d5d41ae7bf6ca12c22c85b1698145e3bcdfbce0249931f626",
+        "cloudhook_id": "c94e1d5bb4644f5890fa3d468d2b0521",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABiklBC4lNrOIBe-TUMSJyqMin4TYHemDts7w2xlwCUO3WSDh7VnbqMEYADRnRysfn_O-go3uK62zZOuDvuegPD-krfvpkXh19Cq5I7tELIrzOtikf4ml1I9curVS5fXiFSm8_sCKMb8ql4nQ1cFR8lr8ytunqE8dL5583CrPzj0HYBi20=",
+        "managed": true
+      },
+      "906ca00b670d2ff7843b9c2bdd6fd93028e3e1ef4fea1f0eb9f8ecc704b73cb4": {
+        "webhook_id": "906ca00b670d2ff7843b9c2bdd6fd93028e3e1ef4fea1f0eb9f8ecc704b73cb4",
+        "cloudhook_id": "3494c07cafb74d97a953bf5301e4c8d1",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABkPoW506vtlXM-13Gfu1GDErikkmVsiF97jMybyvfLKf-5tRDU8g9Na9a26rPiIItBYdpXl-eWMOTn53A9iTrrk-lmm4Hp_POhnhAcJt5GLCVQrt7JnELbFTpUVSc3M2Sa3C6EKTISal4XPxVsqGrOqparZcssJYb7BMM2ckTYdw--ahQ=",
+        "managed": true
+      },
+      "473472d314afa8fe48fabcf83700a32191a4bc63e854a7c512ee9e6a153d4503": {
+        "webhook_id": "473472d314afa8fe48fabcf83700a32191a4bc63e854a7c512ee9e6a153d4503",
+        "cloudhook_id": "f2c28844446741b89e219c60c99f9bc7",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABnjv4mTcE3PrF8GKNNcFQX3Iy4nH3CBKLMonNP7Fb8T6pRXbagOLB0KS0DZPD5Wq-P4N8kXyF9bZU8HR_5Y9_WvjpS0jBtqusz8qfXoXWxzHAypaYRZ6ku-FToEZp43lnxLQVj56fXemtoPCTMVfdw-onbvOLpRDnV_S7UkRokh-M2W8g=",
+        "managed": true
+      },
+      "0178ed7c05e1b16252d05eaa5256829b1ea1831b5dd394239ed4d00d97bcb0f7": {
+        "webhook_id": "0178ed7c05e1b16252d05eaa5256829b1ea1831b5dd394239ed4d00d97bcb0f7",
+        "cloudhook_id": "3aabb8ee872c41419bb30ea111b88fe6",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABoepi4ATTOEbqJ_DMqYhjMOsNm8YRMkTK8cinH4Ntq8mYM9bO6kVonXtOvw6ETnWQuH41yU3D-2Q9XMwHCDRmtccI9Uk4ydMlIlg2QINY6CsPwFUdWcWb44IiCkrvP_D4VFzgtDGsFYGrFxEvQ9SMG0NSjuXrgV4JOGZtgU7v0f36ZJ0E=",
+        "managed": true
+      },
+      "8f6128430b743e35d61e9263cb9bada7f7977ba7459523f3f859e5277cf1e756": {
+        "webhook_id": "8f6128430b743e35d61e9263cb9bada7f7977ba7459523f3f859e5277cf1e756",
+        "cloudhook_id": "fd80af10caf8481d901e94463b1c7dd7",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABol1hPIdlkXUuLLrui5n6neLayV9D467cVHDSQwdPrW4YQ4yxWyoI_7wujUvO7T5s_r58B-bhzd3fQWPBhO5ucCIISO_ayLSXQYoPcu6_uV8_xBvrWoZJsgqKHiLXdQCnnnTdVJQz-MLXzqlatLOYumQ6_mxFSZfTzBEMFmsm6bL6c79Q=",
+        "managed": true
+      }
+    },
+    "alexa_enabled": true,
+    "google_enabled": false,
+    "remote_enabled": true,
+    "google_default_expose": [
+      "climate",
+      "cover",
+      "fan",
+      "humidifier",
+      "light",
+      "lock",
+      "scene",
+      "script",
+      "sensor",
+      "switch",
+      "vacuum",
+      "water_heater"
+    ],
+    "google_entity_configs": {},
+    "google_local_webhook_id": "39f7b095f437c0f4c3eeb5da77ec1a9745c9c96db034210db8be0c67c731a597",
+    "google_secure_devices_pin": null,
+    "username": "54f5db6e-dab6-4017-a8d8-42c564deb379",
+    "tts_default_voice": [
+      "en-US",
+      "JennyNeural"
+    ],
+    "alexa_report_state": true,
+    "remote_domain": "5zs9ibdfmqqw053o1dmu9xfrzvb2tkba.ui.nabu.casa",
+    "alexa_settings_version": 3,
+    "google_settings_version": 3,
+    "instance_id": "23eb9906f07740169d090026f2916750",
+    "google_connected": true
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "minor_version": 1,
+  "key": "person",
+  "data": {
+    "items": [
+      {
+        "name": "Todd",
+        "user_id": "9d0e4d4cd9ae4d8ab462659ff1c63f10",
+        "device_trackers": [
+          "device_tracker.wall_panel",
+          "device_tracker.patiopanel",
+          "device_tracker.toddss23",
+          "device_tracker.tablet_9",
+          "device_tracker.galaxy_watch5_pro_kbvt_2",
+          "device_tracker.todd_s_watch_2"
+        ],
+        "id": "todd",
+        "picture": null
+      },
+      {
+        "name": "James",
+        "device_trackers": [],
+        "user_id": null,
+        "picture": null,
+        "id": "james"
+      },
+      {
+        "name": "Allison",
+        "device_trackers": [],
+        "user_id": null,
+        "picture": null,
+        "id": "allison"
+      }
+    ]
+  }
+}

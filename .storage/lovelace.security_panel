@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.security_panel",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "cards": [
+            {
+              "type": "custom:advanced-camera-card",
+              "cameras": [
+                {
+                  "camera_entity": "camera.front_door_live_view"
+                },
+                {
+                  "camera_entity": "camera.shop_live_view"
+                },
+                {
+                  "camera_entity": "camera.side_door_live_view"
+                }
+              ],
+              "view": {
+                "default": "live"
+              }
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "show_state": true,
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "binary_sensor.konnected_family_motion"
+                },
+                {
+                  "entity": "binary_sensor.konnected_living_motion"
+                },
+                {
+                  "entity": "binary_sensor.office_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.master_bedroom_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.shop_motion"
+                },
+                {
+                  "entity": "binary_sensor.front_door_motion"
+                },
+                {
+                  "entity": "binary_sensor.side_door_motion_3"
+                },
+                {
+                  "entity": "binary_sensor.theater_occupancy"
+                }
+              ],
+              "state_color": true,
+              "title": "Motion"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.konnected_72a7dc_alarm_1"
+                },
+                {
+                  "entity": "binary_sensor.konnected_front_door"
+                },
+                {
+                  "entity": "binary_sensor.konnected_side_door"
+                },
+                {
+                  "entity": "binary_sensor.konnected_fam_back_door"
+                },
+                {
+                  "entity": "binary_sensor.konnected_garage_door"
+                },
+                {
+                  "entity": "binary_sensor.konnected_living_door"
+                },
+                {
+                  "entity": "binary_sensor.konnected_master_door"
+                }
+              ],
+              "title": "Doors"
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "show_state": true,
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "binary_sensor.zcombo_g_smoke_co_alarm_smoke_detected_2"
+                },
+                {
+                  "entity": "binary_sensor.shop_smoke_alarm_smoke_detected"
+                },
+                {
+                  "entity": "binary_sensor.konnected4_downstairs_smoke_zone_3"
+                }
+              ],
+              "title": "Attic co2 and smoke"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

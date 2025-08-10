@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_lights",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Home",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "House lights"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.front_porch_light"
+                    },
+                    {
+                      "entity": "switch.front_porch_soffit"
+                    },
+                    {
+                      "entity": "switch.house_lights_soffit"
+                    },
+                    {
+                      "entity": "switch.garage_soffit"
+                    },
+                    {
+                      "entity": "switch.side_porch_lights"
+                    },
+                    {
+                      "entity": "switch.side_porch_soffet"
+                    }
+                  ],
+                  "state_color": true,
+                  "title": "Perimeter lights"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.landscape_front"
+                    },
+                    {
+                      "entity": "switch.landscape_rear"
+                    },
+                    {
+                      "entity": "switch.landscape_lights_side"
+                    },
+                    {
+                      "entity": "switch.landscape_rear_2"
+                    }
+                  ],
+                  "state_color": true,
+                  "title": "Landscape Lights"
+                }
+              ],
+              "column_span": 4
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Inside lights"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "light.hue_color_lamp_1"
+                    },
+                    {
+                      "entity": "switch.master_lights_entry",
+                      "icon": "mdi:light-recessed"
+                    },
+                    {
+                      "entity": "light.todds_lamp"
+                    }
+                  ],
+                  "title": "Master Bedroom",
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.grill_lights_zwave",
+                      "icon": "mdi:string-lights"
+                    },
+                    {
+                      "entity": "switch.pool_house_light_2",
+                      "icon": "mdi:light-recessed"
+                    },
+                    {
+                      "entity": "switch.flood_lights_2",
+                      "icon": "mdi:light-flood-down"
+                    }
+                  ],
+                  "title": "Back yard",
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.hall_light_bar"
+                    },
+                    {
+                      "entity": "light.dining_chandelier"
+                    },
+                    {
+                      "entity": "light.hall_light_living",
+                      "icon": "mdi:light-recessed"
+                    },
+                    {
+                      "entity": "light.hall_light_master",
+                      "icon": "mdi:light-recessed"
+                    },
+                    {
+                      "entity": "light.smart_dimmer_toggle_switch"
+                    }
+                  ],
+                  "title": "Living Room",
+                  "state_color": true,
+                  "show_header_toggle": false
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "light.ambient_light_ha",
+                      "icon": "mdi:light-recessed"
+                    },
+                    {
+                      "entity": "light.theater_light_ha",
+                      "icon": "mdi:light-recessed"
+                    }
+                  ],
+                  "title": "Theater",
+                  "state_color": true,
+                  "show_header_toggle": true
+                }
+              ],
+              "column_span": 3
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 1
+                  }
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.front_porch_plug",
+                      "icon": "mdi:string-lights",
+                      "name": "Xmas lights north"
+                    },
+                    {
+                      "entity": "switch.xmas_lights_south",
+                      "icon": "mdi:string-lights"
+                    },
+                    {
+                      "entity": "switch.xmas_lights_soith_2",
+                      "icon": "mdi:string-lights"
+                    },
+                    {
+                      "entity": "switch.porch_switch"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 4
+                  },
+                  "state_color": true,
+                  "title": "Christmas lights"
+                }
+              ],
+              "column_span": 4
+            }
+          ],
+          "badges": []
+        }
+      ]
+    }
+  }
+}

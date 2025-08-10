@@ -90,7 +90,7 @@
     type: idle
     for:
       hours: 0
-      minutes: 2
+      minutes: 1
       seconds: 0
     trigger: device
   conditions:
@@ -114,7 +114,7 @@
   alias: 'House - Lights: Night'
   description: ''
   triggers:
-  - at: '23:00:00'
+  - at: '22:00:00'
     trigger: time
   conditions: []
   actions:
@@ -128,17 +128,27 @@
       entity_id:
       - switch.pool_house
       - switch.grill_lights_zwave
-      - switch.flood_lights
+      - switch.flood_lights_2
     action: switch.turn_off
   - action: switch.turn_off
     metadata: {}
     data: {}
     target:
       entity_id:
-      - switch.house_soffits
-      - switch.garage_soffits
-      - switch.front_door_soffit
-      - switch.side_porch_soffit
+      - switch.house_lights_soffit
+      - switch.front_porch_soffit
+      - switch.side_porch_soffet
+      - switch.garage_soffit
+      - switch.hall_light_bar
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 15
+      transition: 5
+    target:
+      entity_id:
+      - light.hall_light_living
+      - light.hall_light_master
   mode: single
 - id: '1618778013049'
   alias: Plex - lights off on play
@@ -188,15 +198,15 @@
 - id: '1638197847338'
   alias: House - turn on armstrong and getty
   description: ''
-  trigger:
-  - platform: time
-    at: 07:45:00
-  - platform: state
-    entity_id:
+  triggers:
+  - at: 07:45:00
+    trigger: time
+  - entity_id:
     - input_boolean.armstrong_and_getty
     from: 'off'
     to: 'on'
-  condition:
+    trigger: state
+  conditions:
   - condition: time
     weekday:
     - mon
@@ -206,89 +216,66 @@
     - fri
     after: 07:30:00
     before: '11:30:00'
-  action:
-  - service: media_player.turn_on
-    data: {}
+  actions:
+  - data: {}
     target:
       entity_id: media_player.family_musiccast_2
-  - service: media_player.select_source
-    data:
+    action: media_player.turn_on
+  - data:
       source: net_radio
     target:
       entity_id: media_player.family_musiccast_2
-  - service: media_player.volume_set
-    target:
+    action: media_player.select_source
+  - target:
       entity_id: media_player.family_musiccast_2
     data:
       volume_level: 0.4
-  - delay:
-      hours: 3
-      minutes: 20
-      seconds: 0
-      milliseconds: 0
-  - service: media_player.turn_off
-    target:
+    action: media_player.volume_set
+  - wait_for_trigger:
+    - trigger: time
+      at: '11:00:00'
+  - target:
       entity_id:
       - media_player.family_musiccast_2
-      - media_player.office_musiccast_2
-      - media_player.master_musiccast
     data: {}
-  mode: single
-- id: '1638932536437'
-  alias: Security - someones in the family room
-  description: ''
-  triggers:
-  - type: occupied
-    device_id: 3ce104022ae83294d3c1b605541a706f
-    entity_id: binary_sensor.family_room_occupancy
-    domain: binary_sensor
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 10
-      milliseconds: 0
-    trigger: device
-  conditions:
-  - condition: time
-    after: 02:00:00
-    before: 05:00:00
-  actions:
-  - data:
-      message: someone is in the family room
-      title: motion alert
-    action: notify.mobile_app_todd_s_phone
-  - data:
-      entity_id: media_player.master_bedroom
-      message: 'Alert: someone is in the family room.'
-    action: tts.google_translate_say
+    action: media_player.turn_off
   mode: single
 - id: '1641957528180'
   alias: Theater - set movie time
   description: change comfort settings in theater
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.theater_occupancy
+  triggers:
+  - entity_id: binary_sensor.theater_occupancy
     to: 'true'
     for:
       hours: 0
       minutes: 10
       seconds: 0
-  - platform: device
-    device_id: f104aca2ebb47d0afcc0396bb91c96dc
+    trigger: state
+  - device_id: f104aca2ebb47d0afcc0396bb91c96dc
     domain: media_player
-    entity_id: media_player.theater_shield
-    type: turned_on
+    entity_id: 35ea0c9b1c2d0f61c6e23d5b5c6775ba
+    type: playing
+    trigger: device
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  - device_id: cae90889ee7d2994f55f099926bae89f
+    domain: media_player
+    entity_id: dbcc0b38cadd199dd3deaf173a69aad7
+    type: playing
+    trigger: device
     for:
       hours: 0
       minutes: 10
       seconds: 0
-  condition: []
-  action:
+  conditions: []
+  actions:
   - device_id: 3c651db377fa9c0ff6b396b54307110f
     domain: climate
     entity_id: climate.game_room
     type: set_preset_mode
-    preset_mode: Movie Time
+    preset_mode: tv time
   mode: single
 - id: '1646595088666'
   alias: 'House - Lights:  Dusk'
@@ -325,18 +312,18 @@
     data: {}
     target:
       entity_id:
-      - switch.porch_light
-      - switch.side_porch_light
       - switch.grill_lights_zwave
+      - switch.front_porch_light
+      - switch.side_porch_lights
   - action: switch.turn_on
     metadata: {}
     data: {}
     target:
       entity_id:
-      - switch.house_soffits
-      - switch.garage_soffits
-      - switch.front_door_soffit
-      - switch.side_porch_soffit
+      - switch.front_porch_soffit
+      - switch.house_lights_soffit
+      - switch.side_porch_soffet
+      - switch.garage_soffit
   - action: script.turn_on
     metadata: {}
     data: {}
@@ -347,6 +334,15 @@
     data: {}
     target:
       entity_id: switch.office_cabinet_power_strip_1
+  - action: light.turn_on
+    metadata: {}
+    data:
+      transition: 5
+      brightness_pct: 50
+    target:
+      entity_id:
+      - light.hall_light_living
+      - light.hall_light_master
   - action: script.turn_on_xmas_lights
     metadata: {}
     data: {}
@@ -365,8 +361,8 @@
     data: {}
     target:
       entity_id:
-      - switch.porch_light
-      - switch.side_porch_light
+      - switch.front_porch_light
+      - switch.side_porch_lights
   - action: script.turn_off_landscape_lights
     metadata: {}
     data: {}
@@ -506,58 +502,11 @@
     target:
       entity_id: media_player.patio_musiccast_2
   mode: single
-- id: '1652137898604'
-  alias: Plexamp - Master Bedroom Playing
-  description: automatically turns stereo on when plexamp starts playing in Master
-    Bedroom
-  trigger:
-  - platform: device
-    device_id: 17e4aab2e9c5614c3be559b7f695fe13
-    domain: media_player
-    entity_id: media_player.plex_plexamp_master_bedroom
-    type: playing
-  condition: []
-  action:
-  - service: media_player.turn_on
-    data: {}
-    target:
-      entity_id: media_player.master_musiccast
-  - service: media_player.unjoin
-    data: {}
-    target:
-      entity_id: media_player.master_musiccast
-  - service: media_player.select_source
-    data:
-      source: digital
-    target:
-      entity_id: media_player.master_musiccast
-  mode: single
-- id: '1652137966091'
-  alias: Plexamp - Master Bedroom Stopped
-  description: automatically turns stereo off when plexamp stops playing on patio
-  trigger:
-  - platform: device
-    device_id: 17e4aab2e9c5614c3be559b7f695fe13
-    domain: media_player
-    entity_id: media_player.plexamp_master_bedroom
-    type: idle
-    for:
-      hours: 0
-      minutes: 15
-      seconds: 0
-  condition: []
-  action:
-  - service: media_player.turn_off
-    data: {}
-    target:
-      entity_id: media_player.master_musiccast
-  mode: single
 - id: '1652145501338'
   alias: Plexamp - Family Stopped
   description: automatically turns stereo off when plexamp stops playing on patio
-  trigger:
-  - platform: device
-    device_id: 61a3740d6dfb0f58b8bb29162ebdd6b6
+  triggers:
+  - device_id: 61a3740d6dfb0f58b8bb29162ebdd6b6
     domain: media_player
     entity_id: 34ded6e0bb3cc432463fa1f07d28e294
     type: paused
@@ -565,21 +514,23 @@
       hours: 0
       minutes: 10
       seconds: 0
-  - platform: device
-    device_id: 3c0d248ed4c6e384bca97d06b9c40f00
+    trigger: device
+  - device_id: 3c0d248ed4c6e384bca97d06b9c40f00
     domain: media_player
     entity_id: media_player.family_musiccast_2
     type: turned_off
-  condition: []
-  action:
-  - service: media_player.turn_off
-    data: {}
+    trigger: device
+    enabled: false
+  conditions: []
+  actions:
+  - data: {}
     target:
       entity_id: media_player.family_musiccast_2
-  - service: media_player.media_stop
-    data: {}
+    action: media_player.turn_off
+  - data: {}
     target:
       device_id: 61a3740d6dfb0f58b8bb29162ebdd6b6
+    action: media_player.media_stop
   mode: single
 - id: '1652145801294'
   alias: 'Plexamp - Family Playing '
@@ -629,37 +580,6 @@
       target:
         entity_id: media_player.family_musiccast_2
     enabled: false
-  mode: single
-- id: '1652361064621'
-  alias: House - turn off armstrong and getty
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - input_button.turn_off_stereo
-    from: 'On'
-    to: 'Off'
-  - platform: state
-    entity_id:
-    - input_boolean.armstrong_and_getty
-    from: 'On'
-    to: 'Off'
-  condition: []
-  action:
-  - service: media_player.unjoin
-    data: {}
-    target:
-      entity_id:
-      - media_player.office_musiccast_2
-      - media_player.family_musiccast_2
-      - media_player.master_musiccast
-  - service: media_player.turn_off
-    target:
-      entity_id:
-      - media_player.family_musiccast_2
-      - media_player.office_musiccast_2
-      - media_player.master_musiccast
-    data: {}
   mode: single
 - id: '1652479425280'
   alias: Music - Unlink Speakers
@@ -725,118 +645,136 @@
 - id: '1685491703206'
   alias: Remote - Patio Skip
   description: Triangle button on patio remote
-  trigger:
-  - platform: event
-    event_type: smartthings.button
-    event_data:
-      component_id: button4
-      value: pushed
-      name: Fibaro KeyFob
-      data: {}
-  condition: []
-  action:
-  - service: media_player.media_next_track
-    data: {}
+  triggers:
+  - device_id: a730eeb9847e16b01d85814868c7246a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '004'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 004
+    trigger: device
+    value: 0
+  conditions: []
+  actions:
+  - data: {}
+    action: media_player.media_next_track
     target:
-      device_id: 18b2b53b86763918bdd1e843a7fcb83f
+      entity_id: media_player.2_patio
   mode: single
 - id: '1685492135212'
   alias: Remote -  Volume Up
   description: + button on patio remote
-  trigger:
-  - platform: event
-    event_type: smartthings.button
-    event_data:
-      component_id: button6
-      value: pushed
-      name: Fibaro KeyFob
-      data: {}
-  condition: []
-  action:
+  triggers:
+  - device_id: a730eeb9847e16b01d85814868c7246a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '006'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 006
+    trigger: device
+    value: 0
+  conditions: []
+  actions:
   - repeat:
       count: '8'
       sequence:
-      - service: media_player.volume_up
-        data: {}
+      - data: {}
         target:
           entity_id:
           - media_player.patio_musiccast_2
           - media_player.pool_musicccast_2
+        action: media_player.volume_up
   mode: single
 - id: '1685492229645'
   alias: Remote - Volume Down
   description: '- button on patio remote'
-  trigger:
-  - platform: event
-    event_type: smartthings.button
-    event_data:
-      component_id: button5
-      value: pushed
-      name: Fibaro KeyFob
-      data: {}
-  condition: []
-  action:
+  triggers:
+  - device_id: a730eeb9847e16b01d85814868c7246a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '005'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 005
+    trigger: device
+    value: 0
+  conditions: []
+  actions:
   - repeat:
       count: '8'
       sequence:
-      - service: media_player.volume_down
-        data: {}
+      - data: {}
         target:
           entity_id:
           - media_player.patio_musiccast_2
           - media_player.pool_musicccast_2
+        action: media_player.volume_down
   mode: single
 - id: '1685492324617'
   alias: Remote - Previous Track
   description: X button on patio remote
-  trigger:
-  - platform: event
-    event_type: smartthings.button
-    event_data:
-      component_id: button3
-      value: pushed
-      name: Fibaro KeyFob
-      data: {}
-  condition: []
-  action:
-  - service: media_player.media_previous_track
-    data: {}
+  triggers:
+  - device_id: a730eeb9847e16b01d85814868c7246a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '003'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 003
+    trigger: device
+    value: 0
+  conditions: []
+  actions:
+  - data: {}
     target:
-      entity_id: media_player.plex_plexamp_patio
+      entity_id: media_player.2_patio
+    action: media_player.media_previous_track
   mode: single
 - id: '1685492412352'
   alias: Remote - Play/Pause
   description: O button on patio remote
-  trigger:
-  - platform: event
-    event_type: smartthings.button
-    event_data:
-      component_id: button2
-      value: pushed
-      name: Fibaro KeyFob
-      data: {}
-  condition: []
-  action:
-  - service: media_player.media_play_pause
-    data: {}
+  triggers:
+  - device_id: a730eeb9847e16b01d85814868c7246a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    value: 0
+  conditions: []
+  actions:
+  - data: {}
     target:
-      entity_id: media_player.plex_plexamp_patio
+      device_id: c0c10a4af96509fcab80608cf8590507
+    action: media_player.media_play_pause
   mode: single
 - id: '1685492535640'
   alias: Remote - Start Plexamp on Patio
   description: Square button on patio remote
-  trigger:
-  - platform: event
-    event_type: smartthings.button
-    event_data:
-      component_id: button1
-      value: pushed
-      name: Fibaro KeyFob
-      data: {}
-  condition: []
-  action:
-  - service: script.play_patio
-    data: {}
+  triggers:
+  - device_id: a730eeb9847e16b01d85814868c7246a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    trigger: device
+    value: 0
+  conditions: []
+  actions:
+  - data: {}
+    action: script.play_patio
   mode: single
 - id: '1690315536276'
   alias: Theater - temperature alert
@@ -873,7 +811,7 @@
     device_id: f251e82b5cf374a86d5ef691275c85ad
     entity_id: dc05c1110c60d908504f249d7f82af38
     domain: sensor
-    above: 80
+    above: 77
     trigger: device
     for:
       hours: 0
@@ -899,20 +837,21 @@
     trigger: time
   conditions: []
   actions:
+  - action: light.turn_off
+    metadata: {}
+    data:
+      transition: 73
+    target:
+      entity_id:
+      - light.hall_light_living
+      - light.hall_light_master
   - action: switch.turn_off
     metadata: {}
     data: {}
     target:
       entity_id:
-      - switch.bar_hall_light
       - switch.office_cabinet_power_strip_1
-  - action: light.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id:
-      - light.master_hall_light
-      - light.living_room_hall
+      - switch.hall_light_bar
   - action: script.turn_off_xmas_lights
     metadata: {}
     data: {}
@@ -984,7 +923,16 @@
     device_id: f251e82b5cf374a86d5ef691275c85ad
     entity_id: ebc714cfd3b358427e72a128f393cb34
     domain: sensor
-    above: 88
+    above: 91
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+    trigger: device
+  - type: temperature
+    device_id: f251e82b5cf374a86d5ef691275c85ad
+    entity_id: ebc714cfd3b358427e72a128f393cb34
+    domain: sensor
     below: 45
     for:
       hours: 0
@@ -1066,27 +1014,20 @@
     at: 06:00:00
   conditions: []
   actions:
-  - target:
-      entity_id: scene.morning
-    metadata: {}
-    action: scene.turn_on
-    data: {}
   - metadata: {}
     data:
-      transition: 0
+      brightness_pct: 100
+      transition: 5
     target:
-      device_id:
-      - 9c79141eff8c7285c23af89bcbfce965
-      - d991a3f950c2b95abeed6d4c447a8c4d
+      entity_id:
+      - light.hall_light_master
+      - light.hall_light_living
     action: light.turn_on
-  - type: turn_on
-    device_id: d77dc67ce1283933a5c0b2fa32b4aaaf
-    entity_id: 82dcb5daf8104014359b83666ce563fc
-    domain: switch
-  - type: turn_on
-    device_id: 9c79141eff8c7285c23af89bcbfce965
-    entity_id: 43d2cf33c584dc74125352ef396c78da
-    domain: light
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.hall_light_bar
   mode: single
 - id: '1733925282107'
   alias: HA - Sensor tamper alert
@@ -1293,4 +1234,563 @@
     metadata: {}
     data:
       message: Smoke detected in attic
+  mode: single
+- id: '1737334748637'
+  alias: HA - turn on landscape light
+  description: Double-click pool house switch to turn on landscape lights
+  triggers:
+  - device_id: e501208622f7a6ff0ec46c2cc38149b4
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    metadata: {}
+    trigger: device
+    value: 3
+  - trigger: state
+    entity_id:
+    - input_boolean.flic_landscape_lights
+    to: 'on'
+  conditions: []
+  actions:
+  - action: script.turn_on_landscape_lights
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1737334853661'
+  alias: Test down
+  description: ''
+  triggers:
+  - device_id: e501208622f7a6ff0ec46c2cc38149b4
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    value: 3
+  conditions: []
+  actions:
+  - action: notify.mobile_app_toddss23
+    metadata: {}
+    data:
+      message: 2x down click
+  mode: single
+- id: '1737853672972'
+  alias: family tv on
+  description: ''
+  triggers:
+  - device_id: d2266f50bddd8793a7ce8678bb4c94fb
+    domain: media_player
+    entity_id: b4a59a5f16d126f9c9b564b6cadfbf1a
+    type: turned_on
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  - trigger: state
+    entity_id:
+    - input_boolean.family_tv
+    to: 'on'
+  - type: turned_on
+    device_id: d2266f50bddd8793a7ce8678bb4c94fb
+    entity_id: 782b6deea5f2a712d2f5d328ed64672e
+    domain: remote
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 1
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 518b505a12d4e270810ff71e44ea850e
+    entity_id: 610c6f0506ed3cf2685a5437f85992e5
+    domain: remote
+  - action: media_player.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.family_musiccast_2
+  - action: media_player.select_source
+    metadata: {}
+    data:
+      source: Apple tv
+    target:
+      entity_id: media_player.family_musiccast_2
+  mode: single
+- id: '1737853773131'
+  alias: Family tv off
+  description: ''
+  triggers:
+  - device_id: d2266f50bddd8793a7ce8678bb4c94fb
+    domain: media_player
+    entity_id: b4a59a5f16d126f9c9b564b6cadfbf1a
+    type: turned_off
+    trigger: device
+  - trigger: state
+    entity_id:
+    - input_boolean.family_tv
+    to: 'off'
+  conditions:
+  - condition: device
+    device_id: 3c0d248ed4c6e384bca97d06b9c40f00
+    domain: media_player
+    entity_id: 1d91bdd028d6b90757adfd2493587db8
+    type: is_idle
+  - condition: device
+    type: is_on
+    device_id: 518b505a12d4e270810ff71e44ea850e
+    entity_id: 610c6f0506ed3cf2685a5437f85992e5
+    domain: remote
+  actions:
+  - action: media_player.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: media_player.family_musiccast_2
+      device_id:
+      - 518b505a12d4e270810ff71e44ea850e
+      - d2266f50bddd8793a7ce8678bb4c94fb
+  mode: single
+- id: '1738536245957'
+  alias: Turn on landscape from flood switch
+  description: ''
+  triggers:
+  - device_id: 62bc437363dbe7fe65bb85c704619e97
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    metadata: {}
+    trigger: device
+    value: 3
+  conditions: []
+  actions:
+  - action: script.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: script.turn_on_landscape_lights
+  mode: single
+- id: '1738536313254'
+  alias: Turn off landscape from flood switch
+  description: ''
+  triggers:
+  - device_id: 62bc437363dbe7fe65bb85c704619e97
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    value: 3
+  conditions: []
+  actions:
+  - action: script.turn_off_landscape_lights
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1738536462577'
+  alias: Hall - all lights on
+  description: ''
+  triggers:
+  - device_id: 1d92f6a19d63519ed967f316c7811382
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    metadata: {}
+    trigger: device
+    value: 3
+  - device_id: 7a4a8bfe7c1c586a87a7c684a38d221a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    trigger: device
+    value: 3
+  - device_id: be92c61cbdfaa76f41f3945aadf840fb
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    trigger: device
+    value: 3
+  - trigger: state
+    entity_id:
+    - input_boolean.flic_hall_lights
+    to: 'on'
+  conditions: []
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      brightness_pct: 100
+    target:
+      entity_id:
+      - light.hall_light_living
+      - light.hall_light_master
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.hall_light_bar
+  mode: single
+- id: '1738536549877'
+  alias: Hall - all lights off
+  description: ''
+  triggers:
+  - device_id: 1d92f6a19d63519ed967f316c7811382
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    value: 3
+  - device_id: 7a4a8bfe7c1c586a87a7c684a38d221a
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    value: 3
+  - device_id: be92c61cbdfaa76f41f3945aadf840fb
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '002'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 002
+    trigger: device
+    value: 3
+  - trigger: state
+    entity_id:
+    - input_boolean.flic_hall_lights
+    to: 'off'
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.hall_light_living
+      - light.hall_light_master
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.hall_light_bar
+  mode: single
+- id: '1746365197417'
+  alias: HA - turn off landscape lights
+  description: Triple-click pool house switch to turn on landscape lights
+  triggers:
+  - device_id: e501208622f7a6ff0ec46c2cc38149b4
+    domain: zwave_js
+    type: event.value_notification.central_scene
+    property: scene
+    property_key: '001'
+    endpoint: 0
+    command_class: 91
+    subtype: Endpoint 0 Scene 001
+    metadata: {}
+    trigger: device
+    value: 4
+  - trigger: state
+    entity_id:
+    - input_boolean.flic_landscape_lights
+    to: 'off'
+  conditions: []
+  actions:
+  - action: script.turn_off_landscape_lights
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1748198074179'
+  alias: 'House - Lights: off when light again'
+  description: ''
+  triggers:
+  - type: value
+    device_id: 3d2ac56754c2c52b767f2fde4b9bdf66
+    entity_id: 987b2b725fded5071ab5cf90f432408d
+    domain: sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 10
+    above: 70
+  conditions:
+  - condition: time
+    after: '11:00:00'
+    before: '21:00:00'
+    weekday:
+    - sat
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+    - sun
+  - condition: device
+    type: is_on
+    device_id: a57a342789b644e1a2fa6cbe514b4087
+    entity_id: d383b0d27ad95d372b4d03a9f1827df6
+    domain: switch
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id:
+      - 078f745407b1958a069e3fd3d5a2041a
+      - a57a342789b644e1a2fa6cbe514b4087
+      - 6a122351d937717bed793803bbf2e50b
+      - c3ea682b15ff25d8610b81df32aab8e3
+      - d46dbbbb6fbeaa38f6a7aae3057adeda
+      - cc92d8fce1e2f2321749c9d0c7c90352
+      - f96e6550cd98276727cac01b7d6a1a21
+      entity_id: switch.office_cabinet_power_strip_1
+  - action: script.turn_off_landscape_lights
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1750339199756'
+  alias: 'Remote: trigger bedtime'
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_button.bedtime
+  - trigger: conversation
+    command: It's bedtime
+  conditions: []
+  actions:
+  - action: script.bedtime
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1751328012837'
+  alias: HA - House lights on
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.flic_house_lights
+    to: 'on'
+  conditions: []
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      device_id:
+      - a57a342789b644e1a2fa6cbe514b4087
+      - f96e6550cd98276727cac01b7d6a1a21
+      - d46dbbbb6fbeaa38f6a7aae3057adeda
+      - cc92d8fce1e2f2321749c9d0c7c90352
+      - c3ea682b15ff25d8610b81df32aab8e3
+      - 6a122351d937717bed793803bbf2e50b
+  mode: single
+- id: '1751328133054'
+  alias: HA - House lights off
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.flic_house_lights
+    to: 'off'
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id:
+      - a57a342789b644e1a2fa6cbe514b4087
+      - f96e6550cd98276727cac01b7d6a1a21
+      - cc92d8fce1e2f2321749c9d0c7c90352
+      - c3ea682b15ff25d8610b81df32aab8e3
+      - 6a122351d937717bed793803bbf2e50b
+      - d46dbbbb6fbeaa38f6a7aae3057adeda
+  mode: single
+- id: '1753210406284'
+  alias: Roon - Family Starts Playing
+  description: automatically turns stereo on when plexamp starts playing in office
+  triggers:
+  - device_id: 68d8c8710a4d223c086a799f4804860f
+    domain: media_player
+    entity_id: 23a3679a313aa6ca2ad859d28e82e441
+    type: playing
+    trigger: device
+  conditions: []
+  actions:
+  - data: {}
+    target:
+      entity_id: media_player.family_musiccast_2
+    action: media_player.turn_on
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 0
+      milliseconds: 500
+  - data:
+      source: audio3
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+    action: media_player.select_source
+  - data:
+      volume_level: 0.6
+    target:
+      entity_id: media_player.family_musiccast_2
+    action: media_player.volume_set
+  - if:
+    - condition: state
+      entity_id: media_player.family_musiccast_2
+      attribute: source
+      state: audio4
+    then: []
+    else:
+    - data: {}
+      target:
+        entity_id: media_player.family_tv
+      action: media_player.turn_off
+    - data:
+        source: audio3
+      target:
+        entity_id: media_player.family_musiccast_2
+      action: media_player.select_source
+    enabled: false
+  mode: single
+- id: '1753210571631'
+  alias: Roon - Family Off
+  description: automatically turns stereo off when plexamp stops playing on patio
+  triggers:
+  - device_id: 68d8c8710a4d223c086a799f4804860f
+    domain: media_player
+    entity_id: 23a3679a313aa6ca2ad859d28e82e441
+    type: turned_off
+    trigger: device
+  - device_id: 3c0d248ed4c6e384bca97d06b9c40f00
+    domain: media_player
+    entity_id: media_player.family_musiccast_2
+    type: turned_off
+    trigger: device
+    enabled: false
+  - device_id: 68d8c8710a4d223c086a799f4804860f
+    domain: media_player
+    entity_id: 23a3679a313aa6ca2ad859d28e82e441
+    type: idle
+    trigger: device
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  conditions: []
+  actions:
+  - data: {}
+    target:
+      entity_id: media_player.family_musiccast_2
+    action: media_player.turn_off
+  - data: {}
+    target:
+      device_id:
+      - 68d8c8710a4d223c086a799f4804860f
+    action: media_player.media_stop
+  mode: single
+- id: '1753210796388'
+  alias: Roon - Patio Off
+  description: automatically turns stereo off when roon stops playing on patio
+  triggers:
+  - device_id: c0c10a4af96509fcab80608cf8590507
+    domain: media_player
+    entity_id: 0b2b9b5fb0f3676966c4265be3b0d6ad
+    type: turned_off
+    trigger: device
+  - device_id: c0c10a4af96509fcab80608cf8590507
+    domain: media_player
+    entity_id: 0b2b9b5fb0f3676966c4265be3b0d6ad
+    type: idle
+    trigger: device
+    for:
+      hours: 0
+      minutes: 10
+      seconds: 0
+  conditions: []
+  actions:
+  - data: {}
+    target:
+      entity_id: media_player.family_musiccast_2
+    action: media_player.turn_off
+  - data: {}
+    action: media_player.media_stop
+    target:
+      device_id: c0c10a4af96509fcab80608cf8590507
+  - if:
+    - condition: device
+      type: is_on
+      device_id: 7effb53622cdd5a11155c602a94a11d5
+      entity_id: 2397a07169671508159c7ef82d4fbad0
+      domain: remote
+    then:
+    - type: turn_off
+      device_id: 7effb53622cdd5a11155c602a94a11d5
+      entity_id: 2397a07169671508159c7ef82d4fbad0
+      domain: remote
+  mode: single
+- id: '1753211048035'
+  alias: Roon - Patio Playing
+  description: automatically turns stereo on when roon starts playing on patio
+  triggers:
+  - device_id: c0c10a4af96509fcab80608cf8590507
+    domain: media_player
+    entity_id: 0b2b9b5fb0f3676966c4265be3b0d6ad
+    type: playing
+    trigger: device
+  conditions: []
+  actions:
+  - data: {}
+    action: media_player.turn_on
+    target:
+      device_id: e1a63c77b5afd926a01fbe619dc94ad0
+  - data: {}
+    target:
+      entity_id: media_player.patio_musiccast_2
+    action: media_player.unjoin
+    enabled: false
+  - action: media_player.select_source
+    target:
+      device_id: e1a63c77b5afd926a01fbe619dc94ad0
+    data:
+      source: AUX
   mode: single

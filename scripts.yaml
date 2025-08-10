@@ -17,21 +17,32 @@ unjoin_all_speakers:
 pause_patio:
   alias: Pause patio
   sequence:
-  - service: media_player.media_pause
-    data: {}
+  - data: {}
+    action: media_player.media_pause
     target:
-      entity_id: media_player.plexamp_patio
+      device_id: c0c10a4af96509fcab80608cf8590507
   mode: single
   icon: mdi:pause
 play_patio:
   alias: Play patio
   sequence:
-  - service: media_player.media_play
+  - action: media_player.play_media
+    metadata: {}
+    data:
+      media_content_type: playlist
+      media_content_id: smart rock playlist
+    target:
+      entity_id: media_player.2_patio
+  - action: media_player.media_play
+    metadata: {}
     data: {}
     target:
-      entity_id: media_player.plexamp_patio
+      device_id: c0c10a4af96509fcab80608cf8590507
+      entity_id: media_player.2_patio
+    enabled: false
   mode: single
   icon: mdi:play
+  description: ''
 patio_next:
   alias: 'Family next '
   sequence:
@@ -44,10 +55,10 @@ patio_next:
 pause_family_plexamp:
   alias: Pause family
   sequence:
-  - service: media_player.media_pause
-    data: {}
+  - data: {}
     target:
-      entity_id: media_player.plexamp_family
+      device_id: 68d8c8710a4d223c086a799f4804860f
+    action: media_player.media_pause
   mode: single
   icon: mdi:pause
 play_family_plexamp:
@@ -138,30 +149,24 @@ turn_on_landscape_lights:
     data: {}
     target:
       entity_id:
-      - switch.landscape_lights
-      - switch.side_and_back_landscape_lights
-  - action: light.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: light.rear_landscape_lighting
+      - switch.landscape_rear
+      - switch.landscape_rear_2
+      - switch.landscape_lights_side
+      - switch.landscape_front
   description: ''
   icon: mdi:lightbulb-group-outline
 turn_off_landscape_lights:
   alias: Turn off landscape lights
   sequence:
-  - action: light.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: light.rear_landscape_lighting
   - action: switch.turn_off
     metadata: {}
     data: {}
     target:
       entity_id:
-      - switch.landscape_lights
-      - switch.side_and_back_landscape_lights
+      - switch.landscape_rear
+      - switch.landscape_rear_2
+      - switch.landscape_lights_side
+      - switch.landscape_front
   description: ''
   icon: mdi:lightbulb-group-outline
 notify_todd:
@@ -223,4 +228,78 @@ alexa_broadcast:
         text:
       name: Title
   alias: Alexa broadcast
+  description: ''
+lock_side_door:
+  sequence:
+  - device_id: b93c9336799c8e6a79bc3c8e8cbd8204
+    domain: lock
+    entity_id: 2db879cb572afb3deb2c3f7d0935ab82
+    type: lock
+  alias: Lock side door
+  description: ''
+unlock_side_door:
+  sequence:
+  - device_id: b93c9336799c8e6a79bc3c8e8cbd8204
+    domain: lock
+    entity_id: 2db879cb572afb3deb2c3f7d0935ab82
+    type: unlock
+  alias: Unlock side door
+  description: ''
+watch_plex:
+  sequence:
+  - action: media_player.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - media_player.family_musiccast_2
+      - media_player.fire_tv_cube
+      - media_player.family_tv
+      - media_player.fire_tv_192_168_7_87
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+  - action: media_player.select_source
+    metadata: {}
+    data:
+      source: Plex
+    target:
+      entity_id: media_player.fire_tv_192_168_7_87
+  alias: Watch plex
+  description: ''
+bedtime:
+  sequence:
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - if:
+    - condition: numeric_state
+      entity_id: sensor.athom_zigbee_gateway_e68b90_my_bedjet_ambient_temperature
+      below: 76
+    then:
+    - device_id: 3b6362c3dbc9c5a03c10fc6e3a6f46b6
+      domain: climate
+      entity_id: ac3ca0cfefeef1dd97d73a4e557c71ec
+      type: set_preset_mode
+      preset_mode: boost
+    else:
+    - device_id: 3b6362c3dbc9c5a03c10fc6e3a6f46b6
+      domain: climate
+      entity_id: ac3ca0cfefeef1dd97d73a4e557c71ec
+      type: set_hvac_mode
+      hvac_mode: dry
+  alias: Bedtime
+  description: ''
+  icon: mdi:bed-king-outline
+turn_off_stereo_2:
+  sequence:
+  - action: media_player.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: 3c0d248ed4c6e384bca97d06b9c40f00
+  alias: Turn off stereo
   description: ''

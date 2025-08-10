@@ -1,0 +1,238 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_hvac",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Temperature ",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:weather-card",
+                  "entity": "weather.home_2",
+                  "grid_options": {
+                    "columns": "full"
+                  }
+                }
+              ],
+              "column_span": 4
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Thermostats "
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.master_hall",
+                      "features": [
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "name": "Master",
+                      "show_current_as_primary": true
+                    },
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.dining_room",
+                      "name": "Dining Room",
+                      "features": [
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "show_current_as_primary": true
+                    },
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.james_room",
+                      "features": [
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "name": "Upstairs Hall",
+                      "show_current_as_primary": true
+                    },
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.game_room",
+                      "show_current_as_primary": true,
+                      "features": [
+                        {
+                          "type": "climate-preset-modes",
+                          "style": "dropdown"
+                        }
+                      ],
+                      "name": "Game Room"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 36,
+                    "rows": 5
+                  }
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.athom_zigbee_gateway_e68b90_my_bedjet",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        }
+                      ],
+                      "show_current_as_primary": true
+                    },
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.shop_ac_air_conditioner",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        }
+                      ],
+                      "name": "Shop AC",
+                      "show_current_as_primary": true
+                    },
+                    {
+                      "type": "thermostat",
+                      "entity": "climate.heater_heater",
+                      "features": [
+                        {
+                          "type": "climate-hvac-modes"
+                        }
+                      ],
+                      "name": "Shop Heater",
+                      "show_current_as_primary": true
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 36,
+                    "rows": 5
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.office_temperature",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "show_entity_picture": false,
+                  "name": "Office"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.family_room_temperature",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Family Room "
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.theater_temperature",
+                  "features_position": "bottom",
+                  "vertical": false
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.james_bedroom_temperature"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.master_bedroom_temperature"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.woodrack_temperature",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Woodrack"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.theater_humidity_temperature",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Theater Rack"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.slim_multi_sensor_pir_door_temperature_illumination_air_temperature",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Outside "
+                }
+              ],
+              "column_span": 4
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Inside vs Outside "
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.slim_multi_sensor_pir_door_temperature_illumination_air_temperature"
+                    },
+                    {
+                      "entity": "sensor.family_room_temperature"
+                    },
+                    {
+                      "entity": "sensor.woodrack_temperature"
+                    },
+                    {
+                      "entity": "sensor.theater_humidity_temperature"
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": "full",
+                    "rows": 6
+                  }
+                }
+              ],
+              "column_span": 4
+            }
+          ],
+          "badges": [
+            {
+              "type": "entity",
+              "entity": "weather.home"
+            },
+            {
+              "type": "entity",
+              "entity": "weather.home_2"
+            },
+            {
+              "type": "entity",
+              "entity": "weather.master_hall"
+            }
+          ],
+          "type": "sections",
+          "max_columns": 4,
+          "cards": [],
+          "icon": "mdi:thermometer"
+        }
+      ]
+    }
+  }
+}

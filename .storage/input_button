@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_button",
+  "data": {
+    "items": [
+      {
+        "name": "Turn off Stereo",
+        "icon": "mdi:speaker-off",
+        "id": "turn_off_stereo"
+      },
+      {
+        "name": "Unlink speakers",
+        "icon": "mdi:speaker-off",
+        "id": "unlink_speakers"
+      },
+      {
+        "id": "bedtime",
+        "name": "Bedtime",
+        "icon": "mdi:bed-king-outline"
+      }
+    ]
+  }
+}

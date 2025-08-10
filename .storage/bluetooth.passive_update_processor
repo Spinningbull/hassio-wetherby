@@ -1,0 +1,274 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "bluetooth.passive_update_processor",
+  "data": {
+    "4d07bbe165699bb478a99c95d474a404": {
+      "binary_sensor": {
+        "devices": {
+          "": {
+            "name": "H5075 5561",
+            "manufacturer": "Govee",
+            "model": "H5075"
+          }
+        },
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      },
+      "sensor": {
+        "devices": {
+          "": {
+            "name": "H5075 5561",
+            "manufacturer": "Govee",
+            "model": "H5075"
+          }
+        },
+        "entity_descriptions": {
+          "temperature___": {
+            "key": "temperature_°C",
+            "device_class": "temperature",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "°C",
+            "state_class": "measurement"
+          },
+          "humidity___": {
+            "key": "humidity_%",
+            "device_class": "humidity",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "battery___": {
+            "key": "battery_%",
+            "device_class": "battery",
+            "entity_registry_enabled_default": null,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "signal_strength___": {
+            "key": "signal_strength_dBm",
+            "device_class": "signal_strength",
+            "entity_registry_enabled_default": false,
+            "entity_registry_visible_default": null,
+            "force_update": null,
+            "has_entity_name": null,
+            "name": null,
+            "native_unit_of_measurement": "dBm",
+            "state_class": "measurement"
+          }
+        },
+        "entity_names": {
+          "temperature___": "Temperature",
+          "humidity___": "Humidity",
+          "battery___": "Battery",
+          "signal_strength___": "Signal Strength"
+        },
+        "entity_data": {
+          "temperature___": 31.3,
+          "humidity___": 50.5,
+          "battery___": 66,
+          "signal_strength___": -104
+        }
+      }
+    },
+    "b58f01a04fd967965479bdf585ef8d36": {
+      "binary_sensor": {
+        "devices": {
+          "": {
+            "name": "H5100 0E2E",
+            "manufacturer": "Govee",
+            "model": "H5100"
+          }
+        },
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      },
+      "sensor": {
+        "devices": {
+          "": {
+            "name": "H5100 0E2E",
+            "manufacturer": "Govee",
+            "model": "H5100"
+          }
+        },
+        "entity_descriptions": {
+          "temperature___": {
+            "key": "temperature_°C",
+            "device_class": "temperature",
+            "native_unit_of_measurement": "°C",
+            "state_class": "measurement"
+          },
+          "humidity___": {
+            "key": "humidity_%",
+            "device_class": "humidity",
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "battery___": {
+            "key": "battery_%",
+            "device_class": "battery",
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "signal_strength___": {
+            "key": "signal_strength_dBm",
+            "device_class": "signal_strength",
+            "entity_registry_enabled_default": false,
+            "native_unit_of_measurement": "dBm",
+            "state_class": "measurement"
+          }
+        },
+        "entity_names": {
+          "temperature___": "Temperature",
+          "humidity___": "Humidity",
+          "battery___": "Battery",
+          "signal_strength___": "Signal Strength"
+        },
+        "entity_data": {
+          "temperature___": 31.7,
+          "humidity___": 58.5,
+          "battery___": 89,
+          "signal_strength___": -59
+        }
+      }
+    },
+    "c6f0ad474cbd966504ab7d2bf4070ed2": {
+      "binary_sensor": {
+        "devices": {
+          "": {
+            "name": "H5100 6E6C",
+            "manufacturer": "Govee",
+            "model": "H5100"
+          }
+        },
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      },
+      "sensor": {
+        "devices": {
+          "": {
+            "name": "H5100 6E6C",
+            "manufacturer": "Govee",
+            "model": "H5100"
+          }
+        },
+        "entity_descriptions": {
+          "temperature___": {
+            "key": "temperature_°C",
+            "device_class": "temperature",
+            "native_unit_of_measurement": "°C",
+            "state_class": "measurement"
+          },
+          "humidity___": {
+            "key": "humidity_%",
+            "device_class": "humidity",
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "battery___": {
+            "key": "battery_%",
+            "device_class": "battery",
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "signal_strength___": {
+            "key": "signal_strength_dBm",
+            "device_class": "signal_strength",
+            "entity_registry_enabled_default": false,
+            "native_unit_of_measurement": "dBm",
+            "state_class": "measurement"
+          }
+        },
+        "entity_names": {
+          "temperature___": "Temperature",
+          "humidity___": "Humidity",
+          "battery___": "Battery",
+          "signal_strength___": "Signal Strength"
+        },
+        "entity_data": {
+          "temperature___": 23.8,
+          "humidity___": 54.4,
+          "battery___": 60,
+          "signal_strength___": -67
+        }
+      }
+    },
+    "5c4c205b3dbc228bedfd09e7c707ba9f": {
+      "binary_sensor": {
+        "devices": {
+          "": {
+            "name": "H5100 6D1E",
+            "manufacturer": "Govee",
+            "model": "H5100"
+          }
+        },
+        "entity_descriptions": {},
+        "entity_names": {},
+        "entity_data": {}
+      },
+      "sensor": {
+        "devices": {
+          "": {
+            "name": "H5100 6D1E",
+            "manufacturer": "Govee",
+            "model": "H5100"
+          }
+        },
+        "entity_descriptions": {
+          "temperature___": {
+            "key": "temperature_°C",
+            "device_class": "temperature",
+            "native_unit_of_measurement": "°C",
+            "state_class": "measurement"
+          },
+          "humidity___": {
+            "key": "humidity_%",
+            "device_class": "humidity",
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "battery___": {
+            "key": "battery_%",
+            "device_class": "battery",
+            "native_unit_of_measurement": "%",
+            "state_class": "measurement"
+          },
+          "signal_strength___": {
+            "key": "signal_strength_dBm",
+            "device_class": "signal_strength",
+            "entity_registry_enabled_default": false,
+            "native_unit_of_measurement": "dBm",
+            "state_class": "measurement"
+          }
+        },
+        "entity_names": {
+          "temperature___": "Temperature",
+          "humidity___": "Humidity",
+          "battery___": "Battery",
+          "signal_strength___": "Signal Strength"
+        },
+        "entity_data": {
+          "temperature___": 28.0,
+          "humidity___": 58.8,
+          "battery___": 74,
+          "signal_strength___": -82
+        }
+      }
+    }
+  }
+}
