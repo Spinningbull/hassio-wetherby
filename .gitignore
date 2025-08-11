@@ -8,3 +8,4 @@ home-assistant_v2.db-wal
 www/upcoming-media-card-images/*
 .vscode/settings.json
 tts/
+.storage/

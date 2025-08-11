@@ -139,9 +139,9 @@
           "signal_strength___": "Signal Strength"
         },
         "entity_data": {
-          "temperature___": 31.7,
-          "humidity___": 58.5,
-          "battery___": 89,
+          "temperature___": 25.9,
+          "humidity___": 63.9,
+          "battery___": 91,
           "signal_strength___": -59
         }
       }
@@ -202,9 +202,9 @@
         },
         "entity_data": {
           "temperature___": 23.8,
-          "humidity___": 54.4,
-          "battery___": 60,
-          "signal_strength___": -67
+          "humidity___": 53.9,
+          "battery___": 58,
+          "signal_strength___": -68
         }
       }
     },
@@ -263,10 +263,10 @@
           "signal_strength___": "Signal Strength"
         },
         "entity_data": {
-          "temperature___": 28.0,
-          "humidity___": 58.8,
+          "temperature___": 28.4,
+          "humidity___": 56.9,
           "battery___": 74,
-          "signal_strength___": -82
+          "signal_strength___": -79
         }
       }
     }
