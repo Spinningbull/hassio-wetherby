@@ -40,6 +40,14 @@ light:
 # Allow UI Customization
 homeassistant:
   customize: !include customize.yaml
+
+notify:
+  - platform: group
+    name: todd_all_devices
+    services:
+      - service: mobile_app_galaxy_watch5_pro_kbvt
+      - service: mobile_app_todds_new_phone
+      - service: mobile_app_todd_s_tablet
   
 # Custom UI
 lovelace:

@@ -120,11 +120,7 @@ turn_off_xmas_lights:
     metadata: {}
     data: {}
     target:
-      entity_id:
-      - switch.xmas_lights_south
-      - switch.xmas_lights_soith_2
-      - switch.porch_switch
-      - switch.front_porch_plug
+      label_id: christmas
   description: ''
   icon: mdi:lightbulb-group-off-outline
 turn_on_xmas_lights:
@@ -134,11 +130,7 @@ turn_on_xmas_lights:
     metadata: {}
     data: {}
     target:
-      entity_id:
-      - switch.xmas_lights_south
-      - switch.xmas_lights_soith_2
-      - switch.porch_switch
-      - switch.front_porch_plug
+      label_id: christmas
   description: ''
   icon: mdi:lightbulb-group-outline
 turn_on_landscape_lights:
@@ -206,12 +198,12 @@ alexa_broadcast:
     data:
       message: '{{message}}'
       title: '{{title}}'
-  - action: notify.alexa_media_master_bedroom_echo
+  - action: notify.alexa_media_office_echo
     metadata: {}
     data:
       message: '{{message}}'
       title: '{{title}}'
-  - action: notify.alexa_media_office_echo
+  - action: notify.alexa_media_todd_s_clock
     metadata: {}
     data:
       message: '{{message}}'

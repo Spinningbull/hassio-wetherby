@@ -269,7 +269,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
                 0 0 0 .425-.33zm-5.981-.255a1.174 1.174 0 0 0-.106.26 2.683 2.683 0 0 0-.065.997 1.48 1.48 0 0 0 .147.536.734.734 0 0 0 .568.391 1.306 1.306 0 0 0 .832-.158.147.147 
                 0 0 0 .086-.147v-.966h.007c0-.323-.01-.641 0-.968a.147.147 0 0 0-.096-.156 1.614 1.614 0 0 0-.817-.147.678.678 0 0 0-.556.358zM3.855 7.051a.747.747 0 0 0 .488-.188.807.807 
                 0 0 0 .243-.425 2.654 2.654 0 0 0 .065-1.002 1.505 1.505 0 0 0-.135-.54.653.653 0 0 0-.505-.382 1.44 1.44 0 0 0-.912.137.16.16 0 0 0-.105.164v1.917a.147.147 0 0 0 .09.147 1.468 1.468 0 0 0 .771.17"/>
-        </svg>`}var vt;ut=t([ct(lt)],ut);console.info("%c  LG WebOS Remote Control Card  \n%c  version: v2.0.3  ","color: orange; font-weight: bold; background: black","color: white; font-weight: bold; background: dimgray");const bt=window;bt.customCards=bt.customCards||[],bt.customCards.push({type:at,name:"LG WebOS Remote Control Card",preview:!0,description:"Remote control card for LG WebOS TV devices"});let gt=vt=class extends nt{static getConfigElement(){return document.createElement(lt)}static getStubConfig(t){let e=ht(t,"webostv");0==e.length&&(e=Object.keys(t.entities).filter((t=>t.startsWith("media_player."))));const o=e.length>0?e[0]:"media_player.lg_webos_smart_tv";return{type:`custom:${at}`,entity:o}}static get iconMapping(){return{disney:pt(),dazn:_t(),nowtv:I`
+        </svg>`}var vt;ut=t([ct(lt)],ut);console.info("%c  LG WebOS Remote Control Card  \n%c  version: v2.0.4  ","color: orange; font-weight: bold; background: black","color: white; font-weight: bold; background: dimgray");const bt=window;bt.customCards=bt.customCards||[],bt.customCards.push({type:at,name:"LG WebOS Remote Control Card",preview:!0,description:"Remote control card for LG WebOS TV devices"});let gt=vt=class extends nt{static getConfigElement(){return document.createElement(lt)}static getStubConfig(t){let e=ht(t,"webostv");0==e.length&&(e=Object.keys(t.entities).filter((t=>t.startsWith("media_player."))));const o=e.length>0?e[0]:"media_player.lg_webos_smart_tv";return{type:`custom:${at}`,entity:o}}static get iconMapping(){return{disney:pt(),dazn:_t(),nowtv:I`
             <svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 30 30.7" style="enable-background:new 0 0 30 30.7;" xml:space="preserve">
               <style type="text/css">
@@ -299,7 +299,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
                     ${this.config.name?I` <div class="tv_title" style="color:${n}" >${this.config.name}</div> `:""}
                     <div class="grid-container-power"  style="--remotewidth: ${s}">
                         <button class="btn-flat flat-high ripple" @click=${()=>this._channelList()}><ha-icon icon="mdi:format-list-numbered"/></button>
-                        ${"off"===t.state?I`
+                        ${["off","unavailable"].includes(t.state)?I`
                             <button class="btn ripple" @click=${()=>this._media_player_turn_on(h)}><ha-icon icon="mdi:power" style="color: ${l};"/></button>
                         `:I`
                             <button class="btn ripple" @click=${()=>this._media_player_service("POWER","turn_off")}><ha-icon icon="mdi:power" style="color: red;"/></button>

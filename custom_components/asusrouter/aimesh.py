@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, Optional
+from collections.abc import Callable
+from typing import Any
 
 from asusrouter.modules.aimesh import AiMeshDevice
 from homeassistant.core import callback
@@ -33,8 +34,8 @@ class AiMeshNode:
     @callback
     def update(
         self,
-        node_info: Optional[AiMeshDevice] = None,
-        event_call: Optional[Callable[[str, Optional[dict[str, Any]]], None]] = None,
+        node_info: AiMeshDevice | None = None,
+        event_call: Callable[[str, dict[str, Any] | None], None] | None = None,
     ) -> None:
         """Update AiMesh device."""
 
@@ -50,7 +51,9 @@ class AiMeshNode:
                     "type"
                 ] = node_info.type
                 # IP
-                self._extra_state_attributes["ip"] = self.identity["ip"] = node_info.ip
+                self._extra_state_attributes["ip"] = self.identity["ip"] = (
+                    node_info.ip
+                )
                 # Alias
                 self._extra_state_attributes["alias"] = self.identity[
                     "alias"
@@ -60,7 +63,9 @@ class AiMeshNode:
                     "model"
                 ] = node_info.model
                 # Product ID
-                self._extra_state_attributes["product_id"] = node_info.product_id
+                self._extra_state_attributes["product_id"] = (
+                    node_info.product_id
+                )
                 # Node level
                 self._extra_state_attributes["level"] = node_info.level
                 # Node parent
@@ -75,7 +80,9 @@ class AiMeshNode:
                 # Access point
                 # self._extra_state_attributes[ACCESS_POINT] = node_info.ap
                 # Notify reconnect
-                if self.identity["connected"] is False and callable(event_call):
+                if self.identity["connected"] is False and callable(
+                    event_call
+                ):
                     event_call(
                         "node_reconnected",
                         self.identity,

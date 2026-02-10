@@ -3,7 +3,11 @@
   "minor_version": 1,
   "key": "homeassistant.exposed_entities",
   "data": {
-    "assistants": {},
+    "assistants": {
+      "cloud.google_assistant": {
+        "expose_new": true
+      }
+    },
     "exposed_entities": {
       "sensor.home_ozone_0d": {
         "assistants": {
@@ -280,6 +284,9 @@
         "assistants": {
           "cloud.alexa": {
             "should_expose": false
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
           }
         }
       },
@@ -2970,6 +2977,9 @@
         "assistants": {
           "conversation": {
             "should_expose": false
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
           }
         }
       },
@@ -4475,6 +4485,9 @@
         "assistants": {
           "cloud.alexa": {
             "should_expose": false
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
           }
         }
       },
@@ -11356,6 +11369,9 @@
         "assistants": {
           "cloud.alexa": {
             "should_expose": false
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
           }
         }
       },
@@ -11391,6 +11407,9 @@
         "assistants": {
           "cloud.alexa": {
             "should_expose": false
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
           }
         }
       },
@@ -11405,6 +11424,9 @@
         "assistants": {
           "cloud.alexa": {
             "should_expose": false
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
           }
         }
       },
@@ -11412,6 +11434,9 @@
         "assistants": {
           "cloud.alexa": {
             "should_expose": false
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
           }
         }
       },
@@ -11503,6 +11528,9 @@
         "assistants": {
           "cloud.alexa": {
             "should_expose": false
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
           }
         }
       },
@@ -12383,6 +12411,1648 @@
       },
       "automation.plexamp_office_stopped": {
         "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_apparent_temperature": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_ceiling": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_dew_point": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_precipitation": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_pressure_tendency": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_uv_index": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wet_bulb_temperature": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_chill_temperature": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "weather.home_2": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_day_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_day_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_day_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_day_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_day_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_night_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_night_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_night_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_night_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_cloud_cover_night_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_grass_pollen_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_grass_pollen_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_grass_pollen_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_grass_pollen_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_grass_pollen_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_hours_of_sun_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_hours_of_sun_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_hours_of_sun_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_hours_of_sun_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_hours_of_sun_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_mold_pollen_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_mold_pollen_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_mold_pollen_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_mold_pollen_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_mold_pollen_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_ragweed_pollen_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_ragweed_pollen_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_ragweed_pollen_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_ragweed_pollen_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_ragweed_pollen_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_max_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_max_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_max_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_max_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_max_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_min_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_min_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_min_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_min_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_min_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_max_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_max_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_max_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_max_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_max_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_min_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_min_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_min_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_min_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_realfeel_temperature_shade_min_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_day_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_day_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_day_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_day_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_day_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_night_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_night_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_night_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_night_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_thunderstorm_probability_night_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_tree_pollen_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_tree_pollen_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_tree_pollen_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_tree_pollen_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_tree_pollen_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_uv_index_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_uv_index_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_uv_index_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_uv_index_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_uv_index_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_day_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_day_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_day_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_day_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_day_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_night_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_night_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_night_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_night_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_gust_night_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_day_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_day_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_day_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_day_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_day_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_night_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_night_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_night_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_night_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_wind_night_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_air_quality_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_air_quality_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_air_quality_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_air_quality_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_air_quality_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_day_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_night_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_day_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_night_0d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_day_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_night_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_day_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_night_1d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_day_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_night_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_day_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_night_2d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_day_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_night_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_day_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_night_3d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_day_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_condition_night_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_day_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_solar_irradiance_night_4d": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_humidity": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_pressure": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.home_temperature": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "scene.master_alexa_scene": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
+          }
+        }
+      },
+      "media_player.this_device_2": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "switch.this_device_do_not_disturb_switch": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.this_device_next_alarm_2": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.this_device_next_timer_2": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.this_device_next_reminder_2": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "media_player.unnamed_device": {
+        "assistants": {
+          "cloud.alexa": {
+            "should_expose": false
+          },
+          "conversation": {
+            "should_expose": true
+          },
+          "cloud.google_assistant": {
+            "should_expose": true
+          }
+        }
+      },
+      "sensor.node_8_node_status": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "button.node_8_ping": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_8_successful_commands_rx": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_8_successful_commands_tx": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_8_commands_dropped_rx": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_8_commands_dropped_tx": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_8_timed_out_responses": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_8_round_trip_time": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_8_rssi": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_8_last_seen": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "switch.other_xmas_lights": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "switch.other_xmas_lights_2": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "update.other_xmas_lights_firmware": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "button.other_xmas_lights_identify": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.other_xmas_lights_indicator_value": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.other_xmas_lights_indicatorbrightness": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.other_xmas_lights_outlet_1_left_auto_off_timer": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.other_xmas_lights_outlet_1_left_auto_on_timer": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.other_xmas_lights_outlet_2_right_auto_off_timer": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.other_xmas_lights_outlet_2_right_auto_on_timer": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "select.other_xmas_lights_led_indicator": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "select.other_xmas_lights_state_after_power_failure": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_9_node_status": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "button.node_9_ping": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_9_successful_commands_rx": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_9_successful_commands_tx": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_9_commands_dropped_rx": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_9_commands_dropped_tx": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_9_timed_out_responses": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_9_round_trip_time": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_9_rssi": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.node_9_last_seen": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "switch.front_porch_plug": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "switch.front_porch_plug_1": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "switch.front_porch_plug_2": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "update.front_porch_plug_firmware": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "button.front_porch_plug_identify": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.front_porch_plug_indicator_value": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.front_porch_plug_auto_turn_off_timer_outlet_1": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.front_porch_plug_auto_turn_off_timer_outlet_2": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.front_porch_plug_auto_turn_on_timer_outlet_1": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "number.front_porch_plug_auto_turn_on_timer_outlet_2": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "select.front_porch_plug_led_indicator": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "select.front_porch_plug_led_indicator_brightness": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "select.front_porch_plug_manual_control": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "select.front_porch_plug_state_after_power_failure": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.setup_family_tv": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "button.mediacenter_rack_scan_clients": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "sensor.mediacenter_rack": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "update.mediacenter_rack_update": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "media_player.plex_james_hay_plex_for_android_tv_afthy7abba": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "media_player.plex_james_hay_plex_for_roku_43_tcl_roku_tv": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "media_player.plex_james_hay_plex_for_android_mobile_james_s_s24_ultra": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.ambient_light_on_plex_pause_nightly": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.plex_lights_off_on_play_nightly": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.plex_lights_up_on_stop_or_idle_nightly": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.plexamp_patio_playing": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.plexamp_patio_stopped": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.play_plexamp_in_theater_2": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.plexamp_stops_in_theater": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.plexamp_family_stopped": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.plexamp_family_playing_2": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.plexamp_nfc_party_music": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "automation.plexamp_nfc_rock_family": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": false
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "media_player.cast_family_room_tv": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
+          "cloud.alexa": {
+            "should_expose": false
+          }
+        }
+      },
+      "media_player.shield_4": {
+        "assistants": {
+          "cloud.google_assistant": {
+            "should_expose": true
+          },
           "cloud.alexa": {
             "should_expose": false
           }

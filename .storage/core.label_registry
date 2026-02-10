@@ -102,6 +102,15 @@
         "name": "Roon",
         "created_at": "2025-07-22T18:57:17.170391+00:00",
         "modified_at": "2025-07-22T18:57:17.170401+00:00"
+      },
+      {
+        "color": "light-blue",
+        "description": null,
+        "icon": "mdi:air-conditioner",
+        "label_id": "hvac",
+        "name": "HVAC",
+        "created_at": "2025-08-19T23:37:39.315192+00:00",
+        "modified_at": "2025-08-19T23:37:39.315202+00:00"
       }
     ]
   }

@@ -13,10 +13,40 @@
               "cards": [
                 {
                   "type": "custom:weather-card",
-                  "entity": "weather.home_2",
+                  "entity": "weather.home",
                   "grid_options": {
-                    "columns": "full"
+                    "columns": "full",
+                    "rows": "auto"
                   }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.dining_room_humidity",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Humidity inside"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.patio_thermometer_humidity",
+                  "name": "Patio Humidity",
+                  "vertical": false,
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.patio_thermometer_temperature",
+                  "name": "Patio tempature",
+                  "show_entity_picture": false,
+                  "vertical": false,
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.slim_multi_sensor_pir_door_temperature_illumination_air_temperature",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Outside garage"
                 }
               ],
               "column_span": 4
@@ -192,16 +222,29 @@
                   "type": "history-graph",
                   "entities": [
                     {
-                      "entity": "sensor.slim_multi_sensor_pir_door_temperature_illumination_air_temperature"
+                      "entity": "sensor.slim_multi_sensor_pir_door_temperature_illumination_air_temperature",
+                      "name": "Front yard"
                     },
                     {
-                      "entity": "sensor.family_room_temperature"
+                      "entity": "sensor.family_room_temperature",
+                      "name": {
+                        "type": "area"
+                      }
                     },
                     {
-                      "entity": "sensor.woodrack_temperature"
+                      "entity": "sensor.woodrack_temperature",
+                      "name": {
+                        "type": "area"
+                      }
                     },
                     {
                       "entity": "sensor.theater_humidity_temperature"
+                    },
+                    {
+                      "entity": "sensor.patio_thermometer_temperature",
+                      "name": {
+                        "type": "area"
+                      }
                     }
                   ],
                   "grid_options": {
@@ -213,20 +256,7 @@
               "column_span": 4
             }
           ],
-          "badges": [
-            {
-              "type": "entity",
-              "entity": "weather.home"
-            },
-            {
-              "type": "entity",
-              "entity": "weather.home_2"
-            },
-            {
-              "type": "entity",
-              "entity": "weather.master_hall"
-            }
-          ],
+          "badges": [],
           "type": "sections",
           "max_columns": 4,
           "cards": [],

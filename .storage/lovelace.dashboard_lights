@@ -168,25 +168,32 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "switch.front_porch_plug",
-                      "icon": "mdi:string-lights",
-                      "name": "Xmas lights north"
-                    },
-                    {
-                      "entity": "switch.xmas_lights_south",
-                      "icon": "mdi:string-lights"
-                    },
-                    {
-                      "entity": "switch.xmas_lights_soith_2",
+                      "entity": "switch.patio_christmas_lights",
                       "icon": "mdi:string-lights"
                     },
                     {
                       "entity": "switch.porch_switch"
+                    },
+                    {
+                      "entity": "switch.xmas_lights_south",
+                      "icon": "mdi:string-lights",
+                      "name": "Color porch lights"
+                    },
+                    {
+                      "entity": "switch.xmas_lights_south_2"
+                    },
+                    {
+                      "entity": "switch.xmas_lights_entry",
+                      "name": "Star"
+                    },
+                    {
+                      "entity": "switch.xmas_lights_entry_2",
+                      "name": "Banister "
                     }
                   ],
                   "grid_options": {
                     "columns": "full",
-                    "rows": 4
+                    "rows": 7
                   },
                   "state_color": true,
                   "title": "Christmas lights"

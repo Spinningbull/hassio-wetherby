@@ -39,6 +39,15 @@
         "require_admin": false,
         "mode": "storage",
         "url_path": "dashboard-hvac"
+      },
+      {
+        "id": "lovelace",
+        "icon": "mdi:view-dashboard",
+        "title": "Overview",
+        "url_path": "lovelace",
+        "mode": "storage",
+        "show_in_sidebar": true,
+        "require_admin": false
       }
     ]
   }

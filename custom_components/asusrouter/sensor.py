@@ -30,7 +30,9 @@ async def async_setup_entry(
 
     interfaces = config_entry.options.get(CONF_INTERFACES, [])
     if len(interfaces) > 0:
-        _LOGGER.debug("Interfaces selected: %s. Initializing sensors", interfaces)
+        _LOGGER.debug(
+            "Interfaces selected: %s. Initializing sensors", interfaces
+        )
         sensors.extend(
             list_sensors_network(
                 config_entry.options[CONF_INTERFACES],
@@ -63,5 +65,4 @@ class ARSensor(AREntity, SensorEntity):
         """Return state."""
 
         description = self.entity_description
-        state = self.coordinator.data.get(description.key)
-        return state
+        return self.coordinator.data.get(description.key)

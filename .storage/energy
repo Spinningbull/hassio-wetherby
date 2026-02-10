@@ -1,8 +1,10 @@
 {
-    "version": 1,
-    "key": "energy",
-    "data": {
-        "energy_sources": [],
-        "device_consumption": []
-    }
+  "version": 1,
+  "minor_version": 2,
+  "key": "energy",
+  "data": {
+    "energy_sources": [],
+    "device_consumption": [],
+    "device_consumption_water": []
+  }
 }

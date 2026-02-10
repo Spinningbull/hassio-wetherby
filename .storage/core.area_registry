@@ -1,34 +1,36 @@
 {
   "version": 1,
-  "minor_version": 8,
+  "minor_version": 9,
   "key": "core.area_registry",
   "data": {
     "areas": [
       {
         "aliases": [],
-        "floor_id": "main_floor",
+        "floor_id": "2nd_floor",
         "humidity_entity_id": null,
         "icon": null,
-        "id": "2e76f1632cd4c53028c4498193b72a78",
+        "id": "allison_s_office",
         "labels": [],
-        "name": "Living Room",
+        "name": "Allison's office",
         "picture": null,
         "temperature_entity_id": null,
         "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:21:25.629395+00:00"
+        "modified_at": "2025-01-06T18:22:21.240618+00:00"
       },
       {
         "aliases": [],
-        "floor_id": "main_floor",
+        "floor_id": "attic",
         "humidity_entity_id": null,
         "icon": null,
-        "id": "03783ef09c58c6f29ca764fe81d38a05",
-        "labels": [],
-        "name": "Kitchen",
+        "id": "attic",
+        "labels": [
+          "smoke_alarm"
+        ],
+        "name": "Attic",
         "picture": null,
         "temperature_entity_id": null,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:21:25.628763+00:00"
+        "created_at": "2025-01-12T13:12:14.096643+00:00",
+        "modified_at": "2025-01-12T13:12:14.096659+00:00"
       },
       {
         "aliases": [],
@@ -48,13 +50,13 @@
         "floor_id": "main_floor",
         "humidity_entity_id": null,
         "icon": null,
-        "id": "7b17a1fffeb83e70a8df6259cdd4c141",
+        "id": "dining_room",
         "labels": [],
-        "name": "Master Bedroom",
+        "name": "Dining Room",
         "picture": null,
         "temperature_entity_id": null,
         "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:21:25.632123+00:00"
+        "modified_at": "2025-01-06T18:21:25.625878+00:00"
       },
       {
         "aliases": [],
@@ -71,16 +73,71 @@
       },
       {
         "aliases": [],
-        "floor_id": null,
+        "floor_id": "main_floor",
         "humidity_entity_id": null,
         "icon": null,
-        "id": "06eb80a82dd1a09965a573eeb9325162",
+        "id": "front_porch",
         "labels": [],
-        "name": "Todd",
+        "name": "Front Porch",
         "picture": null,
         "temperature_entity_id": null,
         "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "1970-01-01T00:00:00+00:00"
+        "modified_at": "2025-01-06T18:21:25.627493+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": "2nd_floor",
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "game_room",
+        "labels": [],
+        "name": "Game Room",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2025-01-06T18:22:21.241187+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": "main_floor",
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "garage",
+        "labels": [],
+        "name": "Garage ",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2025-01-06T18:21:25.628126+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": "main_floor",
+        "humidity_entity_id": null,
+        "icon": "mdi:light-recessed",
+        "id": "hall",
+        "labels": [
+          "jarvis",
+          "lights"
+        ],
+        "name": "Hall",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "2025-06-17T01:18:40.743680+00:00",
+        "modified_at": "2025-06-17T01:18:40.743691+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": "2nd_floor",
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "harper_s_bedroom",
+        "labels": [],
+        "name": "Harper's Bedroom",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2025-01-06T18:22:21.241373+00:00"
       },
       {
         "aliases": [],
@@ -100,26 +157,26 @@
         "floor_id": "main_floor",
         "humidity_entity_id": null,
         "icon": null,
-        "id": "office",
+        "id": "03783ef09c58c6f29ca764fe81d38a05",
         "labels": [],
-        "name": "Office",
+        "name": "Kitchen",
         "picture": null,
         "temperature_entity_id": null,
         "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:21:25.634755+00:00"
+        "modified_at": "2025-01-06T18:21:25.628763+00:00"
       },
       {
         "aliases": [],
-        "floor_id": "2nd_floor",
+        "floor_id": "main_floor",
         "humidity_entity_id": null,
         "icon": null,
-        "id": "theater",
+        "id": "2e76f1632cd4c53028c4498193b72a78",
         "labels": [],
-        "name": "Theater",
+        "name": "Living Room",
         "picture": null,
         "temperature_entity_id": null,
         "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:22:21.241731+00:00"
+        "modified_at": "2025-01-06T18:21:25.629395+00:00"
       },
       {
         "aliases": [],
@@ -136,16 +193,42 @@
       },
       {
         "aliases": [],
-        "floor_id": "2nd_floor",
+        "floor_id": "main_floor",
         "humidity_entity_id": null,
         "icon": null,
-        "id": "game_room",
+        "id": "7b17a1fffeb83e70a8df6259cdd4c141",
         "labels": [],
-        "name": "Game Room",
+        "name": "Master Bedroom",
         "picture": null,
         "temperature_entity_id": null,
         "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:22:21.241187+00:00"
+        "modified_at": "2025-01-06T18:21:25.632123+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": null,
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "network",
+        "labels": [],
+        "name": "Network",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "1970-01-01T00:00:00+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": "main_floor",
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "office",
+        "labels": [],
+        "name": "Office",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2025-01-06T18:21:25.634755+00:00"
       },
       {
         "aliases": [],
@@ -178,110 +261,6 @@
         "floor_id": "2nd_floor",
         "humidity_entity_id": null,
         "icon": null,
-        "id": "harper_s_bedroom",
-        "labels": [],
-        "name": "Harper's Bedroom",
-        "picture": null,
-        "temperature_entity_id": null,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:22:21.241373+00:00"
-      },
-      {
-        "aliases": [],
-        "floor_id": "main_floor",
-        "humidity_entity_id": null,
-        "icon": null,
-        "id": "dining_room",
-        "labels": [],
-        "name": "Dining Room",
-        "picture": null,
-        "temperature_entity_id": null,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:21:25.625878+00:00"
-      },
-      {
-        "aliases": [],
-        "floor_id": "main_floor",
-        "humidity_entity_id": null,
-        "icon": null,
-        "id": "garage",
-        "labels": [],
-        "name": "Garage ",
-        "picture": null,
-        "temperature_entity_id": null,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:21:25.628126+00:00"
-      },
-      {
-        "aliases": [],
-        "floor_id": "main_floor",
-        "humidity_entity_id": null,
-        "icon": null,
-        "id": "front_porch",
-        "labels": [],
-        "name": "Front Porch",
-        "picture": null,
-        "temperature_entity_id": null,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:21:25.627493+00:00"
-      },
-      {
-        "aliases": [],
-        "floor_id": null,
-        "humidity_entity_id": null,
-        "icon": null,
-        "id": "network",
-        "labels": [],
-        "name": "Network",
-        "picture": null,
-        "temperature_entity_id": null,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "1970-01-01T00:00:00+00:00"
-      },
-      {
-        "aliases": [],
-        "floor_id": null,
-        "humidity_entity_id": null,
-        "icon": null,
-        "id": "whole_house",
-        "labels": [],
-        "name": "whole house",
-        "picture": null,
-        "temperature_entity_id": null,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "1970-01-01T00:00:00+00:00"
-      },
-      {
-        "aliases": [],
-        "floor_id": "2nd_floor",
-        "humidity_entity_id": null,
-        "icon": null,
-        "id": "allison_s_office",
-        "labels": [],
-        "name": "Allison's office",
-        "picture": null,
-        "temperature_entity_id": null,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:22:21.240618+00:00"
-      },
-      {
-        "aliases": [],
-        "floor_id": "main_floor",
-        "humidity_entity_id": null,
-        "icon": null,
-        "id": "yard",
-        "labels": [],
-        "name": "Yard",
-        "picture": null,
-        "temperature_entity_id": null,
-        "created_at": "1970-01-01T00:00:00+00:00",
-        "modified_at": "2025-01-06T18:22:49.993479+00:00"
-      },
-      {
-        "aliases": [],
-        "floor_id": "2nd_floor",
-        "humidity_entity_id": null,
-        "icon": null,
         "id": "security_panel",
         "labels": [],
         "name": "Security Panel",
@@ -305,34 +284,55 @@
       },
       {
         "aliases": [],
-        "floor_id": "attic",
+        "floor_id": "2nd_floor",
         "humidity_entity_id": null,
         "icon": null,
-        "id": "attic",
-        "labels": [
-          "smoke_alarm"
-        ],
-        "name": "Attic",
+        "id": "theater",
+        "labels": [],
+        "name": "Theater",
         "picture": null,
         "temperature_entity_id": null,
-        "created_at": "2025-01-12T13:12:14.096643+00:00",
-        "modified_at": "2025-01-12T13:12:14.096659+00:00"
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2025-01-06T18:22:21.241731+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": null,
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "06eb80a82dd1a09965a573eeb9325162",
+        "labels": [],
+        "name": "Todd",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "1970-01-01T00:00:00+00:00"
+      },
+      {
+        "aliases": [],
+        "floor_id": null,
+        "humidity_entity_id": null,
+        "icon": null,
+        "id": "whole_house",
+        "labels": [],
+        "name": "whole house",
+        "picture": null,
+        "temperature_entity_id": null,
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "1970-01-01T00:00:00+00:00"
       },
       {
         "aliases": [],
         "floor_id": "main_floor",
         "humidity_entity_id": null,
-        "icon": "mdi:light-recessed",
-        "id": "hall",
-        "labels": [
-          "jarvis",
-          "lights"
-        ],
-        "name": "Hall",
+        "icon": null,
+        "id": "yard",
+        "labels": [],
+        "name": "Yard",
         "picture": null,
         "temperature_entity_id": null,
-        "created_at": "2025-06-17T01:18:40.743680+00:00",
-        "modified_at": "2025-06-17T01:18:40.743691+00:00"
+        "created_at": "1970-01-01T00:00:00+00:00",
+        "modified_at": "2025-01-06T18:22:49.993479+00:00"
       }
     ]
   }

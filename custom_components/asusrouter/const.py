@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from asusrouter.modules.openvpn import AsusOVPNClient, AsusOVPNServer
 from asusrouter.modules.parental_control import (
@@ -72,8 +73,8 @@ NUMERIC_CORES = range(1, 9)  # maximum of 8 cores from 1 to 8
 NUMERIC_GWLAN = range(1, 4)  # maximum of 4 guest WLANs from 1 to 3
 NUMERIC_LAN = range(1, 9)  # maximum of 8 LAN ports from 1 to 8
 NUMERIC_OVPN_SERVER = range(1, 3)  # maximum of 2 OVPN servers from 1 to 2
-NUMERIC_WAN = range(0, 4)  # maximum of 4 WAN ports from 0 to 3
-NUMERIC_WLAN = range(0, 4)  # maximum of 4 WLANs from 0 to 3
+NUMERIC_WAN = range(4)  # maximum of 4 WAN ports from 0 to 3
+NUMERIC_WLAN = range(4)  # maximum of 4 WLANs from 0 to 3
 
 # <-- NUMERIC
 
@@ -98,6 +99,7 @@ CONNECTION = "connection"
 COORDINATOR = "coordinator"
 CORE = "core"
 CPU = "cpu"
+DDNS = "ddns"
 DEVICES = "devices"
 DNS = "dns"
 DSL = "dsl"
@@ -131,7 +133,7 @@ NO_SSL = "no_ssl"
 NUMBER = "number"
 PARENT = "parent"
 PARENTAL_CONTROL = "parental_control"
-PASSWORD = "password"
+PASSWORD = "password"  # noqa: S105
 PORT = "port"
 PORT_EXTERNAL = "port_external"
 PORT_FORWARDING = "port_forwarding"
@@ -273,6 +275,7 @@ MODE_MEDIA_BRIDGE = MODE_ACCESS_POINT.copy()
 MODE_ROUTER = MODE_ACCESS_POINT.copy()
 MODE_ROUTER.extend(
     [
+        DDNS,
         DSL,
         GWLAN,
         "ovpn_client",
@@ -838,6 +841,7 @@ SERVICE_ALLOWED_PORT_FORWARDING_PROTOCOL: list[str] = [
 # ICONS -->
 
 ICON_CPU = "mdi:cpu-32-bit"
+ICON_DDNS = "mdi:dns-outline"
 ICON_DEVICES = "mdi:devices"
 ICON_DUALWAN = "mdi:call-split"
 ICON_ETHERNET_ON = "mdi:ethernet-cable"
@@ -867,6 +871,27 @@ ICON_WLAN_ON = "mdi:wifi"
 
 # SENSORS -->
 STATIC_BINARY_SENSORS: list[AREntityDescription] = [
+    # DDNS
+    ARBinarySensorDescription(
+        key="state",
+        key_group="ddns",
+        name="DDNS",
+        icon=ICON_DDNS,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+        extra_state_attributes={
+            "enabled": "enabled",
+            "hostname": "hostname",
+            "ip_address": "ip_address",
+            "old_name": "old_name",
+            "replace_status": "replace_status",
+            "return_code": "return_code",
+            "server": "server",
+            "status": "status",
+            "status_hint": "status_hint",
+            "updated": "updated",
+        },
+    ),
     # Dual WAN
     ARBinarySensorDescription(
         key="dualwan_state",

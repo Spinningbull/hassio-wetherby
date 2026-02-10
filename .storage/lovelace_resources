@@ -5,17 +5,17 @@
   "data": {
     "items": [
       {
-        "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381169",
+        "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=14852083811610",
         "type": "module",
         "id": "771e7f2ad3794c0cb8040c542d13f55d"
       },
       {
-        "url": "/hacsfiles/LG-WebOS-Remote-Control/lg-remote-control.js?hacstag=257005990203",
+        "url": "/hacsfiles/LG-WebOS-Remote-Control/lg-remote-control.js?hacstag=257005990204",
         "type": "module",
         "id": "9954e763c3284abd8458941f32acd395"
       },
       {
-        "url": "/hacsfiles/lovelace-tab-redirect-card/tab-redirect-card.js?hacstag=269474857451722",
+        "url": "/hacsfiles/lovelace-tab-redirect-card/tab-redirect-card.js?hacstag=2694748577144",
         "type": "module",
         "id": "db2ac41fb22e4139bb1ea8b75f1456ff"
       },
@@ -35,12 +35,12 @@
         "id": "7e761c2836e241de955e1f3655f0f9e4"
       },
       {
-        "url": "/hacsfiles/flex-table-card/flex-table-card.js?hacstag=15629205810",
+        "url": "/hacsfiles/flex-table-card/flex-table-card.js?hacstag=15629205813",
         "type": "module",
         "id": "c08dfff755674d17b718b25307963cf9"
       },
       {
-        "url": "/hacsfiles/button-card/button-card.js?hacstag=146194325412",
+        "url": "/hacsfiles/button-card/button-card.js?hacstag=146194325701",
         "type": "module",
         "id": "1ee02a1c466b40e7939958b36640a58a"
       },
@@ -55,7 +55,7 @@
         "id": "ccea5c5934b240388eb5c53de9ac6a82"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375450",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=4443503755011",
         "type": "module",
         "id": "3e5f4191911e49f3a1f73aca0d1d3a7b"
       },
@@ -66,7 +66,7 @@
       },
       {
         "id": "cefa178991324c8cb5982e26a4f5460d",
-        "url": "/hacsfiles/advanced-camera-card/advanced-camera-card.js?hacstag=3940825527143",
+        "url": "/hacsfiles/advanced-camera-card/advanced-camera-card.js?hacstag=3940825527271",
         "type": "module"
       }
     ]

@@ -720,15 +720,21 @@
         "cloudhook_url": "https://hooks.nabu.casa/gAAAAABoepi4ATTOEbqJ_DMqYhjMOsNm8YRMkTK8cinH4Ntq8mYM9bO6kVonXtOvw6ETnWQuH41yU3D-2Q9XMwHCDRmtccI9Uk4ydMlIlg2QINY6CsPwFUdWcWb44IiCkrvP_D4VFzgtDGsFYGrFxEvQ9SMG0NSjuXrgV4JOGZtgU7v0f36ZJ0E=",
         "managed": true
       },
-      "8f6128430b743e35d61e9263cb9bada7f7977ba7459523f3f859e5277cf1e756": {
-        "webhook_id": "8f6128430b743e35d61e9263cb9bada7f7977ba7459523f3f859e5277cf1e756",
-        "cloudhook_id": "fd80af10caf8481d901e94463b1c7dd7",
-        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABol1hPIdlkXUuLLrui5n6neLayV9D467cVHDSQwdPrW4YQ4yxWyoI_7wujUvO7T5s_r58B-bhzd3fQWPBhO5ucCIISO_ayLSXQYoPcu6_uV8_xBvrWoZJsgqKHiLXdQCnnnTdVJQz-MLXzqlatLOYumQ6_mxFSZfTzBEMFmsm6bL6c79Q=",
+      "0f177f358e2f59f7cebc1e81ec994bac86ee4d39fc50bbd9c04db28a2c706094": {
+        "webhook_id": "0f177f358e2f59f7cebc1e81ec994bac86ee4d39fc50bbd9c04db28a2c706094",
+        "cloudhook_id": "30b44c7709324802b7c9d5fec520cdd3",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABoqlVdYtcDV3IL-WbZpPN7m0x9FNbzRQXJHoac0YhZgkkdyk32_lCYgc7-2I5TgodD5s5dHSsgcjA-Yo28oMfRK3xv0dfVadQZW_mBY_fYs1w-3STVgK-4SctnBdgJzbRrFEqqrTi9iViry3xU601B3DzQsM66dIl5yK3Gn2MHMyVnUOg=",
+        "managed": true
+      },
+      "0c6542a31e1324ee220dde21c6530f02aeb6839c0966b203284d387839a8529e": {
+        "webhook_id": "0c6542a31e1324ee220dde21c6530f02aeb6839c0966b203284d387839a8529e",
+        "cloudhook_id": "ef4f564d09864da1896978c36c1fbbda",
+        "cloudhook_url": "https://hooks.nabu.casa/gAAAAABpMatc361srUJ2eB1oTP_LFAcNVIYFkNXkX66LnfxXT5hIJvS0q7TXYGAqiYmFCEzjTqxbFU6Ntns6RxI0IFAxCWnGEGIkov9w_Nz-WIyJSNGCl3lgZLpiu3Q4k3m8_Rs5FTBgj9js5QpbbSzH68a7RnKrnDgHdAiaZteyKfwKri-wKFg=",
         "managed": true
       }
     },
     "alexa_enabled": true,
-    "google_enabled": false,
+    "google_enabled": true,
     "remote_enabled": true,
     "google_default_expose": [
       "climate",

@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 import dataclasses
 import logging
-from typing import Any, Callable, Optional
+from typing import Any
 
 import aiohttp
 from asusrouter import AsusRouter
-from asusrouter.config import ARConfig
+from asusrouter.config import ARConfig, ARConfigKey as ARConfKey
+from asusrouter.const import DEFAULT_PORT_HTTP, DEFAULT_PORT_HTTPS
 from asusrouter.error import AsusRouterError
 from asusrouter.modules.aimesh import AiMeshDevice
 from asusrouter.modules.client import AsusClient
@@ -16,7 +18,6 @@ from asusrouter.modules.data import AsusData
 from asusrouter.modules.homeassistant import (
     convert_to_ha_data,
     convert_to_ha_sensors,
-    convert_to_ha_sensors_list,
     convert_to_ha_state_bool,
 )
 from asusrouter.modules.identity import AsusDevice
@@ -32,6 +33,7 @@ from homeassistant.const import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
+from homeassistant.helpers.device_registry import format_mac
 from homeassistant.helpers.update_coordinator import UpdateFailed
 
 from . import helpers
@@ -44,7 +46,9 @@ from .const import (
     CONF_DEFAULT_PORT,
     CONF_MODE,
     CPU,
+    DDNS,
     DEFAULT_SENSORS,
+    DOMAIN,
     DSL,
     FIRMWARE,
     GWLAN,
@@ -70,6 +74,7 @@ from .const import (
     TEMPERATURE,
     WLAN,
 )
+from .const_v1 import DEFAULT_IDENTITY_BRAND, DEFAULT_IDENTITY_NAME
 from .modules.aura import aura_to_ha
 from .modules.firmware import to_ha as firmware_to_ha
 
@@ -83,7 +88,7 @@ class ARBridge:
         self,
         hass: HomeAssistant,
         configs: dict[str, Any],
-        options: Optional[dict[str, Any]] = None,
+        options: dict[str, Any] | None = None,
     ) -> None:
         """Initialize bridge to the library."""
 
@@ -103,21 +108,47 @@ class ARBridge:
             cookie_jar=get_cookie_jar(),
         )
 
-        # Initialize API
-        self._api = self._get_api(self._configs, session)
+        # Prepare configs
+        config = self._get_api_config()
 
-        # Switch API to optimistic
-        # Optimistic temperature to avoid scaling issues from some devices
-        ARConfig.set("optimistic_temperature", True)
+        # Initialize API
+        self._api = self._get_api(self._configs, session, config)
+
+        # Switch API to robust mode
+        # Robust boottime will avoid 1 second jitter due to the raw data
+        # uncertainty. This can provide up to 1 second overestimation
+        # of the boottime, but will avoid saving extra data when the
+        # integration restarts and loses the previous boottime data.
+        ARConfig.set(ARConfKey.ROBUST_BOOTTIME, True)
 
         self._host = self._configs[CONF_HOST]
-        self._identity: Optional[AsusDevice] = None
+        self._identity: AsusDevice | None = None
 
-        self._active: bool = False
+        # Define properties
+        port = self._configs.get(CONF_PORT, None)
+        if not port:
+            port = (
+                DEFAULT_PORT_HTTPS
+                if self._configs.get(CONF_SSL, False)
+                else DEFAULT_PORT_HTTP
+            )
+        self._configuration_url = (
+            f"http{'s' if self._configs.get(CONF_SSL, False) else ''}"
+            f"://{self._host}:{port}"
+        )
+        self._identifiers: set[tuple[str, str]] = set()
+        self._manufacturer = DEFAULT_IDENTITY_BRAND
+        self._model: str | None = None
+        self._model_id: str | None = None
+        self._name: str = DEFAULT_IDENTITY_NAME
+        self._serial_number: str | None = None
+        self._sw_version: str | None = None
 
     @staticmethod
     def _get_api(
-        configs: dict[str, Any], session: aiohttp.ClientSession
+        configs: dict[str, Any],
+        session: aiohttp.ClientSession,
+        config: dict[ARConfKey, Any],
     ) -> AsusRouter:
         """Get AsusRouter API."""
 
@@ -129,13 +160,18 @@ class ARBridge:
             use_ssl=configs[CONF_SSL],
             cache_time=configs.get(CONF_CACHE_TIME, CONF_DEFAULT_CACHE_TIME),
             session=session,
+            config=config,
         )
 
-    @property
-    def active(self) -> bool:
-        """Return activity state of the bridge."""
+    def _get_api_config(self) -> dict[ARConfKey, Any]:
+        """Get configuration for AsusRouter instance."""
 
-        return self._active
+        return {
+            # Enable automatic temperature fix
+            ARConfKey.OPTIMISTIC_TEMPERATURE: True,
+            # Disable log warning message
+            ARConfKey.NOTIFIED_OPTIMISTIC_TEMPERATURE: True,
+        }
 
     @property
     def api(self) -> AsusRouter:
@@ -144,16 +180,64 @@ class ARBridge:
         return self._api
 
     @property
+    def configuration_url(self) -> str:
+        """Return device configuration URL."""
+
+        return self._configuration_url
+
+    @property
     def connected(self) -> bool:
         """Return connection state."""
 
-        return self.api.connected
+        return self._api.connected
 
     @property
-    def identity(self) -> Optional[AsusDevice]:
+    def identifiers(self) -> set[tuple[str, str]]:
+        """Return device identifiers."""
+
+        return self._identifiers
+
+    @property
+    def identity(self) -> AsusDevice | None:
         """Return device identity."""
 
         return self._identity
+
+    @property
+    def manufacturer(self) -> str:
+        """Return device manufacturer."""
+
+        return self._manufacturer
+
+    @property
+    def model(self) -> str | None:
+        """Return device model."""
+
+        return self._model
+
+    @property
+    def model_id(self) -> str | None:
+        """Return device model ID."""
+
+        return self._model_id
+
+    @property
+    def name(self) -> str:
+        """Return device name."""
+
+        return self._name
+
+    @property
+    def serial_number(self) -> str | None:
+        """Return device serial number."""
+
+        return self._serial_number
+
+    @property
+    def sw_version(self) -> str | None:
+        """Return device software version."""
+
+        return self._sw_version
 
     # --------------------
     # Connection -->
@@ -165,8 +249,23 @@ class ARBridge:
         _LOGGER.debug("Connecting to the API")
 
         await self.api.async_connect()
-        self._identity = await self.api.async_get_identity()
-        self._active = True
+        identity = await self.api.async_get_identity()
+        self._identity = identity
+
+        # Set properties
+        self._identifiers = set()
+        if identity.mac is not None:
+            self._identifiers.add((DOMAIN, format_mac(identity.mac)))
+        if identity.serial is not None:
+            self._identifiers.add((DOMAIN, identity.serial))
+        self._manufacturer = identity.brand
+        self._model = identity.model
+        self._model_id = identity.product_id
+        self._name = identity.model or DEFAULT_IDENTITY_NAME
+        self._serial_number = identity.serial
+        self._sw_version = (
+            str(identity.firmware) if identity.firmware else None
+        )
 
     async def async_disconnect(self) -> None:
         """Disconnect from the device."""
@@ -174,7 +273,6 @@ class ARBridge:
         _LOGGER.debug("Disconnecting from the API")
 
         await self.api.async_disconnect()
-        self._active = False
 
     async def async_clean(self) -> None:
         """Cleanup."""
@@ -195,13 +293,11 @@ class ARBridge:
         mode = self._configs.get(CONF_MODE, CONF_DEFAULT_MODE)
         available = MODE_SENSORS[mode]
         _LOGGER.debug("Available sensors for mode=`%s`: %s", mode, available)
-        sensors = {
+        return {
             group: details
             for group, details in sensors.items()
             if group in available
         }
-
-        return sensors
 
     async def async_get_available_sensors(self) -> dict[str, dict[str, Any]]:
         """Get available sensors."""
@@ -218,6 +314,10 @@ class ARBridge:
             CPU: {
                 SENSORS: await self._get_sensors_modern(AsusData.CPU),
                 METHOD: self._get_data_cpu,
+            },
+            DDNS: {
+                SENSORS: await self._get_sensors_modern(AsusData.DDNS),
+                METHOD: self._get_data_ddns,
             },
             DSL: {
                 SENSORS: await self._get_sensors_modern(AsusData.DSL),
@@ -293,9 +393,7 @@ class ARBridge:
         }
 
         # Cleanup sensors if needed
-        sensors = await self.async_cleanup_sensors(sensors)
-
-        return sensors
+        return await self.async_cleanup_sensors(sensors)
 
     # GET DATA FROM DEVICE ->
     # General method
@@ -359,6 +457,11 @@ class ARBridge:
         """Get CPU data from the device."""
 
         return await self._get_data(AsusData.CPU)
+
+    async def _get_data_ddns(self) -> dict[str, Any]:
+        """Get DDNS data from the device."""
+
+        return await self._get_data_modern(AsusData.DDNS)
 
     async def _get_data_dsl(self) -> dict[str, Any]:
         """Get DSL data from the device."""
@@ -570,7 +673,7 @@ class ARBridge:
             _LOGGER.debug(
                 "Raw `%s` sensors of type (%s): %s", datatype, type(data), data
             )
-            sensors = convert_to_ha_sensors_list(data)
+            sensors = convert_to_ha_sensors(data, datatype)
             _LOGGER.debug(
                 "Available `%s` sensors: %s", datatype.value, sensors
             )
@@ -643,10 +746,10 @@ class ARBridge:
 
     def _pc_device2rule(
         self, device: dict[str, Any], rule_type: PCRuleType
-    ) -> Optional[ParentalControlRule]:
+    ) -> ParentalControlRule | None:
         """Convert device to parental control rule."""
 
-        mac = device.get("mac", None)
+        mac = device.get("mac")
 
         if mac is None:
             return None
@@ -657,11 +760,11 @@ class ARBridge:
             type=rule_type,
         )
 
-    async def async_pc_rule(self, **kwargs: Any) -> bool:
+    async def async_pc_rule(self, **kwargs: Any) -> bool:  # noqa: C901, PLR0912
         """Change parental control rule(s)."""
 
         # Get the passed data
-        raw = kwargs.get("raw", None)
+        raw = kwargs.get("raw")
 
         # Abort if no data is passed
         if raw is None:
@@ -717,4 +820,5 @@ class ARBridge:
 
     # --------------------
     # <-- Services
+    # --------------------
     # --------------------

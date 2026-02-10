@@ -73,7 +73,10 @@ SWITCHES: tuple[DreoSwitchEntityDescription, ...] = (
         icon="mdi:rotate-360",
     ),
     DreoSwitchEntityDescription(
-        key="PTC", translation_key="ptcon", attr_name="ptcon", icon="mdi:help"
+        key="PTC", 
+        translation_key="ptcon", 
+        attr_name="ptcon", 
+        icon="mdi:help"
     ),
     DreoSwitchEntityDescription(
         key="Child Lock",
@@ -92,7 +95,25 @@ SWITCHES: tuple[DreoSwitchEntityDescription, ...] = (
         translation_key="humidify",
         attr_name="humidify",
         icon="mdi:air-humidifier",
-    )
+    ),
+    DreoSwitchEntityDescription(    
+        key="Display Light",
+        translation_key="display_light",
+        attr_name="display_light",
+        icon="mdi:led-on",
+    ),
+    DreoSwitchEntityDescription(    
+        key="Auto Turn On",
+        translation_key="auto_mode",
+        attr_name="auto_mode",
+        icon="mdi:autorenew",
+    ),
+    DreoSwitchEntityDescription(
+        key="Schedule",
+        translation_key="scheon",
+        attr_name="scheon",
+        icon="mdi:calendar",
+    )  
 )
 
 def get_entries(pydreo_devices : list[PyDreoBaseDevice]) -> list[DreoSwitchHA]:
@@ -160,6 +181,10 @@ class DreoSwitchHA(DreoBaseDeviceHA, SwitchEntity):
             self._attr_name,
             self._attr_unique_id)
 
+    def __repr__(self):
+        # Representation string of object.
+        return f"<{self.__class__.__name__}:{self.entity_description}"
+    
     @property
     def is_on(self) -> bool:
         """Return True if device is on."""

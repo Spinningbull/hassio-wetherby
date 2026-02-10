@@ -5,44 +5,86 @@
   "data": {
     "backups": [
       {
-        "backup_id": "63e8c6be",
+        "backup_id": "60ebe6da",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "5a72e04c",
+        "backup_id": "c272a325",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "f693c9c1",
+        "backup_id": "3f3bf989",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "cbe8de41",
+        "backup_id": "69fd8810",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "25c81b37",
+        "backup_id": "8b5e4854",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "68fa539a",
+        "backup_id": "faee13e8",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "eb17f403",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "66d02aee",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "19164091",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "4f4bb7bf",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "4cf0f1be",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       }
     ],
     "config": {
-      "agents": {},
+      "agents": {
+        "synology_dsm.2370UVR7KPCEE": {
+          "protected": false,
+          "retention": null
+        },
+        "hassio.Lilnas": {
+          "protected": true,
+          "retention": {
+            "copies": 9,
+            "days": null
+          }
+        }
+      },
       "automatic_backups_configured": true,
       "create_backup": {
         "agent_ids": [
@@ -57,8 +99,8 @@
         "name": null,
         "password": "JKJT-306D-1PG8-5M0M-GY2J-Z23K-1PKJ"
       },
-      "last_attempted_automatic_backup": "2025-08-08T05:16:39.001638-05:00",
-      "last_completed_automatic_backup": "2025-08-08T05:18:43.982361-05:00",
+      "last_attempted_automatic_backup": "2026-02-07T08:58:20.398739-06:00",
+      "last_completed_automatic_backup": "2026-02-07T09:01:31.940064-06:00",
       "retention": {
         "copies": 3,
         "days": null
@@ -68,7 +110,6 @@
           "fri"
         ],
         "recurrence": "custom_days",
-        "state": "fri",
         "time": null
       }
     }

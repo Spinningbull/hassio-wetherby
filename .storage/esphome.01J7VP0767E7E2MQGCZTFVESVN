@@ -20,6 +20,8 @@
       "voice_assistant_feature_flags": 0,
       "legacy_bluetooth_proxy_version": 0,
       "bluetooth_proxy_feature_flags": 0,
+      "zwave_proxy_feature_flags": 0,
+      "zwave_home_id": 0,
       "suggested_area": "",
       "bluetooth_mac_address": "",
       "api_encryption_supported": false,
@@ -35,31 +37,6 @@
       "major": 1,
       "minor": 10
     },
-    "light": [
-      {
-        "object_id": "warning_beep",
-        "key": 1317586638,
-        "name": "Warning Beep",
-        "disabled_by_default": false,
-        "icon": "",
-        "entity_category": 0,
-        "device_id": 0,
-        "supported_color_modes": [
-          1
-        ],
-        "min_mireds": 0.0,
-        "max_mireds": 0.0,
-        "effects": [
-          "None",
-          "Strobe"
-        ],
-        "legacy_supports_brightness": false,
-        "legacy_supports_rgb": false,
-        "legacy_supports_white_value": false,
-        "legacy_supports_color_temperature": false
-      }
-    ],
-    "update": [],
     "switch": [
       {
         "object_id": "alarm_1",
@@ -82,6 +59,18 @@
         "device_id": 0,
         "assumed_state": false,
         "device_class": ""
+      }
+    ],
+    "button": [
+      {
+        "object_id": "restart",
+        "key": 1203400786,
+        "name": "Restart",
+        "disabled_by_default": false,
+        "icon": "mdi:restart",
+        "entity_category": 1,
+        "device_id": 0,
+        "device_class": "restart"
       }
     ],
     "sensor": [
@@ -133,16 +122,28 @@
         "device_class": ""
       }
     ],
-    "button": [
+    "light": [
       {
-        "object_id": "restart",
-        "key": 1203400786,
-        "name": "Restart",
+        "object_id": "warning_beep",
+        "key": 1317586638,
+        "name": "Warning Beep",
         "disabled_by_default": false,
-        "icon": "mdi:restart",
-        "entity_category": 1,
+        "icon": "",
+        "entity_category": 0,
         "device_id": 0,
-        "device_class": "restart"
+        "supported_color_modes": [
+          1
+        ],
+        "min_mireds": 0.0,
+        "max_mireds": 0.0,
+        "effects": [
+          "None",
+          "Strobe"
+        ],
+        "legacy_supports_brightness": false,
+        "legacy_supports_rgb": false,
+        "legacy_supports_white_value": false,
+        "legacy_supports_color_temperature": false
       }
     ],
     "binary_sensor": [
@@ -278,6 +279,7 @@
         "device_class": "",
         "is_status_binary_sensor": false
       }
-    ]
+    ],
+    "update": []
   }
 }

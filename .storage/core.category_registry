@@ -34,6 +34,50 @@
           "icon": null,
           "modified_at": "2025-07-22T18:58:18.820586+00:00",
           "name": "Roon"
+        },
+        {
+          "category_id": "01K3PQGR2TQZSFHG55D3TC0PD9",
+          "created_at": "2025-08-27T21:39:05.946379+00:00",
+          "icon": "mdi:home-lightbulb",
+          "modified_at": "2025-08-27T21:39:05.946389+00:00",
+          "name": "House lights"
+        },
+        {
+          "category_id": "01K3PQKKDX1QJDBXTDMRYD5T0S",
+          "created_at": "2025-08-27T21:40:39.485985+00:00",
+          "icon": "mdi:movie-cog-outline",
+          "modified_at": "2025-08-27T21:40:39.485993+00:00",
+          "name": "Theater"
+        },
+        {
+          "category_id": "01KBCXZN2WXP52ATY6RMYF5C8X",
+          "created_at": "2025-12-01T12:25:16.124960+00:00",
+          "icon": "mdi:alarm-light",
+          "modified_at": "2025-12-01T12:25:16.124970+00:00",
+          "name": "Security"
+        },
+        {
+          "category_id": "01KH2GM8AD688512V66JQVS6HW",
+          "created_at": "2026-02-10T00:53:37.741248+00:00",
+          "icon": "mdi:check-network-outline",
+          "modified_at": "2026-02-10T00:53:37.741258+00:00",
+          "name": "Network"
+        }
+      ],
+      "script": [
+        {
+          "category_id": "01KCDR6GJGTPVDHAFFZ46A6WKY",
+          "created_at": "2025-12-14T06:19:05.680805+00:00",
+          "icon": "mdi:music",
+          "modified_at": "2025-12-14T06:19:05.680814+00:00",
+          "name": "Music"
+        },
+        {
+          "category_id": "01KCDR8JQZC8M2SAC8VJ9WHAKN",
+          "created_at": "2025-12-14T06:20:13.439088+00:00",
+          "icon": "mdi:lightbulb-group",
+          "modified_at": "2025-12-14T06:20:13.439099+00:00",
+          "name": "Lights"
         }
       ]
     }

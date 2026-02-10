@@ -3,13 +3,16 @@
   "minor_version": 1,
   "key": "core.analytics",
   "data": {
+    "onboarded": true,
     "preferences": {
       "base": true,
       "diagnostics": true,
       "usage": true,
-      "statistics": true
+      "statistics": true,
+      "snapshots": true
     },
-    "onboarded": true,
-    "uuid": "0ba8182fdd874a1f907bdfcf7c147ed1"
+    "uuid": "0ba8182fdd874a1f907bdfcf7c147ed1",
+    "submission_identifier": "h4yran4l83jvRP6s_WS8IiqJxeM22nRqMDmnkqTrlAc|eyJyb2xlIjoic25hcHNob3Qtc3VibWlzc2lvbiIsImF0IjoxNzcwNzY0MDI0LCJpZCI6IjlkMjllYWE4LTZmOWItNGIzYS05YTZlLTYyNDRlZWI1M2NmNSIsInN1YiI6ImQyMjkwOGE4LWIyM2YtNDExNC05OTEwLWNiZjMxNzNhOGExZSJ9",
+    "snapshot_submission_time": 86021.74755283323
   }
 }

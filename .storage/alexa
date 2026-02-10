@@ -1,8 +1,8 @@
 {
-    "version": 1,
-    "minor_version": 1,
-    "key": "alexa",
-    "data": {
-        "authorized": true
-    }
+  "version": 1,
+  "minor_version": 1,
+  "key": "alexa",
+  "data": {
+    "authorized": true
+  }
 }

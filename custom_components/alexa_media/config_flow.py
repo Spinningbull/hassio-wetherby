@@ -12,7 +12,9 @@ from collections import OrderedDict
 import datetime
 from datetime import timedelta
 from functools import reduce
+import html as html_lib
 import logging
+import traceback
 from typing import Any, Optional
 
 from aiohttp import ClientConnectionError, ClientSession, InvalidURL, web, web_response
@@ -22,7 +24,6 @@ from alexapy import (
     AlexaProxy,
     AlexapyConnectionError,
     AlexapyPyotpInvalidKey,
-    __version__ as alexapy_version,
     hide_email,
     obfuscate,
 )
@@ -42,7 +43,6 @@ from homeassistant.const import (
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult, UnknownFlow
 from homeassistant.exceptions import Unauthorized
-from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.network import NoURLAvailableError, get_url
 from homeassistant.util import slugify
 import httpx
@@ -75,7 +75,6 @@ from .const import (
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
     ISSUE_URL,
-    STARTUP,
 )
 from .helpers import calculate_uuid
 
@@ -123,9 +122,6 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
 
     def __init__(self):
         """Initialize the config flow."""
-        if self.hass and not self.hass.data.get(DATA_ALEXAMEDIA):
-            _LOGGER.info(STARTUP)
-            _LOGGER.info("Loaded alexapy==%s", alexapy_version)
         self.login = None
         self.securitycode: Optional[str] = None
         self.automatic_steps: int = 0
@@ -306,8 +302,11 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
         except AlexapyPyotpInvalidKey:
             return self.async_show_form(
                 step_id="user",
+                data_schema=vol.Schema(self.proxy_schema),
                 errors={"base": "2fa_key_invalid"},
-                description_placeholders={"message": ""},
+                description_placeholders={
+                    "otp_secret": self.config.get(CONF_OTPSECRET, ""),
+                },
             )
         hass_url: str = user_input.get(CONF_HASS_URL)
         if hass_url is None:
@@ -355,7 +354,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
         ):
             otp: str = self.login.get_totp_token()
             if otp:
-                _LOGGER.debug("Generating OTP from %s", otp)
+                _LOGGER.debug("Generated TOTP: %s", otp)
                 return self.async_show_form(
                     step_id="totp_register",
                     data_schema=vol.Schema(self.totp_register),
@@ -382,6 +381,14 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
                     self.login,
                     str(URL(self.config.get(CONF_HASS_URL)).with_path(AUTH_PROXY_PATH)),
                 )
+                self.proxy.session_factory = lambda: httpx.AsyncClient(
+                    timeout=httpx.Timeout(
+                        connect=30.0,
+                        read=120.0,
+                        write=30.0,
+                        pool=30.0,
+                    ),
+                )
             except ValueError as ex:
                 return self.async_show_form(
                     step_id="user",
@@ -390,6 +397,23 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
                 )
         # Swap the login object
         self.proxy.change_login(self.login)
+        # Increase timeout for Amazon authentication (default 5s is too short)
+        if hasattr(self.proxy, "session") and self.proxy.session:
+            self.proxy.session.timeout = httpx.Timeout(
+                connect=30.0,
+                read=120.0,
+                write=30.0,
+                pool=30.0,
+            )
+            _LOGGER.warning(
+                "PROXY DEBUG >>> Session timeout set to: %s",
+                self.proxy.session.timeout,
+            )
+        else:
+            _LOGGER.warning(
+                "PROXY DEBUG >>> No session found on proxy object. Attrs: %s",
+                dir(self.proxy),
+            )
         if not self.proxy_view:
             self.proxy_view = AlexaMediaAuthorizationProxyView(self.proxy.all_handler)
         else:
@@ -493,7 +517,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
             ):
                 otp: str = self.login.get_totp_token()
                 if otp:
-                    _LOGGER.debug("Generating OTP from %s", otp)
+                    _LOGGER.debug("Generated TOTP: %s", otp)
                     return self.async_show_form(
                         step_id="totp_register",
                         data_schema=vol.Schema(self.totp_register),
@@ -507,7 +531,9 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
                 return self.async_show_form(
                     step_id="user",
                     errors={"base": "2fa_key_invalid"},
-                    description_placeholders={"message": ""},
+                    description_placeholders={
+                        "otp_secret": user_input.get(CONF_OTPSECRET),
+                    },
                 )
             if self.login.status:
                 _LOGGER.debug("Resuming existing flow")
@@ -529,7 +555,9 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
             return self.async_show_form(
                 step_id="user_legacy",
                 errors={"base": "2fa_key_invalid"},
-                description_placeholders={"message": ""},
+                description_placeholders={
+                    "otp_secret": user_input.get(CONF_OTPSECRET),
+                },
             )
         except BaseException as ex:  # pylint: disable=broad-except
             _LOGGER.warning("Unknown error: %s", ex)
@@ -562,7 +590,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
             _LOGGER.debug("Not registered, regenerating")
             otp: str = self.login.get_totp_token()
             if otp:
-                _LOGGER.debug("Generating OTP from %s", otp)
+                _LOGGER.debug("Generated TOTP: %s", otp)
                 return self.async_show_form(
                     step_id="totp_register",
                     data_schema=vol.Schema(self.totp_register),
@@ -674,6 +702,15 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
                 self.hass.data[DATA_ALEXAMEDIA]["config_flows"][
                     f"{email} - {login.url}"
                 ] = None
+                # Reload the integration to apply new credentials and clear error state
+                try:
+                    _LOGGER.debug("Reloading integration for %s", hide_email(email))
+                    await self.hass.config_entries.async_reload(existing_entry.entry_id)
+                except Exception:  # noqa: BLE001
+                    _LOGGER.warning(
+                        "Failed to reload integration for %s; restart may be needed",
+                        hide_email(email),
+                    )
                 return self.async_abort(reason="reauth_successful")
             _LOGGER.debug(
                 "Setting up Alexa devices with %s", dict(obfuscate(self.config))
@@ -742,7 +779,7 @@ class AlexaMediaFlowHandler(config_entries.ConfigFlow):
             step_id="user",
             data_schema=vol.Schema(new_schema),
             description_placeholders={
-                "message": f"  \n> {login.status.get('error_message','')}"
+                "message": f"  \n> {login.status.get('error_message', '')}"
             },
         )
 
@@ -1062,15 +1099,73 @@ class AlexaMediaAuthorizationProxyView(HomeAssistantView):
                 if not success:
                     raise Unauthorized()
                 cls.known_ips[request.remote] = datetime.datetime.now()
+            _sensitive_keys = {
+                "authorization",
+                "cookie",
+                "set-cookie",
+                "x-amz-security-token",
+            }
+            if _LOGGER.isEnabledFor(logging.DEBUG):
+                _safe_req_headers = {
+                    k: ("***" if k.lower() in _sensitive_keys else v)
+                    for k, v in request.headers.items()
+                }
+                _LOGGER.debug(
+                    "PROXY DEBUG >>> Request: %s %s | Remote: %s | Headers: %s",
+                    request.method,
+                    request.url,
+                    request.remote,
+                    _safe_req_headers,
+                )
             try:
-                return await cls.handler(request, **kwargs)
-            except httpx.ConnectError as ex:  # pylyint: disable=broad-except
+                result = await cls.handler(request, **kwargs)
+                if _LOGGER.isEnabledFor(logging.DEBUG):
+                    _safe_resp_headers = (
+                        {
+                            k: ("***" if k.lower() in _sensitive_keys else v)
+                            for k, v in result.headers.items()
+                        }
+                        if hasattr(result, "headers")
+                        else "unknown"
+                    )
+                    _LOGGER.debug(
+                        "PROXY DEBUG >>> Success: %s %s | Status: %s | Response headers: %s",
+                        request.method,
+                        request.url,
+                        result.status if hasattr(result, "status") else "unknown",
+                        _safe_resp_headers,
+                    )
+                return result
+            except httpx.ConnectError as ex:
                 _LOGGER.warning("Detected Connection error: %s", ex)
                 return web_response.Response(
                     headers={"content-type": "text/html"},
                     text="Connection Error! Please try refreshing. "
                     + "If this persists, please report this error to "
-                    + f"<a href={ISSUE_URL}>here</a>:<br /><pre>{ex}</pre>",
+                    + f"<a href={ISSUE_URL}>here</a>.",
+                )
+            except web.HTTPException:
+                raise  # Let aiohttp handle redirects (HTTPFound) and other HTTP exceptions
+            except Exception as ex:  # pylint: disable=broad-except
+                tb = traceback.format_exc()
+                _LOGGER.warning(
+                    "PROXY DEBUG >>> EXCEPTION at %s %s\n"
+                    "Type: %s\n"
+                    "Message: %s\n"
+                    "Full traceback:\n%s",
+                    request.method,
+                    request.url,
+                    type(ex).__name__,
+                    ex,
+                    tb,
+                )
+                return web_response.Response(
+                    headers={"content-type": "text/html"},
+                    text="An unexpected error occurred during login. "
+                    + "Please try refreshing. "
+                    + "If this persists, please report this error to "
+                    + f"<a href={ISSUE_URL}>here</a>:"
+                    + f"<br /><pre>{html_lib.escape(type(ex).__name__)}</pre>",
                 )
 
         return wrapped

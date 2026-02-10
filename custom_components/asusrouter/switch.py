@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 import logging
-from typing import Any, Optional
+from typing import Any
 
+from asusrouter.modules.parental_control import ParentalControlRule, PCRuleType
 from homeassistant.components.switch import SwitchEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
@@ -13,8 +14,6 @@ from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-
-from asusrouter.modules.parental_control import ParentalControlRule, PCRuleType
 
 from .const import (
     ASUSROUTER,
@@ -177,7 +176,7 @@ class ClientInternetSwitch(SwitchEntity):
         )
 
     @property
-    def is_on(self) -> Optional[bool]:
+    def is_on(self) -> bool | None:
         """Get the state."""
 
         match self._rule.type:
@@ -189,7 +188,7 @@ class ClientInternetSwitch(SwitchEntity):
                 return None
 
     @property
-    def icon(self) -> Optional[str]:
+    def icon(self) -> str | None:
         """Get the icon."""
 
         if self.is_on:
@@ -219,7 +218,7 @@ class ClientInternetSwitch(SwitchEntity):
             self._rule = state
             if not result:
                 _LOGGER.debug("State was not set!")
-        except Exception as ex:  # pylint: disable=broad-except
+        except Exception as ex:  # noqa: BLE001
             _LOGGER.error("Unable to set state with an exception: %s", ex)
 
     async def async_turn_on(
