@@ -1,0 +1,15 @@
+substitutions:
+  name: konnected-509b18
+  friendly_name: Main Panel
+
+packages:
+  konnected.alarm-panel-pro-ethernet: "github://konnected-io/konnected-esphome/alarm-panel-pro-esp32-ethernet.yaml@master"
+
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+
+api:
+  encryption:
+    key: "3F+lzuhh5dMbibMUxhG/QbB8WxLInV43gHcHgyB4law="
