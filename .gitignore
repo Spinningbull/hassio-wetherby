@@ -12,4 +12,4 @@ www/community/*
 .vscode/settings.json
 custom_components/*
 tts/
-.storage/
+.storage/*
