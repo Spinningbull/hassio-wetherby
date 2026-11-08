@@ -3,10 +3,15 @@
 default_config:
 
 # Example configuration.yaml entry
-media_player:
+# media_player:
 # import android TV configuration
 #media_player android: !include androidtv.yaml
+# Example configuration.yaml entry
 
+# media_player:
+#   - platform: emby
+    # host: 192.168.7.78
+    # api_key: d9584bf09d8f4fc7ab14ac6440b1c2c7
 
 # radarr sensors
 # sensor:
@@ -22,6 +27,7 @@ media_player:
 
 binary_sensor:
   - platform: flic
+    discovery: true
     # host: 192.168.7.223
     
 # sabnzdb 

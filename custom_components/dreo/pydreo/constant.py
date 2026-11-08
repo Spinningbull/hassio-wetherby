@@ -1,7 +1,6 @@
 """Constants for the PyDreo library."""
-from enum import Enum, IntEnum, StrEnum
 
-LOGGER_NAME = "pydreo"
+from enum import Enum, IntEnum, StrEnum
 
 # Various keys read from server JSON responses.
 ACCESS_TOKEN_KEY = "access_token"
@@ -13,7 +12,9 @@ DEVICEID_KEY = "deviceid"
 DEVICESN_KEY = "deviceSn"
 REPORTED_KEY = "reported"
 STATE_KEY = "state"
+TIMESTAMP_KEY = "timestamp"
 POWERON_KEY = "poweron"
+CONNECTED_KEY = "connected"
 WINDTYPE_KEY = "windtype"
 WINDLEVEL_KEY = "windlevel"
 MODE_KEY = "mode"
@@ -26,16 +27,36 @@ TEMPERATURE_KEY = "temperature"
 TARGET_TEMPERATURE_KEY = "templevel"
 SLEEPTEMPOFFSET_KEY = "sleeptempoffset"
 VOICEON_KEY = "voiceon"
+MISTON_KEY = "miston"
 LEDALWAYSON_KEY = "ledalwayson"
 LIGHTSENSORON_KEY = "lightsensoron"
 MUTEON_KEY = "muteon"
 PM25_KEY = "pm25"
+LIFETIME_KEY = "lifetime"
+LOCATEMEON_KEY = "locatemeon"
 FIXEDCONF_KEY = "fixedconf"
+# device_ranges key (float seconds): min gap between fixedconf commands for models
+# that need pan/tilt settle (e.g. DR-HPF017S uses 8.0s — empirically tuned to that
+# model's motor travel; adjust per model if mid-move rejects appear). Omit or 0 =
+# no settle delay.
+FIXEDCONF_SETTLE_SECONDS_KEY = "fixed_conf_settle_seconds"
 DEVON_KEY = "devon"
 TIMERON_KEY = "timeron"
+# Maximum duration (minutes) settable for the auto on/off timer. The Dreo mobile
+# app allows up to 11h59m (719 minutes), which is a superset of what's exposed on
+# any single device's physical remote.
+TIMER_MAX_MINUTES = 719
 COOLDOWN_KEY = "cooldown"
 PTCON_KEY = "ptcon"
 LIGHTON_KEY = "lighton"
+AIRFLOWMODE_KEY = "airflowmode"
+WINOPENON_KEY = "winopenon"
+RGBON_KEY = "rgbon"
+MCU_FIRMWARE_VERSION_KEY = "mcu_firmware_version"
+MCU_HARDWARE_MODEL_KEY = "mcu_hardware_model"
+HWFPON_KEY = "hwfpon"
+HWFPANGLE_KEY = "hwfpangle"
+HBODYCNT_KEY = "hbodycnt"
 BRIGHTNESS_KEY = "brightness"
 COLORTEMP_KEY = "colortemp"
 CTLSTATUS_KEY = "ctlstatus"
@@ -43,18 +64,37 @@ TIMEROFF_KEY = "timeroff"
 ECOLEVEL_KEY = "ecolevel"
 ECOLEVEL_RANGE_KEY = "ecolevel_range"
 CHILDLOCKON_KEY = "childlockon"
+PURIFYON_KEY = "purifyon"
 TEMPOFFSET_KEY = "tempoffset"
+# Tower fan/heater combos (DR-HSH016S): "mode" is an integer selecting the HEAT or FAN function,
+# with a separate sub-mode key for each function and a fan speed level for the FAN function.
+HTAMODE_KEY = "htamode"
+COOLMODE_KEY = "coolmode"
+COOLLEVEL_KEY = "coollevel"
+LIGHTMODE_KEY = "lightmode"
 HUMIDITY_KEY = "rh"
 WORKTIME_KEY = "worktime"
 TEMP_TARGET_REACHED_KEY = "reachtarget"
 TARGET_AUTO_HUMIDITY_KEY = "rhautolevel"
+TARGET_SLEEP_HUMIDITY_KEY = "rhsleeplevel"
+FOG_LEVEL_KEY = "foglevel"
 TARGET_HUMIDITY_KEY = "rhlevel"
-ATMON_KEY = 'atmon'
-ATMCOLOR_KEY = 'atmcolor'
-ATMBRI_KEY = 'atmbri'
-ATMMODE_KEY = 'atmmode'
-RGB_LEVEL = 'rgblevel'
-SCHEDULE_ENABLE = 'scheon'
+TARGET_SLEEP_HUMIDITY_KEY = "rhsleeplevel"
+ATMON_KEY = "atmon"
+ATMCOLOR_KEY = "atmcolor"
+ATMBRI_KEY = "atmbri"
+ATMMODE_KEY = "atmmode"
+AMBIENT_SWITCH_KEY = "ambient_switch"
+FOGLEVEL_KEY = "foglevel"
+LEDKEPTON_KEY = "ledkepton"
+LEDLEVEL_KEY = "ledlevel"
+RGB_LEVEL = "rgblevel"
+RGB_TH = "rgbth"
+RGB_MODE = "rgbmode"
+RGB_COLOR = "rgbcolor"
+RGB_BRI = "rgbbri"
+LED_LEVEL_KEY = "ledlevel"
+SCHEDULE_ENABLE = "scheon"
 
 # Preferences Names
 # It's possible we should switch to IDs instead of names
@@ -66,11 +106,12 @@ SHAKEHORIZONANGLE_KEY = "shakehorizonangle"
 
 # Ceiling Fan
 FANON_KEY = "fanon"
+RGBPRESETSEL_KEY = "rgbpresetsel"
+RGBPRESETNUM_KEY = "rgbpresetnum"
+RGBEFFECTID_KEY = "rgbeffectid"
 
 
-DREO_API_URL_FORMAT = (
-    "https://app-api-{0}.dreo-tech.com"  # {0} is the 2 letter region code
-)
+DREO_API_URL_FORMAT = "https://app-api-{0}.dreo-tech.com"  # {0} is the 2 letter region code
 
 DREO_API_PATH = "path"
 DREO_API_METHOD = "method"
@@ -104,12 +145,15 @@ DREO_APIS = {
     DREO_API_SETTING_PUT: {
         DREO_API_PATH: "/api/user-device/setting",
         DREO_API_METHOD: "put",
-    }
+    },
 }
+
 
 class DreoDeviceSetting(StrEnum):
     """Dreo device settings"""
+
     FAN_TEMP_OFFSET = "kHafFanTempOffsetKey"
+
 
 DREO_AUTH_REGION_NA = "NA"
 DREO_AUTH_REGION_EU = "EU"
@@ -117,26 +161,18 @@ DREO_AUTH_REGION_EU = "EU"
 DREO_API_REGION_US = "us"
 DREO_API_REGION_EU = "eu"
 
-OSCANGLE_ANGLE_MAP = {
-    "Oscillate" : 0,
-    "60°" : 60,
-    "90°" : 90,
-    "120°" : 120
-}
+OSCANGLE_ANGLE_MAP = {"Oscillate": 0, "60°": 60, "90°": 90, "120°": 120}
 
-ANGLE_OSCANGLE_MAP = {
-    0: "Oscillate",
-    60 : "60°",
-    90 : "90°",
-    120 : "120°"
-}
+ANGLE_OSCANGLE_MAP = {0: "Oscillate", 60: "60°", 90: "90°", 120: "120°"}
 
 HORIZONTAL_OSCILLATION_KEY = "hoscon"
 HORIZONTAL_OSCILLATION_ANGLE_KEY = "hoscangle"
 HORIZONTAL_ANGLE_ADJ_KEY = "hangleadj"
+HORIZONTAL_OSCILLATION_ADJ_KEY = "hoscadj"
 
 VERTICAL_OSCILLATION_KEY = "voscon"
 VERTICAL_OSCILLATION_ANGLE_KEY = "voscangle"
+VERTICAL_OSCILLATION_ADJ_KEY = "voscadj"
 
 MIN_OSC_ANGLE_DIFFERENCE = 30
 
@@ -151,31 +187,41 @@ VERTICAL_ANGLE_RANGE = "vertical_angle_range"
 SPEED_RANGE = "speed_range"
 HEAT_RANGE = "heat_range"
 ECOLEVEL_RANGE = "ecolevel_range"
+TEMPERATURE_OFFSET_RANGE = "temperature_offset_range"
+COOL_RANGE = "cool_range"
 TEMP_RANGE = "temp_range"
 TARGET_TEMP_RANGE = "target_temp_range"
 TARGET_TEMP_RANGE_ECO = "target_temp_range_eco"
 HUMIDITY_RANGE = "humidity_range"
+RGB_MODE_RANGE = "rgb_mode_range"
+
 
 class TemperatureUnit(Enum):
     """Valid possible temperature units."""
+
     CELSIUS = 0
     FAHRENHEIT = 1
+
 
 # Fan oscillation modes
 class OscillationMode(IntEnum):
     """Possible oscillation modes.  These are bitwise flags."""
-    OFF = 0,
-    HORIZONTAL = 1,
-    VERTICAL = 2,
+
+    OFF = (0,)
+    HORIZONTAL = (1,)
+    VERTICAL = (2,)
     BOTH = 3
+
 
 # Heater oscillation modes
 class HeaterOscillationAngles(StrEnum):
     """Possible Heater oscillation angles"""
+
     OSC = "Oscillate"
-    SIXTY = "60°",
-    NINETY = "90°",
+    SIXTY = ("60°",)
+    NINETY = ("90°",)
     ONE_TWENTY = "120°"
+
 
 #
 # The following is copied from homeassistant.components.climate
@@ -183,6 +229,17 @@ class HeaterOscillationAngles(StrEnum):
 # Possible swing state
 SWING_ON = "on"
 SWING_OFF = "off"
+
+# Maps oscmode integer values (used by newer heater firmware) to swing mode strings.
+# oscmode 0 = no oscillation; 1-4 correspond to oscillation modes in increasing angle.
+HEATER_OSCMODE_SWING_MAP = {
+    0: SWING_OFF,
+    1: HeaterOscillationAngles.OSC,
+    2: HeaterOscillationAngles.SIXTY,
+    3: HeaterOscillationAngles.NINETY,
+    4: HeaterOscillationAngles.ONE_TWENTY,
+}
+HEATER_SWING_OSCMODE_MAP = {v: k for k, v in HEATER_OSCMODE_SWING_MAP.items()}
 # Possible fan state
 FAN_ON = "on"
 FAN_OFF = "off"
@@ -211,11 +268,12 @@ PRESET_MODE_STRINGS = {
     "device_fans_mode_sleep": "sleep",
     "device_fans_mode_auto": "auto",
     "device_control_mode_auto": "auto",
+    "base_auto": "auto",
     "device_control_mode_turbo": "turbo",
     "base_reverse": "reverse",
     "device_control_custom": "custom",
     "fan_2in1_breeze": "2-in-1 Breeze Mode",
-    "device_control_mode_manual": "manual",
+    "device_control_mode_manual": "normal",
     "device_heater_mode_heat": "Heat",
     "device_heater_mode_eco": "Eco",
     "device_heater_mode_fan_only": "Cool Air",
@@ -224,6 +282,7 @@ PRESET_MODE_STRINGS = {
 
 class DreoDeviceType(StrEnum):
     """Product names for Dreo devices"""
+
     TOWER_FAN = "Tower Fan"
     AIR_CIRCULATOR = "Air Circulator"
     AIR_PURIFIER = "Air Purifier"
@@ -236,6 +295,7 @@ class DreoDeviceType(StrEnum):
     EVAPORATIVE_COOLER = "Evaporative Cooler"
     UNKNOWN = "Unknown"
 
+
 class DreoACMode(IntEnum):
     COOL = 1
     DRY = 2
@@ -243,14 +303,40 @@ class DreoACMode(IntEnum):
     SLEEP = 4
     ECO = 5
 
+
 class DreoACFanMode(IntEnum):
     LOW = 1
     MEDIUM = 2
     HIGH = 3
     AUTO = 4
 
+
 class DreoHeaterMode(StrEnum):
     COOLAIR = "coolair"
     HOTAIR = "hotair"
     ECO = "eco"
     OFF = "off"
+
+
+# Tower fan/heater combos (DR-HSH016S) report an integer "mode" selecting the function, plus a
+# heat sub-mode "htamode" and a fan sub-mode "coolmode". The function and heat sub-mode together
+# map onto the DreoHeaterMode strings the other heaters report.
+class DreoHeaterFunction(IntEnum):
+    HEAT = 1
+    FAN = 2
+
+
+class DreoHeaterHeatMode(IntEnum):
+    POWER = 1
+    ECO = 2
+
+
+class DreoHeaterFanMode(IntEnum):
+    NORMAL = 1
+    NATURAL = 2
+    SLEEP = 3
+    AUTO = 4
+
+
+# Symmetric horizontal oscillation presets ("hoscangle" = "-half,half") offered as climate swing modes.
+HEATER_HOSC_SWING_ANGLES = {"30°": 15, "60°": 30, "90°": 45, "120°": 60}

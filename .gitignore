@@ -1,4 +1,6 @@
 .cloud/*
+.cache/*
+.ha_run.lock
 home-assistant*
 home-assistant.log
 home-assistant_v2.db
@@ -6,6 +8,8 @@ home-assistant_v2.db-shm
 .HA_VERSION
 home-assistant_v2.db-wal
 www/upcoming-media-card-images/*
+www/community/*
 .vscode/settings.json
+custom_components/*
 tts/
 .storage/

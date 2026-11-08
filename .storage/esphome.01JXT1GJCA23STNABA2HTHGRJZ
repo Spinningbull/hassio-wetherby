@@ -8,11 +8,11 @@
       "name": "athom-zigbee-gateway-e68b90",
       "friendly_name": "Bedjet gateway",
       "mac_address": "A0:B7:65:E6:8B:90",
-      "compilation_time": "2026-01-29 09:35:18 -0600",
+      "compilation_time": "2026-03-13 09:38:58 -0500",
       "model": "esp32dev",
       "manufacturer": "Espressif",
       "has_deep_sleep": false,
-      "esphome_version": "2026.1.2",
+      "esphome_version": "2026.2.4",
       "project_name": "China Athom Technology.Athom Zigbee Gateway",
       "project_version": "v2.0.6",
       "webserver_port": 80,
@@ -25,6 +25,8 @@
       "suggested_area": "",
       "bluetooth_mac_address": "A0:B7:65:E6:8B:92",
       "api_encryption_supported": false,
+      "api_encryption_provisionable": false,
+      "api_outgoing_connection_supported": false,
       "devices": [],
       "areas": [
         {
@@ -35,12 +37,37 @@
       "area": {
         "area_id": 0,
         "name": ""
-      }
+      },
+      "serial_proxies": []
     },
     "services": [],
     "api_version": {
       "major": 1,
       "minor": 14
+    },
+    "device_capabilities": {
+      "bluetooth_proxy": {
+        "feature_flags": 127,
+        "mac_address": "A0:B7:65:E6:8B:92"
+      },
+      "voice_assistant": {
+        "feature_flags": 0
+      },
+      "zwave_proxy": {
+        "feature_flags": 0,
+        "home_id": 0
+      },
+      "serial_proxies": [],
+      "wizard": {
+        "configured": false
+      },
+      "sendspin": {
+        "feature_flags": 0,
+        "client_id": ""
+      },
+      "store_yaml": {
+        "supported": false
+      }
     },
     "sensor": [
       {
@@ -75,30 +102,6 @@
       }
     ],
     "text_sensor": [],
-    "binary_sensor": [
-      {
-        "object_id": "athomzb_serial_connected",
-        "key": 1831060517,
-        "name": "AthomZB Serial Connected",
-        "disabled_by_default": false,
-        "icon": "",
-        "entity_category": 2,
-        "device_id": 0,
-        "device_class": "connectivity",
-        "is_status_binary_sensor": false
-      },
-      {
-        "object_id": "status",
-        "key": 939730931,
-        "name": "Status",
-        "disabled_by_default": false,
-        "icon": "",
-        "entity_category": 2,
-        "device_id": 0,
-        "device_class": "connectivity",
-        "is_status_binary_sensor": true
-      }
-    ],
     "climate": [
       {
         "object_id": "my_bedjet",
@@ -121,6 +124,7 @@
         "visual_max_temperature": 43.0,
         "visual_target_temperature_step": 1.0,
         "visual_current_temperature_step": 1.0,
+        "temperature_unit": 0,
         "legacy_supports_away": false,
         "supports_action": true,
         "supported_fan_modes": [],
@@ -162,7 +166,22 @@
         "visual_max_humidity": 99.0
       }
     ],
-    "update": [],
+    "fan": [
+      {
+        "object_id": "my_bedjet_fan",
+        "key": 1404961306,
+        "name": "My BedJet Fan",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 0,
+        "device_id": 0,
+        "supports_oscillation": false,
+        "supports_speed": true,
+        "supports_direction": false,
+        "supported_speed_count": 20,
+        "supported_preset_modes": []
+      }
+    ],
     "button": [
       {
         "object_id": "restart_the_device",
@@ -185,20 +204,50 @@
         "device_class": ""
       }
     ],
-    "fan": [
+    "update": [],
+    "light": [
       {
-        "object_id": "my_bedjet_fan",
-        "key": 1404961306,
-        "name": "My BedJet Fan",
-        "disabled_by_default": false,
+        "object_id": "status_led",
+        "key": 610457177,
+        "name": "Status LED",
+        "disabled_by_default": true,
         "icon": "",
         "entity_category": 0,
         "device_id": 0,
-        "supports_oscillation": false,
-        "supports_speed": true,
-        "supports_direction": false,
-        "supported_speed_count": 20,
-        "supported_preset_modes": []
+        "supported_color_modes": [
+          1
+        ],
+        "min_mireds": 0.0,
+        "max_mireds": 0.0,
+        "effects": [],
+        "legacy_supports_brightness": false,
+        "legacy_supports_rgb": false,
+        "legacy_supports_white_value": false,
+        "legacy_supports_color_temperature": false
+      }
+    ],
+    "binary_sensor": [
+      {
+        "object_id": "athomzb_serial_connected",
+        "key": 1831060517,
+        "name": "AthomZB Serial Connected",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": "connectivity",
+        "is_status_binary_sensor": false
+      },
+      {
+        "object_id": "status",
+        "key": 939730931,
+        "name": "Status",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": "connectivity",
+        "is_status_binary_sensor": true
       }
     ],
     "switch": [
@@ -223,27 +272,6 @@
         "device_id": 0,
         "assumed_state": false,
         "device_class": ""
-      }
-    ],
-    "light": [
-      {
-        "object_id": "status_led",
-        "key": 610457177,
-        "name": "Status LED",
-        "disabled_by_default": true,
-        "icon": "",
-        "entity_category": 0,
-        "device_id": 0,
-        "supported_color_modes": [
-          1
-        ],
-        "min_mireds": 0.0,
-        "max_mireds": 0.0,
-        "effects": [],
-        "legacy_supports_brightness": false,
-        "legacy_supports_rgb": false,
-        "legacy_supports_white_value": false,
-        "legacy_supports_color_temperature": false
       }
     ]
   }

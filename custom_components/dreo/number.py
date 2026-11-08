@@ -1,4 +1,4 @@
-"""Support additionl Numberes for some Dreo devices"""
+"""Support additional Numbers for some Dreo devices"""
 # Suppress warnings about DataClass constructors
 # pylint: disable=E1123
 
@@ -9,23 +9,21 @@ from collections.abc import Callable
 from dataclasses import dataclass
 import logging
 
-from .haimports import * # pylint: disable=W0401,W0614
+from .haimports import *  # pylint: disable=W0401,W0614
 from .pydreo import PyDreo
 from .pydreo.pydreobasedevice import PyDreoBaseDevice
-from .pydreo.constant import DreoDeviceType
+from .pydreo.constant import DreoDeviceType, TIMER_MAX_MINUTES
 from .dreobasedevice import DreoBaseDeviceHA
 
-from .const import (
-    LOGGER,
-    DOMAIN,
-    PYDREO_MANAGER
-)
+from .const import DOMAIN, PYDREO_MANAGER
 
-_LOGGER = logging.getLogger(LOGGER)
+_LOGGER = logging.getLogger(__name__)
+
 
 @dataclass
 class DreoNumberEntityDescription(NumberEntityDescription):
     """Describe Dreo Number entity."""
+
     attr_name: str = None
     icon: str = None
     exists_fn: Callable[[PyDreoBaseDevice], bool] = None
@@ -36,6 +34,21 @@ class DreoNumberEntityDescription(NumberEntityDescription):
 
 
 NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
+    # Diagnostic: runtime-tune fixedconf settle for models that declare it
+    # (e.g. DR-HPF017S). Disabled by default; pair with Angle Settle Pending.
+    # key is snake_case so unique_id tokens stay machine-friendly.
+    DreoNumberEntityDescription(
+        key="fixed_conf_settle_seconds",
+        translation_key="fixed_conf_settle_seconds",
+        attr_name="fixed_conf_settle_seconds",
+        icon="mdi:timer-outline",
+        min_value=0,
+        max_value=30,
+        step=0.5,
+        entity_category=EntityCategory.DIAGNOSTIC,
+        entity_registry_enabled_default=False,
+        exists_fn=lambda device: device.is_feature_supported("fixed_conf_settle_seconds"),
+    ),
     DreoNumberEntityDescription(
         key="Horizontal Angle",
         translation_key="horizontal_angle",
@@ -43,6 +56,7 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         icon="mdi:angle-acute",
         min_value=-60,
         max_value=60,
+        step=5,
         exists_fn=lambda device: device.is_feature_supported("horizontal_angle"),
     ),
     DreoNumberEntityDescription(
@@ -52,6 +66,7 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         icon="mdi:angle-acute",
         min_value=0,
         max_value=90,
+        step=5,
         exists_fn=lambda device: device.is_feature_supported("vertical_angle"),
     ),
     DreoNumberEntityDescription(
@@ -61,6 +76,7 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         icon="mdi:vector-radius",
         min_value=-60,
         max_value=60,
+        step=5,
         exists_fn=lambda device: device.is_feature_supported("horizontal_osc_angle_left"),
     ),
     DreoNumberEntityDescription(
@@ -70,6 +86,7 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         icon="mdi:vector-radius",
         min_value=-60,
         max_value=60,
+        step=5,
         exists_fn=lambda device: device.is_feature_supported("horizontal_osc_angle_right"),
     ),
     DreoNumberEntityDescription(
@@ -79,6 +96,7 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         icon="mdi:vector-radius",
         min_value=0,
         max_value=90,
+        step=5,
         exists_fn=lambda device: device.is_feature_supported("vertical_osc_angle_top"),
     ),
     DreoNumberEntityDescription(
@@ -88,6 +106,7 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         icon="mdi:vector-radius",
         min_value=0,
         max_value=90,
+        step=5,
         exists_fn=lambda device: device.is_feature_supported("vertical_osc_angle_bottom"),
     ),
     DreoNumberEntityDescription(
@@ -97,7 +116,7 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         icon="mdi:angle-acute",
         min_value=30,
         max_value=120,
-        step = 30,
+        step=30,
         exists_fn=lambda device: device.is_feature_supported("shakehorizonangle"),
     ),
     DreoNumberEntityDescription(
@@ -107,6 +126,7 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         icon="mdi:angle-acute",
         min_value=-60,
         max_value=60,
+        step=5,
         exists_fn=lambda device: device.is_feature_supported("horizontal_oscillation_angle"),
     ),
     DreoNumberEntityDescription(
@@ -116,6 +136,7 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         icon="mdi:angle-acute",
         min_value=0,
         max_value=90,
+        step=5,
         exists_fn=lambda device: device.is_feature_supported("vertical_oscillation_angle"),
     ),
     DreoNumberEntityDescription(
@@ -126,26 +147,91 @@ NUMBERS: tuple[DreoNumberEntityDescription, ...] = (
         min_value=40,
         max_value=90,
         exists_fn=lambda device: device.type != DreoDeviceType.HUMIDIFIER and device.is_feature_supported("target_humidity"),
-    )
+    ),
+    DreoNumberEntityDescription(
+        key="Fog Level",
+        translation_key="fog_level",
+        attr_name="fog_level",
+        icon="mdi:weather-fog",
+        min_value=0,
+        max_value=6,
+        step=1,
+        exists_fn=lambda device: device.is_feature_supported("fog_level"),
+    ),
+    DreoNumberEntityDescription(
+        key="Sleep Target Humidity",
+        translation_key="sleep_target_humidity",
+        attr_name="sleep_target_humidity",
+        icon="mdi:water-percent",
+        min_value=30,
+        max_value=90,
+        step=1,
+        exists_fn=lambda device: device.type == DreoDeviceType.HUMIDIFIER and device.is_feature_supported("sleep_target_humidity"),
+    ),
+    DreoNumberEntityDescription(
+        key="Ambient Light Threshold Low",
+        translation_key="ambient_light_threshold_low",
+        attr_name="rgbth_low",
+        icon="mdi:water-percent",
+        min_value=0,
+        max_value=100,
+        step=1,
+        exists_fn=lambda device: device.type in {DreoDeviceType.HUMIDIFIER, DreoDeviceType.EVAPORATIVE_COOLER}
+        and device.is_feature_supported("rgbth"),
+    ),
+    DreoNumberEntityDescription(
+        key="Ambient Light Threshold High",
+        translation_key="ambient_light_threshold_high",
+        attr_name="rgbth_high",
+        icon="mdi:water-percent",
+        min_value=0,
+        max_value=100,
+        step=1,
+        exists_fn=lambda device: device.type in {DreoDeviceType.HUMIDIFIER, DreoDeviceType.EVAPORATIVE_COOLER}
+        and device.is_feature_supported("rgbth"),
+    ),
+    DreoNumberEntityDescription(
+        key="Timer On",
+        translation_key="timer_on",
+        attr_name="timer_on",
+        icon="mdi:timer-play-outline",
+        min_value=0,
+        max_value=TIMER_MAX_MINUTES,
+        step=1,
+        native_unit_of_measurement=UnitOfTime.MINUTES,
+        exists_fn=lambda device: device.is_feature_supported("timer_on"),
+    ),
+    DreoNumberEntityDescription(
+        key="Timer Off",
+        translation_key="timer_off",
+        attr_name="timer_off",
+        icon="mdi:timer-off-outline",
+        min_value=0,
+        max_value=TIMER_MAX_MINUTES,
+        step=1,
+        native_unit_of_measurement=UnitOfTime.MINUTES,
+        exists_fn=lambda device: device.is_feature_supported("timer_off"),
+    ),
 )
 
-def get_entries(pydreo_devices : list[PyDreoBaseDevice]) -> list[DreoNumberHA]:
+
+def get_entries(pydreo_devices: list[PyDreoBaseDevice]) -> list[DreoNumberHA]:
     """Add Number entries for Dreo devices."""
-    number_ha_collection : list[DreoNumberHA] = []
-    
+    number_ha_collection: list[DreoNumberHA] = []
+
     for pydreo_device in pydreo_devices:
-        _LOGGER.debug("Number:get_entries: Adding Numbers for %s", pydreo_device.name)
-        number_keys : list[str] = []
-        
+        _LOGGER.debug("get_entries: Adding Numbers for %s", pydreo_device.name)
+        number_keys: list[str] = []
+
         for number_definition in NUMBERS:
-            _LOGGER.debug("Number:get_entries: checking exists fn: %s on %s", number_definition.key, pydreo_device.name)
+            _LOGGER.debug("get_entries: checking exists fn: %s on %s", number_definition.key, pydreo_device.name)
 
             if number_definition.exists_fn(pydreo_device):
-                if (number_definition.key in number_keys):
-                    _LOGGER.error("Number:get_entries: Duplicate number key %s", number_definition.key)
+                if number_definition.key in number_keys:
+                    _LOGGER.error("get_entries: Duplicate number key %s", number_definition.key)
                     continue
 
-                _LOGGER.debug("Number:get_entries: Adding Number %s for %s", number_definition.key, number_definition.attr_name)
+                _LOGGER.debug("get_entries: Adding Number %s for %s", number_definition.key, number_definition.attr_name)
                 number_keys.append(number_definition.key)
 
                 device_range = get_device_range(pydreo_device, number_definition)
@@ -157,15 +243,20 @@ def get_entries(pydreo_devices : list[PyDreoBaseDevice]) -> list[DreoNumberHA]:
                         icon=number_definition.icon,
                         min_value=device_range[0],
                         max_value=device_range[1],
+                        step=number_definition.step,
                         device_class=number_definition.device_class,
                         native_unit_of_measurement=number_definition.native_unit_of_measurement,
                         exists_fn=number_definition.exists_fn,
                     )
                     number_ha_collection.append(DreoNumberHA(pydreo_device, dned))
                 else:
-                    number_ha_collection.append(DreoNumberHA(pydreo_device,number_definition))
-    
+                    number_ha_collection.append(DreoNumberHA(pydreo_device, number_definition))
+
+        if pydreo_device.is_feature_supported("temperature_offset_range"):
+            number_ha_collection.append(DreoTemperatureOffsetNumberHA(pydreo_device))
+
     return number_ha_collection
+
 
 def get_device_range(device: PyDreoBaseDevice, number_definition: DreoNumberEntityDescription) -> tuple | None:
     """Returns the device-specific range for a Number."""
@@ -173,16 +264,19 @@ def get_device_range(device: PyDreoBaseDevice, number_definition: DreoNumberEnti
 
     range_from_device = getattr(device, range_name, None)
     if range_from_device is not None:
-        _LOGGER.debug("Number:get_device_range: range %s from device is %s", range_name, range_from_device)
+        _LOGGER.debug("get_device_range: range %s from device is %s", range_name, range_from_device)
         return range_from_device
 
-    range_from_device_definition = getattr(device.device_definition.device_ranges, range_name, None)
+    if device.device_definition.device_ranges is not None:
+        range_from_device_definition = device.device_definition.device_ranges.get(range_name)
+    else:
+        range_from_device_definition = None
     if range_from_device_definition is not None:
-        _LOGGER.debug("Number:get_device_range: range %s from device definition is %s", range_name,
-                      range_from_device_definition)
+        _LOGGER.debug("get_device_range: range %s from device definition is %s", range_name, range_from_device_definition)
         return range_from_device_definition
 
     return None
+
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -190,26 +284,26 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the Dreo Number platform."""
-    _LOGGER.info("Starting Dreo Number Platform")
+    _LOGGER.info("async_setup_entry: Starting Dreo Number Platform")
 
-    pydreo_manager : PyDreo = hass.data[DOMAIN][PYDREO_MANAGER]
+    pydreo_manager: PyDreo = hass.data[DOMAIN][PYDREO_MANAGER]
 
     async_add_entities(get_entries(pydreo_manager.devices))
 
 
-class DreoNumberHA(DreoBaseDeviceHA, NumberEntity): # pylint: disable=abstract-method
+class DreoNumberHA(DreoBaseDeviceHA, NumberEntity):  # pylint: disable=abstract-method
     """Representation of a Number describing a read-only property of a Dreo device."""
 
-    def __init__(self, 
-                    pyDreoDevice: PyDreoBaseDevice,
-                    description: DreoNumberEntityDescription) -> None:
+    def __init__(self, pyDreoDevice: PyDreoBaseDevice, description: DreoNumberEntityDescription) -> None:
         super().__init__(pyDreoDevice)
         self.device = pyDreoDevice
 
         # Note this is a "magic" HA property.  Don't rename
         self.entity_description = description
 
-        self._attr_name = super().name + " " + description.key
+        self._attr_has_entity_name = True
+        del self._attr_name
+        self._attr_translation_key = description.translation_key
         self._attr_unique_id = f"{super().unique_id}-{description.key}"
 
         self._attr_native_min_value = description.min_value
@@ -217,20 +311,73 @@ class DreoNumberHA(DreoBaseDeviceHA, NumberEntity): # pylint: disable=abstract-m
         self._attr_native_step = description.step
         self._attr_native_unit_of_measurement = description.native_unit_of_measurement
         self._device_class_name = description.device_class
+        if description.entity_category is not None:
+            self._attr_entity_category = description.entity_category
+        self._attr_entity_registry_enabled_default = description.entity_registry_enabled_default
 
-        _LOGGER.info(
-            "new DreoSensorHA instance(%s), unique ID %s",
-            self._attr_name,
-            self._attr_unique_id)
+        _LOGGER.info("new DreoNumberHA instance(%s), unique ID %s", description.key, self._attr_unique_id)
 
     def __repr__(self):
         # Representation string of object.
         return f"<{self.__class__.__name__}:{self.entity_description}"
-    
+
     @property
     def native_value(self) -> float:
         """Return the state of the number."""
         return getattr(self.device, self.entity_description.attr_name)
 
     def set_native_value(self, value: float) -> None:
+        # Humidifier controls expect integer values.
+        if self.entity_description.attr_name in {"fog_level", "sleep_target_humidity"}:
+            value = int(value)
         return setattr(self.device, self.entity_description.attr_name, value)
+
+
+class DreoTemperatureOffsetNumberHA(DreoNumberHA):  # pylint: disable=abstract-method
+    """Temperature offset, shown in Home Assistant's temperature unit.
+
+    The device stores the offset in °F. Like the Dreo app, Celsius users get 1°C per 2°F.
+    The offset is a temperature difference, so it has no temperature device_class: HA would
+    convert it as an absolute temperature.
+    """
+
+    def __init__(self, pyDreoDevice: PyDreoBaseDevice) -> None:
+        super().__init__(
+            pyDreoDevice,
+            DreoNumberEntityDescription(
+                key="Temperature Offset",
+                translation_key="temperature_offset",
+                attr_name="temperature_offset",
+                icon="mdi:thermometer-lines",
+                step=1,
+                exists_fn=lambda device: device.is_feature_supported("temperature_offset_range"),
+            ),
+        )
+
+    @property
+    def _celsius(self) -> bool:
+        return self.hass is None or self.hass.config.units.temperature_unit == UnitOfTemperature.CELSIUS
+
+    @property
+    def native_unit_of_measurement(self) -> str:
+        return UnitOfTemperature.CELSIUS if self._celsius else UnitOfTemperature.FAHRENHEIT
+
+    @property
+    def native_min_value(self) -> float:
+        low = self.device.temperature_offset_range[0]
+        return low / 2 if self._celsius else low
+
+    @property
+    def native_max_value(self) -> float:
+        high = self.device.temperature_offset_range[1]
+        return high / 2 if self._celsius else high
+
+    @property
+    def native_value(self) -> float | None:
+        offset = self.device.temperature_offset
+        if offset is None:
+            return None
+        return offset / 2 if self._celsius else offset
+
+    def set_native_value(self, value: float) -> None:
+        self.device.temperature_offset = round(value * 2) if self._celsius else round(value)

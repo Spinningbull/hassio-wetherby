@@ -17,6 +17,13 @@
       "unknown_error": "Ukjent feil: {message}"
     },
     "step": {
+      "domain_mismatch": {
+        "data": {
+          "use_reported_domain": "Endre konfigurasjon til Amazon-rapportert region"
+        },
+        "description": "Amazon rapporterer at denne kontoen tilhører **{reported_domain} **, men Alexa Media Player ble konfigurert til å bruke **{configured_domain} **.\n\nDu kan endre til den rapporterte regionen og autentisere på nytt, eller fjerne merkingen og forsøke å fortsette med den nåværende konfigurerte regionen.",
+        "title": "Alexa Media Player – Uoverensstemmelse mellom Amazon-regionen"
+      },
       "proxy_warning": {
         "data": {
           "proxy_warning": "Ignorer og fortsett – jeg forstår at det ikke gis støtte for innloggingsproblemer når denne advarselen omgås."
@@ -48,12 +55,27 @@
           "should_get_network": "Oppdag Alexa-nettverket",
           "url": "Amazon-regiondomenet (f.eks. Amazon.co.uk)"
         },
-        "description": "* Obligatoriske oppføringer",
-        "title": "Alexa Media Player - Konfigurasjon"
+        "data_description": {
+          "debug": "Muliggjør svært detaljert logging på spornivå for avansert feilsøking. \n Anbefales ikke for normal drift på grunn av økt loggvolum. \n Sørg for at loggnivåene er satt til DEBUG for full utdata.",
+          "otp_secret": "Eksempel: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
+        }
       }
     }
   },
   "entity": {
+    "button": {
+      "restart": {
+        "name": "Start på nytt"
+      }
+    },
+    "number": {
+      "display_brightness": {
+        "name": "Skjermens lysstyrke"
+      },
+      "notification_volume": {
+        "name": "Alarm- og varslingsvolum"
+      }
+    },
     "sensor": {
       "air_quality": {
         "name": "Luftkvalitet"
@@ -87,6 +109,12 @@
       }
     },
     "switch": {
+      "adaptive_brightness": {
+        "name": "Adaptiv lysstyrke"
+      },
+      "display_power": {
+        "name": "Vis"
+      },
       "do_not_disturb": {
         "name": "Ikke forstyrr"
       },
@@ -112,10 +140,15 @@
           "exclude_devices": "eller Ekskluder disse enhetene fra alle (kommaseparert)",
           "extended_entity_discovery": "Inkluder ekstra sensorer, brytere og lys",
           "include_devices": "Inkluder bare disse enhetene (kommaseparert)",
+          "otp_secret": "52-tegns nøkkel fra autentiseringsappen for Amazon 2SV",
           "public_url": "Offentlig URL delt med eksterne vertsbaserte tjenester",
           "queue_delay": "Forsinkelse for å sette flere kommandoer sammen i kø (sekunder)",
           "scan_interval": "Planlagt avstemningsfrekvens (sekunder)",
           "should_get_network": "Oppdag Alexa-nettverket"
+        },
+        "data_description": {
+          "debug": "Muliggjør svært detaljert logging på spornivå for avansert feilsøking. \n Anbefales ikke for normal drift på grunn av økt loggvolum. \n Sørg for at loggnivåene er satt til DEBUG for full utdata.",
+          "otp_secret": "Eksempel: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
         },
         "description": "* Obligatoriske oppføringer",
         "title": "Alexa Media Player – Rekonfigurasjon"
@@ -123,6 +156,90 @@
     }
   },
   "services": {
+    "amazon_kids_disable": {
+      "description": "Slår av Amazon Kids (barnemodus) for en Echo ved å fjerne tilordningen fra en hvilken som helst barneprofil.",
+      "fields": {
+        "entity_id": {
+          "description": "Echo-enhet for å deaktivere Amazon Kids på",
+          "name": "Velg mediespiller:"
+        }
+      },
+      "name": "Deaktiver Amazon Kids"
+    },
+    "amazon_kids_enable": {
+      "description": "Slår på Amazon Kids (barnemodus) for en Echo ved å tilordne den til en barneprofil.",
+      "fields": {
+        "child": {
+          "description": "Barneprofil som skal tilordnes (fornavn eller directedId)",
+          "name": "Barn"
+        },
+        "entity_id": {
+          "description": "Echo-enhet for å aktivere Amazon Kids",
+          "name": "Velg mediespiller:"
+        }
+      },
+      "name": "Aktiver Amazon Kids"
+    },
+    "create_alarm": {
+      "description": "Oppretter en alarm på et ekko.",
+      "fields": {
+        "days": {
+          "description": "Dager å gjenta på. La stå tomt for en engangsalarm.",
+          "name": "Gjenta på"
+        },
+        "entity_id": {
+          "description": "Ekko-enhet for å stille inn alarmen",
+          "name": "Velg mediespiller:"
+        },
+        "time": {
+          "description": "Tidspunktet da alarmen ringer",
+          "name": "Tid"
+        }
+      },
+      "name": "Opprett alarm"
+    },
+    "delete_alarm": {
+      "description": "Sletter en ekkoalarm.",
+      "fields": {
+        "alarm_id": {
+          "description": "Alarmens ID, fra sorted_all-attributtet til enhetens neste alarmsensor",
+          "name": "Alarm-ID"
+        },
+        "entity_id": {
+          "description": "Echo-enhet, alarmen er på",
+          "name": "Velg mediespiller:"
+        }
+      },
+      "name": "Slett alarm"
+    },
+    "disable_alarm": {
+      "description": "Slår av en ekkoalarm uten å slette den.",
+      "fields": {
+        "alarm_id": {
+          "description": "Alarmens ID, fra sorted_all-attributtet til enhetens neste alarmsensor",
+          "name": "Alarm-ID"
+        },
+        "entity_id": {
+          "description": "Echo-enhet, alarmen er på",
+          "name": "Velg mediespiller:"
+        }
+      },
+      "name": "Deaktiver alarmen"
+    },
+    "enable_alarm": {
+      "description": "Slår på en ekkoalarm.",
+      "fields": {
+        "alarm_id": {
+          "description": "Alarmens ID, fra sorted_all-attributtet til enhetens neste alarmsensor",
+          "name": "Alarm-ID"
+        },
+        "entity_id": {
+          "description": "Echo-enhet, alarmen er på",
+          "name": "Velg mediespiller:"
+        }
+      },
+      "name": "Aktiver alarm"
+    },
     "enable_network_discovery": {
       "description": "Aktiverer Alexa-nettverksoppdagelse på nytt, slik at neste avstemningssyklus vil oppdage Alexa-enheter på nytt for de valgte kontoene.",
       "fields": {

@@ -1,29 +1,334 @@
 {
-    "config": {
-      "step": {
-        "user": {
-          "title": "Enter Dreo Username and Password",
-          "data": {
-            "username": "Email Address",
-            "password": "Password"
-          }
+  "config": {
+    "step": {
+      "user": {
+        "title": "Enter Dreo Username and Password",
+        "data": {
+          "username": "Email Address",
+          "password": "Password",
+          "region": "Region"
+        },
+        "data_description": {
+          "region": "Pick the Dreo cloud region for your account. Auto-detect works for most users."
         }
-      },
-      "error": {
-        "invalid_auth": "Authentication failed."
-      },
-      "abort": {
-        "single_instance_allowed": "Only one instance is allowed."
       }
     },
-    "options": {
-      "step": {
-        "init": {
-          "title": "Dreo Options",
-          "data": {
-            "auto_reconnect": "Automatically reconnect if the websocket drops."
-          }
+    "error": {
+      "invalid_auth": "Authentication failed."
+    },
+    "abort": {
+      "single_instance_allowed": "Only one instance is allowed."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Dreo Options",
+        "data": {
+          "auto_reconnect": "Automatically reconnect if the websocket drops."
         }
       }
     }
+  },
+  "entity": {
+    "binary_sensor": {
+      "water_empty": {
+        "name": "Water Empty",
+        "state": {
+          "off": "OK",
+          "on": "Empty"
+        }
+      },
+      "fixed_conf_settle_pending": {
+        "name": "Angle Settle Pending",
+        "state": {
+          "off": "Idle",
+          "on": "Waiting"
+        }
+      },
+      "heating": {
+        "name": "Heating",
+        "state": {
+          "off": "Idle",
+          "on": "Heating"
+        }
+      },
+      "main_power": {
+        "name": "Main Power"
+      }
+    },
+    "fan": {
+      "fan": {
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "normal": "Normal",
+              "natural": "Natural",
+              "sleep": "Sleep",
+              "auto": "Auto",
+              "turbo": "Turbo",
+              "reverse": "Reverse",
+              "custom": "Custom",
+              "low": "Low",
+              "medium": "Medium",
+              "high": "High"
+            }
+          }
+        }
+      },
+      "fan_speed": {
+        "name": "Fan Speed",
+        "state_attributes": {
+          "preset_mode": {
+            "state": {
+              "low": "Low",
+              "medium": "Medium",
+              "high": "High"
+            }
+          }
+        }
+      }
+    },
+    "climate": {
+      "air_conditioner": {
+        "name": "Air Conditioner"
+      },
+      "heater": {
+        "name": "Heater"
+      }
+    },
+    "switch": {
+      "horizontally_oscillating": {
+        "name": "Horizontal Oscillation"
+      },
+      "vertically_oscillating": {
+        "name": "Vertical Oscillation"
+      },
+      "display_auto_off": {
+        "name": "Display Auto Off"
+      },
+      "panel_sound": {
+        "name": "Panel Sound"
+      },
+      "mist": {
+        "name": "Misting"
+      },
+      "adaptive_brightness": {
+        "name": "Adaptive Brightness"
+      },
+      "mute_on": {
+        "name": "Panel Mute"
+      },
+      "oscon": {
+        "name": "Oscillation"
+      },
+      "ptcon": {
+        "name": "PTC"
+      },
+      "airflow_360": {
+        "name": "360° Airflow"
+      },
+      "window_detection": {
+        "name": "Open Window Detection"
+      },
+      "childlockon": {
+        "name": "Child Lock"
+      },
+      "locatemeon": {
+        "name": "Presence Sensor"
+      },
+      "light": {
+        "name": "Light"
+      },
+      "humidify": {
+        "name": "Humidify"
+      },
+      "display_light": {
+        "name": "Display Light"
+      },
+      "auto_mode": {
+        "name": "Auto Turn On"
+      },
+      "scheon": {
+        "name": "Schedule"
+      },
+      "follow_me": {
+        "name": "Follow Me"
+      },
+      "purifyon": {
+        "name": "Purification"
+      }
+    },
+    "sensor": {
+      "temperature": {
+        "name": "Temperature"
+      },
+      "people_detected": {
+        "name": "People Detected"
+      },
+      "follow_me_angle": {
+        "name": "Follow Me Angle"
+      },
+      "humidity": {
+        "name": "Humidity"
+      },
+      "use_hours": {
+        "name": "Use Since Cleaning"
+      },
+      "reach_target_temp": {
+        "name": "Target Temp Reached",
+        "state": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      },
+      "status": {
+        "name": "Status",
+        "state": {
+          "standby": "Standby",
+          "ckcfm": "Configuring",
+          "cooking": "Cooking",
+          "off": "Off",
+          "ckpause": "Paused",
+          "ckcomplete": "Complete"
+        }
+      },
+      "cook_end_time": {
+        "name": "Cook End Time"
+      },
+      "pm25": {
+        "name": "PM2.5"
+      },
+      "water": {
+        "name": "Water Level",
+        "state": {
+          "ok": "OK",
+          "empty": "Empty"
+        }
+      },
+      "use_hours_hm": {
+        "name": "Use Since Cleaning"
+      },
+      "filter_life": {
+        "name": "Filter Life"
+      },
+      "water_level_percent": {
+        "name": "Water Level Percent"
+      },
+      "filter_active": {
+        "name": "Filter Active",
+        "state": {
+          "active": "Active",
+          "inactive": "Inactive"
+        }
+      },
+      "target_humidity_reached": {
+        "name": "Target Humidity Reached",
+        "state": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      }
+    },
+    "number": {
+      "fixed_conf_settle_seconds": {
+        "name": "Angle Settle Delay"
+      },
+      "horizontal_angle": {
+        "name": "Horizontal Angle"
+      },
+      "vertical_angle": {
+        "name": "Vertical Angle"
+      },
+      "horizontal_osc_angle_left": {
+        "name": "Horizontal Oscillation Angle Left"
+      },
+      "horizontal_osc_angle_right": {
+        "name": "Horizontal Oscillation Angle Right"
+      },
+      "vertical_osc_angle_top": {
+        "name": "Vertical Oscillation Angle Top"
+      },
+      "vertical_osc_angle_bottom": {
+        "name": "Vertical Oscillation Angle Bottom"
+      },
+      "osc_angle": {
+        "name": "Oscillation Angle"
+      },
+      "horizontal_oscillation_angle": {
+        "name": "Horizontal Oscillation Angle"
+      },
+      "vertical_oscillation_angle": {
+        "name": "Vertical Oscillation Angle"
+      },
+      "target_humidity": {
+        "name": "Target Humidity"
+      },
+      "fog_level": {
+        "name": "Fog Level"
+      },
+      "sleep_target_humidity": {
+        "name": "Sleep Target Humidity"
+      },
+      "ambient_light_threshold_low": {
+        "name": "Ambient Light Humidity Low Threshold"
+      },
+      "ambient_light_threshold_high": {
+        "name": "Ambient Light Humidity High Threshold"
+      },
+      "ambient_light_level": {
+        "name": "Ambient Light Level"
+      },
+      "temperature_offset": {
+        "name": "Temperature Offset"
+      },
+      "timer_on": {
+        "name": "Timer On"
+      },
+      "timer_off": {
+        "name": "Timer Off"
+      }
+    },
+    "select": {
+      "mist_level": {
+        "name": "Mist Level",
+        "state": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        }
+      },
+      "ambient_light_mode": {
+        "name": "Ambient Light Mode",
+        "state": {
+          "humidity": "Humidity",
+          "color": "Color",
+          "breath": "Breath",
+          "cycle": "Cycle"
+        }
+      },
+      "three_d_angle_preset": {
+        "name": "3D Angle Preset"
+      },
+      "display_mode": {
+        "name": "Display Mode",
+        "state": {
+          "off": "Off",
+          "on": "On",
+          "auto": "Auto"
+        }
+      }
+    },
+    "light": {
+      "light": {
+        "name": "Light"
+      },
+      "rgb_light": {
+        "name": "RGB Light"
+      },
+      "ambient_light": {
+        "name": "Ambient Light"
+      }
+    }
   }
+}

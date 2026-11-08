@@ -1,49 +1,56 @@
 """Support for Dreo fans."""
+
 from __future__ import annotations
 
 import logging
 import math
 from typing import Any
 
-from .haimports import * # pylint: disable=W0401,W0614
+from .haimports import *  # pylint: disable=W0401,W0614
 
 from .dreobasedevice import DreoBaseDeviceHA
-from .pydreo.constant import DreoDeviceType # pylint: disable=C0415
-
-from .const import (
-    LOGGER
-)
+from .pydreo.constant import DreoDeviceType, TemperatureUnit  # pylint: disable=C0415
 
 from .pydreo.pydreofanbase import PyDreoFanBase
 
-_LOGGER = logging.getLogger(LOGGER)
+_LOGGER = logging.getLogger(__name__)
+
 
 class DreoFanHA(DreoBaseDeviceHA, FanEntity):
     """Representation of a Dreo fan."""
+
+    _unrecorded_attributes = frozenset({"temperature"})
 
     def __init__(self, pyDreoFan: PyDreoFanBase):
         """Initialize the Dreo fan device."""
         super().__init__(pyDreoFan)
         self.device = pyDreoFan
+        self._attr_translation_key = "fan"
         if self.device.type is DreoDeviceType.CEILING_FAN:
             self._attr_icon = "mdi:ceiling-fan"
         elif self.device.type is DreoDeviceType.DEHUMIDIFIER:
-            self._attr_name = f"{super().name} Fan Speed"
+            # Localize the sub-entity name via has_entity_name + translation_key
+            # instead of hardcoding an English string. The base class sets
+            # _attr_name to the device name; delete it so the translation_key is
+            # used instead.
+            self._attr_has_entity_name = True
+            del self._attr_name
+            self._attr_translation_key = "fan_speed"
 
     @property
     def percentage(self) -> int | None:
         """Return the current speed."""
         if self.device.type is DreoDeviceType.DEHUMIDIFIER:
-            if self.device.preset_mode == "Low":
+            if self.device.preset_mode == "low":
                 return 33
-            elif self.device.preset_mode == "Medium": 
+            elif self.device.preset_mode == "medium":
                 return 67
-            elif self.device.preset_mode == "High":
+            elif self.device.preset_mode == "high":
                 return 100
             return None
-        return ranged_value_to_percentage(
-            self.device.speed_range, self.device.fan_speed
-        )
+        if self.device.speed_range is None or self.device.fan_speed is None:
+            return None
+        return ranged_value_to_percentage(self.device.speed_range, self.device.fan_speed)
 
     @property
     def is_on(self) -> bool:
@@ -60,6 +67,8 @@ class DreoFanHA(DreoBaseDeviceHA, FanEntity):
     @property
     def speed_count(self) -> int:
         """Return the number of speeds the fan supports."""
+        if self.device.speed_range is None:
+            return 1
         return int_states_in_range(self.device.speed_range)
 
     @property
@@ -75,18 +84,30 @@ class DreoFanHA(DreoBaseDeviceHA, FanEntity):
     @property
     def extra_state_attributes(self) -> dict[str, Any]:
         """Return the state attributes of the fan."""
-        attr = {"temperature": self.device.temperature,
-            'model': self.device.model,
-            'sn': self.device.serial_number}
+        attr = {"model": self.device.model, "sn": self.device.serial_number}
+        temp = self.device.temperature
+        if temp is not None:
+            device_temp_unit = self.device.temperature_units
+            if device_temp_unit is None:
+                device_temp_unit = TemperatureUnit.CELSIUS
+            source_unit = UnitOfTemperature.CELSIUS if device_temp_unit == TemperatureUnit.CELSIUS else UnitOfTemperature.FAHRENHEIT
+            attr["temperature"] = round(
+                TemperatureConverter.convert(
+                    temp,
+                    source_unit,
+                    self.hass.config.units.temperature_unit,
+                ),
+                1,
+            )
         return attr
 
     @property
     def supported_features(self) -> int:
         """Return the list of supported features."""
         supported_features = FanEntityFeature.SET_SPEED | FanEntityFeature.TURN_ON | FanEntityFeature.TURN_OFF
-        if (self.device.preset_modes is not None):
+        if self.device.preset_modes is not None:
             supported_features = supported_features | FanEntityFeature.PRESET_MODE
-        if (self.device.oscillating is not None and self.device.type is not DreoDeviceType.DEHUMIDIFIER):
+        if self.device.oscillating is not None and self.device.type is not DreoDeviceType.DEHUMIDIFIER:
             supported_features = supported_features | FanEntityFeature.OSCILLATE
 
         return supported_features
@@ -98,12 +119,54 @@ class DreoFanHA(DreoBaseDeviceHA, FanEntity):
         **kwargs: Any,
     ) -> None:
         """Turn the device on."""
-        _LOGGER.debug("DreoFanHA:turn_on")
-        self.device.is_on = True
+        _LOGGER.debug("turn_on: percentage=%s, preset_mode=%s", percentage, preset_mode)
+        if preset_mode is None and percentage is None:
+            self.device.is_on = True
+            return
+
+        if not self.device.is_on and self._turn_on_atomically(percentage, preset_mode):
+            self.schedule_update_ha_state()
+            return
+
+        if preset_mode is not None:
+            self.set_preset_mode(preset_mode)
+        if percentage is not None:
+            self.set_percentage(percentage)
+
+    def _turn_on_atomically(self, percentage: int | None, preset_mode: str | None) -> bool:
+        """Power on and apply the requested preset/speed as a single command.
+
+        A device that is off restores its remembered state the moment it sees the
+        power-on, so a mode or speed sent as a follow-up command is discarded
+        (#852, #905). Returns ``False`` when the device cannot do this, leaving the
+        caller to fall back to the sequential setters.
+        """
+        turn_on_with_settings = getattr(type(self.device), "turn_on_with_settings", None)
+        if not callable(turn_on_with_settings):
+            return False
+
+        # percentage=0 means "turn off" in HA; let set_percentage own that.
+        if percentage == 0:
+            return False
+
+        if preset_mode is not None and preset_mode not in self.preset_modes:
+            raise ValueError(f"{preset_mode} is not one of the valid preset modes: {self.preset_modes}")
+
+        fan_speed = None
+        if percentage is not None:
+            if self.device.speed_range is None:
+                return False
+            fan_speed = math.ceil(percentage_to_ranged_value(self.device.speed_range, percentage))
+
+        try:
+            self.device.turn_on_with_settings(preset_mode=preset_mode, fan_speed=fan_speed)
+        except NotImplementedError:
+            return False
+        return True
 
     def turn_off(self, **kwargs: Any) -> None:
         """Turn the device off."""
-        _LOGGER.debug("DreoFanHA:turn_off")
+        _LOGGER.debug("turn_off: turn_off")
         self.device.is_on = False
 
     def set_percentage(self, percentage: int) -> None:
@@ -117,30 +180,32 @@ class DreoFanHA(DreoBaseDeviceHA, FanEntity):
 
         if self.device.type is DreoDeviceType.DEHUMIDIFIER:
             if percentage <= 33:
-                self.device.set_preset_mode("Low")
+                self.device.set_preset_mode("low")
             elif percentage <= 67:
-                self.device.set_preset_mode("Medium")
+                self.device.set_preset_mode("medium")
             else:
-                self.device.set_preset_mode("High")
+                self.device.set_preset_mode("high")
         else:
+            if self.device.speed_range is None:
+                _LOGGER.error("set_percentage: speed_range not available for %s", self.device.name)
+                return
             self.device.fan_speed = math.ceil(percentage_to_ranged_value(self.device.speed_range, percentage))
-        
+
         self.schedule_update_ha_state()
 
     def set_preset_mode(self, preset_mode: str) -> None:
         """Set the preset mode of device."""
         if preset_mode not in self.preset_modes:
-            raise ValueError(
-                f"{preset_mode} is not one of the valid preset modes: "
-                f"{self.preset_modes}"
-            )
+            raise ValueError(f"{preset_mode} is not one of the valid preset modes: {self.preset_modes}")
 
-        if not self.device.is_on:
+        was_off = not self.device.is_on
+        atomically_set_preset = was_off and self._turn_on_atomically(None, preset_mode)
+        if was_off and not atomically_set_preset:
             self.device.is_on = True
 
         if self.device.type is DreoDeviceType.DEHUMIDIFIER:
             self.device.set_preset_mode(preset_mode)
-        else:
+        elif not atomically_set_preset:
             self.device.preset_mode = preset_mode
 
         self.schedule_update_ha_state()

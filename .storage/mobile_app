@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "minor_version": 1,
+  "minor_version": 2,
   "key": "mobile_app",
   "data": {
     "deleted_ids": [
@@ -91,6 +91,7 @@
       "8e6a4fcd1045bdba2e28dede8f097b51edaa09bd499e7ed29970928029b3a97b",
       "86e42cc6f9c00158cab3db66738663d329639b7daed906f564db2aba397cb7d9",
       "46dd77482ef5256635a75feb83da00967b6504d72e2c6a3fc0bd0b23fe89aafd"
-    ]
+    ],
+    "live_activity_tokens": {}
   }
 }

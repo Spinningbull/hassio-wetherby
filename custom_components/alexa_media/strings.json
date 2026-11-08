@@ -18,23 +18,32 @@
     },
     "step": {
       "user": {
-        "title": "Alexa Media Player - Configuration",
-        "description": "* Required entry",
         "data": {
-          "url": "Amazon region domain (e.g., amazon.co.uk)",
+          "debug": "Advanced debug",
           "email": "Email Address",
-          "password": "Password",
-          "securitycode": "One-time password (OTP)",
-          "otp_secret": "52-character Authenticator App Key for Amazon 2SV",
-          "hass_url": "Local network URL to access Home Assistant",
-          "public_url": "Public URL shared with external hosted services",
-          "include_devices": "Only include these devices (comma separated)",
           "exclude_devices": "or Exclude these devices from all (comma separated)",
-          "scan_interval": "Scheduled polling interval (seconds)",
-          "queue_delay": "Delay to queue multiple commands together (seconds)",
-          "should_get_network": "Discover Alexa network",
           "extended_entity_discovery": "Include additional sensors, switches and lights",
-          "debug": "Advanced debugging"
+          "hass_url": "Local network URL to access Home Assistant",
+          "include_devices": "Only include these devices (comma separated)",
+          "otp_secret": "52-character Authenticator App Key for Amazon 2SV",
+          "password": "Password",
+          "public_url": "Public URL shared with external hosted services",
+          "queue_delay": "Delay to queue multiple commands together (seconds)",
+          "scan_interval": "Scheduled polling interval (seconds)",
+          "securitycode": "One-time password (OTP)",
+          "should_get_network": "Discover Alexa network",
+          "url": "Amazon region domain (e.g., amazon.co.uk)"
+        },
+        "data_description": {
+          "debug": "Enables very verbose, trace-level logging for advanced troubleshooting.\nNot recommended for normal operation due to increased log volume.\nEnsure logger levels are set to DEBUG for full output.",
+          "otp_secret": "Example: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
+        }
+      },
+      "domain_mismatch": {
+        "title": "Alexa Media Player - Amazon Region Mismatch",
+        "description": "Amazon reports that this account belongs to **{reported_domain}**, but Alexa Media Player was configured to use **{configured_domain}**.\n\nYou can change to the reported region and authenticate again, or deselect and attempt to continue with your currently configured region.",
+        "data": {
+          "use_reported_domain": "Change configuration to the Amazon-reported region"
         }
       },
       "proxy_warning": {
@@ -59,14 +68,19 @@
         "title": "Alexa Media Player - Reconfiguration",
         "description": "* Required entry",
         "data": {
-          "public_url": "Public URL shared with external hosted services",
-          "include_devices": "Only include these devices (comma separated)",
+          "debug": "Advanced debug",
           "exclude_devices": "or Exclude these devices from all (comma separated)",
-          "scan_interval": "Scheduled polling frequency (seconds)",
-          "queue_delay": "Delay to queue multiple commands together (seconds)",
-          "should_get_network": "Discover Alexa network",
           "extended_entity_discovery": "Include additional sensors, switches and lights",
-          "debug": "Advanced debugging"
+          "include_devices": "Only include these devices (comma separated)",
+          "otp_secret": "52-character Authenticator App Key for Amazon 2SV",
+          "public_url": "Public URL shared with external hosted services",
+          "queue_delay": "Delay to queue multiple commands together (seconds)",
+          "scan_interval": "Scheduled polling interval (seconds)",
+          "should_get_network": "Discover Alexa network"
+        },
+        "data_description": {
+          "debug": "Enables very verbose, trace-level logging for advanced troubleshooting.\nNot recommended for normal operation due to increased log volume.\nEnsure logger levels are set to DEBUG for full output.",
+          "otp_secret": "Example: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
         }
       }
     }
@@ -125,9 +139,106 @@
           "description": "Optional Alexa account email or list of emails. If empty, all known accounts will be refreshed."
         }
       }
+    },
+    "amazon_kids_enable": {
+      "name": "Enable Amazon Kids",
+      "description": "Turns on Amazon Kids (child mode) for an Echo by assigning it to a child profile.",
+      "fields": {
+        "entity_id": {
+          "name": "Select media player:",
+          "description": "Echo device to enable Amazon Kids on"
+        },
+        "child": {
+          "name": "Child",
+          "description": "Child profile to assign (first name or directedId)"
+        }
+      }
+    },
+    "amazon_kids_disable": {
+      "name": "Disable Amazon Kids",
+      "description": "Turns off Amazon Kids (child mode) for an Echo by unassigning it from any child profile.",
+      "fields": {
+        "entity_id": {
+          "name": "Select media player:",
+          "description": "Echo device to disable Amazon Kids on"
+        }
+      }
+    },
+    "create_alarm": {
+      "name": "Create alarm",
+      "description": "Creates an alarm on an Echo.",
+      "fields": {
+        "entity_id": {
+          "name": "Select media player:",
+          "description": "Echo device to set the alarm on"
+        },
+        "time": {
+          "name": "Time",
+          "description": "Time the alarm rings"
+        },
+        "days": {
+          "name": "Repeat on",
+          "description": "Days to repeat on. Leave empty for a one-off alarm."
+        }
+      }
+    },
+    "enable_alarm": {
+      "name": "Enable alarm",
+      "description": "Turns on an Echo alarm.",
+      "fields": {
+        "entity_id": {
+          "name": "Select media player:",
+          "description": "Echo device the alarm is on"
+        },
+        "alarm_id": {
+          "name": "Alarm ID",
+          "description": "The alarm's id, from the sorted_all attribute of the device's next alarm sensor"
+        }
+      }
+    },
+    "disable_alarm": {
+      "name": "Disable alarm",
+      "description": "Turns off an Echo alarm without deleting it.",
+      "fields": {
+        "entity_id": {
+          "name": "Select media player:",
+          "description": "Echo device the alarm is on"
+        },
+        "alarm_id": {
+          "name": "Alarm ID",
+          "description": "The alarm's id, from the sorted_all attribute of the device's next alarm sensor"
+        }
+      }
+    },
+    "delete_alarm": {
+      "name": "Delete alarm",
+      "description": "Deletes an Echo alarm.",
+      "fields": {
+        "entity_id": {
+          "name": "Select media player:",
+          "description": "Echo device the alarm is on"
+        },
+        "alarm_id": {
+          "name": "Alarm ID",
+          "description": "The alarm's id, from the sorted_all attribute of the device's next alarm sensor"
+        }
+      }
     }
   },
   "entity": {
+    "button": {
+      "restart": {
+        "name": "Restart"
+      }
+    },
+    "number": {
+      "notification_volume": {
+        "name": "Alarm and notification volume"
+      },
+      "display_brightness": {
+        "name": "Display brightness"
+      }
+    },
     "switch": {
       "do_not_disturb": {
         "name": "Do not disturb"
@@ -137,6 +248,12 @@
       },
       "repeat": {
         "name": "Repeat"
+      },
+      "display_power": {
+        "name": "Display"
+      },
+      "adaptive_brightness": {
+        "name": "Adaptive brightness"
       }
     },
     "sensor": {

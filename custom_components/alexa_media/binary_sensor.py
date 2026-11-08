@@ -25,6 +25,7 @@ from . import (
     hide_email,
 )
 from .alexa_entity import parse_detection_state_from_coordinator
+from .amazon_kids import KIDS_CAPABLE_FAMILIES, async_get_state
 from .const import CONF_EXTENDED_ENTITY_DISCOVERY
 from .helpers import add_devices, safe_get
 
@@ -57,13 +58,41 @@ async def async_setup_platform(hass, config, add_devices_callback, discovery_inf
             account_dict["entities"]["binary_sensor"].append(contact_sensor)
             devices.append(contact_sensor)
 
-    return await add_devices(
+    # Amazon Kids (child mode) sensor per Echo device.
+    # Only create a sensor for Echos that already have a media_player entity, so
+    # the configured include/exclude device filters are inherited and the unique
+    # id can be scoped to the account exactly like the media player.
+    login_obj = account_dict["login_obj"]
+    kids_state = async_get_state(hass, account_dict, login_obj)
+    media_players = account_dict["entities"]["media_player"]
+    kids_devices: list[BinarySensorEntity] = []
+    for key, device in account_dict["devices"]["media_player"].items():
+        if device.get("deviceFamily") not in KIDS_CAPABLE_FAMILIES:
+            continue
+        device_type = device.get("deviceType")
+        client = media_players.get(key)
+        if not device_type or client is None:
+            continue
+        kids_state.track(client.device_serial_number, device_type)
+        kids_sensor = AmazonKidsSensor(kids_state, client)
+        account_dict["entities"]["binary_sensor"].append(kids_sensor)
+        kids_devices.append(kids_sensor)
+
+    result = await add_devices(
         hide_email(account),
         devices,
         add_devices_callback,
         include_filter,
         exclude_filter,
     )
+    if kids_devices:
+        await kids_state.async_start()
+        # Already scoped via the media_player entities, so no extra name filter.
+        result = (
+            await add_devices(hide_email(account), kids_devices, add_devices_callback)
+            and result
+        )
+    return result
 
 
 async def async_setup_entry(hass, config_entry, async_add_devices):
@@ -126,3 +155,52 @@ class AlexaContact(CoordinatorEntity, BinarySensorEntity):
             self.coordinator.data and self.alexa_entity_id in self.coordinator.data
         )
         return not last_refresh_success
+
+
+class AmazonKidsSensor(BinarySensorEntity):
+    """Whether Amazon Kids (child mode) is active on an Echo device.
+
+    Reads from the shared per-account Amazon Kids state, so this sensor, the
+    switch and the child select all share a single set of API calls.
+    """
+
+    _attr_has_entity_name = True
+    _attr_name = "Amazon Kids"
+    _attr_icon = "mdi:account-child"
+    _attr_should_poll = False
+
+    def __init__(self, kids_state, client) -> None:
+        """Initialize the Amazon Kids sensor.
+
+        client is the Echo's media_player entity; its unique id already encodes
+        the account, so the sensor inherits the same (account-scoped) identity.
+        """
+        self._kids = kids_state
+        self._client = client
+        self._serial = client.device_serial_number
+
+    @property
+    def unique_id(self):
+        """Return the unique id, scoped to the account like the media player."""
+        return f"{self._client.unique_id}_amazon_kids"
+
+    @property
+    def is_on(self):
+        """Return whether Amazon Kids is active."""
+        return self._kids.state(self._serial)["kids"]
+
+    @property
+    def available(self):
+        """Return whether the state is known."""
+        return self._kids.state(self._serial)["kids"] is not None
+
+    @property
+    def device_info(self):
+        """Attach to the Echo device."""
+        return {
+            "identifiers": {(DATA_ALEXAMEDIA, self._client.unique_id)},
+        }
+
+    async def async_added_to_hass(self):
+        """Subscribe to shared Amazon Kids state updates."""
+        self.async_on_remove(self._kids.async_add_listener(self.async_write_ha_state))

@@ -1,28 +1,39 @@
 """Base class for all Dreo devices."""
+
 import threading
 import logging
 from typing import Dict
 from typing import TYPE_CHECKING
 
-from .constant import LOGGER_NAME, REPORTED_KEY, POWERON_KEY, STATE_KEY, PRESET_MODE_STRINGS
+from .commandoutbox import CommandOutbox, OutboxTiming
+from .constant import REPORTED_KEY, POWERON_KEY, CONNECTED_KEY, STATE_KEY, PRESET_MODE_STRINGS
 from .models import DreoDeviceDetails
 
 if TYPE_CHECKING:
     from pydreo import PyDreo
 
-_LOGGER = logging.getLogger(LOGGER_NAME)
+_LOGGER = logging.getLogger(__name__)
+
 
 class UnknownProductError(Exception):
     """Exception thrown when we don't recognize a product of a device."""
 
+
 class UnknownModelError(Exception):
     """Exception thrown when we don't recognize a model of a device."""
 
-class PyDreoBaseDevice(object):
+
+class PyDreoBaseDevice:
     """Base class for all Dreo devices.
 
     Has code to handle providing common attributes and comment event handling.
     """
+
+    # Outgoing commands go through a per-device CommandOutbox so that
+    # near-simultaneous key changes merge into one request (see the rationale
+    # in commandoutbox.py). A device class may override this with
+    # ``OutboxTiming.IMMEDIATE`` to restore synchronous per-key sends.
+    _COMMAND_TIMING = OutboxTiming(quiet_period=0.10, max_wait=0.25, min_interval=0.50)
 
     def __init__(
         self,
@@ -47,6 +58,7 @@ class PyDreoBaseDevice(object):
 
         self._dreo = dreo
         self._is_on = False
+        self._connected = None
 
         self._feature_key_names: Dict[str, str] = {}
 
@@ -54,107 +66,155 @@ class PyDreoBaseDevice(object):
         self._attr_cbs = []
         self._lock = threading.Lock()
 
+        self._outbox = CommandOutbox(
+            name=self._name,
+            timing=self._COMMAND_TIMING,
+            send=lambda params: self._dreo.send_command(self, params),
+            # Bound method, so a host scheduler installed after construction
+            # (HA wires async_call_later during setup) is picked up.
+            schedule=self._dreo.schedule_call_later,
+            on_submit=self._apply_optimistic_state,
+            finalize=self._finalize_command_params,
+            on_sent=self._on_command_sent,
+        )
+
     def __repr__(self):
         # Representation string of object.
         return f"<{self.__class__.__name__}:{self._sn}:{self._name}>"
 
     def get_server_update_key_value(self, message: dict, key: str):
         """Helper method to get values from a WebSocket update in a safe way."""
-        if (
-            (message is not None)
-            and (isinstance(message, dict))
-            and (REPORTED_KEY in message)
-            and (isinstance(message[REPORTED_KEY], dict))
-        ):
+        if (message is not None) and (isinstance(message, dict)) and (REPORTED_KEY in message) and (isinstance(message[REPORTED_KEY], dict)):
             reported: dict = message[REPORTED_KEY]
 
             if (reported is not None) and (key in reported):
                 value = reported[key]
-                _LOGGER.info("%s reported: %s", key, value)
+                _LOGGER.info("report_value: %s reported: %s", key, value)
                 return value
 
         return None
 
-
     def is_preference_supported(self, preference_type: str, details: dict) -> bool:
         """Check if a preference type is supported."""
-        _LOGGER.debug("PyDreoBaseDevice:Checking for preference type %s", preference_type)
+        _LOGGER.debug("is_preference_supported: Checking for preference type %s", preference_type)
         controls_conf = details.get("controlsConf", None)
         if controls_conf is not None:
             preferences = controls_conf.get("preference", None)
-            if (preferences is not None):
+            if preferences is not None:
                 for preference in preferences:
                     if preference.get("type", None) == preference_type:
-                        _LOGGER.debug("PyDreoFanBase:Found preference type %s", preference_type)
+                        _LOGGER.debug("is_preference_supported: Found preference type %s", preference_type)
                         return True
-                    
-        _LOGGER.debug("PyDreoBaseDevice:Preference type %s not found", preference_type)
+
+        _LOGGER.debug("is_preference_supported: Preference type %s not found", preference_type)
         return False
-    
-    def get_setting(self, dreo : "PyDreo", setting_name: str, default_value : any) -> any:
+
+    def get_setting(self, dreo: "PyDreo", setting_name: str, default_value: any) -> any:
         """Get the value of a preference."""
-        _LOGGER.debug("PyDreoBaseDevice:get_setting: %s", setting_name)
+        _LOGGER.debug("get_setting: %s", setting_name)
         setting_val = dreo.get_device_setting(self, setting_name)
         if setting_val is None:
-            _LOGGER.debug("PyDreoBaseDevice:get_setting: %s not found.  Using default value.", setting_name)
+            _LOGGER.debug("get_setting: %s not found.  Using default value.", setting_name)
             setting_val = default_value
 
-        _LOGGER.debug("PyDreoBaseDevice:get_setting: %s -> %s", setting_name, setting_val)
+        _LOGGER.debug("get_setting: %s -> %s", setting_name, setting_val)
         return setting_val
-    
+
     def get_mode_string(self, mode_id: str) -> str:
         """Get the mode string from the device definition."""
-        if (mode_id in PRESET_MODE_STRINGS):
+        if mode_id in PRESET_MODE_STRINGS:
             text = PRESET_MODE_STRINGS[mode_id]
         else:
             text = mode_id
 
         return text
-    
+
     def handle_server_update_base(self, message):
         """Initial method called when we get a WebSocket message."""
-        _LOGGER.debug("{%s}: got {%s} message **", self.name, message)
+        _LOGGER.debug("handle_server_update_base: {%s}: got {%s} message **", self.name, message)
+
+        val_connected = self.get_server_update_key_value(message, CONNECTED_KEY)
+        if isinstance(val_connected, bool):
+            _LOGGER.debug("handle_server_update_base: connected: %s --> %s", self._connected, val_connected)
+            self._connected = val_connected
 
         # This method exists so that we can run the polymorphic function to process updates, and then
         # run a _do_callbacks() command safely afterwards.
         self.handle_server_update(message)
         self._do_callbacks()
 
+    def set_connected(self, connected: bool, notify: bool = True) -> None:
+        """Record a connectivity change pushed by the cloud (device-online / device-offline)."""
+        _LOGGER.debug("set_connected: {%s}: connected: %s --> %s", self.name, self._connected, connected)
+        self._connected = connected
+        if notify:
+            self._do_callbacks()
+
     def handle_server_update(self, message: dict):
         """Method to process WebSocket message"""
 
     def _send_command(self, command_key: str, value):
         """Send a command to the Dreo servers via WebSocket."""
-        _LOGGER.debug(
-            "pyDreoBaseDevice(%s):send_command: %s-> %s", self, command_key, value
-        )
+        _LOGGER.debug("_send_command: %s-> %s", command_key, value)
+        self._send_command_batch({command_key: value})
 
-        params: dict = {command_key: value}
-        self._dreo.send_command(self, params)
+    def _send_command_batch(self, params: dict) -> None:
+        """Send several key changes as ONE command.
+
+        The keys are guaranteed to ship together in a single request (the
+        hardware applies multi-key commands atomically); single-key
+        ``_send_command`` calls make no such grouping promise, though the
+        outbox may still merge them with a concurrent burst.
+        """
+        self._outbox.submit(params)
+
+    def _apply_optimistic_state(self, params: dict) -> None:
+        """Hook: fold keys we are about to send into local state.
+
+        Called by the outbox at submit time with the caller's keys and at
+        flush time with any keys ``_finalize_command_params`` derived. Base
+        implementation is a no-op; setters that update their own attributes
+        keep doing so themselves.
+        """
+
+    def _finalize_command_params(self, params: dict) -> dict:
+        """Hook: adjust a merged batch just before it is sent.
+
+        Base implementation returns the batch unchanged. Device classes with
+        cross-key semantics (e.g. the ceiling fan's whole-device power gate)
+        override this to derive extra keys from the merged final state.
+        """
+        return params
+
+    def _on_command_sent(self) -> None:
+        """Hook: called after each send attempt (success or failure).
+
+        Base implementation is a no-op.
+        """
 
     def _set_setting(self, setting_key: str, value):
         """Set a setting on the device."""
-        _LOGGER.debug(
-            "pyDreoBaseDevice(%s):set_setting: %s-> %s", self, setting_key, value
-        )
+        _LOGGER.debug("_set_setting: %s-> %s", setting_key, value)
         self._dreo.set_device_setting(self, setting_key, value)
 
     def get_state_update_value(self, state: dict, key: str):
         """Get a value from the state update in a safe manner."""
         if key in state:
-            key_val_object: dict = state[key]
+            key_val_object = state[key]
             if key_val_object is not None:
-                _LOGGER.debug(
-                    "pyDreoBaseDevice(%s):get_state_update_value: %s-> %s",
-                    self,
-                    key,
-                    key_val_object[STATE_KEY],
-                )
-                return key_val_object[STATE_KEY]
+                if isinstance(key_val_object, dict) and STATE_KEY in key_val_object:
+                    _LOGGER.debug(
+                        "get_state_update_value: %s-> %s",
+                        key,
+                        key_val_object[STATE_KEY],
+                    )
+                    return key_val_object[STATE_KEY]
+                _LOGGER.debug("get_state_update_value: %s-> raw value %s", key, key_val_object)
+                return key_val_object
 
-        _LOGGER.debug("State value (%s) not present.  Device: %s", key, self.name)
+        _LOGGER.debug("get_state_update_value: State value (%s) not present.  Device: %s", key, self.name)
         return None
-    
+
     def get_state_update_value_mapped(self, state: dict, key: str, mapping: dict):
         """Get a value from the state update in a safe manner, and map it to something."""
         raw_value = self.get_state_update_value(state, key)
@@ -163,31 +223,51 @@ class PyDreoBaseDevice(object):
             if raw_value in mapping:
                 return mapping[raw_value]
             else:
-                _LOGGER.error("Value (%s) not in mapping for key %s.  Device: %s", raw_value, key, self.name)
+                _LOGGER.error("get_state_update_value_mapped: Value (%s) not in mapping for key %s.  Device: %s", raw_value, key, self.name)
         else:
-            _LOGGER.debug("State value (%s) not present.  Device: %s", key, self.name)
+            _LOGGER.debug("get_state_update_value_mapped: State value (%s) not present.  Device: %s", key, self.name)
 
-        return None    
+        return None
 
     def update_state(self, state: dict):
         """Process the state dictionary from the REST API."""
-        _LOGGER.debug("pyDreoBaseDevice:update_state: %s", state)
+        _LOGGER.debug("update_state: %s", state)
 
         # TODO: Inconsistent placement of POWERON between BaseDevice and Fan for State/WebSocket
         self._is_on = self.get_state_update_value(state, POWERON_KEY)
 
+        connected_val = self.get_state_update_value(state, CONNECTED_KEY)
+        if connected_val is not None:
+            self._connected = connected_val
+
+    def dispose(self) -> None:
+        """Release device-owned resources (timers, workers, etc.).
+
+        Called when the PyDreo manager tears down (integration unload). Subclasses
+        that schedule background work should override and cancel it here so
+        callbacks cannot run against torn-down state.
+
+        Drops any batched-but-unsent commands so no outbox timer fires against a
+        torn-down connection; subclasses that override must call super().
+        """
+        self._outbox.cancel()
+
     def add_attr_callback(self, cb):
         """Add a callback to be called by _do_callbacks."""
-        self._attr_cbs.append(cb)
+        with self._lock:
+            self._attr_cbs.append(cb)
 
     def _do_callbacks(self):
-        """Run all registered callback"""
+        """Run all registered callbacks."""
         cbs = []
         with self._lock:
             for cb in self._attr_cbs:
                 cbs.append(cb)
         for cb in cbs:
-            cb()
+            try:
+                cb()
+            except Exception as ex:  # pylint: disable=broad-except
+                _LOGGER.error("_do_callbacks: Callback %s raised: %s", cb, ex)
 
     @property
     def device_definition(self) -> DreoDeviceDetails:
@@ -259,16 +339,19 @@ class PyDreoBaseDevice(object):
         """Returns the color of the device. Maybe use for an image at some point"""
         return self._color
 
+    @property
+    def connected(self) -> bool | None:
+        """Returns True if the device is connected, None if unknown."""
+        return self._connected
+
     def is_feature_supported(self, feature: str) -> bool:
         """Does this device support a given feature"""
-        _LOGGER.debug("Checking if %s supports feature %s", self, feature)
+        _LOGGER.debug("is_feature_supported: Checking if %s supports feature %s", self, feature)
         property_name = feature
         if hasattr(self, property_name):
             val = getattr(self, property_name)
             if val is not None:
-                _LOGGER.debug(
-                    "%s found attribute for %s --> %s", self, property_name, val
-                )
+                _LOGGER.debug("is_feature_supported: %s found attribute for %s --> %s", self, property_name, val)
                 return True
 
         return False

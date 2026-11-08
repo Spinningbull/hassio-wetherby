@@ -9,45 +9,55 @@ const e=globalThis,o=e.ShadowRoot&&(void 0===e.ShadyCSS||e.ShadyCSS.nativeShadow
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */,{is:a,defineProperty:l,getOwnPropertyDescriptor:h,getOwnPropertyNames:d,getOwnPropertySymbols:u,getPrototypeOf:p}=Object,_=globalThis,m=_.trustedTypes,v=m?m.emptyScript:"",b=_.reactiveElementPolyfillSupport,g=(t,e)=>t,f={toAttribute(t,e){switch(e){case Boolean:t=t?v:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t)}return t},fromAttribute(t,e){let o=t;switch(e){case Boolean:o=null!==t;break;case Number:o=null===t?null:Number(t);break;case Object:case Array:try{o=JSON.parse(t)}catch(t){o=null}}return o}},w=(t,e)=>!a(t,e),y={attribute:!0,type:String,converter:f,reflect:!1,hasChanged:w};Symbol.metadata??=Symbol("metadata"),_.litPropertyMetadata??=new WeakMap;class $ extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=y){if(e.state&&(e.attribute=!1),this._$Ei(),this.elementProperties.set(t,e),!e.noAccessor){const o=Symbol(),i=this.getPropertyDescriptor(t,o,e);void 0!==i&&l(this.prototype,t,i)}}static getPropertyDescriptor(t,e,o){const{get:i,set:s}=h(this.prototype,t)??{get(){return this[e]},set(t){this[e]=t}};return{get(){return i?.call(this)},set(e){const n=i?.call(this);s.call(this,e),this.requestUpdate(t,n,o)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??y}static _$Ei(){if(this.hasOwnProperty(g("elementProperties")))return;const t=p(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(g("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(g("properties"))){const t=this.properties,e=[...d(t),...u(t)];for(const o of e)this.createProperty(o,t[o])}const t=this[Symbol.metadata];if(null!==t){const e=litPropertyMetadata.get(t);if(void 0!==e)for(const[t,o]of e)this.elementProperties.set(t,o)}this._$Eh=new Map;for(const[t,e]of this.elementProperties){const o=this._$Eu(t,e);void 0!==o&&this._$Eh.set(o,t)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const o=new Set(t.flat(1/0).reverse());for(const t of o)e.unshift(c(t))}else void 0!==t&&e.push(c(t));return e}static _$Eu(t,e){const o=e.attribute;return!1===o?void 0:"string"==typeof o?o:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$Eg=new Promise((t=>this.enableUpdating=t)),this._$AL=new Map,this._$ES(),this.requestUpdate(),this.constructor.l?.forEach((t=>t(this)))}addController(t){(this._$E_??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.()}removeController(t){this._$E_?.delete(t)}_$ES(){const t=new Map,e=this.constructor.elementProperties;for(const o of e.keys())this.hasOwnProperty(o)&&(t.set(o,this[o]),delete this[o]);t.size>0&&(this._$Ep=t)}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return((t,i)=>{if(o)t.adoptedStyleSheets=i.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet));else for(const o of i){const i=document.createElement("style"),s=e.litNonce;void 0!==s&&i.setAttribute("nonce",s),i.textContent=o.cssText,t.appendChild(i)}})(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$E_?.forEach((t=>t.hostConnected?.()))}enableUpdating(t){}disconnectedCallback(){this._$E_?.forEach((t=>t.hostDisconnected?.()))}attributeChangedCallback(t,e,o){this._$AK(t,o)}_$EO(t,e){const o=this.constructor.elementProperties.get(t),i=this.constructor._$Eu(t,o);if(void 0!==i&&!0===o.reflect){const s=(void 0!==o.converter?.toAttribute?o.converter:f).toAttribute(e,o.type);this._$Em=t,null==s?this.removeAttribute(i):this.setAttribute(i,s),this._$Em=null}}_$AK(t,e){const o=this.constructor,i=o._$Eh.get(t);if(void 0!==i&&this._$Em!==i){const t=o.getPropertyOptions(i),s="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:f;this._$Em=i,this[i]=s.fromAttribute(e,t.type),this._$Em=null}}requestUpdate(t,e,o,i=!1,s){if(void 0!==t){if(o??=this.constructor.getPropertyOptions(t),!(o.hasChanged??w)(i?s:this[t],e))return;this.C(t,e,o)}!1===this.isUpdatePending&&(this._$Eg=this._$EP())}C(t,e,o){this._$AL.has(t)||this._$AL.set(t,e),!0===o.reflect&&this._$Em!==t&&(this._$Ej??=new Set).add(t)}async _$EP(){this.isUpdatePending=!0;try{await this._$Eg}catch(t){Promise.reject(t)}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(const[t,e]of this._$Ep)this[t]=e;this._$Ep=void 0}const t=this.constructor.elementProperties;if(t.size>0)for(const[e,o]of t)!0!==o.wrapped||this._$AL.has(e)||void 0===this[e]||this.C(e,this[e],o)}let t=!1;const e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),this._$E_?.forEach((t=>t.hostUpdate?.())),this.update(e)):this._$ET()}catch(e){throw t=!1,this._$ET(),e}t&&this._$AE(e)}willUpdate(t){}_$AE(t){this._$E_?.forEach((t=>t.hostUpdated?.())),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$ET(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$Eg}shouldUpdate(t){return!0}update(t){this._$Ej&&=this._$Ej.forEach((t=>this._$EO(t,this[t]))),this._$ET()}updated(t){}firstUpdated(t){}}$.elementStyles=[],$.shadowRootOptions={mode:"open"},$[g("elementProperties")]=new Map,$[g("finalized")]=new Map,b?.({ReactiveElement:$}),(_.reactiveElementVersions??=[]).push("2.0.2");
+ */,{is:a,defineProperty:l,getOwnPropertyDescriptor:h,getOwnPropertyNames:d,getOwnPropertySymbols:u,getPrototypeOf:p}=Object,_=globalThis,v=_.trustedTypes,g=v?v.emptyScript:"",m=_.reactiveElementPolyfillSupport,b=(t,e)=>t,f={toAttribute(t,e){switch(e){case Boolean:t=t?g:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t)}return t},fromAttribute(t,e){let o=t;switch(e){case Boolean:o=null!==t;break;case Number:o=null===t?null:Number(t);break;case Object:case Array:try{o=JSON.parse(t)}catch(t){o=null}}return o}},y=(t,e)=>!a(t,e),$={attribute:!0,type:String,converter:f,reflect:!1,hasChanged:y};Symbol.metadata??=Symbol("metadata"),_.litPropertyMetadata??=new WeakMap;class w extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=$){if(e.state&&(e.attribute=!1),this._$Ei(),this.elementProperties.set(t,e),!e.noAccessor){const o=Symbol(),i=this.getPropertyDescriptor(t,o,e);void 0!==i&&l(this.prototype,t,i)}}static getPropertyDescriptor(t,e,o){const{get:i,set:s}=h(this.prototype,t)??{get(){return this[e]},set(t){this[e]=t}};return{get(){return i?.call(this)},set(e){const n=i?.call(this);s.call(this,e),this.requestUpdate(t,n,o)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??$}static _$Ei(){if(this.hasOwnProperty(b("elementProperties")))return;const t=p(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(b("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(b("properties"))){const t=this.properties,e=[...d(t),...u(t)];for(const o of e)this.createProperty(o,t[o])}const t=this[Symbol.metadata];if(null!==t){const e=litPropertyMetadata.get(t);if(void 0!==e)for(const[t,o]of e)this.elementProperties.set(t,o)}this._$Eh=new Map;for(const[t,e]of this.elementProperties){const o=this._$Eu(t,e);void 0!==o&&this._$Eh.set(o,t)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const o=new Set(t.flat(1/0).reverse());for(const t of o)e.unshift(c(t))}else void 0!==t&&e.push(c(t));return e}static _$Eu(t,e){const o=e.attribute;return!1===o?void 0:"string"==typeof o?o:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$Eg=new Promise((t=>this.enableUpdating=t)),this._$AL=new Map,this._$ES(),this.requestUpdate(),this.constructor.l?.forEach((t=>t(this)))}addController(t){(this._$E_??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.()}removeController(t){this._$E_?.delete(t)}_$ES(){const t=new Map,e=this.constructor.elementProperties;for(const o of e.keys())this.hasOwnProperty(o)&&(t.set(o,this[o]),delete this[o]);t.size>0&&(this._$Ep=t)}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return((t,i)=>{if(o)t.adoptedStyleSheets=i.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet));else for(const o of i){const i=document.createElement("style"),s=e.litNonce;void 0!==s&&i.setAttribute("nonce",s),i.textContent=o.cssText,t.appendChild(i)}})(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$E_?.forEach((t=>t.hostConnected?.()))}enableUpdating(t){}disconnectedCallback(){this._$E_?.forEach((t=>t.hostDisconnected?.()))}attributeChangedCallback(t,e,o){this._$AK(t,o)}_$EO(t,e){const o=this.constructor.elementProperties.get(t),i=this.constructor._$Eu(t,o);if(void 0!==i&&!0===o.reflect){const s=(void 0!==o.converter?.toAttribute?o.converter:f).toAttribute(e,o.type);this._$Em=t,null==s?this.removeAttribute(i):this.setAttribute(i,s),this._$Em=null}}_$AK(t,e){const o=this.constructor,i=o._$Eh.get(t);if(void 0!==i&&this._$Em!==i){const t=o.getPropertyOptions(i),s="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:f;this._$Em=i,this[i]=s.fromAttribute(e,t.type),this._$Em=null}}requestUpdate(t,e,o,i=!1,s){if(void 0!==t){if(o??=this.constructor.getPropertyOptions(t),!(o.hasChanged??y)(i?s:this[t],e))return;this.C(t,e,o)}!1===this.isUpdatePending&&(this._$Eg=this._$EP())}C(t,e,o){this._$AL.has(t)||this._$AL.set(t,e),!0===o.reflect&&this._$Em!==t&&(this._$Ej??=new Set).add(t)}async _$EP(){this.isUpdatePending=!0;try{await this._$Eg}catch(t){Promise.reject(t)}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(const[t,e]of this._$Ep)this[t]=e;this._$Ep=void 0}const t=this.constructor.elementProperties;if(t.size>0)for(const[e,o]of t)!0!==o.wrapped||this._$AL.has(e)||void 0===this[e]||this.C(e,this[e],o)}let t=!1;const e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),this._$E_?.forEach((t=>t.hostUpdate?.())),this.update(e)):this._$ET()}catch(e){throw t=!1,this._$ET(),e}t&&this._$AE(e)}willUpdate(t){}_$AE(t){this._$E_?.forEach((t=>t.hostUpdated?.())),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$ET(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$Eg}shouldUpdate(t){return!0}update(t){this._$Ej&&=this._$Ej.forEach((t=>this._$EO(t,this[t]))),this._$ET()}updated(t){}firstUpdated(t){}}w.elementStyles=[],w.shadowRootOptions={mode:"open"},w[b("elementProperties")]=new Map,w[b("finalized")]=new Map,m?.({ReactiveElement:w}),(_.reactiveElementVersions??=[]).push("2.0.2");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const x=globalThis,k=x.trustedTypes,C=k?k.createPolicy("lit-html",{createHTML:t=>t}):void 0,A="$lit$",E=`lit$${(Math.random()+"").slice(9)}$`,S="?"+E,M=`<${S}>`,z=document,O=()=>z.createComment(""),N=t=>null===t||"object"!=typeof t&&"function"!=typeof t,T=Array.isArray,R="[ \t\n\f\r]",P=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,L=/-->/g,U=/>/g,D=RegExp(`>|${R}(?:([^\\s"'>=/]+)(${R}*=${R}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),V=/'/g,H=/"/g,B=/^(?:script|style|textarea|title)$/i,I=(t=>(e,...o)=>({_$litType$:t,strings:e,values:o}))(1),j=Symbol.for("lit-noChange"),W=Symbol.for("lit-nothing"),F=new WeakMap,G=z.createTreeWalker(z,129);function Z(t,e){if(!Array.isArray(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==C?C.createHTML(e):e}const q=(t,e)=>{const o=t.length-1,i=[];let s,n=2===e?"<svg>":"",r=P;for(let e=0;e<o;e++){const o=t[e];let c,a,l=-1,h=0;for(;h<o.length&&(r.lastIndex=h,a=r.exec(o),null!==a);)h=r.lastIndex,r===P?"!--"===a[1]?r=L:void 0!==a[1]?r=U:void 0!==a[2]?(B.test(a[2])&&(s=RegExp("</"+a[2],"g")),r=D):void 0!==a[3]&&(r=D):r===D?">"===a[0]?(r=s??P,l=-1):void 0===a[1]?l=-2:(l=r.lastIndex-a[2].length,c=a[1],r=void 0===a[3]?D:'"'===a[3]?H:V):r===H||r===V?r=D:r===L||r===U?r=P:(r=D,s=void 0);const d=r===D&&t[e+1].startsWith("/>")?" ":"";n+=r===P?o+M:l>=0?(i.push(c),o.slice(0,l)+A+o.slice(l)+E+d):o+E+(-2===l?e:d)}return[Z(t,n+(t[o]||"<?>")+(2===e?"</svg>":"")),i]};class K{constructor({strings:t,_$litType$:e},o){let i;this.parts=[];let s=0,n=0;const r=t.length-1,c=this.parts,[a,l]=q(t,e);if(this.el=K.createElement(a,o),G.currentNode=this.el.content,2===e){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes)}for(;null!==(i=G.nextNode())&&c.length<r;){if(1===i.nodeType){if(i.hasAttributes())for(const t of i.getAttributeNames())if(t.endsWith(A)){const e=l[n++],o=i.getAttribute(t).split(E),r=/([.?@])?(.*)/.exec(e);c.push({type:1,index:s,name:r[2],strings:o,ctor:"."===r[1]?tt:"?"===r[1]?et:"@"===r[1]?ot:X}),i.removeAttribute(t)}else t.startsWith(E)&&(c.push({type:6,index:s}),i.removeAttribute(t));if(B.test(i.tagName)){const t=i.textContent.split(E),e=t.length-1;if(e>0){i.textContent=k?k.emptyScript:"";for(let o=0;o<e;o++)i.append(t[o],O()),G.nextNode(),c.push({type:2,index:++s});i.append(t[e],O())}}}else if(8===i.nodeType)if(i.data===S)c.push({type:2,index:s});else{let t=-1;for(;-1!==(t=i.data.indexOf(E,t+1));)c.push({type:7,index:s}),t+=E.length-1}s++}}static createElement(t,e){const o=z.createElement("template");return o.innerHTML=t,o}}function Y(t,e,o=t,i){if(e===j)return e;let s=void 0!==i?o._$Co?.[i]:o._$Cl;const n=N(e)?void 0:e._$litDirective$;return s?.constructor!==n&&(s?._$AO?.(!1),void 0===n?s=void 0:(s=new n(t),s._$AT(t,o,i)),void 0!==i?(o._$Co??=[])[i]=s:o._$Cl=s),void 0!==s&&(e=Y(t,s._$AS(t,e.values),s,i)),e}class Q{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:e},parts:o}=this._$AD,i=(t?.creationScope??z).importNode(e,!0);G.currentNode=i;let s=G.nextNode(),n=0,r=0,c=o[0];for(;void 0!==c;){if(n===c.index){let e;2===c.type?e=new J(s,s.nextSibling,this,t):1===c.type?e=new c.ctor(s,c.name,c.strings,this,t):6===c.type&&(e=new it(s,this,t)),this._$AV.push(e),c=o[++r]}n!==c?.index&&(s=G.nextNode(),n++)}return G.currentNode=z,i}p(t){let e=0;for(const o of this._$AV)void 0!==o&&(void 0!==o.strings?(o._$AI(t,o,e),e+=o.strings.length-2):o._$AI(t[e])),e++}}class J{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,e,o,i){this.type=2,this._$AH=W,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=o,this.options=i,this._$Cv=i?.isConnected??!0}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return void 0!==e&&11===t?.nodeType&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=Y(this,t,e),N(t)?t===W||null==t||""===t?(this._$AH!==W&&this._$AR(),this._$AH=W):t!==this._$AH&&t!==j&&this._(t):void 0!==t._$litType$?this.g(t):void 0!==t.nodeType?this.$(t):(t=>T(t)||"function"==typeof t?.[Symbol.iterator])(t)?this.T(t):this._(t)}k(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}$(t){this._$AH!==t&&(this._$AR(),this._$AH=this.k(t))}_(t){this._$AH!==W&&N(this._$AH)?this._$AA.nextSibling.data=t:this.$(z.createTextNode(t)),this._$AH=t}g(t){const{values:e,_$litType$:o}=t,i="number"==typeof o?this._$AC(t):(void 0===o.el&&(o.el=K.createElement(Z(o.h,o.h[0]),this.options)),o);if(this._$AH?._$AD===i)this._$AH.p(e);else{const t=new Q(i,this),o=t.u(this.options);t.p(e),this.$(o),this._$AH=t}}_$AC(t){let e=F.get(t.strings);return void 0===e&&F.set(t.strings,e=new K(t)),e}T(t){T(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let o,i=0;for(const s of t)i===e.length?e.push(o=new J(this.k(O()),this.k(O()),this,this.options)):o=e[i],o._$AI(s),i++;i<e.length&&(this._$AR(o&&o._$AB.nextSibling,i),e.length=i)}_$AR(t=this._$AA.nextSibling,e){for(this._$AP?.(!1,!0,e);t&&t!==this._$AB;){const e=t.nextSibling;t.remove(),t=e}}setConnected(t){void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t))}}class X{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,o,i,s){this.type=1,this._$AH=W,this._$AN=void 0,this.element=t,this.name=e,this._$AM=i,this.options=s,o.length>2||""!==o[0]||""!==o[1]?(this._$AH=Array(o.length-1).fill(new String),this.strings=o):this._$AH=W}_$AI(t,e=this,o,i){const s=this.strings;let n=!1;if(void 0===s)t=Y(this,t,e,0),n=!N(t)||t!==this._$AH&&t!==j,n&&(this._$AH=t);else{const i=t;let r,c;for(t=s[0],r=0;r<s.length-1;r++)c=Y(this,i[o+r],e,r),c===j&&(c=this._$AH[r]),n||=!N(c)||c!==this._$AH[r],c===W?t=W:t!==W&&(t+=(c??"")+s[r+1]),this._$AH[r]=c}n&&!i&&this.O(t)}O(t){t===W?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}}class tt extends X{constructor(){super(...arguments),this.type=3}O(t){this.element[this.name]=t===W?void 0:t}}class et extends X{constructor(){super(...arguments),this.type=4}O(t){this.element.toggleAttribute(this.name,!!t&&t!==W)}}class ot extends X{constructor(t,e,o,i,s){super(t,e,o,i,s),this.type=5}_$AI(t,e=this){if((t=Y(this,t,e,0)??W)===j)return;const o=this._$AH,i=t===W&&o!==W||t.capture!==o.capture||t.once!==o.once||t.passive!==o.passive,s=t!==W&&(o===W||i);i&&this.element.removeEventListener(this.name,this,o),s&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t)}}class it{constructor(t,e,o){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=o}get _$AU(){return this._$AM._$AU}_$AI(t){Y(this,t)}}const st=x.litHtmlPolyfillSupport;st?.(K,J),(x.litHtmlVersions??=[]).push("3.1.0");
+const k=globalThis,x=k.trustedTypes,E=x?x.createPolicy("lit-html",{createHTML:t=>t}):void 0,C="$lit$",A=`lit$${(Math.random()+"").slice(9)}$`,O="?"+A,S=`<${O}>`,N=document,M=()=>N.createComment(""),R=t=>null===t||"object"!=typeof t&&"function"!=typeof t,T=Array.isArray,I="[ \t\n\f\r]",z=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,P=/-->/g,L=/>/g,B=RegExp(`>|${I}(?:([^\\s"'>=/]+)(${I}*=${I}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),U=/'/g,D=/"/g,V=/^(?:script|style|textarea|title)$/i,H=(t=>(e,...o)=>({_$litType$:t,strings:e,values:o}))(1),j=Symbol.for("lit-noChange"),W=Symbol.for("lit-nothing"),F=new WeakMap,G=N.createTreeWalker(N,129);function Y(t,e){if(!Array.isArray(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==E?E.createHTML(e):e}const q=(t,e)=>{const o=t.length-1,i=[];let s,n=2===e?"<svg>":"",r=z;for(let e=0;e<o;e++){const o=t[e];let c,a,l=-1,h=0;for(;h<o.length&&(r.lastIndex=h,a=r.exec(o),null!==a);)h=r.lastIndex,r===z?"!--"===a[1]?r=P:void 0!==a[1]?r=L:void 0!==a[2]?(V.test(a[2])&&(s=RegExp("</"+a[2],"g")),r=B):void 0!==a[3]&&(r=B):r===B?">"===a[0]?(r=s??z,l=-1):void 0===a[1]?l=-2:(l=r.lastIndex-a[2].length,c=a[1],r=void 0===a[3]?B:'"'===a[3]?D:U):r===D||r===U?r=B:r===P||r===L?r=z:(r=B,s=void 0);const d=r===B&&t[e+1].startsWith("/>")?" ":"";n+=r===z?o+S:l>=0?(i.push(c),o.slice(0,l)+C+o.slice(l)+A+d):o+A+(-2===l?e:d)}return[Y(t,n+(t[o]||"<?>")+(2===e?"</svg>":"")),i]};class K{constructor({strings:t,_$litType$:e},o){let i;this.parts=[];let s=0,n=0;const r=t.length-1,c=this.parts,[a,l]=q(t,e);if(this.el=K.createElement(a,o),G.currentNode=this.el.content,2===e){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes)}for(;null!==(i=G.nextNode())&&c.length<r;){if(1===i.nodeType){if(i.hasAttributes())for(const t of i.getAttributeNames())if(t.endsWith(C)){const e=l[n++],o=i.getAttribute(t).split(A),r=/([.?@])?(.*)/.exec(e);c.push({type:1,index:s,name:r[2],strings:o,ctor:"."===r[1]?tt:"?"===r[1]?et:"@"===r[1]?ot:J}),i.removeAttribute(t)}else t.startsWith(A)&&(c.push({type:6,index:s}),i.removeAttribute(t));if(V.test(i.tagName)){const t=i.textContent.split(A),e=t.length-1;if(e>0){i.textContent=x?x.emptyScript:"";for(let o=0;o<e;o++)i.append(t[o],M()),G.nextNode(),c.push({type:2,index:++s});i.append(t[e],M())}}}else if(8===i.nodeType)if(i.data===O)c.push({type:2,index:s});else{let t=-1;for(;-1!==(t=i.data.indexOf(A,t+1));)c.push({type:7,index:s}),t+=A.length-1}s++}}static createElement(t,e){const o=N.createElement("template");return o.innerHTML=t,o}}function Z(t,e,o=t,i){if(e===j)return e;let s=void 0!==i?o._$Co?.[i]:o._$Cl;const n=R(e)?void 0:e._$litDirective$;return s?.constructor!==n&&(s?._$AO?.(!1),void 0===n?s=void 0:(s=new n(t),s._$AT(t,o,i)),void 0!==i?(o._$Co??=[])[i]=s:o._$Cl=s),void 0!==s&&(e=Z(t,s._$AS(t,e.values),s,i)),e}class X{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:e},parts:o}=this._$AD,i=(t?.creationScope??N).importNode(e,!0);G.currentNode=i;let s=G.nextNode(),n=0,r=0,c=o[0];for(;void 0!==c;){if(n===c.index){let e;2===c.type?e=new Q(s,s.nextSibling,this,t):1===c.type?e=new c.ctor(s,c.name,c.strings,this,t):6===c.type&&(e=new it(s,this,t)),this._$AV.push(e),c=o[++r]}n!==c?.index&&(s=G.nextNode(),n++)}return G.currentNode=N,i}p(t){let e=0;for(const o of this._$AV)void 0!==o&&(void 0!==o.strings?(o._$AI(t,o,e),e+=o.strings.length-2):o._$AI(t[e])),e++}}class Q{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,e,o,i){this.type=2,this._$AH=W,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=o,this.options=i,this._$Cv=i?.isConnected??!0}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return void 0!==e&&11===t?.nodeType&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=Z(this,t,e),R(t)?t===W||null==t||""===t?(this._$AH!==W&&this._$AR(),this._$AH=W):t!==this._$AH&&t!==j&&this._(t):void 0!==t._$litType$?this.g(t):void 0!==t.nodeType?this.$(t):(t=>T(t)||"function"==typeof t?.[Symbol.iterator])(t)?this.T(t):this._(t)}k(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}$(t){this._$AH!==t&&(this._$AR(),this._$AH=this.k(t))}_(t){this._$AH!==W&&R(this._$AH)?this._$AA.nextSibling.data=t:this.$(N.createTextNode(t)),this._$AH=t}g(t){const{values:e,_$litType$:o}=t,i="number"==typeof o?this._$AC(t):(void 0===o.el&&(o.el=K.createElement(Y(o.h,o.h[0]),this.options)),o);if(this._$AH?._$AD===i)this._$AH.p(e);else{const t=new X(i,this),o=t.u(this.options);t.p(e),this.$(o),this._$AH=t}}_$AC(t){let e=F.get(t.strings);return void 0===e&&F.set(t.strings,e=new K(t)),e}T(t){T(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let o,i=0;for(const s of t)i===e.length?e.push(o=new Q(this.k(M()),this.k(M()),this,this.options)):o=e[i],o._$AI(s),i++;i<e.length&&(this._$AR(o&&o._$AB.nextSibling,i),e.length=i)}_$AR(t=this._$AA.nextSibling,e){for(this._$AP?.(!1,!0,e);t&&t!==this._$AB;){const e=t.nextSibling;t.remove(),t=e}}setConnected(t){void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t))}}class J{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,o,i,s){this.type=1,this._$AH=W,this._$AN=void 0,this.element=t,this.name=e,this._$AM=i,this.options=s,o.length>2||""!==o[0]||""!==o[1]?(this._$AH=Array(o.length-1).fill(new String),this.strings=o):this._$AH=W}_$AI(t,e=this,o,i){const s=this.strings;let n=!1;if(void 0===s)t=Z(this,t,e,0),n=!R(t)||t!==this._$AH&&t!==j,n&&(this._$AH=t);else{const i=t;let r,c;for(t=s[0],r=0;r<s.length-1;r++)c=Z(this,i[o+r],e,r),c===j&&(c=this._$AH[r]),n||=!R(c)||c!==this._$AH[r],c===W?t=W:t!==W&&(t+=(c??"")+s[r+1]),this._$AH[r]=c}n&&!i&&this.O(t)}O(t){t===W?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}}class tt extends J{constructor(){super(...arguments),this.type=3}O(t){this.element[this.name]=t===W?void 0:t}}class et extends J{constructor(){super(...arguments),this.type=4}O(t){this.element.toggleAttribute(this.name,!!t&&t!==W)}}class ot extends J{constructor(t,e,o,i,s){super(t,e,o,i,s),this.type=5}_$AI(t,e=this){if((t=Z(this,t,e,0)??W)===j)return;const o=this._$AH,i=t===W&&o!==W||t.capture!==o.capture||t.once!==o.once||t.passive!==o.passive,s=t!==W&&(o===W||i);i&&this.element.removeEventListener(this.name,this,o),s&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t)}}class it{constructor(t,e,o){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=o}get _$AU(){return this._$AM._$AU}_$AI(t){Z(this,t)}}const st=k.litHtmlPolyfillSupport;st?.(K,Q),(k.litHtmlVersions??=[]).push("3.1.0");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-class nt extends ${constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){const t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=((t,e,o)=>{const i=o?.renderBefore??e;let s=i._$litPart$;if(void 0===s){const t=o?.renderBefore??null;i._$litPart$=s=new J(e.insertBefore(O(),t),t,void 0,o??{})}return s._$AI(t),s})(e,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return j}}nt._$litElement$=!0,nt.finalized=!0,globalThis.litElementHydrateSupport?.({LitElement:nt});const rt=globalThis.litElementPolyfillSupport;rt?.({LitElement:nt}),(globalThis.litElementVersions??=[]).push("4.0.2");
+class nt extends w{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){const t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=((t,e,o)=>{const i=o?.renderBefore??e;let s=i._$litPart$;if(void 0===s){const t=o?.renderBefore??null;i._$litPart$=s=new Q(e.insertBefore(M(),t),t,void 0,o??{})}return s._$AI(t),s})(e,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return j}}nt._$litElement$=!0,nt.finalized=!0,globalThis.litElementHydrateSupport?.({LitElement:nt});const rt=globalThis.litElementPolyfillSupport;rt?.({LitElement:nt}),(globalThis.litElementVersions??=[]).push("4.0.2");
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)})):customElements.define(t,e)},at="lg-remote-control",lt="lg-remote-control-editor";function ht(t,e){let o=Object.keys(t.entities).filter((o=>t.entities[o].platform===e));const i=/media_player/;return o.filter((t=>i.exec(t)))}const dt=new Map(Object.entries({anthemav:{friendlyName:"Anthem A/V Receivers"},arcam_fmj:{friendlyName:"Arcam FMJ Receivers"},denonavr:{friendlyName:"Denon, Marantz A/V Receivers"},heos:{friendlyName:"Denon heos A/V Receivers"},harman_kardon_avr:{friendlyName:"Harman Kardon AVR"},monoprice:{friendlyName:"Monoprice 6-Zone Amplifier"},onkyo:{friendlyName:"Onkyo A/V Receivers"},sonos:{friendlyName:"Sonos"},pws66i:{friendlyName:"Soundavo WS66i 6-Zone Amplifier"},yamaha:{friendlyName:"Yamaha Network Receivers"}}));let ut=class extends nt{static get properties(){return{hass:{},_config:{}}}setConfig(t){this._config=t}configChanged(t){const e=Object.assign({},this._config);e[t.target.name.toString()]=t.target.value,this._config=e;const o=new CustomEvent("config-changed",{detail:{config:e},bubbles:!0,composed:!0});this.dispatchEvent(o)}configChangedBool(t){const e=t.target.name,o="true"===t.target.value,i=Object.assign({},this._config);i[e]=o,this._config=i;const s=new CustomEvent("config-changed",{detail:{config:i},bubbles:!0,composed:!0});this.dispatchEvent(s)}colorsConfigChanged(t){var e,o;if("HA-ICON"===t.target.tagName){const o=t.target.getAttribute("data-input-name");if(o){const t=this.shadowRoot.querySelector(`[name="${o}"]`);if(t){t.value="";const i=Object.assign({},this._config);i.colors=Object.assign({},null!==(e=i.colors)&&void 0!==e?e:{}),i.colors[o]="",this._config=i;const s=new CustomEvent("config-changed",{detail:{config:i},bubbles:!0,composed:!0});this.dispatchEvent(s)}}}else{const e=Object.assign({},this._config);e.colors=Object.assign({},null!==(o=e.colors)&&void 0!==o?o:{}),e.colors[t.target.name.toString()]=t.target.value,this._config=e;const i=new CustomEvent("config-changed",{detail:{config:e},bubbles:!0,composed:!0});this.dispatchEvent(i)}}_erase_av_receiver(){this._config.av_receiver_family="",this.requestUpdate()}dimensionsConfigChanged(t){var e;const o=Object.assign({},this._config);o.dimensions=Object.assign({},null!==(e=o.dimensions)&&void 0!==e?e:{}),"border_width"===t.target.name?o.dimensions[t.target.name]=t.target.value+"px":o.dimensions[t.target.name]=t.target.value,this._config=o;const i=new CustomEvent("config-changed",{detail:{config:o},bubbles:!0,composed:!0});this.dispatchEvent(i)}getLgTvEntityDropdown(t){let e=ht(this.hass,"webostv"),o=I``;return""!=this._config.tventity&&e.includes(t)||(o=I`<option value="" selected> - - - - </option> `),I`
+const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)})):customElements.define(t,e)},at="lg-remote-control",lt="lg-remote-control-editor";function ht(t){var e,o;if("function"!=typeof(null==t?void 0:t.formatEntityName))return!1;const[i,s]=(null!==(o=null===(e=null==t?void 0:t.config)||void 0===e?void 0:e.version)&&void 0!==o?o:"").split(".",2);return Number(i)>2026||2026===Number(i)&&Number(s)>=4}function dt(t,e,o){var i,s,n;if(""===o&&(o=void 0),"string"==typeof o&&o)return o;const r=null===(i=null==t?void 0:t.states)||void 0===i?void 0:i[e];return r?ht(t)?null!==(s=t.formatEntityName(r,o))&&void 0!==s?s:"":null!==(n=r.attributes.friendly_name)&&void 0!==n?n:"":""}function ut(t,e){let o=Object.keys(t.entities).filter((o=>t.entities[o].platform===e));const i=/media_player/;return o.filter((t=>i.exec(t)))}const pt=new Map(Object.entries({anthemav:{friendlyName:"Anthem A/V Receivers"},arcam_fmj:{friendlyName:"Arcam FMJ Receivers"},denonavr:{friendlyName:"Denon, Marantz A/V Receivers"},heos:{friendlyName:"Denon heos A/V Receivers"},harman_kardon_avr:{friendlyName:"Harman Kardon AVR"},monoprice:{friendlyName:"Monoprice 6-Zone Amplifier"},onkyo:{friendlyName:"Onkyo A/V Receivers"},sonos:{friendlyName:"Sonos"},pws66i:{friendlyName:"Soundavo WS66i 6-Zone Amplifier"},yamaha:{friendlyName:"Yamaha Network Receivers"}})),_t=[{key:"1",name:"1"},{key:"2",name:"2"},{key:"3",name:"3"},{key:"4",name:"4"},{key:"5",name:"5"},{key:"6",name:"6"},{key:"7",name:"7"},{key:"8",name:"8"},{key:"9",name:"9"},{key:"0",name:"0"},{key:"UP",name:"Up"},{key:"LEFT",name:"Left"},{key:"ENTER",name:"Enter/OK"},{key:"RIGHT",name:"Right"},{key:"BACK",name:"Back"},{key:"DOWN",name:"Down"},{key:"EXIT",name:"Exit"},{key:"RED",name:"Red"},{key:"GREEN",name:"Green"},{key:"YELLOW",name:"Yellow"},{key:"BLUE",name:"Blue"},{key:"HOME",name:"Home"},{key:"CHANNELUP",name:"Channel Up"},{key:"MUTE",name:"Mute"},{key:"INFO",name:"Info"},{key:"CHANNELDOWN",name:"Channel Down"},{key:"PLAY",name:"Play"},{key:"PAUSE",name:"Pause"},{key:"STOP",name:"Stop"},{key:"REWIND",name:"Rewind"},{key:"RECORD",name:"Record"},{key:"FAST_FOWARD",name:"Fast Forward"},{key:"POWER",name:"Power"},{key:"VOLUME_UP",name:"Volume Up"},{key:"VOLUME_DOWN",name:"Volume Down"}];let vt=class extends nt{constructor(){super(...arguments),this._overridesExpanded=!1,this._expandedOverride=null}static get properties(){return{hass:{},_config:{}}}setConfig(t){this._config=t}configChanged(t){const e=Object.assign({},this._config);e[t.target.name.toString()]=t.target.value,this._config=e;const o=new CustomEvent("config-changed",{detail:{config:e},bubbles:!0,composed:!0});this.dispatchEvent(o)}configChangedBool(t){const e=t.target.name,o="true"===t.target.value,i=Object.assign({},this._config);i[e]=o,this._config=i;const s=new CustomEvent("config-changed",{detail:{config:i},bubbles:!0,composed:!0});this.dispatchEvent(s)}colorsConfigChanged(t){var e,o;if("HA-ICON"===t.target.tagName){const o=t.target.getAttribute("data-input-name");if(o){const t=this.shadowRoot.querySelector(`[name="${o}"]`);if(t){t.value="";const i=Object.assign({},this._config);i.colors=Object.assign({},null!==(e=i.colors)&&void 0!==e?e:{}),i.colors[o]="",this._config=i;const s=new CustomEvent("config-changed",{detail:{config:i},bubbles:!0,composed:!0});this.dispatchEvent(s)}}}else{const e=Object.assign({},this._config);e.colors=Object.assign({},null!==(o=e.colors)&&void 0!==o?o:{}),e.colors[t.target.name.toString()]=t.target.value,this._config=e;const i=new CustomEvent("config-changed",{detail:{config:e},bubbles:!0,composed:!0});this.dispatchEvent(i)}}_erase_av_receiver(){const t=Object.assign(Object.assign({},this._config),{av_receiver_family:"",ampli_entity:""});this._config=t,this.dispatchEvent(new CustomEvent("config-changed",{detail:{config:t},bubbles:!0,composed:!0}))}dimensionsConfigChanged(t){var e;const o=Object.assign({},this._config);o.dimensions=Object.assign({},null!==(e=o.dimensions)&&void 0!==e?e:{}),"border_width"===t.target.name?o.dimensions[t.target.name]=t.target.value+"px":o.dimensions[t.target.name]=t.target.value,this._config=o;const i=new CustomEvent("config-changed",{detail:{config:o},bubbles:!0,composed:!0});this.dispatchEvent(i)}getLgTvEntityDropdown(t){let e=ut(this.hass,"webostv"),o=H``;return""!=this._config.tventity&&e.includes(t)||(o=H`<option value="" selected> - - - - </option> `),H`
             ${"LG Media Player Entity"}:<br>
             <select name="entity" id="entity" class="select-item" .value="${t}"
                     @focusout=${this.configChanged}
                     @change=${this.configChanged} >
                 ${o}
-                ${e.map((t=>t!=this._config.tventity?I`<option value="${t}">${this.hass.states[t].attributes.friendly_name||t}</option> `:I`<option value="${t}" selected>${this.hass.states[t].attributes.friendly_name||t}</option> `))}
+                ${e.map((t=>t!=this._config.tventity?H`<option value="${t}">${dt(this.hass,t)||t}</option> `:H`<option value="${t}" selected>${dt(this.hass,t)||t}</option> `))}
             </select>
             <br>
-            <br>`}setRemoteName(t){return I`
-            ${"Remote Control Name (option):"}<br>
-            <input type="text" name="name" id="name" style="width: 37.8ch;padding: .6em; font-size: 1em;" .value="${t}"
-                   @input=${this.configChanged}
+            <br>`}setRemoteName(t){let e="Remote Control Name (option):";return ht(this.hass)&&customElements.get("ha-selector")?H`
+            ${e}<br>
+            <ha-selector
+                .hass=${this.hass}
+                .selector=${{entity_name:{}}}
+                .context=${{entity:this._config.entity}}
+                .value=${t||void 0}
+                @value-changed=${this.remoteNameChanged}
+            ></ha-selector>
             <br><br>
-        `}selectMac(t){return I`
+        `:H`
+            ${e}<br>
+            <input type="text" name="name" id="name" style="width: 37.8ch;padding: .6em; font-size: 1em;" .value="${"string"==typeof t?t:""}"
+                   @input=${this.configChanged}>
+            <br><br>
+        `}remoteNameChanged(t){t.stopPropagation();const e=Object.assign({},this._config),o=t.detail.value;o?e.name=o:delete e.name,this._config=e,this.dispatchEvent(new CustomEvent("config-changed",{detail:{config:e},bubbles:!0,composed:!0}))}selectMac(t){return H`
             ${"MAC Address:"}<br>
             <input type="text" name="mac" id="mac" style="width: 37.8ch;padding: .6em; font-size: 1em;" .value="${t=null!=t?t:"00:11:22:33:44:55"}"
                    @focusout=${this.configChanged}
                    @change=${this.configChanged}>
             <br><br>
-        `}selectColors(t){return t&&t.colors||(t={colors:{buttons:"",text:"",background:"",border:""}}),I`
+        `}selectColors(t){return t&&t.colors||(t={colors:{buttons:"",text:"",background:"",border:""}}),H`
             <div class="heading">${"Colors Configuration"}:</div>
             <div class="color-selector" class="title">
                 <label class="color-item" for="buttons" >Buttons Color:</label>
@@ -71,7 +81,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
                         @input=${this.colorsConfigChanged}></input>
                         <ha-icon data-input-name="border" icon="mdi:trash-can-outline" @click=${this.colorsConfigChanged}></ha-icon>
             </div>
-        `}colorButtonsConfig(t){const e=this._config.color_buttons||"false";return I`
+        `}colorButtonsConfig(t){const e=this._config.color_buttons||"false";return H`
           <div>Color buttons config</div>
           <select name="color_buttons" id="color_buttons" class="select-item"
                   .value="${e}"
@@ -81,7 +91,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
             <option value="false" ?selected=${"false"===e}>False</option>
           </select>
           <br>
-        `}setDimensions(t){var e,o;const i=parseFloat(null!==(e=t.border_width)&&void 0!==e?e:"1");return I`
+        `}setDimensions(t){var e,o;const i=parseFloat(null!==(e=t.border_width)&&void 0!==e?e:"1");return H`
           <div class="heading">${"Dimensions"}:</div>
           <br>
           <label for="scale">Card Scale: ${null!==(o=t.scale)&&void 0!==o?o:1}</label><br>
@@ -94,7 +104,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
           </input>
           <br>
           </div>
-        `}getDeviceAVReceiverDropdown(t){const e=[...dt.keys()],o=this._config.av_receiver_family&&""!==this._config.av_receiver_family?"":I`<option value="" selected> - - - - </option>`;return I`
+        `}getDeviceAVReceiverDropdown(t){const e=[...pt.keys()],o=this._config.av_receiver_family&&""!==this._config.av_receiver_family?"":H`<option value="" selected> - - - - </option>`;return H`
         <div>AV-Receiver config option:</div>
         <div style="display: flex;width: 40ch;align-items: center;">
          <select 
@@ -106,13 +116,13 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
             @focusout=${this.configChanged}
             @change=${this.configChanged}>
             ${o}
-            ${e.map((e=>{const o=dt.get(e);return I`
+            ${e.map((e=>{const o=pt.get(e);return H`
                 <option value="${e}" ?selected=${t===e}>
                   ${o.friendlyName}
                 </option>
               `}))}
           </select>
-          ${this._config.av_receiver_family&&""!=this._config.av_receiver_family?I`
+          ${this._config.av_receiver_family&&""!=this._config.av_receiver_family?H`
           <ha-icon 
             style="padding-left: 0.8em;"
             icon="mdi:trash-can-outline" 
@@ -121,20 +131,74 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
           ></ha-icon>`:""}
         </div>
         <br />
-    `}getMediaPlayerEntityDropdown(t){if(this._config.av_receiver_family){const e=ht(this.hass,t),o=""!==this._config.ampli_entity&&e.includes(t)?"":I`<option value="" selected> - - - - </option>`;return I`
+    `}getMediaPlayerEntityDropdown(t){if(this._config.av_receiver_family){const e=ut(this.hass,t),o=""!==this._config.ampli_entity&&e.includes(t)?"":H`<option value="" selected> - - - - </option>`;return H`
                 A-Receiver config (option):<br>
                 <select name="ampli_entity" id="ampli_entity" class="select-item" .value="${t}"
                         @focusout=${this.configChanged}
                         @change=${this.configChanged}>
                     ${o}
-                    ${e.map((t=>I`
+                    ${e.map((t=>H`
                         <option value="${t}" ?selected=${t===this._config.ampli_entity}>
-                            ${this.hass.states[t].attributes.friendly_name||t}
+                            ${dt(this.hass,t)||t}
                         </option>
                     `))}
                 </select>
                 <br><br>
-            `}return I``}render(){var t;return this.hass&&this._config?I`
+            `}return H``}_toggleOverridesSection(){this._overridesExpanded=!this._overridesExpanded,this.requestUpdate()}_toggleOverrideConfig(t){this._expandedOverride=this._expandedOverride===t?null:t,this.requestUpdate()}_onButtonSelect(t){var e;const o=t.target.value;if(o){const t=Object.assign({},this._config);t.keys=Object.assign({},null!==(e=t.keys)&&void 0!==e?e:{}),t.keys[o]||(t.keys[o]={}),this._config=t,this._expandedOverride=o;const i=new CustomEvent("config-changed",{detail:{config:t},bubbles:!0,composed:!0});this.dispatchEvent(i)}this.requestUpdate()}_updateOverrideField(t,e,o){var i,s,n;const r=Object.assign({},this._config);r.keys=Object.assign({},null!==(i=r.keys)&&void 0!==i?i:{}),r.keys[t]=Object.assign({},null!==(s=r.keys[t])&&void 0!==s?s:{}),o?"service"===e?r.keys[t].service=o:"entity_id"===e?r.keys[t].data=Object.assign(Object.assign({},null!==(n=r.keys[t].data)&&void 0!==n?n:{}),{entity_id:o}):r.keys[t][e]=o:"service"===e?delete r.keys[t].service:"entity_id"===e?r.keys[t].data&&(r.keys[t].data=Object.assign({},r.keys[t].data),delete r.keys[t].data.entity_id,0===Object.keys(r.keys[t].data).length&&delete r.keys[t].data):delete r.keys[t][e],this._config=r;const c=new CustomEvent("config-changed",{detail:{config:r},bubbles:!0,composed:!0});this.dispatchEvent(c)}_deleteOverride(t){const e=Object.assign({},this._config);e.keys&&e.keys[t]&&(e.keys=Object.assign({},e.keys),delete e.keys[t],0===Object.keys(e.keys).length&&delete e.keys),this._config=e,this._expandedOverride===t&&(this._expandedOverride=null);const o=new CustomEvent("config-changed",{detail:{config:e},bubbles:!0,composed:!0});this.dispatchEvent(o)}_getConfiguredKeys(){var t;return(null===(t=this._config)||void 0===t?void 0:t.keys)?Object.keys(this._config.keys).filter((t=>_t.some((e=>e.key===t)))):[]}_getButtonName(t){const e=_t.find((e=>e.key===t));return e?e.name:t}_getServiceOptions(){var t;if(!(null===(t=this.hass)||void 0===t?void 0:t.services))return[];const e=[];for(const t of Object.keys(this.hass.services))for(const o of Object.keys(this.hass.services[t]))e.push(`${t}.${o}`);return e.sort()}_getEntityOptions(){var t;return(null===(t=this.hass)||void 0===t?void 0:t.states)?Object.keys(this.hass.states).sort():[]}_renderOverridesSection(){const t=this._getConfiguredKeys();return H`
+      <div class="overrides-header" @click=${()=>this._toggleOverridesSection()}>
+        <span class="heading">Overrides</span>
+        <ha-icon icon="${this._overridesExpanded?"mdi:chevron-up":"mdi:chevron-down"}"></ha-icon>
+      </div>
+      ${this._overridesExpanded?H`
+        <div class="overrides-content">
+          <div class="add-override-row">
+            <select class="select-item" @change=${t=>this._onButtonSelect(t)}>
+              <option value="">Select button to override...</option>
+              ${_t.map((t=>H`
+                <option value="${t.key}">${t.name}</option>
+              `))}
+            </select>
+          </div>
+          ${t.length>0?H`
+            <div class="configured-overrides">
+              ${t.map((t=>this._renderOverrideItem(t)))}
+            </div>
+          `:""}
+        </div>
+      `:""}
+    `}_renderOverrideItem(t){var e,o,i;const s=this._expandedOverride===t,n=(null===(o=null===(e=this._config)||void 0===e?void 0:e.keys)||void 0===o?void 0:o[t])||{},r=n.icon||"",c=n.style||"",a=n.service||"",l=(null===(i=n.data)||void 0===i?void 0:i.entity_id)||"";return H`
+      <div class="override-item">
+        <div class="override-item-header" @click=${()=>this._toggleOverrideConfig(t)}>
+          <span>${this._getButtonName(t)}</span>
+          <div class="override-item-actions">
+            <ha-icon icon="mdi:delete" @click=${e=>{e.stopPropagation(),this._deleteOverride(t)}}></ha-icon>
+            <ha-icon icon="${s?"mdi:chevron-up":"mdi:chevron-down"}"></ha-icon>
+          </div>
+        </div>
+        ${s?H`
+          <div class="override-item-config">
+            <label>Icon (optional):</label>
+            <input type="text" placeholder="mdi:volume-high" .value=${r}
+                   @input=${e=>this._updateOverrideField(t,"icon",e.target.value)} />
+            <label>Style (optional):</label>
+            <input type="text" placeholder="color: green;" .value=${c}
+                   @input=${e=>this._updateOverrideField(t,"style",e.target.value)} />
+            <label>Service:</label>
+            <input type="text" list="service-list" placeholder="media_player.volume_up" .value=${a}
+                   @input=${e=>this._updateOverrideField(t,"service",e.target.value)} />
+            <datalist id="service-list">
+              ${this._getServiceOptions().map((t=>H`<option value="${t}"></option>`))}
+            </datalist>
+            <label>Entity ID:</label>
+            <input type="text" list="entity-list" placeholder="media_player.receiver" .value=${l}
+                   @input=${e=>this._updateOverrideField(t,"entity_id",e.target.value)} />
+            <datalist id="entity-list">
+              ${this._getEntityOptions().map((t=>H`<option value="${t}"></option>`))}
+            </datalist>
+          </div>
+        `:""}
+      </div>
+    `}render(){var t;return this.hass&&this._config?H`
       ${this.getLgTvEntityDropdown(this._config.entity)}
       ${this.selectMac(this._config.mac)}
       ${this.setRemoteName(this._config.name)}
@@ -143,6 +207,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
       ${this.getDeviceAVReceiverDropdown(this._config.av_receiver_family)}
       ${this.getMediaPlayerEntityDropdown(this._config.av_receiver_family)}
       ${this.setDimensions(null!==(t=this._config.dimensions)&&void 0!==t?t:{})}
+      ${this._renderOverridesSection()}
       <br>
       <p>Other functionalities must be configured manually in code editor</p>
       <p>references to <a href="https://github.com/madmicio/LG-WebOS-Remote-Control">https://github.com/madmicio/LG-WebOS-Remote-Control</a></p>
@@ -155,7 +220,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
           </form>
 
       </div>
-   `:I``}static get styles(){return r`
+   `:H``}static get styles(){return r`
  
         .color-selector {
             display: grid;
@@ -178,8 +243,62 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
             padding: .6em; 
             font-size: 1em;
         }
+
+        .overrides-header, .override-item-header, .override-item-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5em;
+        }
+
+        .overrides-header, .override-item-header {
+            padding: 0.5em;
+            background: var(--secondary-background-color);
+            cursor: pointer;
+        }
+
+        .overrides-header {
+            margin-top: 1em;
+        }
+
+        .overrides-content, .override-item-config {
+            padding: 0.5em;
+        }
+
+        .override-item {
+            margin-top: 0.5em;
+            border: 1px solid var(--divider-color);
+            border-radius: 4px;
+        }
+
+        .override-item-actions ha-icon {
+            cursor: pointer;
+        }
+
+        .override-item-actions ha-icon[icon="mdi:delete"] {
+            color: var(--error-color);
+        }
+
+        .override-item-config label {
+            display: block;
+            margin: 0.5em 0 0.2em;
+        }
+
+        .overrides-content .select-item, .override-item-config input {
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .override-item-config input {
+            padding: 0.4em;
+            font: inherit;
+            color: var(--primary-text-color);
+            background: var(--card-background-color);
+            border: 1px solid var(--divider-color);
+            border-radius: 4px;
+        }
  
-        `}};function pt(){return I`<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        `}};function gt(){return H`<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          viewBox="0 0 30 30" style="enable-background:new 0 0 30 30;" xml:space="preserve">
               <style type="text/css">
               .st0{fill:var(--remote-text-color);}
@@ -199,7 +318,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
               l-5.8-0.5c-6.5-0.5-24.4,7.5-27.6,12.2c-1.4,2.3-1,3.8,1.6,6.6c3.5,4,17.6,12,21.1,12.2C137.2,1508.6,140,1501.8,142.4,1493.4z"/>
               </g>
               </svg>
-        `}function _t(){return I`<svg version="1.0" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        `}function mt(){return H`<svg version="1.0" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          viewBox="0 0 30.7 30.7" style="enable-background:new 0 0 30.7 30.7;" xml:space="preserve">
               <style type="text/css">
               .st0{fill:var(--remote-text-color);}
@@ -223,7 +342,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
               C166.4,3065.6,164.7,3065.4,164.4,3065.3z"/>
               </g>
               </svg>
-        `}function mt(){return I`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        `}function bt(){return H`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
               <style type="text/css">
                 .st0{fill:var(--remote-text-color);}
               </style>
@@ -269,7 +388,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
                 0 0 0 .425-.33zm-5.981-.255a1.174 1.174 0 0 0-.106.26 2.683 2.683 0 0 0-.065.997 1.48 1.48 0 0 0 .147.536.734.734 0 0 0 .568.391 1.306 1.306 0 0 0 .832-.158.147.147 
                 0 0 0 .086-.147v-.966h.007c0-.323-.01-.641 0-.968a.147.147 0 0 0-.096-.156 1.614 1.614 0 0 0-.817-.147.678.678 0 0 0-.556.358zM3.855 7.051a.747.747 0 0 0 .488-.188.807.807 
                 0 0 0 .243-.425 2.654 2.654 0 0 0 .065-1.002 1.505 1.505 0 0 0-.135-.54.653.653 0 0 0-.505-.382 1.44 1.44 0 0 0-.912.137.16.16 0 0 0-.105.164v1.917a.147.147 0 0 0 .09.147 1.468 1.468 0 0 0 .771.17"/>
-        </svg>`}var vt;ut=t([ct(lt)],ut);console.info("%c  LG WebOS Remote Control Card  \n%c  version: v2.0.4  ","color: orange; font-weight: bold; background: black","color: white; font-weight: bold; background: dimgray");const bt=window;bt.customCards=bt.customCards||[],bt.customCards.push({type:at,name:"LG WebOS Remote Control Card",preview:!0,description:"Remote control card for LG WebOS TV devices"});let gt=vt=class extends nt{static getConfigElement(){return document.createElement(lt)}static getStubConfig(t){let e=ht(t,"webostv");0==e.length&&(e=Object.keys(t.entities).filter((t=>t.startsWith("media_player."))));const o=e.length>0?e[0]:"media_player.lg_webos_smart_tv";return{type:`custom:${at}`,entity:o}}static get iconMapping(){return{disney:pt(),dazn:_t(),nowtv:I`
+        </svg>`}var ft;vt=t([ct(lt)],vt);console.info("%c  LG WebOS Remote Control Card  \n%c  version: v2.1.0  ","color: orange; font-weight: bold; background: black","color: white; font-weight: bold; background: dimgray");const yt=window;yt.customCards=yt.customCards||[],yt.customCards.push({type:at,name:"LG WebOS Remote Control Card",preview:!0,description:"Remote control card for LG WebOS TV devices"});let $t=ft=class extends nt{static getConfigElement(){return document.createElement(lt)}static getStubConfig(t){let e=ut(t,"webostv");0==e.length&&(e=Object.keys(t.entities).filter((t=>t.startsWith("media_player."))));const o=e.length>0?e[0]:"media_player.lg_webos_smart_tv";return{type:`custom:${at}`,entity:o}}static get iconMapping(){return{disney:gt(),dazn:mt(),nowtv:H`
             <svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 30 30.7" style="enable-background:new 0 0 30 30.7;" xml:space="preserve">
               <style type="text/css">
@@ -293,20 +412,20 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
               c-1.9,1.7-3.5,2.3-7,2.3C152,888.6,150.4,888,148.5,886.3z"/>
               </g>
               </svg>
-        `,amazon:mt()}}static get properties(){return{hass:{},config:{},_show_inputs:{},_show_sound_output:{},_show_text:{},_show_keypad:{},_show_vol_text:{},volume_value:{type:Number,reflect:!0},output_entity:{type:Number,reflect:!0}}}constructor(){super(),this.homeisLongPress=!1,this._show_inputs=!1,this._show_sound_output=!1,this._show_text=!1,this._show_keypad=!1,this._show_vol_text=!1,this.volume_value=0,this.soundOutput=""}render(){const t=this.hass.states[this.config.entity],e=this.config.color_buttons,o=this.config.dimensions&&this.config.dimensions.border_width?this.config.dimensions.border_width:"1px",i=this.config.dimensions&&this.config.dimensions.scale?this.config.dimensions.scale:1,s=Math.round(260*i)+"px",n=this.config.tv_name_color?this.config.tv_name_color:"var(--primary-text-color)",r=this.config.colors&&this.config.colors.background?this.config.colors.background:"var( --ha-card-background, var(--card-background-color, white) )",c=this.config.colors&&this.config.colors.border?this.config.colors.border:"var(--primary-text-color)",a=this.config.colors&&this.config.colors.buttons?this.config.colors.buttons:"var(--secondary-background-color)",l=this.config.colors&&this.config.colors.text?this.config.colors.text:"var(--primary-text-color)",h=this.config.mac;return!this.config.ampli_entity||"external_arc"!==this.hass.states[this.config.entity].attributes.sound_output&&"external_optical"!==this.hass.states[this.config.entity].attributes.sound_output?(this.volume_value=Math.round(100*this.hass.states[this.config.entity].attributes.volume_level),this.output_entity=this.config.entity):(this.volume_value=Math.round(100*this.hass.states[this.config.ampli_entity].attributes.volume_level*2)/2,this.output_entity=this.config.ampli_entity),I`
+        `,amazon:bt()}}static get properties(){return{hass:{},config:{},_show_inputs:{},_show_sound_output:{},_show_text:{},_show_keypad:{},_show_vol_text:{},volume_value:{type:Number,reflect:!0},output_entity:{type:Number,reflect:!0}}}constructor(){super(),this.homeisLongPress=!1,this._show_inputs=!1,this._show_sound_output=!1,this._show_text=!1,this._show_keypad=!1,this._show_vol_text=!1,this.volume_value=0,this.soundOutput=""}render(){const t=this.hass.states[this.config.entity],e=this.config.color_buttons,o=this.config.dimensions&&this.config.dimensions.border_width?this.config.dimensions.border_width:"1px",i=this.config.dimensions&&this.config.dimensions.scale?this.config.dimensions.scale:1,s=Math.round(260*i)+"px",n=this.config.tv_name_color?this.config.tv_name_color:"var(--primary-text-color)",r=this.config.colors&&this.config.colors.background?this.config.colors.background:"var( --ha-card-background, var(--card-background-color, white) )",c=this.config.colors&&this.config.colors.border?this.config.colors.border:"var(--primary-text-color)",a=this.config.colors&&this.config.colors.buttons?this.config.colors.buttons:"var(--secondary-background-color)",l=this.config.colors&&this.config.colors.text?this.config.colors.text:"var(--primary-text-color)",h=this.config.mac;return!this.config.ampli_entity||"external_arc"!==this.hass.states[this.config.entity].attributes.sound_output&&"external_optical"!==this.hass.states[this.config.entity].attributes.sound_output?(this.volume_value=Math.round(100*this.hass.states[this.config.entity].attributes.volume_level),this.output_entity=this.config.entity):(this.volume_value=Math.round(100*this.hass.states[this.config.ampli_entity].attributes.volume_level*2)/2,this.output_entity=this.config.ampli_entity),H`
             <div class="card">
-                <div class="page" style="--remote-button-color: ${a}; --remote-text-color: ${l}; --remote-color: ${r}; --remotewidth: ${s};  --main-border-color: ${c}; --main-border-width: ${o}">
-                    ${this.config.name?I` <div class="tv_title" style="color:${n}" >${this.config.name}</div> `:""}
+                <div class="page" style="box-sizing: border-box; --remote-button-color: ${a}; --remote-text-color: ${l}; --remote-color: ${r}; --remotewidth: ${s};  --main-border-color: ${c}; --main-border-width: ${o}">
+                    ${this.config.name?H` <div class="tv_title" style="color:${n}" >${dt(this.hass,this.config.entity,this.config.name)}</div> `:""}
                     <div class="grid-container-power"  style="--remotewidth: ${s}">
                         <button class="btn-flat flat-high ripple" @click=${()=>this._channelList()}><ha-icon icon="mdi:format-list-numbered"/></button>
-                        ${["off","unavailable"].includes(t.state)?I`
-                            <button class="btn ripple" @click=${()=>this._media_player_turn_on(h)}><ha-icon icon="mdi:power" style="color: ${l};"/></button>
-                        `:I`
-                            <button class="btn ripple" @click=${()=>this._media_player_service("POWER","turn_off")}><ha-icon icon="mdi:power" style="color: red;"/></button>
+                        ${["off","unavailable"].includes(t.state)?H`
+                            <button class="btn ripple" style="${this._getButtonStyle("POWER",`color: ${l};`)}" @click=${()=>this._media_player_turn_on(h)}><ha-icon icon="${this._getIcon("POWER","mdi:power")}"/></button>
+                        `:H`
+                            <button class="btn ripple" style="${this._getButtonStyle("POWER","color: red;")}" @click=${()=>this._media_player_service("POWER","turn_off")}><ha-icon icon="${this._getIcon("POWER","mdi:power")}"/></button>
                         `}
                         <button class="btn-flat flat-high ripple" @click=${()=>this._show_keypad=!this._show_keypad}>123</button>
                     </div>
-                    ${this._show_inputs?I`
+                    ${this._show_inputs?H`
                         <!-- ################################# SOURCES ################################# -->
                         <div class="grid-container-input">
                             <div class="shape-input">
@@ -315,20 +434,20 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
                             <button class="ripple bnt-input-back" @click=${()=>this._show_inputs=!1}><ha-icon icon="mdi:undo-variant"/></button>
                             <p class="source_text"><b>SOURCE</b></p>
                             <div class="grid-item-input">
-                                ${t.attributes.source_list.map((e=>I`
+                                ${t.attributes.source_list.map((e=>H`
                                     <button class="${t.attributes.source===e?"btn-input-on":"btn-input  ripple overlay"}" @click=${()=>{this._select_source(e),this._show_inputs=!1}}>${e}</button>
                                 `))}
                             </div>
                             <!-- ################################# SOURCES END ################################# -->
-                    `:I`
-                        ${this._show_sound_output?I`
+                    `:H`
+                        ${this._show_sound_output?H`
                             <!-- ################################# SOUND ################################# -->
                             <div class="grid-container-sound">
                                 <div class="shape-sound">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260"><path d="m 13 43 a 30 30 0 0 0 60 0 a 30 30 0 0 0 -60 0 M 130 12 h 88 a 30 30 0 0 1 30 30 v 188 a 30 30 0 0 1 -30 30 h -176 a 30 30 0 0 1 -30 -30 v -117 a 30 30 0 0 1 30 -30 a 40 40 0 0 0 41 -41 a 30 30 0 0 1 30 -30 z " fill="var(--remote-button-color)" stroke="#000000" stroke-width="0" /></svg>
                                 </div>
                                 <button class="bnt-sound-back ripple"  @click=${()=>this._show_sound_output=!1}><ha-icon icon="mdi:undo-variant"/></button>
-                                ${this._show_text?I`
+                                ${this._show_text?H`
                                     <button class="btn_soundoutput ripple" @click=${()=>this._show_text=!1}>SOUND</button>
                                     <button class="${"tv_speaker"===t.attributes.sound_output?"btn_sound_on tv bnt_sound_text_width":"btn_sound_off tv bnt_sound_text_width ripple overlay"}"style="margin-left: calc(var(--remotewidth) / 10);" @click=${()=>this._select_sound_output("tv_speaker")}>TV Speaker</button>
                                     <button class="${"tv_external_speaker"===t.attributes.sound_output?"btn_sound_on tv-opt bnt_sound_text_width":"btn_sound_off tv-opt bnt_sound_text_width ripple overlay"}" style="margin-right: calc(var(--remotewidth) / 10);" @click=${()=>this._select_sound_output("tv_external_speaker")}>TV + Optic</button>
@@ -339,10 +458,10 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
                                     <button class="${"headphone"===t.attributes.sound_output?"btn_sound_on phone bnt_sound_text_width":"btn_sound_off phone bnt_sound_text_width ripple overlay"}" style="margin-left: calc(var(--remotewidth) / 10);" @click=${()=>this._select_sound_output("headphone")}>HeadPhone</button>
                                     <button class="${"bt_soundbar"===t.attributes.sound_output?"btn_sound_on bluetooth bnt_sound_text_width":"btn_sound_off bluetooth bnt_sound_text_width ripple overlay"}" style="margin-right: calc(var(--remotewidth) / 10);" @click=${()=>this._select_sound_output("bt_soundbar")}>Bluetooth</button>
                                     </div>
-                                `:I`
+                                `:H`
                                     <button class="sound_icon_text  ripple" @click=${()=>this._show_text=!0}><ha-icon style="height: calc(var(--remotewidth) / 6); width: calc(var(--remotewidth) / 6);" icon="mdi:speaker"></button>
                                     <button class="${"tv_speaker"===t.attributes.sound_output?"btn_sound_on tv bnt_sound_icon_width":"btn_sound_off tv bnt_sound_icon_width ripple overlay"}" style="margin-left: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("tv_speaker")}><ha-icon class="icon_source" icon="mdi:television-classic"></button>
-                                    <button class="${"tv_external_speaker"===t.attributes.sound_output?"btn_sound_on tv-opt bnt_sound_icon_width":"btn_sound_off tv-opt bnt_sound_icon_width ripple overlay"}" style="margin-right: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("tv_external_speaker")}>${I`<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    <button class="${"tv_external_speaker"===t.attributes.sound_output?"btn_sound_on tv-opt bnt_sound_icon_width":"btn_sound_off tv-opt bnt_sound_icon_width ripple overlay"}" style="margin-right: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("tv_external_speaker")}>${H`<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          viewBox="0 0 567 171" style="enable-background:new 0 0 567 171;" xml:space="preserve">
               <style type="text/css">
               .st0{fill:var(--remote-text-color);}
@@ -375,7 +494,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
               </g>
               </svg>
         `}</button>
-                                    <button class="${"tv_speaker_headphone"===t.attributes.sound_output?"btn_sound_on tv-phone bnt_sound_icon_width":"btn_sound_off tv-phone bnt_sound_icon_width ripple overlay"}" style="margin-left: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("tv_speaker_headphone")}>${I`
+                                    <button class="${"tv_speaker_headphone"===t.attributes.sound_output?"btn_sound_on tv-phone bnt_sound_icon_width":"btn_sound_off tv-phone bnt_sound_icon_width ripple overlay"}" style="margin-left: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("tv_speaker_headphone")}>${H`
             <svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                  viewBox="0 0 567 171" style="enable-background:new 0 0 567 171;" xml:space="preserve">
               <style type="text/css">
@@ -395,7 +514,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
               C5060,1147.8,4786.9,1418.9,4450,1418.9z"/>
               </g>
               </svg>`}</button>
-                                    <button class="${"external_optical"===t.attributes.sound_output?"btn_sound_on opt bnt_sound_icon_width":"btn_sound_off opt bnt_sound_icon_width ripple overlay"}" style="margin-right: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("external_optical")}>${I`<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    <button class="${"external_optical"===t.attributes.sound_output?"btn_sound_on opt bnt_sound_icon_width":"btn_sound_off opt bnt_sound_icon_width ripple overlay"}" style="margin-right: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("external_optical")}>${H`<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          viewBox="0 0 567 171" style="enable-background:new 0 0 567 171;" xml:space="preserve">
               <style type="text/css">
               .st0{fill:var(--remote-text-color);}
@@ -420,7 +539,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
               </g>
               </svg>
         `}</button>
-                                    <button class="${"external_arc"===t.attributes.sound_output?"btn_sound_on hdmi bnt_sound_icon_width":"btn_sound_off hdmi bnt_sound_icon_width ripple overlay"}"style="margin-left: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("external_arc")}>${I`<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                    <button class="${"external_arc"===t.attributes.sound_output?"btn_sound_on hdmi bnt_sound_icon_width":"btn_sound_off hdmi bnt_sound_icon_width ripple overlay"}"style="margin-left: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("external_arc")}>${H`<svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          viewBox="0 0 567 171" style="enable-background:new 0 0 567 171;" xml:space="preserve">
               <style type="text/css">
               .st0{fill:var(--remote-text-color);}
@@ -439,7 +558,7 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
                 <path class="st0" d="M3305.2,640V515h50h50v125v125h-50h-50V640z"/>
               </g>
               </svg>`}</button>
-                                    <button class="${"lineout"===t.attributes.sound_output?"btn_sound_on line bnt_sound_icon_width":"btn_sound_off line bnt_sound_icon_width ripple overlay"}" style="margin-right: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("lineout")}>${I`
+                                    <button class="${"lineout"===t.attributes.sound_output?"btn_sound_on line bnt_sound_icon_width":"btn_sound_off line bnt_sound_icon_width ripple overlay"}" style="margin-right: calc(var(--remotewidth) / 7.5);" @click=${()=>this._select_sound_output("lineout")}>${H`
     <svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
          x="0px" y="0px"
          viewBox="0 0 567 171" style="enable-background:new 0 0 567 171;" xml:space="preserve">
@@ -469,79 +588,79 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
                                     </div>
                                 `}
                                 <!-- ################################# SOUND END ################################# -->
-                        `:I`
+                        `:H`
 
-                            ${this._show_keypad?I`
+                            ${this._show_keypad?H`
                                 <!-- ################################ keypad ################################## -->
                                 <div class="grid-container-keypad">
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("1")}>1</button>
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("2")}>2</button>
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("3")}>3</button>
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("4")}>4</button>
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("5")}>5</button>
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("6")}>6</button>
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("7")}>7</button>
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("8")}>8</button>
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("9")}>9</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("1","")}" @click=${()=>this._button("1")}>${this._getIcon("1","")?H`<ha-icon icon="${this._getIcon("1","")}"/>`:"1"}</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("2","")}" @click=${()=>this._button("2")}>${this._getIcon("2","")?H`<ha-icon icon="${this._getIcon("2","")}"/>`:"2"}</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("3","")}" @click=${()=>this._button("3")}>${this._getIcon("3","")?H`<ha-icon icon="${this._getIcon("3","")}"/>`:"3"}</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("4","")}" @click=${()=>this._button("4")}>${this._getIcon("4","")?H`<ha-icon icon="${this._getIcon("4","")}"/>`:"4"}</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("5","")}" @click=${()=>this._button("5")}>${this._getIcon("5","")?H`<ha-icon icon="${this._getIcon("5","")}"/>`:"5"}</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("6","")}" @click=${()=>this._button("6")}>${this._getIcon("6","")?H`<ha-icon icon="${this._getIcon("6","")}"/>`:"6"}</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("7","")}" @click=${()=>this._button("7")}>${this._getIcon("7","")?H`<ha-icon icon="${this._getIcon("7","")}"/>`:"7"}</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("8","")}" @click=${()=>this._button("8")}>${this._getIcon("8","")?H`<ha-icon icon="${this._getIcon("8","")}"/>`:"8"}</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("9","")}" @click=${()=>this._button("9")}>${this._getIcon("9","")?H`<ha-icon icon="${this._getIcon("9","")}"/>`:"9"}</button>
                                     <button class="btn-keypad"></button>
-                                    <button class="btn-keypad ripple" @click=${()=>this._button("0")}>0</button>
+                                    <button class="btn-keypad ripple" style="${this._getButtonStyle("0","")}" @click=${()=>this._button("0")}>${this._getIcon("0","")?H`<ha-icon icon="${this._getIcon("0","")}"/>`:"0"}</button>
                                     <button class="btn-keypad"></button>
                                 </div>
                                 <!-- ################################# keypad end ############################## -->
-                            `:I`
+                            `:H`
                                 <!-- ################################# DIRECTION PAD ################################# -->
                                 <div class="grid-container-cursor">
                                     <div class="shape">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 79"><path d="m 30 15 a 10 10 0 0 1 20 0 a 15 15 0 0 0 15 15 a 10 10 0 0 1 0 20 a 15 15 0 0 0 -15 15 a 10 10 0 0 1 -20 0 a 15 15 0 0 0 -15 -15 a 10 10 0 0 1 0 -20 a 15 15 0 0 0 15 -15" fill="var(--remote-button-color)" stroke="#000000" stroke-width="0" /></svg>
                                     </div>
                                     <button class="btn ripple item_sound" @click=${()=>this._show_sound_output=!0}><ha-icon icon="mdi:speaker"/></button>
-                                    <button class="btn ripple item_up" style="background-color: transparent;" @click=${()=>this._button("UP")}><ha-icon icon="mdi:chevron-up"/></button>
+                                    <button class="btn ripple item_up" style="background-color: transparent; ${this._getButtonStyle("UP","")}" @click=${()=>this._button("UP")}><ha-icon icon="${this._getIcon("UP","mdi:chevron-up")}"/></button>
                                     <button class="btn ripple item_input" @click=${()=>this._show_inputs=!0}><ha-icon icon="mdi:import"/></button>
-                                    <button class="btn ripple item_2_sx" style="background-color: transparent;" @click=${()=>this._button("LEFT")}><ha-icon icon="mdi:chevron-left"/></button>
-                                    <div class="ok_button ripple item_2_c" style="border: solid 2px ${r}"  @click=${()=>this._button("ENTER")}>${!0===this._show_vol_text?this.volume_value:"OK"}</div>
-                                    <button class="btn ripple item_right" style="background-color: transparent;" @click=${()=>this._button("RIGHT")}><ha-icon icon="mdi:chevron-right"/></button>
-                                    <button class="btn ripple item_back" @click=${()=>this._button("BACK")}><ha-icon icon="mdi:undo-variant"/></button>
-                                    <button class="btn ripple item_down" style="background-color: transparent;" @click=${()=>this._button("DOWN")}><ha-icon icon="mdi:chevron-down"/></button>
-                                    <button class="btn ripple item_exit" @click=${()=>this._button("EXIT")}>EXIT</button>
+                                    <button class="btn ripple item_2_sx" style="background-color: transparent; ${this._getButtonStyle("LEFT","")}" @click=${()=>this._button("LEFT")}><ha-icon icon="${this._getIcon("LEFT","mdi:chevron-left")}"/></button>
+                                    <div class="ok_button ripple item_2_c" style="border: solid 2px ${r}; ${this._getButtonStyle("ENTER","")}" @click=${()=>this._button("ENTER")}>${this._getIcon("ENTER","")?H`<ha-icon icon="${this._getIcon("ENTER","")}"/>`:!0===this._show_vol_text?this.volume_value:"OK"}</div>
+                                    <button class="btn ripple item_right" style="background-color: transparent; ${this._getButtonStyle("RIGHT","")}" @click=${()=>this._button("RIGHT")}><ha-icon icon="${this._getIcon("RIGHT","mdi:chevron-right")}"/></button>
+                                    <button class="btn ripple item_back" style="${this._getButtonStyle("BACK","")}" @click=${()=>this._button("BACK")}><ha-icon icon="${this._getIcon("BACK","mdi:undo-variant")}"/></button>
+                                    <button class="btn ripple item_down" style="background-color: transparent; ${this._getButtonStyle("DOWN","")}" @click=${()=>this._button("DOWN")}><ha-icon icon="${this._getIcon("DOWN","mdi:chevron-down")}"/></button>
+                                    <button class="btn ripple item_exit" style="${this._getButtonStyle("EXIT","")}" @click=${()=>this._button("EXIT")}>${this._getIcon("EXIT","")?H`<ha-icon icon="${this._getIcon("EXIT","")}"/>`:"EXIT"}</button>
                                 </div>
                                 <!-- ################################# DIRECTION PAD END ################################# -->
                             `}
 
                         `}
                         <!-- ################################# SOURCE BUTTONS ################################# -->
-                        ${this.config.sources?I`
+                        ${this.config.sources?H`
                             <div class="grid-container-source">
-                                ${this.config.sources.map((t=>I`
+                                ${this.config.sources.map((t=>H`
                                         <button class="btn_source ripple" @click=${()=>this._select_source(t.name)}>
-                                            ${vt.getIcon(t.icon)}
+                                            ${ft.getIcon(t.icon)}
                                         </button>
                                     `))}
                             </div>
-                        `:I`
+                        `:H`
                             <div class="grid-container-source">
                                 <button class="btn_source ripple" @click=${()=>this._select_source("Netflix")}><ha-icon style="heigth: 70%; width: 70%;" icon="mdi:netflix"/></button>
-                                <button class="btn_source ripple" @click=${()=>this._select_source("Prime Video")}>${mt()}</button>
-                                <button class="btn_source ripple" @click=${()=>this._select_source("Disney+")}>${pt()}</button>
-                                <button class="btn_source ripple" @click=${()=>this._select_source("DAZN")}>${_t()}</button>
+                                <button class="btn_source ripple" @click=${()=>this._select_source("Prime Video")}>${bt()}</button>
+                                <button class="btn_source ripple" @click=${()=>this._select_source("Disney+")}>${gt()}</button>
+                                <button class="btn_source ripple" @click=${()=>this._select_source("DAZN")}>${mt()}</button>
                             </div>`}
                         <!-- ################################# SOURCE BUTTONS END ################################# -->
 
                         <!-- ################################# COLORED BUTTONS ################################# -->
-                        ${e?I`
+                        ${e?H`
                             <div class="grid-container-color_btn">
-                                <button class="btn-color ripple" style="background-color: red; height: calc(var(--remotewidth) / 12);" @click=${()=>this._button("RED")}></button>
-                                <button class="btn-color ripple" style="background-color: green; height: calc(var(--remotewidth) / 12);" @click=${()=>this._button("GREEN")}></button>
-                                <button class="btn-color ripple" style="background-color: yellow; height: calc(var(--remotewidth) / 12);" @click=${()=>this._button("YELLOW")}></button>
-                                <button class="btn-color ripple" style="background-color: blue; height: calc(var(--remotewidth) / 12);" @click=${()=>this._button("BLUE")}></button>
+                                <button class="btn-color ripple" style="background-color: red; height: calc(var(--remotewidth) / 12); ${this._getButtonStyle("RED","")}" @click=${()=>this._button("RED")}>${this._getIcon("RED","")?H`<ha-icon icon="${this._getIcon("RED","")}"/>`:""}</button>
+                                <button class="btn-color ripple" style="background-color: green; height: calc(var(--remotewidth) / 12); ${this._getButtonStyle("GREEN","")}" @click=${()=>this._button("GREEN")}>${this._getIcon("GREEN","")?H`<ha-icon icon="${this._getIcon("GREEN","")}"/>`:""}</button>
+                                <button class="btn-color ripple" style="background-color: yellow; height: calc(var(--remotewidth) / 12); ${this._getButtonStyle("YELLOW","")}" @click=${()=>this._button("YELLOW")}>${this._getIcon("YELLOW","")?H`<ha-icon icon="${this._getIcon("YELLOW","")}"/>`:""}</button>
+                                <button class="btn-color ripple" style="background-color: blue; height: calc(var(--remotewidth) / 12); ${this._getButtonStyle("BLUE","")}" @click=${()=>this._button("BLUE")}>${this._getIcon("BLUE","")?H`<ha-icon icon="${this._getIcon("BLUE","")}"/>`:""}</button>
                             </div>
-                        `:I`
+                        `:H`
                         `}
                         <!-- ################################# COLORED BUTTONS END ################################# -->
 
                         <div class="grid-container-volume-channel-control" >
-                            <button class="btn ripple" id="plusButton"  style="border-radius: 50% 50% 0px 0px; margin: 0px auto 0px auto; height: 100%;" }><ha-icon icon="mdi:plus"/></button>
-                            <button class="btn-flat flat-high ripple" id="homeButton" style="margin-top: 0px; height: 50%;" @mousedown=${t=>this._homeButtonDown(t)} @touchstart=${t=>this._homeButtonDown(t)} @mouseup=${t=>this._homeButtonUp(t)} @touchend=${t=>this._homeButtonUp(t)}>
-    <ha-icon icon="mdi:home"></ha-icon>
+                            <button class="btn ripple" id="plusButton" style="border-radius: 50% 50% 0px 0px; margin: 0px auto 0px auto; height: 100%; ${this._getButtonStyle("VOLUME_UP","")}"><ha-icon icon="${this._getIcon("VOLUME_UP","mdi:plus")}"/></button>
+                            <button class="btn-flat flat-high ripple" id="homeButton" style="margin-top: 0px; height: 50%; ${this._getButtonStyle("HOME","")}" @mousedown=${t=>this._homeButtonDown(t)} @touchstart=${t=>this._homeButtonDown(t)} @mouseup=${t=>this._homeButtonUp(t)} @touchend=${t=>this._homeButtonUp(t)}>
+    <ha-icon icon="${this._getIcon("HOME","mdi:home")}"></ha-icon>
 </button>
                                                     
 
@@ -551,30 +670,30 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
 
 
 
-                            <button class="btn ripple" style="border-radius: 50% 50% 0px 0px; margin: 0px auto 0px auto; height: 100%;" @click=${()=>this._button("CHANNELUP")}><ha-icon icon="mdi:chevron-up"/></button>
+                            <button class="btn ripple" style="border-radius: 50% 50% 0px 0px; margin: 0px auto 0px auto; height: 100%; ${this._getButtonStyle("CHANNELUP","")}" @click=${()=>this._button("CHANNELUP")}><ha-icon icon="${this._getIcon("CHANNELUP","mdi:chevron-up")}"/></button>
                             <button class="btn" style="border-radius: 0px; cursor: default; margin: 0px auto 0px auto; height: 100%;"><ha-icon icon="${!0===t.attributes.is_volume_muted?"mdi:volume-off":"mdi:volume-high"}"/></button>
-                            <button class="btn ripple" Style="color:${!0===t.attributes.is_volume_muted?"red":""}; height: 100%;" @click=${()=>this._button("MUTE")}><span class="${!0===t.attributes.is_volume_muted?"blink":""}"><ha-icon icon="mdi:volume-mute"></span></button>
+                            <button class="btn ripple" Style="color:${!0===t.attributes.is_volume_muted?"red":""}; height: 100%; ${this._getButtonStyle("MUTE","")}" @click=${()=>this._button("MUTE")}><span class="${!0===t.attributes.is_volume_muted?"blink":""}"><ha-icon icon="${this._getIcon("MUTE","mdi:volume-mute")}"></span></button>
                             <button class="btn" style="border-radius: 0px; cursor: default; margin: 0px auto 0px auto; height: 100%;"><ha-icon icon="mdi:parking"/></button>
-                            <button class="btn ripple" id="minusButton" style="border-radius: 0px 0px 50% 50%;  margin: 0px auto 0px auto; height: 100%;" ><ha-icon icon="mdi:minus"/></button>
-                            <button class="btn-flat flat-high ripple" style="margin-bottom: 0px; height: 50%;" @click=${()=>this._button("INFO")}><ha-icon icon="mdi:information-variant"/></button>
-                            <button class="btn ripple" style="border-radius: 0px 0px 50% 50%;  margin: 0px auto 0px auto; height: 100%;"  @click=${()=>this._button("CHANNELDOWN")}><ha-icon icon="mdi:chevron-down"/></button>
+                            <button class="btn ripple" id="minusButton" style="border-radius: 0px 0px 50% 50%; margin: 0px auto 0px auto; height: 100%; ${this._getButtonStyle("VOLUME_DOWN","")}"><ha-icon icon="${this._getIcon("VOLUME_DOWN","mdi:minus")}"/></button>
+                            <button class="btn-flat flat-high ripple" style="margin-bottom: 0px; height: 50%; ${this._getButtonStyle("INFO","")}" @click=${()=>this._button("INFO")}><ha-icon icon="${this._getIcon("INFO","mdi:information-variant")}"/></button>
+                            <button class="btn ripple" style="border-radius: 0px 0px 50% 50%;  margin: 0px auto 0px auto; height: 100%; ${this._getButtonStyle("CHANNELDOWN","")}"  @click=${()=>this._button("CHANNELDOWN")}><ha-icon icon="${this._getIcon("CHANNELDOWN","mdi:chevron-down")}"/></button>
                         </div>
 
                         <!-- ################################# MEDIA CONTROL ################################# -->
                         <div class="grid-container-media-control" >
-                            <button class="btn-flat flat-low ripple"  @click=${()=>this._command("PLAY","media.controls/play")}><ha-icon icon="mdi:play"/></button>
-                            <button class="btn-flat flat-low ripple"  @click=${()=>this._command("PAUSE","media.controls/pause")}><ha-icon icon="mdi:pause"/></button>
-                            <button class="btn-flat flat-low ripple"  @click=${()=>this._command("STOP","media.controls/stop")}><ha-icon icon="mdi:stop"/></button>
-                            <button class="btn-flat flat-low ripple"  @click=${()=>this._command("REWIND","media.controls/rewind")}><ha-icon icon="mdi:skip-backward"/></button>
-                            <button class="btn-flat flat-low ripple" style="color: red;" @click=${()=>this._command("RECORD","media.controls/Record")}><ha-icon icon="mdi:record"/></button>
-                            <button class="btn-flat flat-low ripple"  @click=${()=>this._command("FAST_FOWARD","media.controls/fastForward")}><ha-icon icon="mdi:skip-forward"/></button>
+                            <button class="btn-flat flat-low ripple" style="${this._getButtonStyle("PLAY","")}"  @click=${()=>this._command("PLAY","media.controls/play")}><ha-icon icon="${this._getIcon("PLAY","mdi:play")}"/></button>
+                            <button class="btn-flat flat-low ripple" style="${this._getButtonStyle("PAUSE","")}"  @click=${()=>this._command("PAUSE","media.controls/pause")}><ha-icon icon="${this._getIcon("PAUSE","mdi:pause")}"/></button>
+                            <button class="btn-flat flat-low ripple" style="${this._getButtonStyle("STOP","")}"  @click=${()=>this._command("STOP","media.controls/stop")}><ha-icon icon="${this._getIcon("STOP","mdi:stop")}"/></button>
+                            <button class="btn-flat flat-low ripple" style="${this._getButtonStyle("REWIND","")}"  @click=${()=>this._command("REWIND","media.controls/rewind")}><ha-icon icon="${this._getIcon("REWIND","mdi:skip-backward")}"/></button>
+                            <button class="btn-flat flat-low ripple" style="${this._getButtonStyle("RECORD","color: red;")}" @click=${()=>this._command("RECORD","media.controls/Record")}><ha-icon icon="${this._getIcon("RECORD","mdi:record")}"/></button>
+                            <button class="btn-flat flat-low ripple" style="${this._getButtonStyle("FAST_FOWARD","")}"  @click=${()=>this._command("FAST_FOWARD","media.controls/fastForward")}><ha-icon icon="${this._getIcon("FAST_FOWARD","mdi:skip-forward")}"/></button>
                         </div>
                         <!-- ################################# MEDIA CONTROL END ################################# -->
                         </div>
                     `}
                 </div>
             </div>
-        `}_channelList(){const t=new Event("ll-custom",{bubbles:!0,cancelable:!1,composed:!0});t.detail={browser_mod:{service:"browser_mod.popup",data:{content:{type:"custom:card-channel-pad",entity:this.config.entity,channels:this.config.channels},title:" ",size:"wide",style:"--popup-border-radius: 15px;"}}},this.ownerDocument.querySelector("home-assistant").dispatchEvent(t)}_button(t){this.callServiceFromConfig(t,"webostv.button",{entity_id:this.config.entity,button:t})}_command(t,e){this.callServiceFromConfig(t,"webostv.command",{entity_id:this.config.entity,command:e})}_media_player_turn_on(t){this.config.mac?this.hass.callService("wake_on_lan","send_magic_packet",{mac:t}):this._media_player_service("POWER","turn_on")}_media_player_service(t,e){this.callServiceFromConfig(t,`media_player.${e}`,{entity_id:this.config.entity})}firstUpdated(t){super.firstUpdated(t);const e=this.shadowRoot.querySelector("#plusButton"),o=this.shadowRoot.querySelector("#minusButton"),i=this.output_entity===this.config.ampli_entity?250:100;let s,n=!1;const r=t=>{this.callServiceFromConfig(t.toUpperCase(),`media_player.${t}`,{entity_id:this.output_entity})};e.addEventListener("mousedown",(()=>{isNaN(this.volume_value)||(n=!1,this._show_vol_text=!0,s=setTimeout((()=>{n=!0,r("volume_up"),s=setInterval((()=>r("volume_up")),i)}),500))})),e.addEventListener("touchstart",(t=>{t.preventDefault(),isNaN(this.volume_value)||(n=!1,this._show_vol_text=!0,s=setTimeout((()=>{n=!0,r("volume_up"),s=setInterval((()=>r("volume_up")),i)}),500))})),e.addEventListener("mouseup",(()=>{clearTimeout(s),n||r("volume_up"),clearInterval(s),this.valueDisplayTimeout=setTimeout((()=>{this._show_vol_text=!1}),500)})),e.addEventListener("touchend",(()=>{clearTimeout(s),n||r("volume_up"),clearInterval(s),this.valueDisplayTimeout=setTimeout((()=>{this._show_vol_text=!1}),500)})),o.addEventListener("mousedown",(()=>{isNaN(this.volume_value)||(n=!1,this._show_vol_text=!0,s=setTimeout((()=>{n=!0,r("volume_down"),s=setInterval((()=>r("volume_down")),i)}),400))})),o.addEventListener("touchstart",(t=>{t.preventDefault(),isNaN(this.volume_value)||(n=!1,this._show_vol_text=!0,s=setTimeout((()=>{n=!0,r("volume_down"),s=setInterval((()=>r("volume_down")),i)}),400))})),o.addEventListener("mouseup",(()=>{clearTimeout(s),n||r("volume_down"),clearInterval(s),this.valueDisplayTimeout=setTimeout((()=>{this._show_vol_text=!1}),500)})),o.addEventListener("touchend",(()=>{clearTimeout(s),n||r("volume_down"),clearInterval(s),this.valueDisplayTimeout=setTimeout((()=>{this._show_vol_text=!1}),500)}))}updated(t){if(t.has("hass")){const t=this.hass.states[this.config.entity].attributes.sound_output;t!==this.soundOutput&&(this.soundOutput=t,this.requestUpdate())}}_homeButtonDown(t){this.homeisLongPress=!1,this.homelongPressTimer=setTimeout((()=>{this.homeisLongPress=!0,this._button("MENU")}),1e3)}_homeButtonUp(t){clearTimeout(this.homelongPressTimer),this.homeisLongPress||this._button("HOME")}_select_source(t){this.hass.callService("media_player","select_source",{entity_id:this.config.entity,source:t})}_select_sound_output(t){this.hass.callService("webostv","select_sound_output",{entity_id:this.config.entity,sound_output:t}),this._show_sound_output=!1}setConfig(t){if(!t.entity)throw new Error("Invalid configuration");this.config=t}getCardSize(){return 15}callServiceFromConfig(t,e,o){let i=e,s=o;if(this.config.keys&&t in this.config.keys){const e=this.config.keys[t];i=e.service,s=e.data}this.hass.callService(i.split(".")[0],i.split(".")[1],s)}static getIcon(t){return Object.keys(vt.iconMapping).includes(t)?vt.iconMapping[t]:I`<ha-icon style="height: 70%; width: 70%;" icon="${t}"/>`}static get styles(){return r`
+        `}_channelList(){const t=new Event("ll-custom",{bubbles:!0,cancelable:!1,composed:!0});t.detail={browser_mod:{service:"browser_mod.popup",data:{content:{type:"custom:card-channel-pad",entity:this.config.entity,channels:this.config.channels},title:" ",size:"wide",style:"--popup-border-radius: 15px;"}}},this.ownerDocument.querySelector("home-assistant").dispatchEvent(t)}_button(t){this.callServiceFromConfig(t,"webostv.button",{entity_id:this.config.entity,button:t})}_command(t,e){this.callServiceFromConfig(t,"webostv.command",{entity_id:this.config.entity,command:e})}_media_player_turn_on(t){if(this.config.mac){const e={mac:t};this.config.broadcast_address&&(e.broadcast_address=this.config.broadcast_address),null!=this.config.broadcast_port&&""!==this.config.broadcast_port&&(e.broadcast_port=this.config.broadcast_port),this.hass.callService("wake_on_lan","send_magic_packet",e)}else this._media_player_service("POWER","turn_on")}_media_player_service(t,e){this.callServiceFromConfig(t,`media_player.${e}`,{entity_id:this.config.entity})}firstUpdated(t){super.firstUpdated(t);const e=this.shadowRoot.querySelector("#plusButton"),o=this.shadowRoot.querySelector("#minusButton"),i=this.output_entity===this.config.ampli_entity?250:100;let s,n=!1;const r=t=>{this.callServiceFromConfig(t.toUpperCase(),`media_player.${t}`,{entity_id:this.output_entity})};e.addEventListener("mousedown",(()=>{isNaN(this.volume_value)||(n=!1,this._show_vol_text=!0,s=setTimeout((()=>{n=!0,r("volume_up"),s=setInterval((()=>r("volume_up")),i)}),500))})),e.addEventListener("touchstart",(t=>{t.preventDefault(),isNaN(this.volume_value)||(n=!1,this._show_vol_text=!0,s=setTimeout((()=>{n=!0,r("volume_up"),s=setInterval((()=>r("volume_up")),i)}),500))})),e.addEventListener("mouseup",(()=>{clearTimeout(s),n||r("volume_up"),clearInterval(s),this.valueDisplayTimeout=setTimeout((()=>{this._show_vol_text=!1}),500)})),e.addEventListener("touchend",(()=>{clearTimeout(s),n||r("volume_up"),clearInterval(s),this.valueDisplayTimeout=setTimeout((()=>{this._show_vol_text=!1}),500)})),o.addEventListener("mousedown",(()=>{isNaN(this.volume_value)||(n=!1,this._show_vol_text=!0,s=setTimeout((()=>{n=!0,r("volume_down"),s=setInterval((()=>r("volume_down")),i)}),400))})),o.addEventListener("touchstart",(t=>{t.preventDefault(),isNaN(this.volume_value)||(n=!1,this._show_vol_text=!0,s=setTimeout((()=>{n=!0,r("volume_down"),s=setInterval((()=>r("volume_down")),i)}),400))})),o.addEventListener("mouseup",(()=>{clearTimeout(s),n||r("volume_down"),clearInterval(s),this.valueDisplayTimeout=setTimeout((()=>{this._show_vol_text=!1}),500)})),o.addEventListener("touchend",(()=>{clearTimeout(s),n||r("volume_down"),clearInterval(s),this.valueDisplayTimeout=setTimeout((()=>{this._show_vol_text=!1}),500)}))}updated(t){if(t.has("hass")){const t=this.hass.states[this.config.entity].attributes.sound_output;t!==this.soundOutput&&(this.soundOutput=t,this.requestUpdate())}}_homeButtonDown(t){this.homeisLongPress=!1,this.homelongPressTimer=setTimeout((()=>{this.homeisLongPress=!0,this._button("MENU")}),1e3)}_homeButtonUp(t){clearTimeout(this.homelongPressTimer),this.homeisLongPress||this._button("HOME")}_select_source(t){this.hass.callService("media_player","select_source",{entity_id:this.config.entity,source:t})}_select_sound_output(t){this.hass.callService("webostv","select_sound_output",{entity_id:this.config.entity,sound_output:t}),this._show_sound_output=!1}setConfig(t){if(!t.entity)throw new Error("Invalid configuration");this.config=t}getCardSize(){return 15}callServiceFromConfig(t,e,o){var i;let s=e,n=o;const r=null===(i=this.config.keys)||void 0===i?void 0:i[t],c="string"==typeof(null==r?void 0:r.service)?r.service.trim():"";c&&(s=c,n=r.data),this.hass.callService(s.split(".")[0],s.split(".")[1],n)}_getIcon(t,e){var o,i;return(null===(i=null===(o=this.config.keys)||void 0===o?void 0:o[t])||void 0===i?void 0:i.icon)||e}_getButtonStyle(t,e){var o,i;return`${e} ${(null===(i=null===(o=this.config.keys)||void 0===o?void 0:o[t])||void 0===i?void 0:i.style)||""}`.trim()}static getIcon(t){return Object.keys(ft.iconMapping).includes(t)?ft.iconMapping[t]:H`<ha-icon style="height: 70%; width: 70%;" icon="${t}"/>`}static get styles(){return r`
           @keyframes blinker {
             50% {
               opacity: 0;
@@ -975,4 +1094,4 @@ const ct=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e)
             color: var(--primary-text-color);
             font-size: calc(var(--remotewidth)/14);
 
-        `}};gt=vt=t([ct(at)],gt);
+        `}};$t=ft=t([ct(at)],$t);

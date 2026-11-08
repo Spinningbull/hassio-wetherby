@@ -5,16 +5,16 @@
   "data": {
     "device_info": {
       "uses_password": false,
-      "name": "konnected-72a7dc",
-      "friendly_name": "Alarm Panel Pro 72a7dc",
+      "name": "second-panel",
+      "friendly_name": "Second Panel",
       "mac_address": "34:86:5D:72:A7:DC",
-      "compilation_time": "Jul 20 2024, 02:03:02",
+      "compilation_time": "2026-10-04 15:39:09 -0500",
       "model": "wesp32",
       "manufacturer": "Espressif",
       "has_deep_sleep": false,
-      "esphome_version": "2024.7.0",
+      "esphome_version": "2026.9.1",
       "project_name": "konnected.alarm-panel-pro-ethernet",
-      "project_version": "1.1.4",
+      "project_version": "1.2.2",
       "webserver_port": 80,
       "legacy_voice_assistant_version": 0,
       "voice_assistant_feature_flags": 0,
@@ -24,53 +24,44 @@
       "zwave_home_id": 0,
       "suggested_area": "",
       "bluetooth_mac_address": "",
-      "api_encryption_supported": false,
+      "api_encryption_supported": true,
+      "api_encryption_provisionable": false,
       "devices": [],
       "areas": [],
       "area": {
         "area_id": 0,
         "name": ""
-      }
+      },
+      "serial_proxies": []
     },
     "services": [],
     "api_version": {
       "major": 1,
-      "minor": 10
+      "minor": 16
     },
-    "switch": [
+    "update": [],
+    "light": [
       {
-        "object_id": "alarm_1",
-        "key": 658846944,
-        "name": "Alarm 1",
+        "object_id": "warning_beep",
+        "key": 1317586638,
+        "name": "Warning Beep",
         "disabled_by_default": false,
-        "icon": "mdi:bullhorn",
+        "icon": "",
         "entity_category": 0,
         "device_id": 0,
-        "assumed_state": false,
-        "device_class": ""
-      },
-      {
-        "object_id": "alarm_2",
-        "key": 658846947,
-        "name": "Alarm 2",
-        "disabled_by_default": false,
-        "icon": "mdi:bullhorn",
-        "entity_category": 0,
-        "device_id": 0,
-        "assumed_state": false,
-        "device_class": ""
-      }
-    ],
-    "button": [
-      {
-        "object_id": "restart",
-        "key": 1203400786,
-        "name": "Restart",
-        "disabled_by_default": false,
-        "icon": "mdi:restart",
-        "entity_category": 1,
-        "device_id": 0,
-        "device_class": "restart"
+        "supported_color_modes": [
+          1
+        ],
+        "min_mireds": 0.0,
+        "max_mireds": 0.0,
+        "effects": [
+          "None",
+          "Strobe"
+        ],
+        "legacy_supports_brightness": false,
+        "legacy_supports_rgb": false,
+        "legacy_supports_white_value": false,
+        "legacy_supports_color_temperature": false
       }
     ],
     "sensor": [
@@ -112,6 +103,16 @@
         "device_class": ""
       },
       {
+        "object_id": "project_version",
+        "key": 692791313,
+        "name": "Project version",
+        "disabled_by_default": false,
+        "icon": "",
+        "entity_category": 2,
+        "device_id": 0,
+        "device_class": ""
+      },
+      {
         "object_id": "ethernet_ip_address",
         "key": 3954422301,
         "name": "Ethernet IP Address",
@@ -120,30 +121,6 @@
         "entity_category": 2,
         "device_id": 0,
         "device_class": ""
-      }
-    ],
-    "light": [
-      {
-        "object_id": "warning_beep",
-        "key": 1317586638,
-        "name": "Warning Beep",
-        "disabled_by_default": false,
-        "icon": "",
-        "entity_category": 0,
-        "device_id": 0,
-        "supported_color_modes": [
-          1
-        ],
-        "min_mireds": 0.0,
-        "max_mireds": 0.0,
-        "effects": [
-          "None",
-          "Strobe"
-        ],
-        "legacy_supports_brightness": false,
-        "legacy_supports_rgb": false,
-        "legacy_supports_white_value": false,
-        "legacy_supports_color_temperature": false
       }
     ],
     "binary_sensor": [
@@ -280,6 +257,41 @@
         "is_status_binary_sensor": false
       }
     ],
-    "update": []
+    "switch": [
+      {
+        "object_id": "alarm_1",
+        "key": 658846944,
+        "name": "Alarm 1",
+        "disabled_by_default": false,
+        "icon": "mdi:bullhorn",
+        "entity_category": 0,
+        "device_id": 0,
+        "assumed_state": false,
+        "device_class": ""
+      },
+      {
+        "object_id": "alarm_2",
+        "key": 658846947,
+        "name": "Alarm 2",
+        "disabled_by_default": false,
+        "icon": "mdi:bullhorn",
+        "entity_category": 0,
+        "device_id": 0,
+        "assumed_state": false,
+        "device_class": ""
+      }
+    ],
+    "button": [
+      {
+        "object_id": "restart",
+        "key": 1203400786,
+        "name": "Restart",
+        "disabled_by_default": false,
+        "icon": "mdi:restart",
+        "entity_category": 1,
+        "device_id": 0,
+        "device_class": "restart"
+      }
+    ]
   }
 }

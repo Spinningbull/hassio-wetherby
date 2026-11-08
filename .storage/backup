@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "minor_version": 7,
+  "minor_version": 9,
   "key": "backup",
   "data": {
     "backups": [
@@ -23,12 +23,6 @@
         "failed_folders": []
       },
       {
-        "backup_id": "69fd8810",
-        "failed_addons": [],
-        "failed_agent_ids": [],
-        "failed_folders": []
-      },
-      {
         "backup_id": "8b5e4854",
         "failed_addons": [],
         "failed_agent_ids": [],
@@ -41,31 +35,55 @@
         "failed_folders": []
       },
       {
-        "backup_id": "eb17f403",
+        "backup_id": "52f9be36",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "66d02aee",
+        "backup_id": "d0ce7795",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "19164091",
+        "backup_id": "4fe37992",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "4f4bb7bf",
+        "backup_id": "b0a489ff",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
       },
       {
-        "backup_id": "4cf0f1be",
+        "backup_id": "dff75aec",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "d76c8f2a",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "857f77dd",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "50bd69cf",
+        "failed_addons": [],
+        "failed_agent_ids": [],
+        "failed_folders": []
+      },
+      {
+        "backup_id": "94904eb5",
         "failed_addons": [],
         "failed_agent_ids": [],
         "failed_folders": []
@@ -99,8 +117,9 @@
         "name": null,
         "password": "JKJT-306D-1PG8-5M0M-GY2J-Z23K-1PKJ"
       },
-      "last_attempted_automatic_backup": "2026-02-07T08:58:20.398739-06:00",
-      "last_completed_automatic_backup": "2026-02-07T09:01:31.940064-06:00",
+      "last_attempted_automatic_backup": "2026-11-06T05:14:38.001097-06:00",
+      "last_completed_automatic_backup": "2026-11-06T05:16:07.433506-06:00",
+      "last_completed_automatic_backup_size": 443238400,
       "retention": {
         "copies": 3,
         "days": null

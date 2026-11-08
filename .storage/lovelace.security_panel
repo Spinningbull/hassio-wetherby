@@ -9,23 +9,6 @@
           "title": "Home",
           "cards": [
             {
-              "type": "custom:advanced-camera-card",
-              "cameras": [
-                {
-                  "camera_entity": "camera.front_door_live_view"
-                },
-                {
-                  "camera_entity": "camera.shop_live_view"
-                },
-                {
-                  "camera_entity": "camera.side_door_live_view"
-                }
-              ],
-              "view": {
-                "default": "live"
-              }
-            },
-            {
               "show_name": true,
               "show_icon": true,
               "show_state": true,
@@ -103,6 +86,33 @@
                 }
               ],
               "title": "Attic co2 and smoke"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.konnected_kitchen_glass_zone_8"
+                },
+                {
+                  "entity": "binary_sensor.konnected_living_window_zone_10"
+                },
+                {
+                  "entity": "binary_sensor.konnected_dining_window_zone_11"
+                },
+                {
+                  "entity": "binary_sensor.konnected_509b18_zone_12"
+                },
+                {
+                  "entity": "binary_sensor.konnected_upstairs_motion"
+                },
+                {
+                  "entity": "binary_sensor.konnected4_heat_zone_4"
+                },
+                {
+                  "entity": "binary_sensor.konnected4_downstairs_smoke_zone_3"
+                }
+              ],
+              "title": "Other alarms"
             }
           ]
         }

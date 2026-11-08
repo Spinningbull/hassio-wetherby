@@ -17,6 +17,13 @@
       "unknown_error": "Nieznany błąd: {message}"
     },
     "step": {
+      "domain_mismatch": {
+        "data": {
+          "use_reported_domain": "Zmień konfigurację na region zgłoszony przez Amazon"
+        },
+        "description": "Amazon informuje, że to konto należy do **{reported_domain} **, ale Alexa Media Player został skonfigurowany do używania **{configured_domain} **.\n\nMożesz zmienić region na zgłoszony i uwierzytelnić się ponownie lub odznaczyć go i spróbować kontynuować korzystanie z regionu, który jest obecnie skonfigurowany.",
+        "title": "Alexa Media Player – niezgodność regionu Amazon"
+      },
       "proxy_warning": {
         "data": {
           "proxy_warning": "Ignoruj i kontynuuj – rozumiem, że nie jest zapewniane wsparcie dla problemów z logowaniem wynikających z obejścia tego ostrzeżenia."
@@ -48,12 +55,27 @@
           "should_get_network": "Odkryj sieć Alexa",
           "url": "Region/domena Amazon (np. amazon.co.uk)"
         },
-        "description": "* Wymagane wpisy",
-        "title": "Alexa Media Player — konfiguracja"
+        "data_description": {
+          "debug": "Włącza bardzo szczegółowe rejestrowanie na poziomie śledzenia w celu zaawansowanego rozwiązywania problemów. \n Niezalecane do normalnego użytkowania ze względu na zwiększoną objętość dziennika. \n Upewnij się, że poziomy rejestratora są ustawione na DEBUG, aby uzyskać pełny wynik.",
+          "otp_secret": "Przykład: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
+        }
       }
     }
   },
   "entity": {
+    "button": {
+      "restart": {
+        "name": "Uruchom ponownie"
+      }
+    },
+    "number": {
+      "display_brightness": {
+        "name": "Jasność wyświetlacza"
+      },
+      "notification_volume": {
+        "name": "Głośność alarmów i powiadomień"
+      }
+    },
     "sensor": {
       "air_quality": {
         "name": "Jakość powietrza"
@@ -87,6 +109,12 @@
       }
     },
     "switch": {
+      "adaptive_brightness": {
+        "name": "Adaptacyjna jasność"
+      },
+      "display_power": {
+        "name": "Sposób wyświetlania"
+      },
       "do_not_disturb": {
         "name": "Nie przeszkadzać"
       },
@@ -94,7 +122,7 @@
         "name": "Powtarzać"
       },
       "shuffle": {
-        "name": "Człapać"
+        "name": "Odtwarzanie losowe"
       }
     }
   },
@@ -112,10 +140,15 @@
           "exclude_devices": "lub Wyklucz te urządzenia ze wszystkich (rozdzielone przecinkami)",
           "extended_entity_discovery": "Dodaj dodatkowe czujniki, przełączniki i światła",
           "include_devices": "Uwzględnij tylko te urządzenia (rozdzielone przecinkami)",
+          "otp_secret": "52-znakowy klucz aplikacji uwierzytelniającej dla Amazon 2SV",
           "public_url": "Publiczny adres URL udostępniany zewnętrznym usługom hostowanym",
           "queue_delay": "Opóźnienie w kolejkowaniu wielu poleceń (sekundy)",
           "scan_interval": "Interwał skanowania (sekundy)",
           "should_get_network": "Odkryj sieć Alexa"
+        },
+        "data_description": {
+          "debug": "Włącza bardzo szczegółowe rejestrowanie na poziomie śledzenia w celu zaawansowanego rozwiązywania problemów. \n Niezalecane do normalnego użytkowania ze względu na zwiększoną objętość dziennika. \n Upewnij się, że poziomy rejestratora są ustawione na DEBUG, aby uzyskać pełny wynik.",
+          "otp_secret": "Przykład: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
         },
         "description": "* Wymagane wpisy",
         "title": "Odtwarzacz multimedialny Alexa – rekonfiguracja"
@@ -123,6 +156,90 @@
     }
   },
   "services": {
+    "amazon_kids_disable": {
+      "description": "Wyłącza Amazon Kids (tryb dziecięcy) dla urządzenia Echo poprzez usunięcie jego przypisania do dowolnego profilu dziecięcego.",
+      "fields": {
+        "entity_id": {
+          "description": "Urządzenie Echo do wyłączania Amazon Kids",
+          "name": "Wybierz odtwarzacz multimedialny:"
+        }
+      },
+      "name": "Wyłącz Amazon Kids"
+    },
+    "amazon_kids_enable": {
+      "description": "Włącza Amazon Kids (tryb dziecięcy) dla urządzenia Echo poprzez przypisanie go do profilu dziecięcego.",
+      "fields": {
+        "child": {
+          "description": "Profil dziecka do przypisania (imię lub directionId)",
+          "name": "Dziecko"
+        },
+        "entity_id": {
+          "description": "Urządzenie Echo umożliwiające korzystanie z Amazon Kids",
+          "name": "Wybierz odtwarzacz multimedialny:"
+        }
+      },
+      "name": "Włącz Amazon Kids"
+    },
+    "create_alarm": {
+      "description": "Tworzy alarm w urządzeniu Echo.",
+      "fields": {
+        "days": {
+          "description": "Dni do powtórzenia. Pozostaw puste, aby włączyć jednorazowy alarm.",
+          "name": "Powtórz na"
+        },
+        "entity_id": {
+          "description": "Urządzenie echo do ustawienia alarmu",
+          "name": "Wybierz odtwarzacz multimedialny:"
+        },
+        "time": {
+          "description": "Czas, aby zadzwonił budzik",
+          "name": "Czas"
+        }
+      },
+      "name": "Utwórz alarm"
+    },
+    "delete_alarm": {
+      "description": "Usuwa alarm Echo.",
+      "fields": {
+        "alarm_id": {
+          "description": "Identyfikator alarmu z atrybutu sorted_all następnego czujnika alarmu urządzenia",
+          "name": "Identyfikator alarmu"
+        },
+        "entity_id": {
+          "description": "Urządzenie echo alarm jest włączony",
+          "name": "Wybierz odtwarzacz multimedialny:"
+        }
+      },
+      "name": "Usuń alarm"
+    },
+    "disable_alarm": {
+      "description": "Wyłącza alarm Echo bez usuwania go.",
+      "fields": {
+        "alarm_id": {
+          "description": "Identyfikator alarmu z atrybutu sorted_all następnego czujnika alarmu urządzenia",
+          "name": "Identyfikator alarmu"
+        },
+        "entity_id": {
+          "description": "Urządzenie echo alarm jest włączony",
+          "name": "Wybierz odtwarzacz multimedialny:"
+        }
+      },
+      "name": "Wyłącz alarm"
+    },
+    "enable_alarm": {
+      "description": "Włącza alarm Echo.",
+      "fields": {
+        "alarm_id": {
+          "description": "Identyfikator alarmu z atrybutu sorted_all następnego czujnika alarmu urządzenia",
+          "name": "Identyfikator alarmu"
+        },
+        "entity_id": {
+          "description": "Urządzenie echo alarm jest włączony",
+          "name": "Wybierz odtwarzacz multimedialny:"
+        }
+      },
+      "name": "Włącz alarm"
+    },
     "enable_network_discovery": {
       "description": "Ponownie włącza wykrywanie sieci Alexa, dzięki czemu kolejny cykl sondowania ponownie wykryje urządzenia Alexa dla wybranych kont.",
       "fields": {

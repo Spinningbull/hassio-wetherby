@@ -17,6 +17,13 @@
       "unknown_error": "Unknown error: {message}"
     },
     "step": {
+      "domain_mismatch": {
+        "data": {
+          "use_reported_domain": "Change configuration to the Amazon-reported region"
+        },
+        "description": "Amazon reports that this account belongs to **{reported_domain}**, but Alexa Media Player was configured to use **{configured_domain}**.\n\nYou can change to the reported region and authenticate again, or deselect and attempt to continue with your currently configured region.",
+        "title": "Alexa Media Player - Amazon Region Mismatch"
+      },
       "proxy_warning": {
         "data": {
           "proxy_warning": "Ignore and Continue - I understand that no support for login issues are provided for bypassing this warning."
@@ -33,7 +40,7 @@
       },
       "user": {
         "data": {
-          "debug": "Advanced debugging",
+          "debug": "Advanced debug",
           "email": "Email Address",
           "exclude_devices": "or Exclude these devices from all (comma separated)",
           "extended_entity_discovery": "Include additional sensors, switches and lights",
@@ -48,12 +55,27 @@
           "should_get_network": "Discover Alexa network",
           "url": "Amazon region domain (e.g., amazon.co.uk)"
         },
-        "description": "* Required entry",
-        "title": "Alexa Media Player - Configuration"
+        "data_description": {
+          "debug": "Enables very verbose, trace-level logging for advanced troubleshooting.\nNot recommended for normal operation due to increased log volume.\nEnsure logger levels are set to DEBUG for full output.",
+          "otp_secret": "Example: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
+        }
       }
     }
   },
   "entity": {
+    "button": {
+      "restart": {
+        "name": "Restart"
+      }
+    },
+    "number": {
+      "display_brightness": {
+        "name": "Display brightness"
+      },
+      "notification_volume": {
+        "name": "Alarm and notification volume"
+      }
+    },
     "sensor": {
       "air_quality": {
         "name": "Air quality"
@@ -87,6 +109,12 @@
       }
     },
     "switch": {
+      "adaptive_brightness": {
+        "name": "Adaptive brightness"
+      },
+      "display_power": {
+        "name": "Display"
+      },
       "do_not_disturb": {
         "name": "Do not disturb"
       },
@@ -108,14 +136,19 @@
     "step": {
       "init": {
         "data": {
-          "debug": "Advanced debugging",
+          "debug": "Advanced debug",
           "exclude_devices": "or Exclude these devices from all (comma separated)",
           "extended_entity_discovery": "Include additional sensors, switches and lights",
           "include_devices": "Only include these devices (comma separated)",
+          "otp_secret": "52-character Authenticator App Key for Amazon 2SV",
           "public_url": "Public URL shared with external hosted services",
           "queue_delay": "Delay to queue multiple commands together (seconds)",
-          "scan_interval": "Scheduled polling frequency (seconds)",
+          "scan_interval": "Scheduled polling interval (seconds)",
           "should_get_network": "Discover Alexa network"
+        },
+        "data_description": {
+          "debug": "Enables very verbose, trace-level logging for advanced troubleshooting.\nNot recommended for normal operation due to increased log volume.\nEnsure logger levels are set to DEBUG for full output.",
+          "otp_secret": "Example: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
         },
         "description": "* Required entry",
         "title": "Alexa Media Player - Reconfiguration"
@@ -123,6 +156,90 @@
     }
   },
   "services": {
+    "amazon_kids_disable": {
+      "description": "Turns off Amazon Kids (child mode) for an Echo by unassigning it from any child profile.",
+      "fields": {
+        "entity_id": {
+          "description": "Echo device to disable Amazon Kids on",
+          "name": "Select media player:"
+        }
+      },
+      "name": "Disable Amazon Kids"
+    },
+    "amazon_kids_enable": {
+      "description": "Turns on Amazon Kids (child mode) for an Echo by assigning it to a child profile.",
+      "fields": {
+        "child": {
+          "description": "Child profile to assign (first name or directedId)",
+          "name": "Child"
+        },
+        "entity_id": {
+          "description": "Echo device to enable Amazon Kids on",
+          "name": "Select media player:"
+        }
+      },
+      "name": "Enable Amazon Kids"
+    },
+    "create_alarm": {
+      "description": "Creates an alarm on an Echo.",
+      "fields": {
+        "days": {
+          "description": "Days to repeat on. Leave empty for a one-off alarm.",
+          "name": "Repeat on"
+        },
+        "entity_id": {
+          "description": "Echo device to set the alarm on",
+          "name": "Select media player:"
+        },
+        "time": {
+          "description": "Time the alarm rings",
+          "name": "Time"
+        }
+      },
+      "name": "Create alarm"
+    },
+    "delete_alarm": {
+      "description": "Deletes an Echo alarm.",
+      "fields": {
+        "alarm_id": {
+          "description": "The alarm's id, from the sorted_all attribute of the device's next alarm sensor",
+          "name": "Alarm ID"
+        },
+        "entity_id": {
+          "description": "Echo device the alarm is on",
+          "name": "Select media player:"
+        }
+      },
+      "name": "Delete alarm"
+    },
+    "disable_alarm": {
+      "description": "Turns off an Echo alarm without deleting it.",
+      "fields": {
+        "alarm_id": {
+          "description": "The alarm's id, from the sorted_all attribute of the device's next alarm sensor",
+          "name": "Alarm ID"
+        },
+        "entity_id": {
+          "description": "Echo device the alarm is on",
+          "name": "Select media player:"
+        }
+      },
+      "name": "Disable alarm"
+    },
+    "enable_alarm": {
+      "description": "Turns on an Echo alarm.",
+      "fields": {
+        "alarm_id": {
+          "description": "The alarm's id, from the sorted_all attribute of the device's next alarm sensor",
+          "name": "Alarm ID"
+        },
+        "entity_id": {
+          "description": "Echo device the alarm is on",
+          "name": "Select media player:"
+        }
+      },
+      "name": "Enable alarm"
+    },
     "enable_network_discovery": {
       "description": "Re-enables Alexa network discovery so the next polling cycle will rediscover Alexa devices for the selected accounts.",
       "fields": {

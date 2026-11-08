@@ -1,23 +1,23 @@
 """Support for Dreo ChefMaker cookers."""
+
 from __future__ import annotations
 
 import logging
 from typing import Any
 
-from .haimports import * # pylint: disable=W0401,W0614
+from .haimports import *  # pylint: disable=W0401,W0614
 
 from .dreobasedevice import DreoBaseDeviceHA
-from .const import (
-    LOGGER
-)
 
 from .pydreo.pydreochefmaker import PyDreoChefMaker
 
-_LOGGER = logging.getLogger(LOGGER)
+_LOGGER = logging.getLogger(__name__)
+
 
 class DreoChefMakerHA(DreoBaseDeviceHA, SwitchEntity):
     """Representation of a Dreo chefmaker."""
-    # Note that these are implemented as Switches, as there is no 
+
+    # Note that these are implemented as Switches, as there is no
     # platform in HA that matches this device.
 
     def __init__(self, pyDreoChefMaker: PyDreoChefMaker):
@@ -36,10 +36,10 @@ class DreoChefMakerHA(DreoBaseDeviceHA, SwitchEntity):
         **kwargs: Any,
     ) -> None:
         """Turn the device on."""
-        _LOGGER.debug("DreoChefMakerHA:turn_on")
+        _LOGGER.debug("turn_on: turn_on")
         self.device.is_on = True
 
     def turn_off(self, **kwargs: Any) -> None:
         """Turn the device off."""
-        _LOGGER.debug("DreoChefMakerHA:turn_off")
+        _LOGGER.debug("turn_off: turn_off")
         self.device.is_on = False

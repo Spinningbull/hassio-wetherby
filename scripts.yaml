@@ -225,7 +225,7 @@ lock_side_door:
   sequence:
   - device_id: b93c9336799c8e6a79bc3c8e8cbd8204
     domain: lock
-    entity_id: 2db879cb572afb3deb2c3f7d0935ab82
+    entity_id: 40859f130cf85ca1eb24ec621d3104cd
     type: lock
   alias: Lock side door
   description: ''
@@ -233,7 +233,7 @@ unlock_side_door:
   sequence:
   - device_id: b93c9336799c8e6a79bc3c8e8cbd8204
     domain: lock
-    entity_id: 2db879cb572afb3deb2c3f7d0935ab82
+    entity_id: 40859f130cf85ca1eb24ec621d3104cd
     type: unlock
   alias: Unlock side door
   description: ''

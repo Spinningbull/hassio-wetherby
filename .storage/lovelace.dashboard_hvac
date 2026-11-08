@@ -43,10 +43,10 @@
                 },
                 {
                   "type": "tile",
-                  "entity": "sensor.slim_multi_sensor_pir_door_temperature_illumination_air_temperature",
-                  "features_position": "bottom",
+                  "entity": "sensor.shop_humidity_humidity",
+                  "name": "Shop Humidity",
                   "vertical": false,
-                  "name": "Outside garage"
+                  "features_position": "bottom"
                 }
               ],
               "column_span": 4

@@ -760,9 +760,15 @@
     ],
     "alexa_report_state": true,
     "remote_domain": "5zs9ibdfmqqw053o1dmu9xfrzvb2tkba.ui.nabu.casa",
-    "alexa_settings_version": 3,
-    "google_settings_version": 3,
+    "alexa_settings_version": 4,
+    "google_settings_version": 4,
     "instance_id": "23eb9906f07740169d090026f2916750",
-    "google_connected": true
+    "google_connected": true,
+    "onboarded_items": [
+      "remote",
+      "voice",
+      "streaming",
+      "backup"
+    ]
   }
 }

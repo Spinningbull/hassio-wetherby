@@ -6,13 +6,12 @@
     "items": [
       {
         "id": "Plexamp-nfc-rockfamily",
-        "name": "Rock in family room",
-        "last_scanned": "2024-05-27T23:02:20.367494+00:00",
-        "migrated": true
+        "last_scanned": "2026-05-15T22:31:13.236659+00:00",
+        "migrated": true,
+        "device_id": "3e4f15998e12810474461471319dd17d"
       },
       {
         "id": "plexamp-nfc-partymusic",
-        "name": "Party Music",
         "migrated": true
       }
     ]

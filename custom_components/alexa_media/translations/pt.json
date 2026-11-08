@@ -17,6 +17,13 @@
       "unknown_error": "Erro desconhecido: {message}"
     },
     "step": {
+      "domain_mismatch": {
+        "data": {
+          "use_reported_domain": "Alterar a configuração para a região informada pela Amazon."
+        },
+        "description": "A Amazon informa que esta conta pertence a **{reported_domain} **, mas o Alexa Media Player foi configurado para usar **{configured_domain} **.\n\nVocê pode alterar para a região informada e autenticar novamente, ou desmarcar a opção e tentar continuar com a região configurada atualmente.",
+        "title": "Alexa Media Player - Incompatibilidade de região com a Amazon"
+      },
       "proxy_warning": {
         "data": {
           "proxy_warning": "Ignore e Continue - Entendo que não há suporte para problemas de login para ignorar este aviso."
@@ -48,12 +55,27 @@
           "should_get_network": "Descubra a rede Alexa",
           "url": "Região do domínio Amazon (ex. amazon.com.br)"
         },
-        "description": "* Entradas obrigatórias",
-        "title": "Alexa Media Player - Configuração"
+        "data_description": {
+          "debug": "Habilita o registro detalhado em nível de rastreamento para solução de problemas avançada. \n Não recomendado para operação normal devido ao aumento do volume de logs. \n Certifique-se de que os níveis de registro estejam definidos como DEBUG para obter a saída completa.",
+          "otp_secret": "Exemplo: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
+        }
       }
     }
   },
   "entity": {
+    "button": {
+      "restart": {
+        "name": "Reiniciar"
+      }
+    },
+    "number": {
+      "display_brightness": {
+        "name": "Brilho da tela"
+      },
+      "notification_volume": {
+        "name": "Volume de alarme e notificação"
+      }
+    },
     "sensor": {
       "air_quality": {
         "name": "Qualidade do ar"
@@ -87,6 +109,12 @@
       }
     },
     "switch": {
+      "adaptive_brightness": {
+        "name": "Brilho adaptativo"
+      },
+      "display_power": {
+        "name": "Mostrar"
+      },
       "do_not_disturb": {
         "name": "Não incomodar"
       },
@@ -112,10 +140,15 @@
           "exclude_devices": "ou Excluir esses dispositivos de todos (separados por vírgula)",
           "extended_entity_discovery": "Inclua sensores, interruptores e luzes adicionais.",
           "include_devices": "Inclua apenas estes dispositivos (separados por vírgula)",
+          "otp_secret": "Chave de 52 caracteres da App Autenticadora para Amazon 2SV",
           "public_url": "URL pública compartilhada com serviços hospedados externamente",
           "queue_delay": "Tempo de espera para enfileirar vários comandos (em segundos)",
           "scan_interval": "Frequência de sondagem programada (segundos)",
           "should_get_network": "Descubra a rede Alexa"
+        },
+        "data_description": {
+          "debug": "Habilita o registro detalhado em nível de rastreamento para solução de problemas avançada. \n Não recomendado para operação normal devido ao aumento do volume de logs. \n Certifique-se de que os níveis de registro estejam definidos como DEBUG para obter a saída completa.",
+          "otp_secret": "Exemplo: 35T5 LQSY I5IO 3EFQ LGAJ I6YB JWBY JJPR PYT7 XPPW IDAK SQBJ CVXA"
         },
         "description": "* Entradas obrigatórias",
         "title": "Alexa Media Player - Reconfiguração"
@@ -123,6 +156,90 @@
     }
   },
   "services": {
+    "amazon_kids_disable": {
+      "description": "Desativa o Amazon Kids (modo infantil) para um dispositivo Echo, removendo-o de qualquer perfil infantil.",
+      "fields": {
+        "entity_id": {
+          "description": "Dispositivo Echo para desativar o Amazon Kids em",
+          "name": "Selecione o media player:"
+        }
+      },
+      "name": "Desativar Amazon Kids"
+    },
+    "amazon_kids_enable": {
+      "description": "Ativa o Amazon Kids (modo infantil) em um dispositivo Echo, atribuindo-o a um perfil infantil.",
+      "fields": {
+        "child": {
+          "description": "Perfil da criança a ser atribuído (primeiro nome ou directedId)",
+          "name": "Criança"
+        },
+        "entity_id": {
+          "description": "Dispositivo Echo para ativar o Amazon Kids",
+          "name": "Selecione o media player:"
+        }
+      },
+      "name": "Ative o Amazon Kids"
+    },
+    "create_alarm": {
+      "description": "Cria um alarme em um Echo.",
+      "fields": {
+        "days": {
+          "description": "Dias para repetir. Deixe vazio para um alarme único.",
+          "name": "Repita em"
+        },
+        "entity_id": {
+          "description": "Dispositivo Echo para ativar o alarme",
+          "name": "Selecione o media player:"
+        },
+        "time": {
+          "description": "Hora em que o alarme toca",
+          "name": "Tempo"
+        }
+      },
+      "name": "Criar alarme"
+    },
+    "delete_alarm": {
+      "description": "Exclui um alarme do Echo.",
+      "fields": {
+        "alarm_id": {
+          "description": "O ID do alarme, obtido do atributo sorted_all do sensor de alarme next do dispositivo.",
+          "name": "ID do alarme"
+        },
+        "entity_id": {
+          "description": "O alarme do dispositivo Echo está ligado.",
+          "name": "Selecione o media player:"
+        }
+      },
+      "name": "Apagar alarme"
+    },
+    "disable_alarm": {
+      "description": "Desativa um alarme Echo sem excluí-lo.",
+      "fields": {
+        "alarm_id": {
+          "description": "O ID do alarme, obtido do atributo sorted_all do sensor de alarme next do dispositivo.",
+          "name": "ID do alarme"
+        },
+        "entity_id": {
+          "description": "O alarme do dispositivo Echo está ligado.",
+          "name": "Selecione o media player:"
+        }
+      },
+      "name": "Desativar alarme"
+    },
+    "enable_alarm": {
+      "description": "Ativa um alarme Echo.",
+      "fields": {
+        "alarm_id": {
+          "description": "O ID do alarme, obtido do atributo sorted_all do sensor de alarme next do dispositivo.",
+          "name": "ID do alarme"
+        },
+        "entity_id": {
+          "description": "O alarme do dispositivo Echo está ligado.",
+          "name": "Selecione o media player:"
+        }
+      },
+      "name": "Ativar alarme"
+    },
     "enable_network_discovery": {
       "description": "Reativa a descoberta de rede da Alexa para que o próximo ciclo de pesquisa redescubra os dispositivos Alexa das contas selecionadas.",
       "fields": {

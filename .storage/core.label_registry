@@ -111,6 +111,78 @@
         "name": "HVAC",
         "created_at": "2025-08-19T23:37:39.315192+00:00",
         "modified_at": "2025-08-19T23:37:39.315202+00:00"
+      },
+      {
+        "color": "deep-purple",
+        "description": "Exposed to matter bridge",
+        "icon": "si:matternet",
+        "label_id": "mesh",
+        "name": "Mesh",
+        "created_at": "2026-04-19T01:16:43.117643+00:00",
+        "modified_at": "2026-04-19T01:16:43.117653+00:00"
+      },
+      {
+        "color": "yellow",
+        "description": "Not sure if this is set correctly",
+        "icon": "mdi:crosshairs-question",
+        "label_id": "verify",
+        "name": "verify",
+        "created_at": "2026-10-04T21:31:41.269500+00:00",
+        "modified_at": "2026-10-04T21:31:41.269508+00:00"
+      },
+      {
+        "color": "deep-orange",
+        "description": null,
+        "icon": "mdi:light-switch",
+        "label_id": "houselights",
+        "name": "HouseLights-On",
+        "created_at": "2026-11-07T23:25:37.398372+00:00",
+        "modified_at": "2026-11-07T23:37:19.818867+00:00"
+      },
+      {
+        "color": "deep-orange",
+        "description": null,
+        "icon": "mdi:light-switch",
+        "label_id": "halllighta",
+        "name": "HallLights-On",
+        "created_at": "2026-11-07T23:28:18.064746+00:00",
+        "modified_at": "2026-11-07T23:37:05.382760+00:00"
+      },
+      {
+        "color": "deep-orange",
+        "description": null,
+        "icon": "mdi:light-switch",
+        "label_id": "yardlights",
+        "name": "YardLights-On",
+        "created_at": "2026-11-07T23:29:03.120099+00:00",
+        "modified_at": "2026-11-07T23:37:32.395024+00:00"
+      },
+      {
+        "color": "amber",
+        "description": null,
+        "icon": "mdi:light-switch-off",
+        "label_id": "houselights_off",
+        "name": "HouseLights-Off",
+        "created_at": "2026-11-07T23:33:29.494999+00:00",
+        "modified_at": "2026-11-07T23:33:29.495008+00:00"
+      },
+      {
+        "color": "amber",
+        "description": null,
+        "icon": "mdi:light-switch-off",
+        "label_id": "halllights_off",
+        "name": "HallLights-off",
+        "created_at": "2026-11-07T23:34:33.737869+00:00",
+        "modified_at": "2026-11-07T23:34:33.737877+00:00"
+      },
+      {
+        "color": "amber",
+        "description": null,
+        "icon": "mdi:light-switch-off",
+        "label_id": "yardlights_off",
+        "name": "YardLights-Off",
+        "created_at": "2026-11-07T23:35:16.983735+00:00",
+        "modified_at": "2026-11-07T23:35:16.983744+00:00"
       }
     ]
   }

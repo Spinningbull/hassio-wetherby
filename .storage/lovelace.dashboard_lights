@@ -138,7 +138,7 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.ambient_light_ha",
+                      "entity": "switch.ambient_light_ha",
                       "icon": "mdi:light-recessed"
                     },
                     {
